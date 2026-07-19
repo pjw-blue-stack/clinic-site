@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { specialties, reviewsData } from './specialtyData';
 import { defaultColumns } from './columnData';
+import { textContent } from './textContent';
 
 function App() {
   // Navigation & Scroll
@@ -349,21 +350,20 @@ function App() {
           <div className="container hero-grid">
             <div className="hero-content">
               <div className="hero-badge">
-                <span>✦</span> 19년 해독 노하우와 900+ 다한증 치료 데이터의 가치
+                <span>✦</span> {textContent.hero.badge}
               </div>
-              <h1 className="hero-title">
-                평생 땀구멍만 막으실 겁니까?<br />
-                원인을 비워내는 <span>경희정원 해독요법</span>
+              <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
+                {textContent.hero.title}
               </h1>
               <p className="hero-desc">
-                일시적으로 땀을 억제하는 주사와 시술은 왜 결국 재발할까요? 교감신경을 만성적으로 자극하여 땀샘을 흔드는 진짜 원인인 '체내 독소'를 19년 임상 해독 노하우로 깨끗이 비워내어 평생 뽀송뽀송한 일상을 돌려드립니다.
+                {textContent.hero.desc}
               </p>
               <div className="hero-btns">
                 <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
-                  네이버 간편예약
+                  {textContent.hero.btnBooking}
                 </button>
                 <button className="btn btn-outline" onClick={() => scrollToSection('reviews')}>
-                  치료 후기 및 증명 보기
+                  {textContent.hero.btnReviews}
                 </button>
               </div>
             </div>
@@ -372,13 +372,13 @@ function App() {
               <div className="hero-circle-bg"></div>
               <div className="hero-card hero-card-1">
                 <div className="hero-card-icon">💧</div>
-                <h4 className="hero-card-title">교감신경 안정</h4>
-                <p className="hero-card-desc">체내 독소 배출과 자율신경 안정을 유도해 땀샘 과자극을 근본적으로 해소합니다.</p>
+                <h4 className="hero-card-title">{textContent.hero.card1Title}</h4>
+                <p className="hero-card-desc">{textContent.hero.card1Desc}</p>
               </div>
               <div className="hero-card hero-card-2">
                 <div className="hero-card-icon">🔥</div>
-                <h4 className="hero-card-title">독창적 화주뜸</h4>
-                <p className="hero-card-desc">경희정원만의 특별한 수승화강 온열요법으로 머리와 상체에 쏠린 열독을 제어합니다.</p>
+                <h4 className="hero-card-title">{textContent.hero.card2Title}</h4>
+                <p className="hero-card-desc">{textContent.hero.card2Desc}</p>
               </div>
             </div>
           </div>
@@ -389,24 +389,24 @@ function App() {
           <div className="container">
             <div className="value-proof-grid">
               <div className="value-proof-item">
-                <div className="value-proof-num">19<span>년</span></div>
-                <h4 className="value-proof-title">해독 임상 노하우</h4>
-                <p className="value-proof-desc">3,800명 이상의 만성 난치병 환자를 치료하며 축적된 고유한 해독 기술력</p>
+                <div className="value-proof-num">{textContent.valueProof.item1Num}<span>{textContent.valueProof.item1Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item1Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item1Desc}</p>
               </div>
               <div className="value-proof-item">
-                <div className="value-proof-num">900<span>명+</span></div>
-                <h4 className="value-proof-title">다한증 직접 치료 데이터</h4>
-                <p className="value-proof-desc">전국 각지와 미국, 일본, 홍콩 등 해외에서 내원한 풍부한 임상 치료 사례</p>
+                <div className="value-proof-num">{textContent.valueProof.item2Num}<span>{textContent.valueProof.item2Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item2Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item2Desc}</p>
               </div>
               <div className="value-proof-item">
-                <div className="value-proof-num">공식<span>제휴</span></div>
-                <h4 className="value-proof-title">땀쟁이들 카페 제휴의원</h4>
-                <p className="value-proof-desc">대한민국 최대 다한증 환우 커뮤니티가 신뢰와 실력으로 인정한 의료기관</p>
+                <div className="value-proof-num">{textContent.valueProof.item3Num}<span>{textContent.valueProof.item3Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item3Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item3Desc}</p>
               </div>
               <div className="value-proof-item">
-                <div className="value-proof-num">10<span>년 이상</span></div>
-                <h4 className="value-proof-title">장기 호전 유지 증명</h4>
-                <p className="value-proof-desc">원인 제거 후 가벼운 예방 관리(연 5~8회)로 평생 재발 없이 뽀송함 유지</p>
+                <div className="value-proof-num">{textContent.valueProof.item4Num}<span>{textContent.valueProof.item4Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item4Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item4Desc}</p>
               </div>
             </div>
           </div>
@@ -417,14 +417,14 @@ function App() {
           <div className="compare-sticky-wrapper">
             <div className="compare-container container">
               <div className="compare-text">
-                <span className="section-badge">Before & After</span>
-                <h2>경희정원 해독요법의 시각적 변화</h2>
+                <span className="section-badge">{textContent.compare.badge}</span>
+                <h2>{textContent.compare.title}</h2>
                 <div className="compare-label-wrapper">
                   <p className="compare-label-before">
-                    <strong>[치료 전]</strong> 스트레스와 독소 누적으로 인해 교감신경이 비정상적으로 흥분된 상태입니다. 얼굴에는 열독이 쏠려 늘 상열감과 땀이 비 오듯 흐르며, 손과 발은 항상 축축하게 젖어 일상생활에 극심한 불편과 스트레스를 겪게 됩니다.
+                    {textContent.compare.beforeLabel}
                   </p>
                   <p className="compare-label-after">
-                    <strong>[치료 후]</strong> 체내의 근본 열독을 빼내는 맞춤형 해독 치료를 통해 자율신경계 균형이 복구됩니다. 얼굴의 열독이 내려가 맑고 건강한 표정을 되찾고, 손과 발의 비정상적인 땀샘 조절력이 복구되어 보송보송하고 쾌적한 일상으로 복귀합니다.
+                    {textContent.compare.afterLabel}
                   </p>
                 </div>
               </div>
@@ -436,7 +436,7 @@ function App() {
                 <div className="compare-indicator-bar">
                   <div className="compare-indicator-progress"></div>
                   <span className="compare-indicator-text">
-                    스크롤을 천천히 내려서 치료 후 뽀송해지는 변화를 확인해 보세요 👇
+                    {textContent.compare.indicatorText}
                   </span>
                 </div>
               </div>
@@ -448,33 +448,33 @@ function App() {
         <section id="detox" className="section section-alt">
           <div className="container">
             <div className="section-header">
-              <span className="section-badge">Signature</span>
-              <h2 className="section-title">정원 해독 요법</h2>
+              <span className="section-badge">{textContent.detox.badge}</span>
+              <h2>{textContent.detox.title}</h2>
               <p className="section-desc">
-                질병의 원인이 되는 노폐물을 비워 세포 재생력을 복원하고, 건강한 에너지를 채워 장기 기능의 면역 체계를 복구합니다.
+                {textContent.detox.desc}
               </p>
             </div>
 
             <div className="detox-grid">
               <div className="detox-card">
-                <div className="detox-num">01</div>
-                <h3 className="detox-card-title">비움 (Toxin Release)</h3>
+                <div className="detox-num">{textContent.detox.card1Num}</div>
+                <h3 className="detox-card-title">{textContent.detox.card1Title}</h3>
                 <p className="detox-card-desc">
-                  체내 축적된 찌꺼기, 혈관 노폐물, 그리고 림프절에 쌓여 만성 소화불량 및 통증을 일으키는 원인 독소를 정화 처방을 통해 효과적으로 흘려보냅니다.
+                  {textContent.detox.card1Desc}
                 </p>
               </div>
               <div className="detox-card">
-                <div className="detox-num">02</div>
-                <h3 className="detox-card-title">해독 (Cellular Detox)</h3>
+                <div className="detox-num">{textContent.detox.card2Num}</div>
+                <h3 className="detox-card-title">{textContent.detox.card2Title}</h3>
                 <p className="detox-card-desc">
-                  혈액 순환을 활성화하고 세포의 활성산소를 억제하며 간 문맥 대사를 촉진하여 몸 속 깊은 장기의 독소까지 완전히 중화시키는 심층 해독 단계입니다.
+                  {textContent.detox.card2Desc}
                 </p>
               </div>
               <div className="detox-card">
-                <div className="detox-num">03</div>
-                <h3 className="detox-card-title">채움 (Vital Restore)</h3>
+                <div className="detox-num">{textContent.detox.card3Num}</div>
+                <h3 className="detox-card-title">{textContent.detox.card3Title}</h3>
                 <p className="detox-card-desc">
-                  깨끗해진 몸에 기혈 순환을 도울 양질의 영양과 기력을 공급합니다. 1:1 맞춤 청정 약재를 통해 소모된 부신 기능을 보강하고 영양 흡수력을 높입니다.
+                  {textContent.detox.card3Desc}
                 </p>
               </div>
             </div>
@@ -485,10 +485,10 @@ function App() {
         <section id="specialties" className="section">
           <div className="container">
             <div className="section-header">
-              <span className="section-badge">Programs</span>
-              <h2 className="section-title">정원 맞춤형 특화 진료</h2>
+              <span className="section-badge">{textContent.specialtiesHeader.badge}</span>
+              <h2>{textContent.specialtiesHeader.title}</h2>
               <p className="section-desc">
-                환자 개개인의 체질을 정확하게 감별하여 질병의 원인을 규명하고, 최상의 자연 치유 솔루션을 처방합니다.
+                {textContent.specialtiesHeader.desc}
               </p>
             </div>
 
@@ -515,61 +515,27 @@ function App() {
         <section className="section section-objection-removal">
           <div className="container">
             <div className="section-header">
-              <span className="section-badge">Truth & Q&A</span>
-              <h2 className="section-title">다한증·해독 치료의 오해와 진실</h2>
+              <span className="section-badge">{textContent.faq.badge}</span>
+              <h2>{textContent.faq.title}</h2>
               <p className="section-desc">
-                내원을 망설이게 만드는 환자분들의 무의식적인 의심과 반박들을 19년 한의사의 양심으로 솔직하게 해소해 드립니다.
+                {textContent.faq.desc}
               </p>
             </div>
 
             <div className="faq-container">
-              <div className={`faq-item ${openFaq === 0 ? 'active' : ''}`}>
-                <div className="faq-question" onClick={() => setOpenFaq(openFaq === 0 ? null : 0)}>
-                  <span>Q. 다한증은 유전이라 완치가 불가능하지 않나요? 결국 또 재발할 텐데요.</span>
-                  <span className="faq-icon">{openFaq === 0 ? '−' : '+'}</span>
+              {textContent.faq.list.map((item, idx) => (
+                <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`}>
+                  <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
+                    <span>{item.question}</span>
+                    <span className="faq-icon">{openFaq === idx ? '−' : '+'}</span>
+                  </div>
+                  <div className="faq-answer">
+                    <p style={{ whiteSpace: 'pre-wrap' }}>
+                      {item.answer}
+                    </p>
+                  </div>
                 </div>
-                <div className="faq-answer">
-                  <p>
-                    <strong>A. 맞습니다. 단순히 땀구멍만 일시적으로 지지거나 차단하는 대증 치료는 내성이 생겨 재발합니다.</strong>
-                    <br /><br />
-                    하지만 다한증의 진짜 원인은 피부나 땀샘이 아닙니다. 일상 스트레스와 생활 습관으로 인해 몸속 깊이 쌓인 <strong>'체내 독소'가 자율신경계 중 교감신경을 흥분</strong>시켜 땀샘을 자극하기 때문입니다.
-                    <br /><br />
-                    경희정원의 해독 치료는 이 독소를 비워내어 자율신경계 균형을 맞추는 근본 요법입니다. 6개월 집중 치료를 마친 뒤, 연 5~8회 가벼운 정기 내원 관리만으로 <strong>10년째 뽀송뽀송함을 변함없이 유지하고 있는 30대 남성 환자</strong>를 비롯한 수많은 장기 성공 사례가 이를 입증합니다.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${openFaq === 1 ? 'active' : ''}`}>
-                <div className="faq-question" onClick={() => setOpenFaq(openFaq === 1 ? null : 1)}>
-                  <span>Q. 다한증 수술을 했다가 다른 부위에 땀이 더 나는 '보상성 부작용'이 무섭습니다.</span>
-                  <span className="faq-icon">{openFaq === 1 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    <strong>A. 신경을 인위적으로 자르는 교감신경 절제술(ETS)은 보상성 다한증 부작용 확률이 매우 높습니다.</strong>
-                    <br /><br />
-                    경희정원한의원에서는 칼을 대거나 인위적으로 신경 통로를 차단하는 시술을 절대 하지 않습니다. 오직 100% 안전한 한방 해독 한약(해독지한탕), 소염 해독약침, 그리고 상열감을 내리는 화주뜸만을 결합하여 신체 자연 정화를 유도하므로 <strong>보상성 다한증 부작용이 발생할 확률이 0%</strong>입니다.
-                    <br /><br />
-                    오히려 타 병원에서 수술 부작용으로 가슴, 등, 엉덩이에 땀이 쏟아져 절망하다 내원하신 보상성 다한증 환자들도 본원의 해독 치료를 통해 90% 이상 크게 호전되었습니다.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${openFaq === 2 ? 'active' : ''}`}>
-                <div className="faq-question" onClick={() => setOpenFaq(openFaq === 2 ? null : 2)}>
-                  <span>Q. 한의원 해독 치료는 너무 오래 걸리고 비용 부담이 있지 않나요?</span>
-                  <span className="faq-icon">{openFaq === 2 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    <strong>A. 매년 내성이 생기는 임시방편 시술 비용과 정신적 고통을 생각하신다면, 오히려 가장 비용을 아끼는 선택입니다.</strong>
-                    <br /><br />
-                    주기적으로 맞아야 하는 보톡스 주사, 드리클로, 이온영동기 사용은 땀샘 조절력을 약화시키고 피부염을 유발하며 평생 비용이 지출됩니다.
-                    <br /><br />
-                    경희정원에서는 6개월 동안 원인 독소를 근본적으로 정화하여 땀을 제어하는 몸을 만들고, 그 이후에는 연 5~8회 가벼운 유지 관리만 진행하므로 장기적인 의료비 지출과 삶의 질 측면에서 비교할 수 없을 정도로 훨씬 합리적이고 안전한 평생 예방 투자입니다.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -711,50 +677,47 @@ function App() {
         <section id="booking" className="section">
           <div className="container booking-grid">
             <div className="booking-info">
-              <span className="booking-subtitle">Directions & Booking</span>
-              <h2 className="booking-title">오시는 길 & 진료 예약</h2>
+              <span className="booking-subtitle">{textContent.booking.badge}</span>
+              <h2 className="booking-title">{textContent.booking.title}</h2>
               <p className="booking-desc">
-                정원 한의원은 예약을 통해 환자 한 분 한 분께 정성을 다해 깊이 있는 진료를 드립니다. 아래 약도를 참조하셔서 내원해 주시기 바랍니다.
+                {textContent.booking.desc}
               </p>
 
               <div className="booking-contact-list">
                 <div className="booking-contact-item">
                   <div className="booking-contact-icon">📍</div>
                   <div>
-                    <h4 className="booking-contact-title">주소</h4>
-                    <p className="booking-contact-value">서울 양천구 목동로 218 화창빌딩 2층 경희정원한의원</p>
+                    <h4 className="booking-contact-title">{textContent.booking.addressTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.addressValue}</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
                   <div className="booking-contact-icon">📞</div>
                   <div>
-                    <h4 className="booking-contact-title">대표 번호</h4>
-                    <p className="booking-contact-value"><strong>02-732-1117</strong> (상담 및 내원 예약 안내)</p>
+                    <h4 className="booking-contact-title">{textContent.booking.phoneTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.phoneValue}</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
                   <div className="booking-contact-icon">💬</div>
                   <div>
-                    <h4 className="booking-contact-title">카카오톡 채널</h4>
-                    <p className="booking-contact-value">카카오톡 검색: <strong>경희정원</strong> (채널 간편 1:1 상담)</p>
+                    <h4 className="booking-contact-title">{textContent.booking.kakaoTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.kakaoValue}</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
                   <div className="booking-contact-icon">💚</div>
                   <div>
-                    <h4 className="booking-contact-title">네이버 서비스</h4>
-                    <p className="booking-contact-value">실시간 <strong>네이버 예약</strong> 및 <strong>네이버 톡톡</strong> 상담 가능</p>
+                    <h4 className="booking-contact-title">{textContent.booking.naverTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.naverValue}</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
                   <div className="booking-contact-icon">🕒</div>
                   <div>
-                    <h4 className="booking-contact-title">진료 시간</h4>
-                    <p className="booking-contact-value">
-                      월·화·목·금: 09:30 - 19:00 (점심시간 13:00 - 14:00)<br />
-                      수요일 (야간): 09:30 - 20:00 (점심시간 13:00 - 14:00)<br />
-                      토요일: 09:30 - 16:00 (점심시간 13:00 - 14:00)<br />
-                      일요일 & 공휴일: 휴진
+                    <h4 className="booking-contact-title">{textContent.booking.hoursTitle}</h4>
+                    <p className="booking-contact-value" style={{ whiteSpace: 'pre-wrap' }}>
+                      {textContent.booking.hoursValue}
                     </p>
                   </div>
                 </div>
@@ -847,7 +810,7 @@ function App() {
                 <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '45px', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
               </div>
               <p style={{ marginTop: '16px', lineHeight: '1.8' }}>
-                전통 한의학에 과학적인 진단을 더하여 몸의 조화를 되찾고 자생력을 깨워 건강을 돌려드립니다.
+                {textContent.footer.intro}
               </p>
               <div className="footer-socials">
                 <a href="#naver" className="social-circle" title="네이버 예약 / 네이버 톡톡">N</a>
@@ -870,11 +833,8 @@ function App() {
 
             <div className="footer-col" style={{ textAlign: 'left' }}>
               <h4>한의원 정보</h4>
-              <p className="footer-address">
-                상호명: 경희정원한의원<br />
-                대표원장: 홍길동 | 사업자번호: 123-45-67890<br />
-                의료기관개설허가번호: 제 1234호<br />
-                TEL: 02-732-1117 | FAX: 02-732-1118
+              <p className="footer-address" style={{ whiteSpace: 'pre-wrap' }}>
+                {textContent.footer.bizInfo}
               </p>
             </div>
           </div>
