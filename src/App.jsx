@@ -5,6 +5,7 @@ import { specialties, reviewsData } from './specialtyData';
 function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Modals state
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
@@ -40,6 +41,7 @@ function App() {
 
   // Helper for scroll
   const scrollToSection = (id) => {
+    setIsMobileMenuOpen(false);
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
@@ -56,6 +58,7 @@ function App() {
 
   // Nav click to open specialty details modal automatically
   const handleNavClick = (id) => {
+    setIsMobileMenuOpen(false);
     scrollToSection('specialties');
     const specialty = specialties.find(s => s.id === id);
     if (specialty) {
@@ -144,7 +147,7 @@ function App() {
             <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '55px', width: 'auto', objectFit: 'contain' }} />
           </a>
 
-          <nav className="nav-menu">
+          <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <a 
               href="#specialties" 
               className={`nav-link ${activeSection === 'specialties' && !selectedSpecialty ? 'active' : ''}`}
@@ -232,6 +235,11 @@ function App() {
             )}
             <button className="btn btn-accent" onClick={() => setShowBookingModal(true)}>
               실시간 예약
+            </button>
+            <button className={`mobile-toggle ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <span></span>
+              <span></span>
+              <span></span>
             </button>
           </div>
         </div>

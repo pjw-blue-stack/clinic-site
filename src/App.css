@@ -147,8 +147,37 @@
 /* Mobile Menu Toggle */
 .mobile-toggle {
   display: none;
-  font-size: 1.5rem;
-  color: var(--primary-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+}
+
+.mobile-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--text-main);
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-toggle.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-toggle.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Main Layout */
@@ -1004,12 +1033,37 @@
 
 @media (max-width: 768px) {
   .mobile-toggle {
-    display: block;
+    display: flex;
   }
   
   .nav-menu {
     display: none;
-    /* For active state on mobile, a drawer could be built, but for simplicity we keep header items neat */
+    flex-direction: column;
+    position: fixed;
+    top: var(--header-height, 80px);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - var(--header-height, 80px));
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 30px 24px;
+    gap: 20px;
+    z-index: 999;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+    border-top: 1px solid var(--border-color, #eaeaea);
+    overflow-y: auto;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-link {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 8px 0;
+    width: 100%;
+    border-bottom: 1px solid #f5f5f5;
   }
   
   .header-actions {
