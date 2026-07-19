@@ -660,7 +660,21 @@ function App() {
                   <div className="booking-contact-icon">📞</div>
                   <div>
                     <h4 className="booking-contact-title">대표 번호</h4>
-                    <p className="booking-contact-value">02-123-4567 (상담 및 내원 예약 안내)</p>
+                    <p className="booking-contact-value"><strong>02-732-1117</strong> (상담 및 내원 예약 안내)</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">💬</div>
+                  <div>
+                    <h4 className="booking-contact-title">카카오톡 채널</h4>
+                    <p className="booking-contact-value">카카오톡 검색: <strong>경희정원</strong> (채널 간편 1:1 상담)</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">💚</div>
+                  <div>
+                    <h4 className="booking-contact-title">네이버 서비스</h4>
+                    <p className="booking-contact-value">실시간 <strong>네이버 예약</strong> 및 <strong>네이버 톡톡</strong> 상담 가능</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
@@ -765,10 +779,10 @@ function App() {
                 전통 한의학에 과학적인 진단을 더하여 몸의 조화를 되찾고 자생력을 깨워 건강을 돌려드립니다.
               </p>
               <div className="footer-socials">
-                <a href="#naver" className="social-circle">N</a>
-                <a href="#talk" className="social-circle">K</a>
-                <a href="#insta" className="social-circle">I</a>
-                <a href="#blog" className="social-circle">B</a>
+                <a href="#naver" className="social-circle" title="네이버 예약 / 네이버 톡톡">N</a>
+                <a href="#talk" className="social-circle" title="카카오톡 채널 '경희정원'">K</a>
+                <a href="#insta" className="social-circle" title="공식 인스타그램">I</a>
+                <a href="#blog" className="social-circle" title="공식 블로그">B</a>
               </div>
             </div>
 
@@ -789,7 +803,7 @@ function App() {
                 상호명: 경희정원한의원<br />
                 대표원장: 홍길동 | 사업자번호: 123-45-67890<br />
                 의료기관개설허가번호: 제 1234호<br />
-                TEL: 02-123-4567 | FAX: 02-123-4568
+                TEL: 02-732-1117 | FAX: 02-732-1118
               </p>
             </div>
           </div>
