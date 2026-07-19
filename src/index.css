@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --primary-color: #1572A1;       /* Deep ocean/sky blue (good contrast for text) */
+  --primary-light: #2B9AD6;
+  --primary-dark: #0F5375;
+  --secondary-color: #F0F8FF;     /* Very soft light sky blue (fresh bg) */
+  --secondary-dark: #D4E9FC;
+  --accent-color: #38B6FF;        /* Vibrant JUNGWON logo sky blue */
+  --accent-hover: #1E90FF;        /* Dodger blue for hover states */
+  --accent-light: #E1F5FE;
+  --text-main: #1A2E3B;           /* Cool-toned deep slate charcoal */
+  --text-muted: #5A738E;          /* Soft slate blue-gray */
+  --text-inverse: #FFFFFF;
+  --bg-color: #F8FDFF;            /* Fresh white with a hint of ice blue */
+  
+  /* Glassmorphism & UI */
+  --glass-bg: rgba(248, 253, 255, 0.85);
+  --glass-border: rgba(56, 182, 255, 0.2);
+  --card-bg: #FFFFFF;
+  --border-color: #E2EFF5;
+  
+  /* Shadows */
+  --shadow-sm: 0 4px 12px rgba(21, 114, 161, 0.03);
+  --shadow-md: 0 12px 32px rgba(21, 114, 161, 0.06);
+  --shadow-lg: 0 20px 48px rgba(21, 114, 161, 0.1);
+  --accent-shadow: 0 8px 24px rgba(56, 182, 255, 0.2);
+
+  /* Fonts */
+  --font-serif: 'Noto Serif KR', serif;
+  --font-sans: 'Noto Sans KR', 'Pretendard', sans-serif;
+  
+  /* Layout */
+  --max-width: 1200px;
+  --header-height: 80px;
+  
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  
+  /* Transition */
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1.3;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: var(--transition-smooth);
+}
+
+ul {
+  list-style: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* Common Layout Utilities */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Custom Selection */
+::selection {
+  background-color: var(--accent-light);
+  color: var(--primary-color);
+}
