@@ -197,7 +197,7 @@ function App() {
       <header className="header">
         <div className="container header-container">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-            <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '55px', width: 'auto', objectFit: 'contain' }} />
+            <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '75px', width: '75px', objectFit: 'contain' }} />
           </a>
 
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
@@ -809,7 +809,7 @@ function App() {
           <div className="footer-grid">
             <div className="footer-info-col" style={{ textAlign: 'left' }}>
               <div className="footer-logo" style={{ marginBottom: '16px' }}>
-                <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '45px', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
+                <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '55px', width: '55px', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
               </div>
               <p style={{ marginTop: '16px', lineHeight: '1.8' }}>
                 {textContent.footer.intro}
