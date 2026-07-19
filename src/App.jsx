@@ -54,6 +54,17 @@ function App() {
     }
   };
 
+  // Nav click to open specialty details modal automatically
+  const handleNavClick = (id) => {
+    scrollToSection('specialties');
+    const specialty = specialties.find(s => s.id === id);
+    if (specialty) {
+      setTimeout(() => {
+        setSelectedSpecialty(specialty);
+      }, 500);
+    }
+  };
+
   // Login handler
   const handleSocialLogin = (platform) => {
     setLoggedInUser(`정원 이웃 (${platform} 로그인)`);
@@ -135,25 +146,60 @@ function App() {
 
           <nav className="nav-menu">
             <a 
-              href="#home" 
-              className={`nav-link ${activeSection === 'home' ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}
-            >
-              홈
-            </a>
-            <a 
-              href="#detox" 
-              className={`nav-link ${activeSection === 'detox' ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); scrollToSection('detox'); }}
-            >
-              정원 해독요법
-            </a>
-            <a 
               href="#specialties" 
-              className={`nav-link ${activeSection === 'specialties' ? 'active' : ''}`}
+              className={`nav-link ${activeSection === 'specialties' && !selectedSpecialty ? 'active' : ''}`}
               onClick={(e) => { e.preventDefault(); scrollToSection('specialties'); }}
             >
-              진료과목
+              다한증
+            </a>
+            <a 
+              href="#sujok" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('sujok'); }}
+            >
+              수족다한증
+            </a>
+            <a 
+              href="#duhan" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('duhan'); }}
+            >
+              두한증
+            </a>
+            <a 
+              href="#anmyeon" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('anmyeon'); }}
+            >
+              안면다한증
+            </a>
+            <a 
+              href="#sangche" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('sangche'); }}
+            >
+              상체다한증
+            </a>
+            <a 
+              href="#hache" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('hache'); }}
+            >
+              하체다한증
+            </a>
+            <a 
+              href="#jeonsin" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('jeonsin'); }}
+            >
+              전신다한증
+            </a>
+            <a 
+              href="#bosangseong" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('bosangseong'); }}
+            >
+              보상성 다한증
             </a>
             <a 
               href="#reviews" 

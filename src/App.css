@@ -48,12 +48,12 @@
 
 .nav-menu {
   display: flex;
-  gap: 32px;
+  gap: 16px;
 }
 
 .nav-link {
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-main);
   position: relative;
