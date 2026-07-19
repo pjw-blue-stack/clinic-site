@@ -653,7 +653,7 @@ function App() {
                   <div className="booking-contact-icon">📍</div>
                   <div>
                     <h4 className="booking-contact-title">주소</h4>
-                    <p className="booking-contact-value">서울특별시 마포구 마포대로 123, 정원빌딩 3층 (공덕역 4번 출구에서 150m)</p>
+                    <p className="booking-contact-value">서울 양천구 목동로 218 화창빌딩 2층 경희정원한의원</p>
                   </div>
                 </div>
                 <div className="booking-contact-item">
@@ -668,8 +668,9 @@ function App() {
                   <div>
                     <h4 className="booking-contact-title">진료 시간</h4>
                     <p className="booking-contact-value">
-                      평일: 09:30 - 19:00 (점심시간 13:00 - 14:00)<br />
-                      토요일: 09:30 - 14:30 (점심시간 없이 진료)<br />
+                      월·화·목·금: 09:30 - 19:00 (점심시간 13:00 - 14:00)<br />
+                      수요일 (야간): 09:30 - 20:00 (점심시간 13:00 - 14:00)<br />
+                      토요일: 09:30 - 16:00 (점심시간 13:00 - 14:00)<br />
                       일요일 & 공휴일: 휴진
                     </p>
                   </div>
@@ -774,9 +775,10 @@ function App() {
             <div className="footer-col" style={{ textAlign: 'left' }}>
               <h4>진료 안내</h4>
               <ul className="footer-hours-list">
-                <li><span>평일 (월~금)</span> <span>09:30 - 19:00</span></li>
-                <li><span>토요일</span> <span>09:30 - 14:30</span></li>
-                <li><span>점심 시간</span> <span>13:00 - 14:00 (토요일은 없음)</span></li>
+                <li><span>월·화·목·금</span> <span>09:30 - 19:00</span></li>
+                <li><span>수요일 (야간)</span> <span>09:30 - 20:00</span></li>
+                <li><span>토요일</span> <span>09:30 - 16:00</span></li>
+                <li><span>점심 시간</span> <span>13:00 - 14:00</span></li>
                 <li><span>일요일 · 공휴일</span> <span style={{ color: 'var(--accent-color)', fontWeight: '600' }}>휴진</span></li>
               </ul>
             </div>
@@ -784,7 +786,7 @@ function App() {
             <div className="footer-col" style={{ textAlign: 'left' }}>
               <h4>한의원 정보</h4>
               <p className="footer-address">
-                상호명: 정원 한의원<br />
+                상호명: 경희정원한의원<br />
                 대표원장: 홍길동 | 사업자번호: 123-45-67890<br />
                 의료기관개설허가번호: 제 1234호<br />
                 TEL: 02-123-4567 | FAX: 02-123-4568
@@ -934,6 +936,9 @@ function App() {
                         <option value="17:00">17:00</option>
                         <option value="17:30">17:30</option>
                         <option value="18:00">18:00</option>
+                        <option value="18:30">18:30</option>
+                        <option value="19:00">19:00</option>
+                        <option value="19:30">19:30</option>
                       </select>
                     </div>
                   </div>
