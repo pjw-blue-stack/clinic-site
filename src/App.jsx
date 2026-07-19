@@ -130,7 +130,7 @@ function App() {
       <header className="header">
         <div className="container header-container">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
-            <img src="/다한증 로고.png" alt="경희정원한의원 로고" style={{ height: '55px', width: 'auto', objectFit: 'contain' }} />
+            <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '55px', width: 'auto', objectFit: 'contain' }} />
           </a>
 
           <nav className="nav-menu">
@@ -640,7 +640,7 @@ function App() {
           <div className="footer-grid">
             <div className="footer-info-col" style={{ textAlign: 'left' }}>
               <div className="footer-logo" style={{ marginBottom: '16px' }}>
-                <img src="/다한증 로고.png" alt="경희정원한의원 로고" style={{ height: '45px', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
+                <img src="/logo.png" alt="경희정원한의원 로고" style={{ height: '45px', width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
               </div>
               <p style={{ marginTop: '16px', lineHeight: '1.8' }}>
                 전통 한의학에 과학적인 진단을 더하여 몸의 조화를 되찾고 자생력을 깨워 건강을 돌려드립니다.
