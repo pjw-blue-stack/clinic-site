@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import { specialties, reviewsData } from './specialtyData';
 
@@ -6,6 +6,39 @@ function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Fallback Scroll effect for interactive before/after compare (unsupported browsers)
+  useEffect(() => {
+    if (window.CSS && CSS.supports('animation-timeline', 'view()')) {
+      return; // Use native CSS scroll-driven animations
+    }
+
+    const element = document.getElementById("interactive-compare");
+    if (!element) return;
+
+    const handleScroll = () => {
+      const rect = element.getBoundingClientRect();
+      const elementHeight = rect.height;
+      const elementTop = rect.top;
+      
+      const windowHeight = window.innerHeight;
+      const totalScrollRange = elementHeight - windowHeight;
+      if (totalScrollRange <= 0) return;
+      
+      // Calculate scroll progress (0 to 1)
+      const scrolled = -elementTop;
+      let progress = scrolled / totalScrollRange;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+      
+      element.style.setProperty('--scroll-progress', progress);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Modals state
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
@@ -309,6 +342,38 @@ function App() {
                 <div className="value-proof-num">10<span>년 이상</span></div>
                 <h4 className="value-proof-title">장기 호전 유지 증명</h4>
                 <p className="value-proof-desc">원인 제거 후 가벼운 예방 관리(연 5~8회)로 평생 재발 없이 뽀송함 유지</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* INTERACTIVE COMPARISON SECTION */}
+        <section id="interactive-compare" className="section-compare">
+          <div className="compare-sticky-wrapper">
+            <div className="compare-container container">
+              <div className="compare-text">
+                <span className="section-badge">Before & After</span>
+                <h2>경희정원 해독요법의 시각적 변화</h2>
+                <div className="compare-label-wrapper">
+                  <p className="compare-label-before">
+                    <strong>[치료 전]</strong> 스트레스와 독소 누적으로 인해 교감신경이 비정상적으로 흥분된 상태입니다. 얼굴에는 열독이 쏠려 늘 상열감과 땀이 비 오듯 흐르며, 손과 발은 항상 축축하게 젖어 일상생활에 극심한 불편과 스트레스를 겪게 됩니다.
+                  </p>
+                  <p className="compare-label-after">
+                    <strong>[치료 후]</strong> 체내의 근본 열독을 빼내는 맞춤형 해독 치료를 통해 자율신경계 균형이 복구됩니다. 얼굴의 열독이 내려가 맑고 건강한 표정을 되찾고, 손과 발의 비정상적인 땀샘 조절력이 복구되어 보송보송하고 쾌적한 일상으로 복귀합니다.
+                  </p>
+                </div>
+              </div>
+              <div className="compare-visual-box">
+                <div className="compare-image-wrapper">
+                  <img src="/before_treatment.jpg" alt="치료 전 상태" className="compare-img before" />
+                  <img src="/after_treatment.jpg" alt="치료 후 상태" className="compare-img after" />
+                </div>
+                <div className="compare-indicator-bar">
+                  <div className="compare-indicator-progress"></div>
+                  <span className="compare-indicator-text">
+                    스크롤을 천천히 내려서 치료 후 뽀송해지는 변화를 확인해 보세요 👇
+                  </span>
+                </div>
               </div>
             </div>
           </div>
