@@ -323,6 +323,7 @@ function App() {
               ))}
             </div>
           </div>
+        </section>
         {/* OBJECTION REMOVAL SECTION */}
         <section className="section section-objection-removal">
           <div className="container">
