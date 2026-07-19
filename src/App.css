@@ -1317,7 +1317,7 @@
    ========================================================================== */
 .section-compare {
   background-color: var(--bg-color);
-  height: 220vh; /* Scroll depth */
+  height: 200vh; /* Scroll depth */
   position: relative;
 }
 
@@ -1351,8 +1351,9 @@
 }
 
 .compare-label-wrapper {
-  position: relative;
-  height: 180px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
   margin-top: 30px;
   background-color: var(--secondary-color);
   padding: 24px;
@@ -1363,10 +1364,11 @@
 
 .compare-label-before,
 .compare-label-after {
+  grid-area: 1 / 1 / 2 / 2; /* overlap perfectly in the same grid cell */
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-main);
-  transition: opacity 0.2s ease-out;
+  transition: opacity 0.15s ease-out;
 }
 
 .compare-label-before {
@@ -1374,11 +1376,15 @@
 }
 
 .compare-label-after {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  right: 24px;
   opacity: var(--scroll-progress, 0);
+  pointer-events: none; /* prevent click/interaction when hidden */
+}
+
+/* Enable pointer events when visible */
+.section-compare[style*="--scroll-progress: 1"] .compare-label-after,
+.section-compare[style*="--scroll-progress: 0.9"] .compare-label-after,
+.section-compare[style*="--scroll-progress: 0.8"] .compare-label-after {
+  pointer-events: auto;
 }
 
 .compare-visual-box {
@@ -1452,59 +1458,6 @@
   color: var(--primary-color);
 }
 
-/* Scroll-driven animations natively in supporting browsers */
-@supports (animation-timeline: view()) {
-  .section-compare {
-    view-timeline-name: --compare-timeline;
-    view-timeline-axis: block;
-  }
-
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  @keyframes grow-x {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-
-  .compare-img.after {
-    animation: fade-in linear both;
-    animation-timeline: --compare-timeline;
-    animation-range: contain 0% contain 100%;
-    opacity: unset; /* override fallback custom property */
-    transition: none;
-  }
-
-  .compare-label-before {
-    animation: fade-out linear both;
-    animation-timeline: --compare-timeline;
-    animation-range: contain 0% contain 100%;
-    opacity: unset;
-  }
-
-  .compare-label-after {
-    animation: fade-in linear both;
-    animation-timeline: --compare-timeline;
-    animation-range: contain 0% contain 100%;
-    opacity: unset;
-  }
-
-  .compare-indicator-progress {
-    animation: grow-x linear both;
-    animation-timeline: --compare-timeline;
-    animation-range: contain 0% contain 100%;
-    transform: unset; /* override fallback custom property */
-    transition: none;
-  }
-}
-
 /* Responsive Overrides for Comparison */
 @media (max-width: 1024px) {
   .compare-container {
@@ -1517,12 +1470,12 @@
 
 @media (max-width: 768px) {
   .section-compare {
-    height: auto; /* Static layout on mobile for better scroll feel */
+    height: auto !important; /* Static layout on mobile for better scroll feel */
   }
   .compare-sticky-wrapper {
-    position: relative;
-    height: auto;
-    padding: 60px 0;
+    position: relative !important;
+    height: auto !important;
+    padding: 60px 0 !important;
   }
   .compare-container {
     grid-template-columns: 1fr;
@@ -1541,6 +1494,7 @@
     top: auto;
     left: auto;
     right: auto;
+    grid-area: auto;
     opacity: 1 !important;
     animation: none !important;
   }
@@ -1564,7 +1518,7 @@
     animation: none !important;
   }
   .compare-indicator-bar {
-    display: none; /* Hide progress bar on mobile */
+    display: none !important; /* Hide progress bar on mobile */
   }
 }
 

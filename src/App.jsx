@@ -7,12 +7,8 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Fallback Scroll effect for interactive before/after compare (unsupported browsers)
+  // Scroll effect for interactive before/after compare (cross-browser robust)
   useEffect(() => {
-    if (window.CSS && CSS.supports('animation-timeline', 'view()')) {
-      return; // Use native CSS scroll-driven animations
-    }
-
     const element = document.getElementById("interactive-compare");
     if (!element) return;
 
@@ -31,7 +27,10 @@ function App() {
       if (progress < 0) progress = 0;
       if (progress > 1) progress = 1;
       
-      element.style.setProperty('--scroll-progress', progress);
+      // Round progress to 3 decimal places for smoother transitions and performance
+      const roundedProgress = Math.round(progress * 1000) / 1000;
+      
+      element.style.setProperty('--scroll-progress', roundedProgress);
     };
 
     window.addEventListener("scroll", handleScroll);
