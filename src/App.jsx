@@ -74,29 +74,31 @@ function App() {
   // Helper for scroll
   const scrollToSection = (id) => {
     setIsMobileMenuOpen(false);
-    setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    setSelectedSpecialty(null); // Reset sub-page to show home page first
+    
+    setTimeout(() => {
+      setActiveSection(id);
+      const element = document.getElementById(id);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 50);
   };
 
-  // Nav click to open specialty details modal automatically
+  // Nav click to open specialty detail page directly
   const handleNavClick = (id) => {
     setIsMobileMenuOpen(false);
-    scrollToSection('specialties');
     const specialty = specialties.find(s => s.id === id);
     if (specialty) {
-      setTimeout(() => {
-        setSelectedSpecialty(specialty);
-      }, 500);
+      setSelectedSpecialty(specialty);
+      window.scrollTo(0, 0); // Immediately scroll to the top of the detail page
     }
   };
 
@@ -278,7 +280,30 @@ function App() {
       </header>
 
       <main className="main-content">
-        {/* HERO SECTION */}
+        {selectedSpecialty ? (
+          <SpecialtyDetailPage 
+            specialty={selectedSpecialty} 
+            onBack={() => {
+              setSelectedSpecialty(null);
+              setTimeout(() => {
+                const element = document.getElementById('specialties');
+                if (element) {
+                  const headerOffset = 80;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                  window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+              }, 50);
+            }}
+            reviews={reviews}
+            getSpecialtyName={getSpecialtyName}
+            setShowBookingModal={setShowBookingModal}
+            setBookingForm={setBookingForm}
+            bookingForm={bookingForm}
+          />
+        ) : (
+          <>
+            {/* HERO SECTION */}
         <section id="home" className="hero">
           <div className="container hero-grid">
             <div className="hero-content">
@@ -431,7 +456,10 @@ function App() {
                 <div 
                   key={specialty.id} 
                   className="specialty-card"
-                  onClick={() => setSelectedSpecialty(specialty)}
+                  onClick={() => {
+                    setSelectedSpecialty(specialty);
+                    window.scrollTo(0, 0);
+                  }}
                 >
                   <div className="specialty-icon">{specialty.icon}</div>
                   <h3 className="specialty-title">{specialty.title}</h3>
@@ -765,6 +793,8 @@ function App() {
             </div>
           </div>
         </section>
+          </>
+        )}
       </main>
 
       {/* FOOTER */}
@@ -815,54 +845,7 @@ function App() {
         </div>
       </footer>
 
-      {/* SPECIALTY DETAILS MODAL */}
-      {selectedSpecialty && (
-        <div className="modal-overlay" onClick={() => setSelectedSpecialty(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedSpecialty(null)}>×</button>
-            <div className="modal-header">
-              <div className="modal-icon">{selectedSpecialty.icon}</div>
-              <div className="modal-subtitle">{selectedSpecialty.subtitle}</div>
-              <h2 className="modal-title">{selectedSpecialty.title}</h2>
-            </div>
-            <div className="modal-body">
-              <p className="modal-summary">{selectedSpecialty.summary}</p>
-              
-              <h4 className="modal-section-title">정원 특화 치료 프로세스</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
-                {selectedSpecialty.details.map((detail, idx) => (
-                  <div key={idx} className="modal-detail-item">
-                    <h5 className="modal-detail-title">{detail.title}</h5>
-                    <p className="modal-detail-desc">{detail.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <h4 className="modal-section-title">주요 치료 대상</h4>
-              <div className="modal-tag-list">
-                {selectedSpecialty.target.map((t, idx) => (
-                  <span key={idx} className="modal-tag">✓ {t}</span>
-                ))}
-              </div>
-            </div>
-            <div className="modal-actions">
-              <button 
-                className="btn btn-primary"
-                onClick={() => {
-                  setBookingForm({ ...bookingForm, specialtyId: selectedSpecialty.id });
-                  setSelectedSpecialty(null);
-                  setShowBookingModal(true);
-                }}
-              >
-                이 진료과목 예약신청
-              </button>
-              <button className="btn btn-outline" onClick={() => setSelectedSpecialty(null)}>
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Specialty details modal is replaced by SpecialtyDetailPage component */}
 
       {/* REAL-TIME NAVER BOOKING MODAL */}
       {showBookingModal && (
@@ -1029,6 +1012,178 @@ function App() {
         </div>
       )}
     </>
+  );
+}
+
+// ==========================================================================
+// SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
+// ==========================================================================
+function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, setShowBookingModal, setBookingForm, bookingForm }) {
+  // Filter reviews for this specialty
+  const conditionReviews = reviews.filter(r => r.specialtyId === specialty.id);
+
+  return (
+    <div className="specialty-detail-page">
+      {/* Detail Page Hero */}
+      <section className="detail-hero">
+        <div className="container">
+          <button className="btn-back" onClick={onBack}>
+            ← 전체 프로그램 목록
+          </button>
+          
+          <div className="detail-hero-grid">
+            <div className="detail-hero-content">
+              <div className="detail-icon-badge">{specialty.icon}</div>
+              <span className="detail-subtitle">{specialty.subtitle}</span>
+              <h1 className="detail-title">{specialty.title}</h1>
+              <p className="detail-desc">{specialty.summary}</p>
+              <div className="detail-hero-btns">
+                <button 
+                  className="btn btn-accent" 
+                  onClick={() => {
+                    setBookingForm({ ...bookingForm, specialtyId: specialty.id });
+                    setShowBookingModal(true);
+                  }}
+                >
+                  네이버 실시간 예약
+                </button>
+                <button 
+                  className="btn btn-outline-white"
+                  onClick={() => {
+                    const element = document.getElementById('booking');
+                    if (element) {
+                      const headerOffset = 80;
+                      const elementPosition = element.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  1:1 간편 상담 신청
+                </button>
+              </div>
+            </div>
+            
+            <div className="detail-hero-visual">
+              <div className="detail-visual-circle">
+                <span className="detail-visual-icon">{specialty.icon}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Cause & Treatment Process */}
+      <section className="section detail-treatment-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-badge">Treatment Program</span>
+            <h2 className="section-title">정원 {specialty.title} 해독 치료법</h2>
+            <p className="section-desc">
+              단순히 땀을 억제하는 임시조치가 아닌, 내부 열독을 다스리고 자율신경 균형을 회복하는 근본 솔루션입니다.
+            </p>
+          </div>
+
+          <div className="treatment-process-list">
+            {specialty.details.map((detail, idx) => (
+              <div key={idx} className="treatment-process-card">
+                <div className="process-number">0{idx + 1}</div>
+                <div className="process-content">
+                  <h3 className="process-card-title">{detail.title}</h3>
+                  <p className="process-card-desc">{detail.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Target Symptoms */}
+      <section className="section section-alt detail-target-section">
+        <div className="container">
+          <div className="detail-target-grid">
+            <div className="detail-target-text">
+              <span className="section-badge">Diagnosis</span>
+              <h2 className="section-title" style={{ textAlign: 'left' }}>이런 증상으로 고통받고 계시다면 치료 대상입니다</h2>
+              <p className="section-desc" style={{ textAlign: 'left', marginLeft: 0 }}>
+                다한증은 방치할수록 만성 피로와 피부염, 대인 기피증으로 이어지기 쉽습니다. 아래 항목 중 해당되는 부분이 있다면 신속한 해독 치료가 필요합니다.
+              </p>
+            </div>
+            <div className="detail-target-cards">
+              {specialty.target.map((t, idx) => (
+                <div key={idx} className="target-item-card">
+                  <span className="target-check">✓</span>
+                  <p>{t}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Specialty-Specific Reviews */}
+      <section className="section detail-reviews-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-badge">Success Stories</span>
+            <h2 className="section-title">{specialty.title} 치료 이웃들의 후기</h2>
+            <p className="section-desc">
+              동일한 증상으로 고민하다 보송한 일상을 되찾으신 분들의 생생한 친필 치료 사례입니다.
+            </p>
+          </div>
+
+          {conditionReviews.length > 0 ? (
+            <div className="reviews-grid">
+              {conditionReviews.map(review => (
+                <div key={review.id} className="review-card">
+                  <div className="review-meta">
+                    <div className="review-rating">
+                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                    </div>
+                    <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
+                  </div>
+                  <h4 className="review-title">{review.title}</h4>
+                  <p className="review-content">{review.content}</p>
+                  <div className="review-footer">
+                    <span className="review-writer">{review.name} 환자님</span>
+                    <span>{review.date}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="no-reviews-card">
+              <p>아직 해당 부위 집중 후기가 등록되지 않았습니다.<br />전체 후기 게시판을 확인하시거나 내원 시 더 많은 친필 사례집을 열람하실 수 있습니다.</p>
+              <button className="btn btn-outline" onClick={onBack}>전체 치료후기 보러가기</button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* High-Converting CTA Banner */}
+      <section className="section-detail-cta">
+        <div className="container">
+          <div className="detail-cta-content">
+            <h2>평생 땀샘을 억제하며 불편하게 사시겠습니까?<br />경희정원의 비움 요법으로 근본 원인을 해소하세요.</h2>
+            <p>19년 임상 노하우와 900+ 다한증 치료 빅데이터로 증명된 비움과 채움의 자연 치유</p>
+            <div className="detail-cta-btns">
+              <button 
+                className="btn btn-accent" 
+                onClick={() => {
+                  setBookingForm({ ...bookingForm, specialtyId: specialty.id });
+                  setShowBookingModal(true);
+                }}
+              >
+                네이버 실시간 예약
+              </button>
+              <button className="btn btn-outline-white" onClick={onBack}>
+                전체 진료 목록 보기
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 
