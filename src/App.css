@@ -1470,55 +1470,84 @@
 
 @media (max-width: 768px) {
   .section-compare {
-    height: auto !important; /* Static layout on mobile for better scroll feel */
+    height: 200vh; /* Keep scroll depth on mobile */
   }
   .compare-sticky-wrapper {
-    position: relative !important;
-    height: auto !important;
-    padding: 60px 0 !important;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
   .compare-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  .compare-label-wrapper {
-    height: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    padding: 80px 20px 20px 20px; /* clear fixed header */
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+  .compare-text h2 {
+    font-size: 1.8rem;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .compare-text .section-badge {
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+  }
+  .compare-label-wrapper {
+    margin-top: 15px;
     padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    min-height: 120px;
   }
   .compare-label-before,
   .compare-label-after {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    grid-area: auto;
-    opacity: 1 !important;
-    animation: none !important;
+    grid-area: 1 / 1 / 2 / 2;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+  .compare-visual-box {
+    gap: 15px;
+    width: 100%;
   }
   .compare-image-wrapper {
-    aspect-ratio: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: none;
-    border: none;
-    box-shadow: none;
-    overflow: visible;
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    background-color: var(--secondary-dark);
+    position: relative;
+    overflow: hidden;
   }
   .compare-img {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-    opacity: 1 !important;
-    animation: none !important;
+    height: 100%;
+    object-fit: cover;
   }
   .compare-indicator-bar {
-    display: none !important; /* Hide progress bar on mobile */
+    display: flex !important; /* show bar on mobile */
+    padding: 10px 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .compare-indicator-text {
+    font-size: 0.78rem;
   }
 }
 
