@@ -430,8 +430,10 @@ function App() {
               </div>
               <div className="compare-visual-box">
                 <div className="compare-image-wrapper">
-                  <img src="/before_treatment.jpg" alt="치료 전 상태" className="compare-img before" />
-                  <img src="/after_treatment.jpg" alt="치료 후 상태" className="compare-img after" />
+                  <img src="/treatment_step1.jpg" alt="치료 전 상태 (단계 1)" className="compare-img step1" />
+                  <img src="/treatment_step2.jpg" alt="치료 진행 상태 (단계 2)" className="compare-img step2" />
+                  <img src="/treatment_step3.jpg" alt="치료 진행 상태 (단계 3)" className="compare-img step3" />
+                  <img src="/treatment_step4.jpg" alt="치료 후 상태 (단계 4)" className="compare-img step4" />
                 </div>
                 <div className="compare-indicator-bar">
                   <div className="compare-indicator-progress"></div>
