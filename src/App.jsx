@@ -41,6 +41,25 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // URL Parameter Detection for micro-landing page support (Naver Ads)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    let specId = params.get('specialty');
+    
+    // Backward compatibility mapping for merged head/face/taste sweat categories
+    if (specId === 'anmyeon' || specId === 'duhan' || specId === 'migak') {
+      specId = 'du-myeon';
+    }
+    
+    if (specId) {
+      const specialty = specialties.find(s => s.id === specId);
+      if (specialty) {
+        setSelectedSpecialty(specialty);
+        window.scrollTo(0, 0);
+      }
+    }
+  }, []);
+
   // Modals state
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [columns, setColumns] = useState(defaultColumns);
@@ -206,49 +225,42 @@ function App() {
               className={`nav-link ${activeSection === 'specialties' && !selectedSpecialty ? 'active' : ''}`}
               onClick={(e) => { e.preventDefault(); scrollToSection('specialties'); }}
             >
-              다한증
+              정원해독
             </a>
             <a 
               href="#sujok" 
               className="nav-link"
               onClick={(e) => { e.preventDefault(); handleNavClick('sujok'); }}
             >
-              수족다한증
+              손발땀
             </a>
             <a 
-              href="#duhan" 
+              href="#du-myeon" 
               className="nav-link"
-              onClick={(e) => { e.preventDefault(); handleNavClick('duhan'); }}
+              onClick={(e) => { e.preventDefault(); handleNavClick('du-myeon'); }}
             >
-              두한증
-            </a>
-            <a 
-              href="#anmyeon" 
-              className="nav-link"
-              onClick={(e) => { e.preventDefault(); handleNavClick('anmyeon'); }}
-            >
-              안면다한증
+              머리 얼굴땀
             </a>
             <a 
               href="#sangche" 
               className="nav-link"
               onClick={(e) => { e.preventDefault(); handleNavClick('sangche'); }}
             >
-              상체다한증
+              상체땀
             </a>
             <a 
               href="#hache" 
               className="nav-link"
               onClick={(e) => { e.preventDefault(); handleNavClick('hache'); }}
             >
-              하체다한증
+              하체땀
             </a>
             <a 
               href="#jeonsin" 
               className="nav-link"
               onClick={(e) => { e.preventDefault(); handleNavClick('jeonsin'); }}
             >
-              전신다한증
+              전신땀
             </a>
             <a 
               href="#bosangseong" 
@@ -258,11 +270,11 @@ function App() {
               보상성 다한증
             </a>
             <a 
-              href="#columns" 
-              className={`nav-link ${isColumnPage ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); handleColumnPageClick(); }}
+              href="#dohan" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('dohan'); }}
             >
-              다한증 칼럼
+              도한증(밤)
             </a>
             <a 
               href="#reviews" 
@@ -276,7 +288,7 @@ function App() {
               className={`nav-link ${activeSection === 'booking' ? 'active' : ''}`}
               onClick={(e) => { e.preventDefault(); scrollToSection('booking'); }}
             >
-              오시는길
+              한의원
             </a>
           </nav>
 
