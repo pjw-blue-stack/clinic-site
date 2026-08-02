@@ -1041,11 +1041,11 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   const [activeTab, setActiveTab] = useState('both');
 
   // Determine current active content (tabs support)
-  const currentSummary = (specialty.id === 'du-myeon' && specialty.tabs) 
+  const currentSummary = ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) 
     ? specialty.tabs[activeTab].summary 
     : specialty.summary;
     
-  const currentDetails = (specialty.id === 'du-myeon' && specialty.tabs)
+  const currentDetails = ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs)
     ? specialty.tabs[activeTab].details
     : specialty.details;
 
@@ -1064,8 +1064,8 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
               <span className="detail-subtitle">{specialty.subtitle}</span>
               <h1 className="detail-title">{specialty.title}</h1>
               
-              {/* Tab UI for Head/Face Sweat */}
-              {specialty.id === 'du-myeon' && (
+              {/* Tab UI for Head/Face Sweat or Hand/Foot Sweat */}
+              {(specialty.id === 'du-myeon' || specialty.id === 'sujok') && (
                 <div className="detail-tabs" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
                   <button 
                     className={`tab-btn ${activeTab === 'both' ? 'active' : ''}`}
@@ -1082,7 +1082,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       color: activeTab === 'both' ? '#ffffff' : 'var(--text-muted, #868e96)',
                     }}
                   >
-                    얼굴·머리 땀 둘 다
+                    {specialty.id === 'du-myeon' ? '얼굴·머리 땀 둘 다' : '손·발 땀 둘 다'}
                   </button>
                   <button 
                     className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
@@ -1099,7 +1099,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       color: activeTab === 'head' ? '#ffffff' : 'var(--text-muted, #868e96)',
                     }}
                   >
-                    머리 땀만 (두한증)
+                    {specialty.id === 'du-myeon' ? '머리 땀만 (두한증)' : '손 땀만 (수한증)'}
                   </button>
                   <button 
                     className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
@@ -1116,7 +1116,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       color: activeTab === 'face' ? '#ffffff' : 'var(--text-muted, #868e96)',
                     }}
                   >
-                    얼굴 땀만 (안면다한증)
+                    {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
                   </button>
                 </div>
               )}
