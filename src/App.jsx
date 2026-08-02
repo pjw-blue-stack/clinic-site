@@ -461,37 +461,106 @@ function App() {
         {/* DETOX THERAPY SECTION */}
         <section id="detox" className="section section-alt">
           <div className="container">
+            
+            {/* 1단계: 고객의 목소리 (자가진단 질문 카드) */}
+            <div className="target-question-container">
+              <div className="section-header">
+                <span className="section-badge" style={{ color: 'var(--accent-color)', backgroundColor: 'var(--accent-light)' }}>Self Check</span>
+                <h2>혹시 내 몸도 독소 경고음을 보내고 있나요?</h2>
+                <p className="section-desc">
+                  아래 증상 중 하나라도 해당된다면, 이미 오장육부의 정화 시스템에 과부하가 걸린 신호입니다.
+                </p>
+              </div>
+              <div className="target-question-grid">
+                {textContent.detox.targets.map((t, idx) => (
+                  <div key={idx} className="target-question-card">
+                    <span className="question-badge-q">Q</span>
+                    <p className="target-question-text">“{t}”</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 2~5단계: 공감, 인사, 권위 제시, 해결책 예고 */}
+            <div className="detail-letter-grid" style={{ marginBottom: '60px' }}>
+              <div className="letter-box">
+                <div className="letter-header">
+                  {textContent.detox.letterTitle}
+                </div>
+                <div className="letter-body">
+                  {textContent.detox.letterBody.map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+                <div className="letter-signature">
+                  경희정원한의원 대표원장 한의학박사 <strong>박제욱 드림</strong>
+                </div>
+              </div>
+
+              {/* 권위 제시 카드 */}
+              <div className="director-profile-card">
+                <div className="director-avatar-box">👨‍⚕️</div>
+                <div className="director-title-box">
+                  <h3>박제욱 대표원장</h3>
+                  <p>경희대 한의과대학 한의학박사 수료 / 경희의료원 수련의</p>
+                </div>
+                <div className="authority-badge-grid">
+                  <div className="authority-badge-grid">
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">19년</span>
+                      <span className="badge-label">임상 진료 경력</span>
+                    </div>
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">900+</span>
+                      <span className="badge-label">다한증 직접 진료</span>
+                    </div>
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">13,200제</span>
+                      <span className="badge-label">맞춤 해독 처방</span>
+                    </div>
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">공식</span>
+                      <span className="badge-label">'땀쟁이들' 제휴의원</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 본문: 3대 핵심 치료 Q&A 개편 */}
             <div className="section-header">
               <span className="section-badge">{textContent.detox.badge}</span>
-              <h2>{textContent.detox.title}</h2>
+              <h2>{textContent.detox.title} 3대 치료 원칙</h2>
               <p className="section-desc">
                 {textContent.detox.desc}
               </p>
             </div>
 
-            <div className="detox-grid">
-              <div className="detox-card">
-                <div className="detox-num">{textContent.detox.card1Num}</div>
-                <h3 className="detox-card-title">{textContent.detox.card1Title}</h3>
-                <p className="detox-card-desc">
-                  {textContent.detox.card1Desc}
-                </p>
-              </div>
-              <div className="detox-card">
-                <div className="detox-num">{textContent.detox.card2Num}</div>
-                <h3 className="detox-card-title">{textContent.detox.card2Title}</h3>
-                <p className="detox-card-desc">
-                  {textContent.detox.card2Desc}
-                </p>
-              </div>
-              <div className="detox-card">
-                <div className="detox-num">{textContent.detox.card3Num}</div>
-                <h3 className="detox-card-title">{textContent.detox.card3Title}</h3>
-                <p className="detox-card-desc">
-                  {textContent.detox.card3Desc}
-                </p>
+            <div className="qa-treatment-list" style={{ marginBottom: '60px' }}>
+              {textContent.detox.qaList.map((qa, idx) => (
+                <div key={idx} className="qa-treatment-card">
+                  <div className="qa-question-row">
+                    <span className="qa-badge-q">Q</span>
+                    <h3 className="qa-question-text">{qa.question}</h3>
+                  </div>
+                  <div className="qa-answer-row">
+                    <span className="qa-badge-a">A</span>
+                    <p className="qa-answer-text">{qa.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* 결론 & CTA */}
+            <div className="cta-cool-box" style={{ maxWidth: '900px', margin: '0 auto' }}>
+              <p className="cta-cool-attitude">
+                <strong>{textContent.detox.coolAttitude}</strong>
+              </p>
+              <div className="cta-scarcity-box">
+                📢 {textContent.detox.scarcity}
               </div>
             </div>
+
           </div>
         </section>
 
