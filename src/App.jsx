@@ -1054,6 +1054,20 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
     }
   };
 
+  // Multi-select State for Lower Body Sweat (hache)
+  const [selectedHacheParts, setSelectedHacheParts] = useState(['buttocks']);
+
+  // Toggle helper for lower body parts
+  const toggleHachePart = (partKey) => {
+    if (selectedHacheParts.includes(partKey)) {
+      if (selectedHacheParts.length > 1) {
+        setSelectedHacheParts(selectedHacheParts.filter(p => p !== partKey));
+      }
+    } else {
+      setSelectedHacheParts([...selectedHacheParts, partKey]);
+    }
+  };
+
   // Determine current active content (tabs & multi-select parts support)
   let currentSummary = specialty.summary;
   let currentDetails = specialty.details;
@@ -1065,6 +1079,10 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
     const partNames = selectedParts.map(p => specialty.parts[p]?.name).join(', ');
     currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedParts.map(p => specialty.parts[p]?.summary).join('\n\n');
     currentDetails = selectedParts.map(p => specialty.parts[p]?.details);
+  } else if (specialty.id === 'hache' && specialty.parts) {
+    const partNames = selectedHacheParts.map(p => specialty.parts[p]?.name).join(', ');
+    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedHacheParts.map(p => specialty.parts[p]?.summary).join('\n\n');
+    currentDetails = selectedHacheParts.map(p => specialty.parts[p]?.details);
   }
 
   return (
@@ -1084,55 +1102,22 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
               
               {/* Tab UI for Head/Face Sweat or Hand/Foot Sweat */}
               {(specialty.id === 'du-myeon' || specialty.id === 'sujok') && (
-                <div className="detail-tabs" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
+                <div className="detail-tabs">
                   <button 
                     className={`tab-btn ${activeTab === 'both' ? 'active' : ''}`}
                     onClick={() => setActiveTab('both')}
-                    style={{
-                      padding: '10px 18px',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      border: '1px solid var(--accent-light, #e0e0e0)',
-                      borderRadius: '30px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      background: activeTab === 'both' ? 'var(--accent-color, #12b886)' : 'transparent',
-                      color: activeTab === 'both' ? '#ffffff' : 'var(--text-muted, #868e96)',
-                    }}
                   >
                     {specialty.id === 'du-myeon' ? '얼굴·머리 땀 둘 다' : '손·발 땀 둘 다'}
                   </button>
                   <button 
                     className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
                     onClick={() => setActiveTab('head')}
-                    style={{
-                      padding: '10px 18px',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      border: '1px solid var(--accent-light, #e0e0e0)',
-                      borderRadius: '30px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      background: activeTab === 'head' ? 'var(--accent-color, #12b886)' : 'transparent',
-                      color: activeTab === 'head' ? '#ffffff' : 'var(--text-muted, #868e96)',
-                    }}
                   >
                     {specialty.id === 'du-myeon' ? '머리 땀만 (두한증)' : '손 땀만 (수한증)'}
                   </button>
                   <button 
                     className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
                     onClick={() => setActiveTab('face')}
-                    style={{
-                      padding: '10px 18px',
-                      fontSize: '0.9rem',
-                      fontWeight: '600',
-                      border: '1px solid var(--accent-light, #e0e0e0)',
-                      borderRadius: '30px',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s',
-                      background: activeTab === 'face' ? 'var(--accent-color, #12b886)' : 'transparent',
-                      color: activeTab === 'face' ? '#ffffff' : 'var(--text-muted, #868e96)',
-                    }}
                   >
                     {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
                   </button>
@@ -1141,7 +1126,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
 
               {/* Multi-select UI for Upper Body Sweat (sangche) */}
               {specialty.id === 'sangche' && specialty.parts && (
-                <div className="detail-parts-selector" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
+                <div className="detail-parts-selector">
                   {['chest', 'back', 'armpit', 'belly', 'waist'].map((key) => {
                     const part = specialty.parts[key];
                     if (!part) return null;
@@ -1150,19 +1135,31 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       <button
                         key={key}
                         onClick={() => togglePart(key)}
-                        style={{
-                          padding: '10px 18px',
-                          fontSize: '0.9rem',
-                          fontWeight: '600',
-                          border: isSelected ? '1px solid var(--accent-color, #12b886)' : '1px solid var(--accent-light, #e0e0e0)',
-                          borderRadius: '30px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s',
-                          background: isSelected ? 'var(--accent-color, #12b886)' : 'transparent',
-                          color: isSelected ? '#ffffff' : 'var(--text-muted, #868e96)',
-                        }}
+                        className={`part-btn ${isSelected ? 'active' : ''}`}
                       >
-                        {part.name} {isSelected ? '[v]' : '[+]'}
+                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
+                        {part.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Multi-select UI for Lower Body Sweat (hache) */}
+              {specialty.id === 'hache' && specialty.parts && (
+                <div className="detail-parts-selector">
+                  {['buttocks', 'groin', 'thigh', 'calf'].map((key) => {
+                    const part = specialty.parts[key];
+                    if (!part) return null;
+                    const isSelected = selectedHacheParts.includes(key);
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => toggleHachePart(key)}
+                        className={`part-btn ${isSelected ? 'active' : ''}`}
+                      >
+                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
+                        {part.name}
                       </button>
                     );
                   })}
