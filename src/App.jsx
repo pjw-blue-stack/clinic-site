@@ -1234,6 +1234,101 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
+      {/* 8 Core Principles of Detox Treatment */}
+      <section className="section section-alt detail-principles-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-badge">Principles</span>
+            <h2 className="section-title">정원 해독 다한증 치료의 8대 핵심 원리</h2>
+            <p className="section-desc">
+              무작정 땀구멍만 막아두는 대증요법과 달리, 몸속 독소를 해소하여 자율신경계 스스로 땀 조절력을 복구하도록 하는 8가지 대원칙입니다.
+            </p>
+          </div>
+
+          <div className="principles-grid">
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">1</span>
+                <h4 className="principle-card-title">독소의 침투와 축적</h4>
+              </div>
+              <p className="principle-card-desc">
+                지속적인 스트레스와 기름진 음식 등 잘못된 생활습관이 장벽을 무너뜨리고 <strong>LPS 내독소</strong> 등의 만성 유해 물질을 누적시켜 자연 정화 기능을 상실하게 만듭니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">2</span>
+                <h4 className="principle-card-title">자율신경계 과흥분</h4>
+              </div>
+              <p className="principle-card-desc">
+                배출되지 못하고 고인 내독소들이 혈관을 타고 돌며 자율신경계 중 <strong>교감신경을 만성 과흥분 상태</strong>로 만들고, 땀샘에 과도한 발한 신호를 오작동으로 송신합니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">3</span>
+                <h4 className="principle-card-title">독소와 땀 분비의 비례</h4>
+              </div>
+              <p className="principle-card-desc">
+                체내에 쌓인 잔류 독소량이 증가할수록 땀이 분비되는 면적이 전신으로 확장되고, 땀이 마르지 않는 지속 시간 및 발한 강도가 정비례하여 악화됩니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">4</span>
+                <h4 className="principle-card-title">삼위일체 배독치료</h4>
+              </div>
+              <p className="principle-card-desc">
+                체질 맞춤 <strong>해독지한탕</strong>으로 속의 독소를 배출하고, 자율신경절 전도를 안정시키는 <strong>배독약침</strong>과 기혈 순환을 돕는 <strong>화주뜸</strong> 요법으로 독소를 청소합니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">5</span>
+                <h4 className="principle-card-title">치료와 예방의 역할 분담</h4>
+              </div>
+              <p className="principle-card-desc">
+                한약과 약침, 화주뜸으로 몸속 독소의 80~90%를 제거해 땀샘을 복구하는 것은 <strong>한의사의 역할</strong>이며, 치료 후 바른 생활습관을 유지하는 것은 <strong>환자의 노력</strong>입니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">6</span>
+                <h4 className="principle-card-title">80/90 법칙 (치료 목표)</h4>
+              </div>
+              <p className="principle-card-desc">
+                독소를 8~90% 정화해 내면 땀 분비 빈도가 60~90% 감소합니다. (예: 하루 10시간 흐르던 비정상적인 땀이 2시간 이내의 건강한 수준으로 축소됨을 직접 경험합니다).
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">7</span>
+                <h4 className="principle-card-title">장기 뽀송함의 유지</h4>
+              </div>
+              <p className="principle-card-desc">
+                체질 개선이 끝난 뒤에는 독소 자극 요인이 사라져 요요가 없습니다. 일상 중 <strong>연 5~8회 가벼운 배독 약침 관리</strong>를 병행하는 것으로 10년 이상 뽀송함 유지가 가능합니다.
+              </p>
+            </div>
+
+            <div className="principle-card">
+              <div className="principle-header">
+                <span className="principle-step-num">8</span>
+                <h4 className="principle-card-title">스트레스와 일시적 변동</h4>
+              </div>
+              <p className="principle-card-desc">
+                치료 중 큰 일시적 스트레스(독감, 투자 실패, 이별, 법적 송사 등)를 만나면 땀이 잠시 늘 수 있으나, 독소 기저치가 낮아져 있으므로 스트레스가 진정되면 원래의 보송함으로 빠르게 복원됩니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Target Symptoms */}
       <section className="section section-alt detail-target-section">
         <div className="container">
