@@ -1040,14 +1040,32 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   // Tab State for Head/Face/Both sweat condition (du-myeon)
   const [activeTab, setActiveTab] = useState('both');
 
-  // Determine current active content (tabs support)
-  const currentSummary = ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) 
-    ? specialty.tabs[activeTab].summary 
-    : specialty.summary;
-    
-  const currentDetails = ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs)
-    ? specialty.tabs[activeTab].details
-    : specialty.details;
+  // Multi-select State for Upper Body Sweat (sangche)
+  const [selectedParts, setSelectedParts] = useState(['armpit']);
+
+  // Toggle helper for multi-select parts
+  const togglePart = (partKey) => {
+    if (selectedParts.includes(partKey)) {
+      if (selectedParts.length > 1) {
+        setSelectedParts(selectedParts.filter(p => p !== partKey));
+      }
+    } else {
+      setSelectedParts([...selectedParts, partKey]);
+    }
+  };
+
+  // Determine current active content (tabs & multi-select parts support)
+  let currentSummary = specialty.summary;
+  let currentDetails = specialty.details;
+
+  if ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) {
+    currentSummary = specialty.tabs[activeTab].summary;
+    currentDetails = specialty.tabs[activeTab].details;
+  } else if (specialty.id === 'sangche' && specialty.parts) {
+    const partNames = selectedParts.map(p => specialty.parts[p]?.name).join(', ');
+    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedParts.map(p => specialty.parts[p]?.summary).join('\n\n');
+    currentDetails = selectedParts.map(p => specialty.parts[p]?.details);
+  }
 
   return (
     <div className="specialty-detail-page">
@@ -1118,6 +1136,35 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                   >
                     {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
                   </button>
+                </div>
+              )}
+
+              {/* Multi-select UI for Upper Body Sweat (sangche) */}
+              {specialty.id === 'sangche' && specialty.parts && (
+                <div className="detail-parts-selector" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
+                  {Object.keys(specialty.parts).map((key) => {
+                    const part = specialty.parts[key];
+                    const isSelected = selectedParts.includes(key);
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => togglePart(key)}
+                        style={{
+                          padding: '10px 18px',
+                          fontSize: '0.9rem',
+                          fontWeight: '600',
+                          border: isSelected ? '1px solid var(--accent-color, #12b886)' : '1px solid var(--accent-light, #e0e0e0)',
+                          borderRadius: '30px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s',
+                          background: isSelected ? 'var(--accent-color, #12b886)' : 'transparent',
+                          color: isSelected ? '#ffffff' : 'var(--text-muted, #868e96)',
+                        }}
+                      >
+                        {part.name} {isSelected ? '[v]' : '[+]'}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
