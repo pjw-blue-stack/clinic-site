@@ -1041,7 +1041,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   const [activeTab, setActiveTab] = useState('both');
 
   // Multi-select State for Upper Body Sweat (sangche)
-  const [selectedParts, setSelectedParts] = useState(['armpit']);
+  const [selectedParts, setSelectedParts] = useState(['chest']);
 
   // Toggle helper for multi-select parts
   const togglePart = (partKey) => {
@@ -1142,8 +1142,9 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
               {/* Multi-select UI for Upper Body Sweat (sangche) */}
               {specialty.id === 'sangche' && specialty.parts && (
                 <div className="detail-parts-selector" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
-                  {Object.keys(specialty.parts).map((key) => {
+                  {['chest', 'back', 'armpit', 'belly', 'waist'].map((key) => {
                     const part = specialty.parts[key];
+                    if (!part) return null;
                     const isSelected = selectedParts.includes(key);
                     return (
                       <button
