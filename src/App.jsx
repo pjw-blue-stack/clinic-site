@@ -1252,7 +1252,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                 <h4 className="principle-card-title">독소의 침투와 축적</h4>
               </div>
               <p className="principle-card-desc">
-                지속적인 스트레스와 기름진 음식 등 잘못된 생활습관이 장벽을 무너뜨리고 <strong>LPS 내독소</strong> 등의 만성 유해 물질을 누적시켜 자연 정화 기능을 상실하게 만듭니다.
+                지속적인 스트레스와 피로, 그리고 잘못된 생활습관이 신체 순환 장애를 유발하고 <strong>체내 열독과 노폐물</strong> 등의 유해 물질을 누적시켜 자연 정화 기능을 상실하게 만듭니다.
               </p>
             </div>
 
@@ -1262,7 +1262,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                 <h4 className="principle-card-title">자율신경계 과흥분</h4>
               </div>
               <p className="principle-card-desc">
-                배출되지 못하고 고인 내독소들이 혈관을 타고 돌며 자율신경계 중 <strong>교감신경을 만성 과흥분 상태</strong>로 만들고, 땀샘에 과도한 발한 신호를 오작동으로 송신합니다.
+                배출되지 못하고 고인 노폐물 독소들이 혈액을 타고 돌며 자율신경계 중 <strong>교감신경을 만성 과흥분 상태</strong>로 만들고, 땀샘에 과도한 발한 신호를 오작동으로 송신합니다.
               </p>
             </div>
 
