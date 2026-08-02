@@ -740,7 +740,10 @@ function App() {
 
             {/* Virtual Map & Quick Form */}
             <div className="booking-card">
-              <h3 style={{ marginBottom: '24px', textAlign: 'center' }}>간편 상담 및 진료 상담 신청</h3>
+              <h3 style={{ marginBottom: '8px', textAlign: 'center' }}>1:1 간편 상담 및 예약 신청</h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '24px' }}>
+                19년 해독 임상 노하우의 박제욱 원장님이 직접 확인 후 연락드립니다.
+              </p>
               <form onSubmit={handleBookingSubmit}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div className="form-group" style={{ textAlign: 'left' }}>
@@ -870,7 +873,10 @@ function App() {
             <div className="modal-header">
               <div className="modal-icon" style={{ fontSize: '2.5rem', color: '#03C75A' }}>N</div>
               <div className="modal-subtitle" style={{ color: '#03C75A' }}>Naver Booking Integration</div>
-              <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>네이버 실시간 예약</h2>
+              <h2 className="modal-title" style={{ fontSize: '1.8rem', marginBottom: '4px' }}>네이버 실시간 예약</h2>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '4px' }}>
+                19년 임상 노하우의 박제욱 대표원장이 직접 1:1 맞춤 진료를 약속합니다.
+              </p>
             </div>
             
             {bookingSuccess ? (
