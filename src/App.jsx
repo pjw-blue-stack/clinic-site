@@ -1209,24 +1209,107 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
-      {/* Cause & Treatment Process */}
+      {/* Jacheong's Strange Marketing Layout 도입부 (대표원장의 편지 & 고객의 소리) */}
+      <section className="detail-letter-section">
+        <div className="container">
+          
+          {/* 1단계: 고객의 목소리 (자가 질문 카드) */}
+          <div className="target-question-container">
+            <div className="section-header">
+              <span className="section-badge" style={{ color: 'var(--accent-color)', backgroundColor: 'var(--accent-light)' }}>Self Check</span>
+              <h2 className="section-title">혹시 지금 이런 아픔을 겪고 계신가요?</h2>
+              <p className="section-desc">
+                다한증 이웃들이 매일같이 내원하며 원장실 문을 두드리고 털어놓는 고민들입니다.
+              </p>
+            </div>
+            <div className="target-question-grid">
+              {specialty.target.map((t, idx) => (
+                <div key={idx} className="target-question-card">
+                  <span className="question-badge-q">Q</span>
+                  <p className="target-question-text">“{t}”</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 2~5단계: 공감, 인사, 권위 제시, 해결책 예고 */}
+          <div className="detail-letter-grid">
+            <div className="letter-box">
+              <div className="letter-header">
+                ✉️ 19년 다한증 해독 명의 박제욱 원장이 드리는 편지
+              </div>
+              <div className="letter-body">
+                <p>
+                  안녕하십니까. 목동에서 14년째 한 자리를 지키며, 다한증 이웃들의 눅눅하고 시린 일상을 함께 고민해 온 <strong>경희정원한의원 대표원장 박제욱</strong>입니다.
+                </p>
+                <p>
+                  누군가와 손을 잡거나 악수하는 평범한 일상이 두려움으로 변하고, 계절에 맞지 않게 옷이 축축하게 젖어버리는 절망감... 
+                  그 고통이 매일의 삶을 얽매는 감옥과 같다는 사실을 19년 동안 마주하며 누구보다 잘 알고 있습니다.
+                </p>
+                <p>
+                  땀을 강제로 차단하고 신경을 마비시키는 치료는 단기간의 임시방편일 뿐, 결국 내성이 생기거나 엉뚱한 부위로 땀이 터지는 보상성 부작용을 유발하기 쉽습니다. <strong>땀은 죄가 없습니다. 진짜 주범은 우리 몸 안에 축적된 노폐물 독소</strong>입니다.
+                </p>
+                <p>
+                  오늘 이 글을 통해, 겉의 땀구멍만 물리적으로 막아두는 방법이 아닌 <strong>몸속에 누적된 열독과 순환 장애의 근본 독소를 비워내어</strong> 자율신경계가 자연스러운 조절력을 되찾게 돕는 해독의 본질을 밝혀드리고자 합니다.
+                </p>
+              </div>
+              <div className="letter-signature">
+                경희정원한의원 대표원장 한의학박사 <strong>박제욱 드림</strong>
+              </div>
+            </div>
+
+            {/* 권위 제시 카드 */}
+            <div className="director-profile-card">
+              <div className="director-avatar-box">👨‍⚕️</div>
+              <div className="director-title-box">
+                <h3>박제욱 대표원장</h3>
+                <p>경희대 한의과대학 한의학박사 수료 / 경희의료원 수련의</p>
+              </div>
+              <div className="authority-badge-grid">
+                <div className="authority-badge-card">
+                  <span className="badge-stat">19년</span>
+                  <span className="badge-label">임상 진료 경력</span>
+                </div>
+                <div className="authority-badge-card">
+                  <span className="badge-stat">900+</span>
+                  <span className="badge-label">다한증 직접 진료</span>
+                </div>
+                <div className="authority-badge-card">
+                  <span className="badge-stat">13,200제</span>
+                  <span className="badge-label">맞춤 해독 처방</span>
+                </div>
+                <div className="authority-badge-card">
+                  <span className="badge-stat">공식</span>
+                  <span className="badge-label">'땀쟁이들' 제휴의원</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Cause & Treatment Process -> 본문 3대 소주제 Q&A 개편 */}
       <section className="section detail-treatment-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-badge">Treatment Program</span>
-            <h2 className="section-title">정원 {specialty.title} 해독 치료법</h2>
+            <span className="section-badge">Solution</span>
+            <h2 className="section-title">정원 {specialty.title} 3대 핵심 치료 Q&A</h2>
             <p className="section-desc">
-              단순히 땀을 억제하는 임시조치가 아닌, 내부 열독을 다스리고 자율신경 균형을 회복하는 근본 솔루션입니다.
+              환자분들이 치료 전에 가장 많이 묻고 궁금해하시는 대표적인 의문점들을 명확하게 풀어드립니다.
             </p>
           </div>
 
-          <div className="treatment-process-list">
+          <div className="qa-treatment-list">
             {currentDetails.map((detail, idx) => (
-              <div key={idx} className="treatment-process-card">
-                <div className="process-number">0{idx + 1}</div>
-                <div className="process-content">
-                  <h3 className="process-card-title">{detail.title}</h3>
-                  <p className="process-card-desc">{detail.desc}</p>
+              <div key={idx} className="qa-treatment-card">
+                <div className="qa-question-row">
+                  <span className="qa-badge-q">Q</span>
+                  <h3 className="qa-question-text">{detail.title}</h3>
+                </div>
+                <div className="qa-answer-row">
+                  <span className="qa-badge-a">A</span>
+                  <p className="qa-answer-text">{detail.desc}</p>
                 </div>
               </div>
             ))}
@@ -1329,29 +1412,6 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
-      {/* Target Symptoms */}
-      <section className="section section-alt detail-target-section">
-        <div className="container">
-          <div className="detail-target-grid">
-            <div className="detail-target-text">
-              <span className="section-badge">Diagnosis</span>
-              <h2 className="section-title" style={{ textAlign: 'left' }}>이런 증상으로 고통받고 계시다면 치료 대상입니다</h2>
-              <p className="section-desc" style={{ textAlign: 'left', marginLeft: 0 }}>
-                다한증은 방치할수록 만성 피로와 피부염, 대인 기피증으로 이어지기 쉽습니다. 아래 항목 중 해당되는 부분이 있다면 신속한 해독 치료가 필요합니다.
-              </p>
-            </div>
-            <div className="detail-target-cards">
-              {specialty.target.map((t, idx) => (
-                <div key={idx} className="target-item-card">
-                  <span className="target-check">✓</span>
-                  <p>{t}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Specialty-Specific Reviews */}
       <section className="section detail-reviews-section">
         <div className="container">
@@ -1391,10 +1451,19 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
-      {/* High-Converting CTA Banner */}
+      {/* High-Converting CTA Banner (결론: 여유로운 태도, 희소성) */}
       <section className="section-detail-cta">
         <div className="container">
           <div className="detail-cta-content">
+            <div className="cta-cool-box">
+              <p className="cta-cool-attitude">
+                <strong>꼭 저희 경희정원한의원이 아니어도 좋습니다.</strong> 다만, 겉만 억지로 막아 다른 부위에 땀이 터지는 보상성 부작용이나 내성으로 평생 후회하지 마시고, 원인을 다스리는 치료를 제공하는 곳인지 꼼꼼히 비교해 보시길 진심으로 바랍니다.
+              </p>
+              <div className="cta-scarcity-box">
+                📢 경희정원한의원은 의료진의 집중적인 치료와 깊이 있는 개별 심층 진료를 위해 <strong>하루 예약/상담 인원을 제한</strong>하고 있습니다. 예약이 조기 마감될 수 있는 점 양해 부탁드립니다.
+              </div>
+            </div>
+
             <h2>평생 땀샘을 억제하며 불편하게 사시겠습니까?<br />경희정원의 비움 요법으로 근본 원인을 해소하세요.</h2>
             <p>19년 임상 노하우와 900+ 다한증 치료 빅데이터로 증명된 비움과 채움의 자연 치유</p>
             <div className="detail-cta-btns">
