@@ -493,7 +493,7 @@ function App() {
                   ))}
                 </div>
                 <div className="letter-signature">
-                  경희정원한의원 대표원장 한의학박사 <strong>박제욱 드림</strong>
+                  경희정원한의원 대표원장 <strong>박제욱 드림</strong>
                 </div>
               </div>
 
@@ -502,7 +502,7 @@ function App() {
                 <div className="director-avatar-box">👨‍⚕️</div>
                 <div className="director-title-box">
                   <h3>박제욱 대표원장</h3>
-                  <p>경희대 한의과대학 한의학박사 수료 / 경희의료원 수련의</p>
+                  <p>경희대 한의과대학 졸 / 경희의료원 수련의</p>
                 </div>
                 <div className="authority-badge-grid">
                   <div className="authority-badge-grid">
@@ -1323,7 +1323,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                 </p>
               </div>
               <div className="letter-signature">
-                경희정원한의원 대표원장 한의학박사 <strong>박제욱 드림</strong>
+                경희정원한의원 대표원장 <strong>박제욱 드림</strong>
               </div>
             </div>
 
@@ -1332,7 +1332,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
               <div className="director-avatar-box">👨‍⚕️</div>
               <div className="director-title-box">
                 <h3>박제욱 대표원장</h3>
-                <p>경희대 한의과대학 한의학박사 수료 / 경희의료원 수련의</p>
+                <p>경희대 한의과대학 졸 / 경희의료원 수련의</p>
               </div>
               <div className="authority-badge-grid">
                 <div className="authority-badge-card">
