@@ -1037,6 +1037,18 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   // Filter reviews for this specialty
   const conditionReviews = reviews.filter(r => r.specialtyId === specialty.id);
 
+  // Tab State for Head/Face/Both sweat condition (du-myeon)
+  const [activeTab, setActiveTab] = useState('both');
+
+  // Determine current active content (tabs support)
+  const currentSummary = (specialty.id === 'du-myeon' && specialty.tabs) 
+    ? specialty.tabs[activeTab].summary 
+    : specialty.summary;
+    
+  const currentDetails = (specialty.id === 'du-myeon' && specialty.tabs)
+    ? specialty.tabs[activeTab].details
+    : specialty.details;
+
   return (
     <div className="specialty-detail-page">
       {/* Detail Page Hero */}
@@ -1051,7 +1063,65 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
               <div className="detail-icon-badge">{specialty.icon}</div>
               <span className="detail-subtitle">{specialty.subtitle}</span>
               <h1 className="detail-title">{specialty.title}</h1>
-              <p className="detail-desc">{specialty.summary}</p>
+              
+              {/* Tab UI for Head/Face Sweat */}
+              {specialty.id === 'du-myeon' && (
+                <div className="detail-tabs" style={{ display: 'flex', gap: '8px', margin: '20px 0', flexWrap: 'wrap' }}>
+                  <button 
+                    className={`tab-btn ${activeTab === 'both' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('both')}
+                    style={{
+                      padding: '10px 18px',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      border: '1px solid var(--accent-light, #e0e0e0)',
+                      borderRadius: '30px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      background: activeTab === 'both' ? 'var(--accent-color, #12b886)' : 'transparent',
+                      color: activeTab === 'both' ? '#ffffff' : 'var(--text-muted, #868e96)',
+                    }}
+                  >
+                    얼굴·머리 땀 둘 다
+                  </button>
+                  <button 
+                    className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('head')}
+                    style={{
+                      padding: '10px 18px',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      border: '1px solid var(--accent-light, #e0e0e0)',
+                      borderRadius: '30px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      background: activeTab === 'head' ? 'var(--accent-color, #12b886)' : 'transparent',
+                      color: activeTab === 'head' ? '#ffffff' : 'var(--text-muted, #868e96)',
+                    }}
+                  >
+                    머리 땀만 (두한증)
+                  </button>
+                  <button 
+                    className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('face')}
+                    style={{
+                      padding: '10px 18px',
+                      fontSize: '0.9rem',
+                      fontWeight: '600',
+                      border: '1px solid var(--accent-light, #e0e0e0)',
+                      borderRadius: '30px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      background: activeTab === 'face' ? 'var(--accent-color, #12b886)' : 'transparent',
+                      color: activeTab === 'face' ? '#ffffff' : 'var(--text-muted, #868e96)',
+                    }}
+                  >
+                    얼굴 땀만 (안면다한증)
+                  </button>
+                </div>
+              )}
+
+              <p className="detail-desc">{currentSummary}</p>
               <div className="detail-hero-btns">
                 <button 
                   className="btn btn-accent" 
@@ -1100,7 +1170,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
           </div>
 
           <div className="treatment-process-list">
-            {specialty.details.map((detail, idx) => (
+            {currentDetails.map((detail, idx) => (
               <div key={idx} className="treatment-process-card">
                 <div className="process-number">0{idx + 1}</div>
                 <div className="process-content">
