@@ -1421,6 +1421,23 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
+      {/* Blog Images Section */}
+      {specialty.images && specialty.images.length > 0 && (
+        <section className="section detail-images-section">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-badge">Gallery</span>
+              <h2 className="section-title">치료 과정 및 원리</h2>
+            </div>
+            <div className="images-grid" style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+              {specialty.images.map((imgSrc, idx) => (
+                <img key={idx} src={imgSrc} alt={`${specialty.title} ${idx + 1}`} style={{ maxWidth: '100%', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Cause & Treatment Process -> 본문 3대 소주제 Q&A 개편 */}
       <section className="section detail-treatment-section">
         <div className="container">
@@ -1544,42 +1561,12 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         </div>
       </section>
 
-      {/* Specialty-Specific Reviews */}
-      <section className="section detail-reviews-section">
+      {/* Specialty-Specific Reviews Redirect */}
+      <section className="section detail-reviews-section" style={{ textAlign: 'center', padding: '40px 0' }}>
         <div className="container">
-          <div className="section-header">
-            <span className="section-badge">Success Stories</span>
-            <h2 className="section-title">{specialty.title} 치료 이웃들의 후기</h2>
-            <p className="section-desc">
-              동일한 증상으로 고민하다 보송한 일상을 되찾으신 분들의 생생한 친필 치료 사례입니다.
-            </p>
-          </div>
-
-          {conditionReviews.length > 0 ? (
-            <div className="reviews-grid">
-              {conditionReviews.map(review => (
-                <div key={review.id} className="review-card">
-                  <div className="review-meta">
-                    <div className="review-rating">
-                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                    </div>
-                    <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
-                  </div>
-                  <h4 className="review-title">{review.title}</h4>
-                  <p className="review-content">{review.content}</p>
-                  <div className="review-footer">
-                    <span className="review-writer">{review.name} 환자님</span>
-                    <span>{review.date}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="no-reviews-card">
-              <p>아직 해당 부위 집중 후기가 등록되지 않았습니다.<br />전체 후기 게시판을 확인하시거나 내원 시 더 많은 친필 사례집을 열람하실 수 있습니다.</p>
-              <button className="btn btn-outline" onClick={onBack}>전체 치료후기 보러가기</button>
-            </div>
-          )}
+          <h2 className="section-title">{specialty.title} 치료 이웃들의 생생한 후기</h2>
+          <p style={{ marginBottom: '20px', color: 'var(--gray-600)' }}>더 많은 완치 사례와 친필 후기는 메인 화면의 '치료후기' 메뉴에서 확인하실 수 있습니다.</p>
+          <button className="btn btn-primary" onClick={() => { onBack(); setTimeout(() => scrollToSection('reviews'), 100); }}>치료후기 게시판 바로가기</button>
         </div>
       </section>
 
