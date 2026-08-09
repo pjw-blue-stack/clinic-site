@@ -432,6 +432,46 @@ function App() {
                 </div>
               </div>
 
+              {/* GMP 한약재 및 원외탕전실 안내 */}
+              <div className="gmp-info-section" style={{ marginBottom: "60px", backgroundColor: "#fff", padding: "40px", borderRadius: "16px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
+                <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                  <span className="section-badge" style={{ backgroundColor: "#e8f5e9", color: "#2e7d32", padding: "4px 12px", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "bold", marginBottom: "12px", display: "inline-block" }}>식약처 hGMP 인증</span>
+                  <h3 style={{ fontSize: "1.8rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "16px" }}>안심하고 드실 수 있는 청정 한약</h3>
+                  <p style={{ color: "var(--text-light)", lineHeight: "1.6", maxWidth: "700px", margin: "0 auto", wordBreak: "keep-all" }}>
+                    경희정원한의원은 국가에서 엄격하게 관리하는 식약처 <strong>hGMP(우수한약재 제조 및 품질관리기준)</strong> 인증을 통과한 <strong>옥천당 원외탕전실</strong>에서 조제된 청정 한약만을 처방합니다.
+                  </p>
+                </div>
+
+                <div className="gmp-faq-grid" style={{ display: "grid", gap: "20px" }}>
+                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
+                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 한약재의 안전성, 믿을 수 있나요? (유해 물질)
+                    </h4>
+                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
+                      네, 안심하셔도 좋습니다. 식탁에 오르는 농산물보다 훨씬 엄격한 식약처의 의약품 기준을 통과한 규격품 한약재만을 사용합니다. <strong>중금속, 잔류농약, 이산화황 등 유해 물질 검사를 완벽하게 통과한 청정 약재</strong>만 조제에 사용됩니다.
+                    </p>
+                  </div>
+                  
+                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
+                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 다한증 해독 한약, 장복해도 간에 무리가 없나요?
+                    </h4>
+                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
+                      흔히 한약을 오래 먹으면 간이나 신장에 무리가 간다고 오해하시지만, 이는 검증되지 않은 민간요법이나 불법 약재로 인한 경우가 많습니다. <strong>오히려 해독 한약은 간의 피로를 풀어주고 체내 독소 배출을 돕는 청정 약재들로 처방</strong>됩니다. 한의사의 정확한 진단 하에 처방된 hGMP 한약은 장기간 복용하셔도 매우 안전하며 장기 기능과 면역력이 튼튼해집니다.
+                    </p>
+                  </div>
+
+                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
+                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
+                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 옥천당 원외탕전실은 어떤 곳인가요?
+                    </h4>
+                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
+                      보건복지부 원외탕전실 평가인증을 받은 첨단 조제 시설입니다. 스마트 통합 조제 관리 시스템(SIP System)을 통해 약재의 입고부터 조제, 포장까지 <strong>전 과정의 품질 관리 이력이 투명하고 과학적으로 엄격하게 관리</strong>됩니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* 다한증 칼럼 미리보기 */}
               <div className="clinic-columns-preview" style={{ marginBottom: "60px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "20px" }}>
