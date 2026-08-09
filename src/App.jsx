@@ -68,6 +68,7 @@ function App() {
   const [columns, setColumns] = useState(defaultColumns);
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [isReviewPage, setIsReviewPage] = useState(false);
+  const [isClinicPage, setIsClinicPage] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -107,6 +108,7 @@ function App() {
     setIsColumnPage(false);
     setSelectedColumn(null);
     setIsReviewPage(false);
+    setIsClinicPage(false);
     
     setTimeout(() => {
       setActiveSection(id);
@@ -308,8 +310,17 @@ function App() {
             </a>
             <a 
               href="#booking" 
-              className={`nav-link ${activeSection === 'booking' ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); scrollToSection('booking'); }}
+              className={`nav-link ${isClinicPage ? 'active' : ''}`}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setIsMobileMenuOpen(false);
+                setSelectedSpecialty(null);
+                setIsColumnPage(false);
+                setSelectedColumn(null);
+                setIsReviewPage(false);
+                setIsClinicPage(true);
+                window.scrollTo(0, 0); 
+              }}
             >
               한의원
             </a>
@@ -378,6 +389,252 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
+        ) : isClinicPage ? (
+          <div className="clinic-page-wrapper" style={{ paddingTop: "80px", minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
+            <div className="container" style={{ paddingBottom: "40px" }}>
+              <div className="section-header" style={{ marginBottom: "40px" }}>
+                <span className="section-badge">Clinic Info</span>
+                <h2 className="section-title">경희정원한의원 소개</h2>
+              </div>
+              
+              {/* 원장 인사말 */}
+              <div className="detail-letter-grid" style={{ marginBottom: "60px" }}>
+                <div className="letter-box">
+                  <div className="letter-header">
+                    ✉️ 19년 다한증 해독 명의 박제욱 원장이 드리는 편지
+                  </div>
+                  <div className="letter-body">
+                    <p>
+                      안녕하십니까. 목동에서 14년째 한 자리를 지키며, 다한증 이웃들의 눅눅하고 시린 일상을 함께 고민해 온 <strong>경희정원한의원 대표원장 박제욱</strong>입니다.
+                    </p>
+                    <p>
+                      누군가와 손을 잡거나 악수하는 평범한 일상이 두려움으로 변하고, 계절에 맞지 않게 옷이 축축하게 젖어버리는 절망감... 
+                      그 고통이 매일의 삶을 얽매는 감옥과 같다는 사실을 19년 동안 마주하며 누구보다 잘 알고 있습니다.
+                    </p>
+                    <p>
+                      오늘 이 글을 통해, 겉의 땀구멍만 물리적으로 막아두는 방법이 아닌 <strong>몸속에 누적된 열독과 순환 장애의 근본 독소를 비워내어</strong> 자율신경계가 자연스러운 조절력을 되찾게 돕는 해독의 본질을 밝혀드리고자 합니다.
+                    </p>
+                  </div>
+                  <div className="letter-signature">
+                    경희정원한의원 대표원장 <strong>박제욱 드림</strong>
+                  </div>
+                </div>
+
+                <div className="director-profile-card">
+                  <div className="director-avatar-box">👨‍⚕️</div>
+                  <div className="director-title-box">
+                    <h3>박제욱 대표원장</h3>
+                    <p>경희대 한의과대학 졸 / 경희의료원 수련의</p>
+                  </div>
+                  <div className="authority-badge-grid">
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">19년</span>
+                      <span className="badge-label">임상 진료 경력</span>
+                    </div>
+                    <div className="authority-badge-card">
+                      <span className="badge-stat">3,800+</span>
+                      <span className="badge-label">만성병 완치</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 다한증 칼럼 미리보기 */}
+              <div className="clinic-columns-preview" style={{ marginBottom: "60px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "20px" }}>
+                  <h3 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>📚 최근 다한증 건강 칼럼</h3>
+                  <button className="btn btn-outline" style={{ padding: "8px 16px", fontSize: "0.9rem" }} onClick={() => { setIsClinicPage(false); setIsColumnPage(true); window.scrollTo(0,0); }}>전체 칼럼 보기 →</button>
+                </div>
+                <div className="columns-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+                  {columns.slice(0, 3).map(col => (
+                    <div key={col.id} className="column-card" onClick={() => { setIsClinicPage(false); setIsColumnPage(true); setSelectedColumn(col); window.scrollTo(0,0); }}>
+                      <div className="column-card-icon">{col.icon}</div>
+                      <div className="column-card-content">
+                        <span className="column-card-category">{col.category}</span>
+                        <h4 className="column-card-title">{col.title}</h4>
+                        <p className="column-card-summary">{col.summary}</p>
+                        <div className="column-card-footer">
+                          <span>{col.date}</span>
+                          <span style={{ color: "var(--accent-color)" }}>자세히 읽기 →</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* SNS 링크 */}
+              <div className="clinic-sns-section" style={{ marginBottom: "60px", backgroundColor: "#fff", padding: "40px", borderRadius: "16px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)", textAlign: "center" }}>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "30px" }}>정원한의원 소식 만나보기</h3>
+                <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
+                  <a href="https://blog.naver.com/pjwblue8282" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
+                    <div style={{ fontSize: "2.5rem", color: "#03C75A" }}>🟩</div>
+                    <span style={{ fontWeight: "600" }}>네이버 블로그</span>
+                  </a>
+                  <a href="https://cafe.naver.com/" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
+                    <div style={{ fontSize: "2.5rem", color: "#03C75A" }}>☕</div>
+                    <span style={{ fontWeight: "600" }}>네이버 카페</span>
+                  </a>
+                  <a href="https://instagram.com/" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
+                    <div style={{ fontSize: "2.5rem", color: "#E1306C" }}>📷</div>
+                    <span style={{ fontWeight: "600" }}>인스타그램</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+        {/* BOOKING & MAP SECTION */}
+        <section id="booking" className="section">
+          <div className="container booking-grid">
+            <div className="booking-info">
+              <span className="booking-subtitle">{textContent.booking.badge}</span>
+              <h2 className="booking-title">{textContent.booking.title}</h2>
+              <p className="booking-desc">
+                {textContent.booking.desc}
+              </p>
+
+              <div className="booking-contact-list">
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">📍</div>
+                  <div>
+                    <h4 className="booking-contact-title">{textContent.booking.addressTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.addressValue}</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">📞</div>
+                  <div>
+                    <h4 className="booking-contact-title">{textContent.booking.phoneTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.phoneValue}</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">💬</div>
+                  <div>
+                    <h4 className="booking-contact-title">{textContent.booking.kakaoTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.kakaoValue}</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">💚</div>
+                  <div>
+                    <h4 className="booking-contact-title">{textContent.booking.naverTitle}</h4>
+                    <p className="booking-contact-value">{textContent.booking.naverValue}</p>
+                  </div>
+                </div>
+                <div className="booking-contact-item">
+                  <div className="booking-contact-icon">🕒</div>
+                  <div>
+                    <h4 className="booking-contact-title">{textContent.booking.hoursTitle}</h4>
+                    <p className="booking-contact-value" style={{ whiteSpace: 'pre-wrap' }}>
+                      {textContent.booking.hoursValue}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Virtual Map & Quick Form */}
+            <div className="booking-card">
+              <h3 style={{ marginBottom: '8px', textAlign: 'center' }}>1:1 간편 상담 및 예약 신청</h3>
+              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '24px' }}>
+                19년 해독 임상 노하우의 박제욱 원장님이 직접 확인 후 연락드립니다.
+              </p>
+              <form onSubmit={handleConsultationSubmit}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div className="form-group" style={{ textAlign: 'left' }}>
+                    <label className="form-label">이름</label>
+                    <input 
+                      type="text" 
+                      className="form-input" 
+                      placeholder="성함을 입력해주세요" 
+                      value={bookingForm.name}
+                      onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group" style={{ textAlign: 'left' }}>
+                    <label className="form-label">연락처</label>
+                    <input 
+                      type="tel" 
+                      className="form-input" 
+                      placeholder="010-0000-0000" 
+                      value={bookingForm.tel}
+                      onChange={(e) => setBookingForm({ ...bookingForm, tel: e.target.value })}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group" style={{ textAlign: 'left' }}>
+                    <label className="form-label">문의 종류</label>
+                    <select 
+                      className="form-select"
+                      value={bookingForm.specialtyId}
+                      onChange={(e) => setBookingForm({ ...bookingForm, specialtyId: e.target.value })}
+                    >
+                      {specialties.map(spec => (
+                        <option key={spec.id} value={spec.id}>{spec.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="form-group" style={{ textAlign: 'left' }}>
+                    <label className="form-label">문의 사항 (선택)</label>
+                    <textarea 
+                      rows="3" 
+                      className="form-textarea" 
+                      placeholder="증상이나 궁금한 점을 간단히 남겨주세요."
+                      value={bookingForm.memo}
+                      onChange={(e) => setBookingForm({ ...bookingForm, memo: e.target.value })}
+                    ></textarea>
+                  </div>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px' }}>
+                    상담 신청 보내기
+                  </button>
+                </div>
+              </form>
+              
+              {bookingSuccess && (
+                <div className="modal-overlay" onClick={resetBookingForm}>
+                  <div className="modal-content text-center" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+                    <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍃</div>
+                    <h2 className="modal-title" style={{ marginBottom: '16px', fontSize: '1.6rem' }}>상담 신청 접수 완료</h2>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: '1.6' }}>
+                      <strong>{bookingForm.name}</strong> 환자님의 소중한 상담 신청이 전달되었습니다.<br />
+                      기재해 주신 연락처(<strong>{bookingForm.tel}</strong>)로 신속히 연락해 드리겠습니다.
+                    </p>
+
+                    {/* 사전 설문지 링크 유도 (노쇼 방지) */}
+                    <div style={{
+                      backgroundColor: 'rgba(200, 162, 97, 0.08)',
+                      border: '1px dashed var(--accent-color)',
+                      borderRadius: 'var(--radius-md)',
+                      padding: '20px',
+                      marginBottom: '24px',
+                      textAlign: 'center'
+                    }}>
+                      <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
+                        19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
+                      </p>
+                      <a 
+                        href={PRE_CONSULTATION_FORM_URL} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-accent"
+                        style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
+                      >
+                        사전 설문지 작성하기 (구글폼)
+                      </a>
+                    </div>
+
+                    <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
+                      확인
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+          </div>
         ) : isReviewPage ? (
           <div className="review-page-wrapper" style={{ paddingTop: "80px", minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
         {/* TREATMENT REVIEWS SECTION */}
@@ -788,158 +1045,6 @@ function App() {
         </section>
 
 
-        {/* BOOKING & MAP SECTION */}
-        <section id="booking" className="section">
-          <div className="container booking-grid">
-            <div className="booking-info">
-              <span className="booking-subtitle">{textContent.booking.badge}</span>
-              <h2 className="booking-title">{textContent.booking.title}</h2>
-              <p className="booking-desc">
-                {textContent.booking.desc}
-              </p>
-
-              <div className="booking-contact-list">
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">📍</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.addressTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.addressValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">📞</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.phoneTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.phoneValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">💬</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.kakaoTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.kakaoValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">💚</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.naverTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.naverValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">🕒</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.hoursTitle}</h4>
-                    <p className="booking-contact-value" style={{ whiteSpace: 'pre-wrap' }}>
-                      {textContent.booking.hoursValue}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Virtual Map & Quick Form */}
-            <div className="booking-card">
-              <h3 style={{ marginBottom: '8px', textAlign: 'center' }}>1:1 간편 상담 및 예약 신청</h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '24px' }}>
-                19년 해독 임상 노하우의 박제욱 원장님이 직접 확인 후 연락드립니다.
-              </p>
-              <form onSubmit={handleConsultationSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">이름</label>
-                    <input 
-                      type="text" 
-                      className="form-input" 
-                      placeholder="성함을 입력해주세요" 
-                      value={bookingForm.name}
-                      onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">연락처</label>
-                    <input 
-                      type="tel" 
-                      className="form-input" 
-                      placeholder="010-0000-0000" 
-                      value={bookingForm.tel}
-                      onChange={(e) => setBookingForm({ ...bookingForm, tel: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">문의 종류</label>
-                    <select 
-                      className="form-select"
-                      value={bookingForm.specialtyId}
-                      onChange={(e) => setBookingForm({ ...bookingForm, specialtyId: e.target.value })}
-                    >
-                      {specialties.map(spec => (
-                        <option key={spec.id} value={spec.id}>{spec.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">문의 사항 (선택)</label>
-                    <textarea 
-                      rows="3" 
-                      className="form-textarea" 
-                      placeholder="증상이나 궁금한 점을 간단히 남겨주세요."
-                      value={bookingForm.memo}
-                      onChange={(e) => setBookingForm({ ...bookingForm, memo: e.target.value })}
-                    ></textarea>
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px' }}>
-                    상담 신청 보내기
-                  </button>
-                </div>
-              </form>
-              
-              {bookingSuccess && (
-                <div className="modal-overlay" onClick={resetBookingForm}>
-                  <div className="modal-content text-center" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
-                    <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍃</div>
-                    <h2 className="modal-title" style={{ marginBottom: '16px', fontSize: '1.6rem' }}>상담 신청 접수 완료</h2>
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: '1.6' }}>
-                      <strong>{bookingForm.name}</strong> 환자님의 소중한 상담 신청이 전달되었습니다.<br />
-                      기재해 주신 연락처(<strong>{bookingForm.tel}</strong>)로 신속히 연락해 드리겠습니다.
-                    </p>
-
-                    {/* 사전 설문지 링크 유도 (노쇼 방지) */}
-                    <div style={{
-                      backgroundColor: 'rgba(200, 162, 97, 0.08)',
-                      border: '1px dashed var(--accent-color)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '20px',
-                      marginBottom: '24px',
-                      textAlign: 'center'
-                    }}>
-                      <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
-                        19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
-                      </p>
-                      <a 
-                        href={PRE_CONSULTATION_FORM_URL} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn btn-accent"
-                        style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
-                      >
-                        사전 설문지 작성하기 (구글폼)
-                      </a>
-                    </div>
-
-                    <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
-                      확인
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
           </>
         )}
       </main>
