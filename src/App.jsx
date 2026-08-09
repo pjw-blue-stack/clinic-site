@@ -195,6 +195,16 @@ function App() {
     setBookingSuccess(true);
   };
 
+  // Consultation Form Submit
+  const handleConsultationSubmit = (e) => {
+    e.preventDefault();
+    if (!bookingForm.name || !bookingForm.tel) {
+      alert('이름과 연락처를 입력해 주세요.');
+      return;
+    }
+    setBookingSuccess(true);
+  };
+
   const resetBookingForm = () => {
     setBookingForm({
       name: '',
@@ -816,7 +826,7 @@ function App() {
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '24px' }}>
                 19년 해독 임상 노하우의 박제욱 원장님이 직접 확인 후 연락드립니다.
               </p>
-              <form onSubmit={handleBookingSubmit}>
+              <form onSubmit={handleConsultationSubmit}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                   <div className="form-group" style={{ textAlign: 'left' }}>
                     <label className="form-label">이름</label>
