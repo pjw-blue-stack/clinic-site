@@ -67,6 +67,7 @@ function App() {
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [columns, setColumns] = useState(defaultColumns);
   const [isColumnPage, setIsColumnPage] = useState(false);
+  const [isReviewPage, setIsReviewPage] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -105,6 +106,7 @@ function App() {
     setSelectedSpecialty(null); // Reset sub-page to show home page first
     setIsColumnPage(false);
     setSelectedColumn(null);
+    setIsReviewPage(false);
     
     setTimeout(() => {
       setActiveSection(id);
@@ -291,8 +293,16 @@ function App() {
             </a>
             <a 
               href="#reviews" 
-              className={`nav-link ${activeSection === 'reviews' ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); scrollToSection('reviews'); }}
+              className={`nav-link ${isReviewPage ? 'active' : ''}`}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setIsMobileMenuOpen(false);
+                setSelectedSpecialty(null);
+                setIsColumnPage(false);
+                setSelectedColumn(null);
+                setIsReviewPage(true);
+                window.scrollTo(0, 0); 
+              }}
             >
               치료후기
             </a>
@@ -368,6 +378,141 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
+        ) : isReviewPage ? (
+          <div className="review-page-wrapper" style={{ paddingTop: "80px", minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
+        {/* TREATMENT REVIEWS SECTION */}
+        <section id="reviews" className="section section-alt">
+          <div className="container">
+            <div className="section-header">
+              <span className="section-badge">Community</span>
+              <h2 className="section-title">이웃들의 진짜 치료 후기</h2>
+              <p className="section-desc">
+                정원 한의원에서 회복과 활력을 찾으신 소중한 환자분들의 생생한 체험 이야기입니다.
+              </p>
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="reviews-filters">
+              <button 
+                className={`filter-btn ${filterSpecialty === 'all' ? 'active' : ''}`}
+                onClick={() => setFilterSpecialty('all')}
+              >
+                전체
+              </button>
+              {specialties.map(spec => (
+                <button
+                  key={spec.id}
+                  className={`filter-btn ${filterSpecialty === spec.id ? 'active' : ''}`}
+                  onClick={() => setFilterSpecialty(spec.id)}
+                >
+                  {spec.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Review Cards Grid */}
+            <div className="reviews-grid">
+              {reviews
+                .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
+                .map(review => (
+                  <div key={review.id} className="review-card">
+                    <div className="review-meta">
+                      <div className="review-rating">
+                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                      </div>
+                      <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
+                    </div>
+                    <h4 className="review-title">{review.title}</h4>
+                    <p className="review-content">{review.content}</p>
+                    <div className="review-footer">
+                      <span className="review-writer">{review.name} 환자님</span>
+                      <span>{review.date}</span>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {/* Review Write Form */}
+            <div className="review-form-container">
+              <h3 className="review-form-title">만족스러우셨나요? 치료 후기 작성하기</h3>
+              {reviewSuccess ? (
+                <div className="booking-success">
+                  <div className="booking-success-icon">🎉</div>
+                  <h4>후기가 정상적으로 등록되었습니다!</h4>
+                  <p style={{ marginTop: '10px' }}>귀중한 후기를 남겨주셔서 대단히 감사드립니다.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleReviewSubmit}>
+                  <div className="form-grid">
+                    <div className="form-group">
+                      <label className="form-label">성함</label>
+                      <input 
+                        type="text" 
+                        className="form-input" 
+                        placeholder="이름을 입력해 주세요" 
+                        value={newReview.name}
+                        onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">받으신 치료 과목</label>
+                      <select 
+                        className="form-select"
+                        value={newReview.specialtyId}
+                        onChange={(e) => setNewReview({ ...newReview, specialtyId: e.target.value })}
+                      >
+                        {specialties.map(spec => (
+                          <option key={spec.id} value={spec.id}>{spec.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">만족도 평점</label>
+                      <div className="rating-select">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <span 
+                            key={star} 
+                            className={`star-option ${star <= newReview.rating ? 'filled' : ''}`}
+                            onClick={() => setNewReview({ ...newReview, rating: star })}
+                          >
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">후기 제목</label>
+                      <input 
+                        type="text" 
+                        className="form-input" 
+                        placeholder="한 줄 요약을 작성해 주세요" 
+                        value={newReview.title}
+                        onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+                        required
+                      />
+                    </div>
+                    <div className="form-group full-width">
+                      <label className="form-label">치료 상세 후기 내용</label>
+                      <textarea 
+                        rows="4" 
+                        className="form-textarea" 
+                        placeholder="치료 과정 중 느낀 변화나 한의원의 친절함 등을 공유해 주세요."
+                        value={newReview.content}
+                        onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+                    후기 등록 완료
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
+          </div>
         ) : (
           <>
             {/* HERO SECTION */}
@@ -387,7 +532,13 @@ function App() {
                 <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
                   {textContent.hero.btnBooking}
                 </button>
-                <button className="btn btn-outline" onClick={() => scrollToSection('reviews')}>
+                <button className="btn btn-outline" onClick={() => {
+                  setSelectedSpecialty(null);
+                  setIsColumnPage(false);
+                  setSelectedColumn(null);
+                  setIsReviewPage(true);
+                  window.scrollTo(0, 0);
+                }}>
                   {textContent.hero.btnReviews}
                 </button>
               </div>
@@ -636,138 +787,6 @@ function App() {
           </div>
         </section>
 
-        {/* TREATMENT REVIEWS SECTION */}
-        <section id="reviews" className="section section-alt">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-badge">Community</span>
-              <h2 className="section-title">이웃들의 진짜 치료 후기</h2>
-              <p className="section-desc">
-                정원 한의원에서 회복과 활력을 찾으신 소중한 환자분들의 생생한 체험 이야기입니다.
-              </p>
-            </div>
-
-            {/* Filter Buttons */}
-            <div className="reviews-filters">
-              <button 
-                className={`filter-btn ${filterSpecialty === 'all' ? 'active' : ''}`}
-                onClick={() => setFilterSpecialty('all')}
-              >
-                전체
-              </button>
-              {specialties.map(spec => (
-                <button
-                  key={spec.id}
-                  className={`filter-btn ${filterSpecialty === spec.id ? 'active' : ''}`}
-                  onClick={() => setFilterSpecialty(spec.id)}
-                >
-                  {spec.title}
-                </button>
-              ))}
-            </div>
-
-            {/* Review Cards Grid */}
-            <div className="reviews-grid">
-              {reviews
-                .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
-                .map(review => (
-                  <div key={review.id} className="review-card">
-                    <div className="review-meta">
-                      <div className="review-rating">
-                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                      </div>
-                      <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
-                    </div>
-                    <h4 className="review-title">{review.title}</h4>
-                    <p className="review-content">{review.content}</p>
-                    <div className="review-footer">
-                      <span className="review-writer">{review.name} 환자님</span>
-                      <span>{review.date}</span>
-                    </div>
-                  </div>
-                ))}
-            </div>
-
-            {/* Review Write Form */}
-            <div className="review-form-container">
-              <h3 className="review-form-title">만족스러우셨나요? 치료 후기 작성하기</h3>
-              {reviewSuccess ? (
-                <div className="booking-success">
-                  <div className="booking-success-icon">🎉</div>
-                  <h4>후기가 정상적으로 등록되었습니다!</h4>
-                  <p style={{ marginTop: '10px' }}>귀중한 후기를 남겨주셔서 대단히 감사드립니다.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleReviewSubmit}>
-                  <div className="form-grid">
-                    <div className="form-group">
-                      <label className="form-label">성함</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder="이름을 입력해 주세요" 
-                        value={newReview.name}
-                        onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">받으신 치료 과목</label>
-                      <select 
-                        className="form-select"
-                        value={newReview.specialtyId}
-                        onChange={(e) => setNewReview({ ...newReview, specialtyId: e.target.value })}
-                      >
-                        {specialties.map(spec => (
-                          <option key={spec.id} value={spec.id}>{spec.title}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">만족도 평점</label>
-                      <div className="rating-select">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <span 
-                            key={star} 
-                            className={`star-option ${star <= newReview.rating ? 'filled' : ''}`}
-                            onClick={() => setNewReview({ ...newReview, rating: star })}
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">후기 제목</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder="한 줄 요약을 작성해 주세요" 
-                        value={newReview.title}
-                        onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="form-group full-width">
-                      <label className="form-label">치료 상세 후기 내용</label>
-                      <textarea 
-                        rows="4" 
-                        className="form-textarea" 
-                        placeholder="치료 과정 중 느낀 변화나 한의원의 친절함 등을 공유해 주세요."
-                        value={newReview.content}
-                        onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
-                        required
-                      ></textarea>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                    후기 등록 완료
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </section>
 
         {/* BOOKING & MAP SECTION */}
         <section id="booking" className="section">
@@ -1566,7 +1585,13 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
         <div className="container">
           <h2 className="section-title">{specialty.title} 치료 이웃들의 생생한 후기</h2>
           <p style={{ marginBottom: '20px', color: 'var(--gray-600)' }}>더 많은 완치 사례와 친필 후기는 메인 화면의 '치료후기' 메뉴에서 확인하실 수 있습니다.</p>
-          <button className="btn btn-primary" onClick={() => { onBack(); setTimeout(() => scrollToSection('reviews'), 100); }}>치료후기 게시판 바로가기</button>
+          <button className="btn btn-primary" onClick={() => { 
+            onBack(); 
+            setTimeout(() => {
+              setIsReviewPage(true);
+              window.scrollTo(0, 0);
+            }, 50); 
+          }}>치료후기 게시판 바로가기</button>
         </div>
       </section>
 
