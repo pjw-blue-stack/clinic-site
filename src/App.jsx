@@ -129,6 +129,7 @@ function App() {
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [isReviewPage, setIsReviewPage] = useState(false);
   const [isClinicPage, setIsClinicPage] = useState(false);
+  const [isDetoxPage, setIsDetoxPage] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -164,11 +165,12 @@ function App() {
   // Helper for scroll
   const scrollToSection = (id) => {
     setIsMobileMenuOpen(false);
-    setSelectedSpecialty(null); // Reset sub-page to show home page first
+    setSelectedSpecialty(null); 
     setIsColumnPage(false);
     setSelectedColumn(null);
     setIsReviewPage(false);
     setIsClinicPage(false);
+    setIsDetoxPage(false);
     
     setTimeout(() => {
       setActiveSection(id);
@@ -299,8 +301,18 @@ function App() {
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <a 
               href="#specialties" 
-              className={`nav-link ${activeSection === 'specialties' && !selectedSpecialty ? 'active' : ''}`}
-              onClick={(e) => { e.preventDefault(); scrollToSection('specialties'); }}
+              className={`nav-link ${isDetoxPage ? 'active' : ''}`}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setIsMobileMenuOpen(false);
+                setSelectedSpecialty(null);
+                setIsColumnPage(false);
+                setSelectedColumn(null);
+                setIsReviewPage(false);
+                setIsClinicPage(false);
+                setIsDetoxPage(true);
+                window.scrollTo(0, 0); 
+              }}
             >
               정원해독
             </a>
@@ -362,6 +374,8 @@ function App() {
                 setSelectedSpecialty(null);
                 setIsColumnPage(false);
                 setSelectedColumn(null);
+                setIsClinicPage(false);
+                setIsDetoxPage(false);
                 setIsReviewPage(true);
                 window.scrollTo(0, 0); 
               }}
@@ -378,6 +392,7 @@ function App() {
                 setIsColumnPage(false);
                 setSelectedColumn(null);
                 setIsReviewPage(false);
+                setIsDetoxPage(false);
                 setIsClinicPage(true);
                 window.scrollTo(0, 0); 
               }}
@@ -847,81 +862,24 @@ function App() {
           </div>
         </section>
           </div>
-        ) : (
-          <>
-            {/* HERO SECTION */}
-        <section id="home" className="hero">
-          <div className="container hero-grid">
-            <div className="hero-content">
-              <div className="hero-badge">
-                <span>✦</span> {textContent.hero.badge}
+        ) : isDetoxPage ? (
+          <div className="detox-page" style={{ paddingTop: '40px' }}>
+            {/* DETOX HERO SECTION */}
+            <section className="hero" style={{ paddingTop: '80px', paddingBottom: '60px', backgroundColor: 'var(--bg-color)' }}>
+              <div className="container hero-grid" style={{ minHeight: 'auto', alignItems: 'center' }}>
+                <div className="hero-content">
+                  <div className="hero-badge" style={{ backgroundColor: 'rgba(212, 175, 55, 0.15)', color: '#b58e2a' }}>
+                    <span>🌿</span> {textContent.detoxHero.badge}
+                  </div>
+                  <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap', color: 'var(--accent-color)' }}>
+                    {textContent.detoxHero.title}
+                  </h1>
+                  <p className="hero-desc" style={{ fontSize: '1.1rem' }}>
+                    {textContent.detoxHero.desc}
+                  </p>
+                </div>
               </div>
-              <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
-                {textContent.hero.title}
-              </h1>
-              <p className="hero-desc">
-                {textContent.hero.desc}
-              </p>
-              <div className="hero-btns">
-                <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
-                  {textContent.hero.btnBooking}
-                </button>
-                <button className="btn btn-outline" onClick={() => {
-                  setSelectedSpecialty(null);
-                  setIsColumnPage(false);
-                  setSelectedColumn(null);
-                  setIsReviewPage(true);
-                  window.scrollTo(0, 0);
-                }}>
-                  {textContent.hero.btnReviews}
-                </button>
-              </div>
-            </div>
-            
-            <div className="hero-visual">
-              <div className="hero-circle-bg"></div>
-              <div className="hero-card hero-card-1">
-                <div className="hero-card-icon">💧</div>
-                <h4 className="hero-card-title">{textContent.hero.card1Title}</h4>
-                <p className="hero-card-desc">{textContent.hero.card1Desc}</p>
-              </div>
-              <div className="hero-card hero-card-2">
-                <div className="hero-card-icon">🔥</div>
-                <h4 className="hero-card-title">{textContent.hero.card2Title}</h4>
-                <p className="hero-card-desc">{textContent.hero.card2Desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* VALUE PROOF SECTION */}
-        <section className="section-value-proof">
-          <div className="container">
-            <div className="value-proof-grid">
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item1Num}<span>{textContent.valueProof.item1Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item1Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item1Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item2Num}<span>{textContent.valueProof.item2Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item2Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item2Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item3Num}<span>{textContent.valueProof.item3Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item3Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item3Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item4Num}<span>{textContent.valueProof.item4Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item4Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item4Desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
+            </section>
         {/* INTERACTIVE COMPARISON SECTION */}
         <section id="interactive-compare" className="section-compare">
           <div className="compare-sticky-wrapper">
@@ -1033,6 +991,84 @@ function App() {
               </div>
             </div>
 
+          </div>
+        </section>
+
+          </div>
+        ) : (
+          <>
+            {/* HERO SECTION */}
+        <section id="home" className="hero">
+          <div className="container hero-grid">
+            <div className="hero-content">
+              <div className="hero-badge">
+                <span>✦</span> {textContent.mainHero.badge}
+              </div>
+              <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
+                {textContent.mainHero.title}
+              </h1>
+              <p className="hero-desc">
+                {textContent.mainHero.desc}
+              </p>
+              <div className="hero-btns">
+                <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
+                  {textContent.mainHero.btnBooking}
+                </button>
+                <button className="btn btn-outline" onClick={() => {
+                  setSelectedSpecialty(null);
+                  setIsColumnPage(false);
+                  setSelectedColumn(null);
+                  setIsClinicPage(false);
+                  setIsDetoxPage(false);
+                  setIsReviewPage(true);
+                  window.scrollTo(0, 0);
+                }}>
+                  {textContent.mainHero.btnReviews}
+                </button>
+              </div>
+            </div>
+            
+            <div className="hero-visual">
+              <div className="hero-circle-bg"></div>
+              <div className="hero-card hero-card-1">
+                <div className="hero-card-icon">💧</div>
+                <h4 className="hero-card-title">{textContent.mainHero.card1Title}</h4>
+                <p className="hero-card-desc">{textContent.mainHero.card1Desc}</p>
+              </div>
+              <div className="hero-card hero-card-2">
+                <div className="hero-card-icon">🧠</div>
+                <h4 className="hero-card-title">{textContent.mainHero.card2Title}</h4>
+                <p className="hero-card-desc">{textContent.mainHero.card2Desc}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* VALUE PROOF SECTION */}
+        <section className="section-value-proof">
+          <div className="container">
+            <div className="value-proof-grid">
+              <div className="value-proof-item">
+                <div className="value-proof-num">{textContent.valueProof.item1Num}<span>{textContent.valueProof.item1Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item1Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item1Desc}</p>
+              </div>
+              <div className="value-proof-item">
+                <div className="value-proof-num">{textContent.valueProof.item2Num}<span>{textContent.valueProof.item2Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item2Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item2Desc}</p>
+              </div>
+              <div className="value-proof-item">
+                <div className="value-proof-num">{textContent.valueProof.item3Num}<span>{textContent.valueProof.item3Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item3Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item3Desc}</p>
+              </div>
+              <div className="value-proof-item">
+                <div className="value-proof-num">{textContent.valueProof.item4Num}<span>{textContent.valueProof.item4Unit}</span></div>
+                <h4 className="value-proof-title">{textContent.valueProof.item4Title}</h4>
+                <p className="value-proof-desc">{textContent.valueProof.item4Desc}</p>
+              </div>
+            </div>
           </div>
         </section>
 
