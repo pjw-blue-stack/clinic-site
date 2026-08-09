@@ -104,10 +104,11 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // URL Parameter Detection for micro-landing page support (Naver Ads)
+  // URL Parameter Detection for micro-landing page support (Naver Ads) and refresh preservation
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     let specId = params.get('specialty');
+    let pageId = params.get('page');
     
     // Backward compatibility mapping for merged head/face/taste sweat categories
     if (specId === 'anmyeon' || specId === 'duhan' || specId === 'migak') {
@@ -120,6 +121,12 @@ function App() {
         setSelectedSpecialty(specialty);
         window.scrollTo(0, 0);
       }
+    } else if (pageId) {
+      if (pageId === 'column') setIsColumnPage(true);
+      else if (pageId === 'review') setIsReviewPage(true);
+      else if (pageId === 'clinic') setIsClinicPage(true);
+      else if (pageId === 'detox') setIsDetoxPage(true);
+      window.scrollTo(0, 0);
     }
   }, []);
 
@@ -135,6 +142,23 @@ function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+
+  // Sync state to URL for page refreshes
+  useEffect(() => {
+    if (selectedSpecialty) {
+      window.history.replaceState({}, '', `?specialty=${selectedSpecialty.id}`);
+    } else if (isColumnPage) {
+      window.history.replaceState({}, '', `?page=column`);
+    } else if (isReviewPage) {
+      window.history.replaceState({}, '', `?page=review`);
+    } else if (isClinicPage) {
+      window.history.replaceState({}, '', `?page=clinic`);
+    } else if (isDetoxPage) {
+      window.history.replaceState({}, '', `?page=detox`);
+    } else {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage]);
 
   // Reviews state
   const [reviews, setReviews] = useState(reviewsData);
