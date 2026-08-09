@@ -5,7 +5,7 @@ import { defaultColumns } from './columnData';
 import { textContent } from './textContent';
 
 // 구글폼 사전 설문지 URL (노쇼 방지용)
-const PRE_CONSULTATION_FORM_URL = "https://forms.gle/JeongwonClinicPreConsultation";
+const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
 
 function App() {
   // Navigation & Scroll
