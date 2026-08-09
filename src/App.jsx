@@ -4,6 +4,9 @@ import { specialties, reviewsData } from './specialtyData';
 import { defaultColumns } from './columnData';
 import { textContent } from './textContent';
 
+// 구글폼 사전 설문지 URL (노쇼 방지용)
+const PRE_CONSULTATION_FORM_URL = "https://forms.gle/JeongwonClinicPreConsultation";
+
 function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
@@ -867,14 +870,39 @@ function App() {
               
               {bookingSuccess && (
                 <div className="modal-overlay" onClick={resetBookingForm}>
-                  <div className="modal-content text-center" onClick={(e) => e.stopPropagation()}>
-                    <div className="booking-success-icon" style={{ fontSize: '4.5rem' }}>🍃</div>
-                    <h2 className="modal-title" style={{ marginBottom: '16px' }}>상담 신청 접수 완료</h2>
-                    <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', marginBottom: '32px', lineHeight: '1.6' }}>
+                  <div className="modal-content text-center" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+                    <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍃</div>
+                    <h2 className="modal-title" style={{ marginBottom: '16px', fontSize: '1.6rem' }}>상담 신청 접수 완료</h2>
+                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: '1.6' }}>
                       <strong>{bookingForm.name}</strong> 환자님의 소중한 상담 신청이 전달되었습니다.<br />
                       기재해 주신 연락처(<strong>{bookingForm.tel}</strong>)로 신속히 연락해 드리겠습니다.
                     </p>
-                    <button className="btn btn-primary" onClick={resetBookingForm}>
+
+                    {/* 사전 설문지 링크 유도 (노쇼 방지) */}
+                    <div style={{
+                      backgroundColor: 'rgba(200, 162, 97, 0.08)',
+                      border: '1px dashed var(--accent-color)',
+                      borderRadius: 'var(--radius-md)',
+                      padding: '20px',
+                      marginBottom: '24px',
+                      textAlign: 'center'
+                    }}>
+                      <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
+                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
+                        19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
+                      </p>
+                      <a 
+                        href={PRE_CONSULTATION_FORM_URL} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-accent"
+                        style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
+                      >
+                        사전 설문지 작성하기 (구글폼)
+                      </a>
+                    </div>
+
+                    <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
                       확인
                     </button>
                   </div>
@@ -949,8 +977,8 @@ function App() {
             </div>
             
             {bookingSuccess ? (
-              <div className="booking-success">
-                <div className="booking-success-icon">🍀</div>
+              <div className="booking-success text-center">
+                <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍀</div>
                 <h3 className="modal-title" style={{ fontSize: '1.5rem', marginBottom: '8px' }}>네이버 예약 신청 완료</h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '24px' }}>
                   <strong>{bookingForm.name}</strong> 환자님의 예약 신청서가 접수되었습니다.<br />
@@ -960,7 +988,32 @@ function App() {
                     * 네이버 알림/알림톡을 통해 확정 메시지가 5분 이내에 발송됩니다.
                   </span>
                 </p>
-                <button className="btn btn-primary" onClick={resetBookingForm}>
+
+                {/* 사전 설문지 링크 유도 (노쇼 방지) */}
+                <div style={{
+                  backgroundColor: 'rgba(200, 162, 97, 0.08)',
+                  border: '1px dashed var(--accent-color)',
+                  borderRadius: 'var(--radius-md)',
+                  padding: '20px',
+                  marginBottom: '24px',
+                  textAlign: 'center'
+                }}>
+                  <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
+                    19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
+                  </p>
+                  <a 
+                    href={PRE_CONSULTATION_FORM_URL} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-accent"
+                    style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
+                  >
+                    사전 설문지 작성하기 (구글폼)
+                  </a>
+                </div>
+
+                <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
                   확인
                 </button>
               </div>
