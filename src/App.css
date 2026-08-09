@@ -2408,7 +2408,7 @@
 .qa-question-text {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--accent-color);
   margin: 0;
   padding-top: 6px;
   line-height: 1.4;
@@ -2478,7 +2478,7 @@
   border-left: 4px solid var(--accent-color);
   padding: 12px 20px;
   font-size: 0.85rem;
-  color: #ffffff;
+  color: var(--text-color);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
