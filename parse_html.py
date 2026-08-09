@@ -1,40 +1,45 @@
-import re
 import os
+import re
 
 source_file = "/Users/parkjeuk/.gemini/antigravity/brain/4460cd08-9a71-4c3f-8603-1923f2d66b72/.system_generated/steps/505/content.md"
 with open(source_file, 'r', encoding='utf-8') as f:
     html = f.read()
 
-# Try to extract the main content container
-match = re.search(r'<div[^>]*class="se-main-container"[^>]*>(.*?)<!--', html, re.DOTALL)
-if not match:
-    match = re.search(r'<div[^>]*id="postViewArea"[^>]*>(.*?)</div>\s*<!--', html, re.DOTALL)
+# Find the start of se-main-container
+start_idx = html.find('class="se-main-container"')
+if start_idx != -1:
+    html = html[start_idx:]
+    
+    # Try to find common end markers in Naver Blog HTML
+    end_idx1 = html.find('<!-- _BLOG_CONTENTS_BODY_TAIL -->')
+    end_idx2 = html.find('class="post-btn"')
+    end_idx3 = html.find('id="printPost1"')
+    
+    end_indices = [idx for idx in [end_idx1, end_idx2, end_idx3] if idx != -1]
+    if end_indices:
+        end_idx = min(end_indices)
+        html = html[:end_idx]
 
-if match:
-    content = match.group(1)
-else:
-    content = html
+# Replace br tags with newlines before stripping HTML
+html = re.sub(r'<br\s*/?>', '\n', html)
+html = re.sub(r'</p>', '\n\n', html)
+html = re.sub(r'</div>', '\n', html)
 
-# Replace break tags and paragraphs with newlines
-content = re.sub(r'<br\s*/?>', '\n', content)
-content = re.sub(r'</p>', '\n\n', content)
-content = re.sub(r'</div>', '\n', content)
+# Strip all remaining HTML tags
+text = re.sub(r'<[^>]+>', ' ', html)
 
-# Remove all other tags
-content = re.sub(r'<[^>]+>', ' ', content)
+# Decode entities
+text = text.replace('&nbsp;', ' ').replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&').replace('&#x27;', "'").replace('&quot;', '"')
 
-# Decode simple entities
-content = content.replace('&nbsp;', ' ')
-content = content.replace('&lt;', '<')
-content = content.replace('&gt;', '>')
-content = content.replace('&amp;', '&')
-
-# Clean up whitespace
+# Clean up multiple whitespaces and newlines
 lines = []
-for line in content.split('\n'):
+for line in text.split('\n'):
     line = line.strip()
+    # collapse multiple spaces
+    line = re.sub(r'\s{2,}', ' ', line)
     if line:
         lines.append(line)
+        
 content = '\n\n'.join(lines)
 
 target_dir = "/Users/parkjeuk/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian Vault(pjw)/블로그/RAW"
@@ -44,6 +49,6 @@ target_file = os.path.join(target_dir, "다한증_클리닉_치료원리와_차�
 with open(target_file, 'w', encoding='utf-8') as f:
     f.write("# 다한증 클리닉 치료 원리와 차별점\n\n")
     f.write("Source: https://blog.naver.com/pjwblue8282/223424453400\n\n")
-    f.write(content.strip())
+    f.write(content)
 
-print(f"Saved to {target_file}")
+print(f"Saved {len(content)} characters to {target_file}")
