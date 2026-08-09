@@ -401,19 +401,12 @@ function App() {
               <div className="detail-letter-grid" style={{ marginBottom: "60px" }}>
                 <div className="letter-box">
                   <div className="letter-header">
-                    ✉️ 19년 다한증 해독 명의 박제욱 원장이 드리는 편지
+                    {textContent.detox.letterTitle}
                   </div>
                   <div className="letter-body">
-                    <p>
-                      안녕하십니까. 목동에서 14년째 한 자리를 지키며, 다한증 이웃들의 눅눅하고 시린 일상을 함께 고민해 온 <strong>경희정원한의원 대표원장 박제욱</strong>입니다.
-                    </p>
-                    <p>
-                      누군가와 손을 잡거나 악수하는 평범한 일상이 두려움으로 변하고, 계절에 맞지 않게 옷이 축축하게 젖어버리는 절망감... 
-                      그 고통이 매일의 삶을 얽매는 감옥과 같다는 사실을 19년 동안 마주하며 누구보다 잘 알고 있습니다.
-                    </p>
-                    <p>
-                      오늘 이 글을 통해, 겉의 땀구멍만 물리적으로 막아두는 방법이 아닌 <strong>몸속에 누적된 열독과 순환 장애의 근본 독소를 비워내어</strong> 자율신경계가 자연스러운 조절력을 되찾게 돕는 해독의 본질을 밝혀드리고자 합니다.
-                    </p>
+                    {textContent.detox.letterBody.map((paragraph, idx) => (
+                      <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                    ))}
                   </div>
                   <div className="letter-signature">
                     경희정원한의원 대표원장 <strong>박제욱 드림</strong>
@@ -1492,22 +1485,12 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
           <div className="detail-letter-grid">
             <div className="letter-box">
               <div className="letter-header">
-                ✉️ 19년 다한증 해독 명의 박제욱 원장이 드리는 편지
+                {textContent.detox.letterTitle}
               </div>
               <div className="letter-body">
-                <p>
-                  안녕하십니까. 목동에서 14년째 한 자리를 지키며, 다한증 이웃들의 눅눅하고 시린 일상을 함께 고민해 온 <strong>경희정원한의원 대표원장 박제욱</strong>입니다.
-                </p>
-                <p>
-                  누군가와 손을 잡거나 악수하는 평범한 일상이 두려움으로 변하고, 계절에 맞지 않게 옷이 축축하게 젖어버리는 절망감... 
-                  그 고통이 매일의 삶을 얽매는 감옥과 같다는 사실을 19년 동안 마주하며 누구보다 잘 알고 있습니다.
-                </p>
-                <p>
-                  땀을 강제로 차단하고 신경을 마비시키는 치료는 단기간의 임시방편일 뿐, 결국 내성이 생기거나 엉뚱한 부위로 땀이 터지는 보상성 부작용을 유발하기 쉽습니다. <strong>땀은 죄가 없습니다. 진짜 주범은 우리 몸 안에 축적된 노폐물 독소</strong>입니다.
-                </p>
-                <p>
-                  오늘 이 글을 통해, 겉의 땀구멍만 물리적으로 막아두는 방법이 아닌 <strong>몸속에 누적된 열독과 순환 장애의 근본 독소를 비워내어</strong> 자율신경계가 자연스러운 조절력을 되찾게 돕는 해독의 본질을 밝혀드리고자 합니다.
-                </p>
+                {textContent.detox.letterBody.map((paragraph, idx) => (
+                  <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
+                ))}
               </div>
               <div className="letter-signature">
                 경희정원한의원 대표원장 <strong>박제욱 드림</strong>
