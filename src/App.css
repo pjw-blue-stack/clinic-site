@@ -2724,7 +2724,7 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: none;
+    border: 2px solid #b3e5fc; /* 연한 하늘색 선 추가 */
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
     background-color: #ffffff;
