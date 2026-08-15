@@ -1216,18 +1216,163 @@ function App() {
 // SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
 // ==========================================================================
 function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, setShowBookingModal, setBookingForm, bookingForm }) {
+  // Tab State for Head/Face/Both sweat condition (du-myeon)
+  const [activeTab, setActiveTab] = React.useState('both');
+
+  // Multi-select State for Upper Body Sweat (sangche)
+  const [selectedParts, setSelectedParts] = React.useState(['head']);
+
+  // Toggle helper for multi-select parts
+  const togglePart = (partKey) => {
+    if (selectedParts.includes(partKey)) {
+      if (selectedParts.length > 1) {
+        setSelectedParts(selectedParts.filter(p => p !== partKey));
+      }
+    } else {
+      setSelectedParts([...selectedParts, partKey]);
+    }
+  };
+
+  // Multi-select State for Lower Body Sweat (hache)
+  const [selectedHacheParts, setSelectedHacheParts] = React.useState(['buttocks']);
+
+  // Toggle helper for lower body parts
+  const toggleHachePart = (partKey) => {
+    if (selectedHacheParts.includes(partKey)) {
+      if (selectedHacheParts.length > 1) {
+        setSelectedHacheParts(selectedHacheParts.filter(p => p !== partKey));
+      }
+    } else {
+      setSelectedHacheParts([...selectedHacheParts, partKey]);
+    }
+  };
+
   // FAQ toggle state
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = React.useState(null);
 
   if (!specialty || !specialty.sixSteps) return null;
+
+  // Determine current active content (tabs & multi-select parts support)
+  let currentSummary = specialty.summary;
+  let currentDetails = specialty.details;
+
+  if ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) {
+    currentSummary = specialty.tabs[activeTab].summary;
+    currentDetails = specialty.tabs[activeTab].details;
+  } else if (specialty.id === 'sangche' && specialty.parts) {
+    const partNames = selectedParts.map(p => specialty.parts[p]?.name).join(', ');
+    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedParts.map(p => specialty.parts[p]?.summary).join('\n\n');
+    currentDetails = selectedParts.map(p => specialty.parts[p]?.details);
+  } else if (specialty.id === 'hache' && specialty.parts) {
+    const partNames = selectedHacheParts.map(p => specialty.parts[p]?.name).join(', ');
+    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedHacheParts.map(p => specialty.parts[p]?.summary).join('\n\n');
+    currentDetails = selectedHacheParts.map(p => specialty.parts[p]?.details);
+  }
 
   const { problem, authority, shift, solution, objection, cta } = specialty.sixSteps;
 
   return (
     <div className="specialty-detail-page six-step-funnel">
-      <button className="btn-back sticky-back" onClick={onBack} style={{ margin: '20px', position: 'sticky', top: '20px', zIndex: 100 }}>
-        ← 전체 프로그램 목록
-      </button>
+      <section className="detail-hero">
+        <div className="container">
+          <button className="btn-back" onClick={onBack}>
+            ← 전체 프로그램 목록
+          </button>
+          
+          <div className="detail-hero-grid">
+            <div className="detail-hero-content">
+              <div className="detail-icon-badge">{specialty.icon}</div>
+              <span className="detail-subtitle">{specialty.subtitle}</span>
+              <h1 className="detail-title">{specialty.title}</h1>
+              
+              {/* Tab UI for Head/Face Sweat or Hand/Foot Sweat */}
+              {(specialty.id === 'du-myeon' || specialty.id === 'sujok') && (
+                <div className="detail-tabs">
+                  <button 
+                    className={`tab-btn ${activeTab === 'both' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('both')}
+                  >
+                    {specialty.id === 'du-myeon' ? '얼굴·머리 땀 둘 다' : '손·발 땀 둘 다'}
+                  </button>
+                  <button 
+                    className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('head')}
+                  >
+                    {specialty.id === 'du-myeon' ? '머리 땀만 (두한증)' : '손 땀만 (수한증)'}
+                  </button>
+                  <button 
+                    className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('face')}
+                  >
+                    {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
+                  </button>
+                </div>
+              )}
+
+              {/* Multi-select UI for Upper Body Sweat (sangche) */}
+              {specialty.id === 'sangche' && specialty.parts && (
+                <div className="detail-parts-selector">
+                  {['head', 'chest', 'back', 'armpit', 'belly', 'waist'].map((key) => {
+                    const part = specialty.parts[key];
+                    if (!part) return null;
+                    const isSelected = selectedParts.includes(key);
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => togglePart(key)}
+                        className={`part-btn ${isSelected ? 'active' : ''}`}
+                      >
+                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
+                        {part.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Multi-select UI for Lower Body Sweat (hache) */}
+              {specialty.id === 'hache' && specialty.parts && (
+                <div className="detail-parts-selector">
+                  {['buttocks', 'groin', 'thigh', 'calf'].map((key) => {
+                    const part = specialty.parts[key];
+                    if (!part) return null;
+                    const isSelected = selectedHacheParts.includes(key);
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => toggleHachePart(key)}
+                        className={`part-btn ${isSelected ? 'active' : ''}`}
+                      >
+                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
+                        {part.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              <p className="detail-desc">{currentSummary}</p>
+              <div className="detail-hero-btns">
+                <button 
+                  className="btn btn-accent" 
+                  onClick={() => {
+                    setBookingForm({ ...bookingForm, specialtyId: specialty.id });
+                    setShowBookingModal(true);
+                  }}
+                >
+                  네이버 실시간 예약
+                </button>
+              </div>
+            </div>
+            
+            <div className="detail-hero-visual">
+              <div className="detail-visual-circle">
+                <span className="detail-visual-icon">{specialty.icon}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* 1. Problem & Empathy */}
       <section className="funnel-section section-problem">
