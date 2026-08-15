@@ -1254,22 +1254,42 @@
 }
 
 .faq-answer {
-  max-height: 0;
+  max-height: 85px; /* 미리보기(1줄) 높이 제한 */
   overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s;
-  padding: 0 24px;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 20px 24px 26px 24px; /* 아래쪽 공간을 26px로 넉넉하게 확보 */
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px dashed var(--border-color);
+  background-color: rgba(255, 255, 255, 0.02);
+  margin-top: 10px;
 }
 
 .faq-item.active .faq-answer {
   max-height: 3000px;
-  padding: 0 24px 24px 24px;
-  border-top: 1px solid rgba(11, 43, 32, 0.05);
 }
 
 .faq-answer p {
+  flex: 1;
   font-size: 0.95rem;
   color: var(--text-main);
   line-height: 1.7;
+  margin: 0;
+}
+
+.faq-a-icon {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-right: 15px;
+}
+
+.faq-item:not(.active) .faq-answer p {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .faq-answer strong {
@@ -2609,32 +2629,6 @@
 .faq-item.open .faq-toggle-icon {
   color: var(--accent-color);
   transform: rotate(180deg);
-}
-
-.faq-answer {
-  padding: 0 24px 24px 24px;
-  display: flex;
-  align-items: flex-start;
-  border-top: 1px dashed var(--border-color);
-  background-color: rgba(255, 255, 255, 0.02);
-  margin-top: 10px;
-  padding-top: 20px;
-}
-
-.faq-a-icon {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--primary-color);
-  margin-right: 15px;
-}
-
-.faq-answer p {
-  flex: 1;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin: 0;
 }
 
 .cta-action-box {
