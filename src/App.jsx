@@ -3,7 +3,7 @@ import './App.css';
 import { specialties, reviewsData } from './specialtyData';
 import { defaultColumns } from './columnData';
 import { textContent } from './textContent';
-
+import SelfCheckPage from './SelfCheckPage';
 // 구글폼 사전 설문지 URL (노쇼 방지용)
 const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
 
@@ -126,6 +126,7 @@ function App() {
       else if (pageId === 'review') setIsReviewPage(true);
       else if (pageId === 'clinic') setIsClinicPage(true);
       else if (pageId === 'detox') setIsDetoxPage(true);
+      else if (pageId === 'selfcheck') setIsSelfCheckPage(true);
       window.scrollTo(0, 0);
     }
   }, []);
@@ -137,6 +138,7 @@ function App() {
   const [isReviewPage, setIsReviewPage] = useState(false);
   const [isClinicPage, setIsClinicPage] = useState(false);
   const [isDetoxPage, setIsDetoxPage] = useState(false);
+  const [isSelfCheckPage, setIsSelfCheckPage] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -155,10 +157,12 @@ function App() {
       window.history.replaceState({}, '', `?page=clinic`);
     } else if (isDetoxPage) {
       window.history.replaceState({}, '', `?page=detox`);
+    } else if (isSelfCheckPage) {
+      window.history.replaceState({}, '', `?page=selfcheck`);
     } else {
       window.history.replaceState({}, '', window.location.pathname);
     }
-  }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage]);
+  }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage, isSelfCheckPage]);
 
   // Reviews state
   const [reviews, setReviews] = useState(reviewsData);
@@ -195,6 +199,7 @@ function App() {
     setIsReviewPage(false);
     setIsClinicPage(false);
     setIsDetoxPage(false);
+    setIsSelfCheckPage(false);
     
     setTimeout(() => {
       setActiveSection(id);
@@ -217,6 +222,10 @@ function App() {
     setIsMobileMenuOpen(false);
     setIsColumnPage(false);
     setSelectedColumn(null);
+    setIsSelfCheckPage(false);
+    setIsReviewPage(false);
+    setIsClinicPage(false);
+    setIsDetoxPage(false);
     const specialty = specialties.find(s => s.id === id);
     if (specialty) {
       setSelectedSpecialty(specialty);
@@ -230,6 +239,7 @@ function App() {
     setSelectedSpecialty(null);
     setSelectedColumn(null);
     setIsColumnPage(true);
+    setIsSelfCheckPage(false);
     window.scrollTo(0, 0);
   };
 
@@ -334,6 +344,7 @@ function App() {
                 setSelectedColumn(null);
                 setIsReviewPage(false);
                 setIsClinicPage(false);
+                setIsSelfCheckPage(false);
                 setIsDetoxPage(true);
                 window.scrollTo(0, 0); 
               }}
@@ -390,6 +401,24 @@ function App() {
               도한증(밤)
             </a>
             <a 
+              href="#selfcheck" 
+              className={`nav-link ${isSelfCheckPage ? 'active' : ''}`}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setIsMobileMenuOpen(false);
+                setSelectedSpecialty(null);
+                setIsColumnPage(false);
+                setSelectedColumn(null);
+                setIsReviewPage(false);
+                setIsClinicPage(false);
+                setIsDetoxPage(false);
+                setIsSelfCheckPage(true);
+                window.scrollTo(0, 0); 
+              }}
+            >
+              AI 자가진단
+            </a>
+            <a 
               href="#reviews" 
               className={`nav-link ${isReviewPage ? 'active' : ''}`}
               onClick={(e) => { 
@@ -400,6 +429,7 @@ function App() {
                 setSelectedColumn(null);
                 setIsClinicPage(false);
                 setIsDetoxPage(false);
+                setIsSelfCheckPage(false);
                 setIsReviewPage(true);
                 window.scrollTo(0, 0); 
               }}
@@ -417,6 +447,7 @@ function App() {
                 setSelectedColumn(null);
                 setIsReviewPage(false);
                 setIsDetoxPage(false);
+                setIsSelfCheckPage(false);
                 setIsClinicPage(true);
                 window.scrollTo(0, 0); 
               }}
@@ -578,6 +609,10 @@ function App() {
                 </div>
               </div>
             </section>
+          </div>
+        ) : isSelfCheckPage ? (
+          <div className="self-check-page-wrapper" style={{ paddingTop: '100px', backgroundColor: '#f0f4f8' }}>
+            <SelfCheckPage onComplete={() => {}} />
           </div>
         ) : isReviewPage ? (
           <div className="review-page-wrapper six-step-funnel">
