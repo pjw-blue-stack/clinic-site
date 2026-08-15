@@ -1218,10 +1218,10 @@ function App() {
 // ==========================================================================
 function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, setShowBookingModal, setBookingForm, bookingForm }) {
   // Tab State for Head/Face/Both sweat condition (du-myeon)
-  const [activeTab, setActiveTab] = React.useState('both');
+  const [activeTab, setActiveTab] = useState('both');
 
   // Multi-select State for Upper Body Sweat (sangche)
-  const [selectedParts, setSelectedParts] = React.useState(['head']);
+  const [selectedParts, setSelectedParts] = useState(['head']);
 
   // Toggle helper for multi-select parts
   const togglePart = (partKey) => {
@@ -1235,7 +1235,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   };
 
   // Multi-select State for Lower Body Sweat (hache)
-  const [selectedHacheParts, setSelectedHacheParts] = React.useState(['buttocks']);
+  const [selectedHacheParts, setSelectedHacheParts] = useState(['buttocks']);
 
   // Toggle helper for lower body parts
   const toggleHachePart = (partKey) => {
@@ -1249,7 +1249,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   };
 
   // FAQ toggle state
-  const [openFaq, setOpenFaq] = React.useState(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
   if (!specialty || !specialty.sixSteps) return null;
 
