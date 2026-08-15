@@ -2706,26 +2706,42 @@
 @media (min-width: 769px) {
   /* PC 화면에서는 플로팅 메뉴를 화면 우측 하단 둥근 버튼 형태로 변경 */
   .floating-quick-menu {
-    top: 50%;
-    right: 20px;
-    bottom: auto;
+    top: auto;
+    bottom: 40px;
+    right: 40px;
     left: auto;
-    width: 80px;
+    width: auto;
     height: auto;
     flex-direction: column;
     background-color: transparent;
     box-shadow: none;
-    transform: translateY(-50%);
+    transform: none;
     gap: 15px;
   }
   
   .quick-menu-item {
+    flex: 0 0 auto;
     width: 70px;
     height: 70px;
     border-radius: 50%;
     border: none;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     transition: transform 0.3s ease;
+    background-color: #ffffff;
+  }
+
+  .quick-menu-call {
+    color: var(--primary-color);
+  }
+
+  .quick-menu-kakao {
+    background-color: #FEE500;
+    color: #3b1e1e;
+  }
+
+  .quick-menu-naver {
+    background-color: #03C75A;
+    color: #ffffff;
   }
 
   .quick-menu-item:hover {
