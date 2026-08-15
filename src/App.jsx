@@ -453,6 +453,7 @@ function App() {
       <main className="main-content">
         {selectedSpecialty ? (
           <SpecialtyDetailPage 
+            key={selectedSpecialty.id}
             specialty={selectedSpecialty} 
             onBack={() => {
               setSelectedSpecialty(null);
@@ -1257,8 +1258,11 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
   let currentDetails = specialty.details;
 
   if ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) {
-    currentSummary = specialty.tabs[activeTab].summary;
-    currentDetails = specialty.tabs[activeTab].details;
+    const tabData = specialty.tabs[activeTab] || specialty.tabs['both'];
+    if (tabData) {
+      currentSummary = tabData.summary;
+      currentDetails = tabData.details;
+    }
   } else if (specialty.id === 'sangche' && specialty.parts) {
     const partNames = selectedParts.map(p => specialty.parts[p]?.name).join(', ');
     currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedParts.map(p => specialty.parts[p]?.summary).join('\n\n');
@@ -1295,14 +1299,14 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                     {specialty.id === 'du-myeon' ? '얼굴·머리 땀 둘 다' : '손·발 땀 둘 다'}
                   </button>
                   <button 
-                    className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('head')}
+                    className={`tab-btn ${activeTab === (specialty.id === 'du-myeon' ? 'head' : 'hand') ? 'active' : ''}`}
+                    onClick={() => setActiveTab(specialty.id === 'du-myeon' ? 'head' : 'hand')}
                   >
                     {specialty.id === 'du-myeon' ? '머리 땀만 (두한증)' : '손 땀만 (수한증)'}
                   </button>
                   <button 
-                    className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('face')}
+                    className={`tab-btn ${activeTab === (specialty.id === 'du-myeon' ? 'face' : 'foot') ? 'active' : ''}`}
+                    onClick={() => setActiveTab(specialty.id === 'du-myeon' ? 'face' : 'foot')}
                   >
                     {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
                   </button>
