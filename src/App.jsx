@@ -488,403 +488,181 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
-        ) : isClinicPage ? (
-          <div className="clinic-page-wrapper" style={{ paddingTop: "80px", minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
-            <div className="container" style={{ paddingBottom: "40px" }}>
-              <div className="section-header" style={{ marginBottom: "40px" }}>
-                <span className="section-badge">Clinic Info</span>
-                <h2 className="section-title">경희정원한의원 소개</h2>
+                ) : isClinicPage ? (
+          <div className="clinic-page-wrapper six-step-funnel">
+            {/* 1. 원장 철학 (가치 입증 & 공감) */}
+            <section className="funnel-section section-problem">
+              <div className="container">
+                <span className="step-badge">STEP 1. 진정성</span>
+                <h2 className="funnel-title">땀구멍을 막는 의사가 아닌, 불을 끄는 의사 박제욱입니다.</h2>
+                <h3 className="funnel-copy">"19년 전, 다한증 환자의 눈물을 보고 해독 요법을 시작했습니다."</h3>
+                <p className="funnel-desc">단순히 증상만 덮어두고 평생 약을 달고 살게 하는 것은 진정한 의술이 아니라고 믿습니다.</p>
               </div>
-              
-              {/* 원장 인사말 */}
-              <div className="detail-letter-grid" style={{ marginBottom: "60px" }}>
-                <div className="letter-box">
-                  <div className="letter-header">
-                    {textContent.detox.letterTitle}
-                  </div>
-                  <div className="letter-body">
-                    {textContent.detox.letterBody.map((paragraph, idx) => (
-                      <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                    ))}
-                  </div>
-                  <div className="letter-signature">
-                    경희정원한의원 대표원장 <strong>박제욱 드림</strong>
-                  </div>
-                </div>
+            </section>
 
-                <DirectorProfile />
-              </div>
-
-              {/* GMP 한약재 및 원외탕전실 안내 */}
-              <div className="gmp-info-section" style={{ marginBottom: "60px", backgroundColor: "#fff", padding: "40px", borderRadius: "16px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)" }}>
-                <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                  <span className="section-badge" style={{ backgroundColor: "#e8f5e9", color: "#2e7d32", padding: "4px 12px", borderRadius: "20px", fontSize: "0.85rem", fontWeight: "bold", marginBottom: "12px", display: "inline-block" }}>식약처 hGMP 인증</span>
-                  <h3 style={{ fontSize: "1.8rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "16px" }}>안심하고 드실 수 있는 청정 한약</h3>
-                  <p style={{ color: "var(--text-light)", lineHeight: "1.6", maxWidth: "700px", margin: "0 auto", wordBreak: "keep-all" }}>
-                    경희정원한의원은 국가에서 엄격하게 관리하는 식약처 <strong>hGMP(우수한약재 제조 및 품질관리기준)</strong> 인증을 통과한 <strong>옥천당 원외탕전실</strong>에서 조제된 청정 한약만을 처방합니다.
-                  </p>
-                </div>
-
-                <div className="gmp-faq-grid" style={{ display: "grid", gap: "20px" }}>
-                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
-                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 한약재의 안전성, 믿을 수 있나요? (유해 물질)
-                    </h4>
-                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
-                      네, 안심하셔도 좋습니다. 식탁에 오르는 농산물보다 훨씬 엄격한 식약처의 의약품 기준을 통과한 규격품 한약재만을 사용합니다. <strong>중금속, 잔류농약, 이산화황 등 유해 물질 검사를 완벽하게 통과한 청정 약재</strong>만 조제에 사용됩니다.
-                    </p>
-                  </div>
-                  
-                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
-                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 다한증 해독 한약, 장복해도 간에 무리가 없나요?
-                    </h4>
-                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
-                      흔히 한약을 오래 먹으면 간이나 신장에 무리가 간다고 오해하시지만, 이는 검증되지 않은 민간요법이나 불법 약재로 인한 경우가 많습니다. <strong>오히려 해독 한약은 간의 피로를 풀어주고 체내 독소 배출을 돕는 청정 약재들로 처방</strong>됩니다. 한의사의 정확한 진단 하에 처방된 hGMP 한약은 장기간 복용하셔도 매우 안전하며 장기 기능과 면역력이 튼튼해집니다.
-                    </p>
-                  </div>
-
-                  <div className="gmp-faq-card" style={{ padding: "24px", backgroundColor: "#f9fafb", borderRadius: "12px", borderLeft: "4px solid var(--accent-color)" }}>
-                    <h4 style={{ fontSize: "1.1rem", fontWeight: "bold", color: "var(--text-main)", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span style={{ color: "var(--accent-color)" }}>Q.</span> 옥천당 원외탕전실은 어떤 곳인가요?
-                    </h4>
-                    <p style={{ color: "var(--text-light)", lineHeight: "1.6", fontSize: "0.95rem", wordBreak: "keep-all" }}>
-                      보건복지부 원외탕전실 평가인증을 받은 첨단 조제 시설입니다. 스마트 통합 조제 관리 시스템(SIP System)을 통해 약재의 입고부터 조제, 포장까지 <strong>전 과정의 품질 관리 이력이 투명하고 과학적으로 엄격하게 관리</strong>됩니다.
-                    </p>
-                  </div>
+            {/* 2. 핵심 차별성 (권위) */}
+            <section className="funnel-section section-authority">
+              <div className="container">
+                <span className="step-badge">STEP 2. 신뢰의 증명</span>
+                <h2 className="funnel-title">수많은 환자가 돌고 돌아 경희정원을 찾는 이유</h2>
+                <h3 className="funnel-copy">최후의 보루, 13,200제 이상의 맞춤 해독 처방</h3>
+                <p className="funnel-desc">수술 부작용, 보톡스 내성으로 고통받던 분들이 마침내 정착하는 곳입니다.</p>
+                <div style={{ marginTop: '40px' }}>
+                  <DirectorProfile />
                 </div>
               </div>
+            </section>
 
-              {/* 다한증 칼럼 미리보기 */}
-              <div className="clinic-columns-preview" style={{ marginBottom: "60px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "20px" }}>
-                  <h3 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>📚 최근 다한증 건강 칼럼</h3>
-                  <button className="btn btn-outline" style={{ padding: "8px 16px", fontSize: "0.9rem" }} onClick={() => { setIsClinicPage(false); setIsColumnPage(true); window.scrollTo(0,0); }}>전체 칼럼 보기 →</button>
-                </div>
-                <div className="columns-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-                  {columns.slice(0, 3).map(col => (
-                    <div key={col.id} className="column-card" onClick={() => { setIsClinicPage(false); setIsColumnPage(true); setSelectedColumn(col); window.scrollTo(0,0); }}>
-                      <div className="column-card-icon">{col.icon}</div>
-                      <div className="column-card-content">
-                        <span className="column-card-category">{col.category}</span>
-                        <h4 className="column-card-title">{col.title}</h4>
-                        <p className="column-card-summary">{col.summary}</p>
-                        <div className="column-card-footer">
-                          <span>{col.date}</span>
-                          <span style={{ color: "var(--accent-color)" }}>자세히 읽기 →</span>
-                        </div>
-                      </div>
+            {/* 3. 진료 환경 (공감 & 패러다임) */}
+            <section className="funnel-section section-shift">
+              <div className="container">
+                <span className="step-badge">STEP 3. 안심 진료</span>
+                <h2 className="funnel-title">대인기피증 환자도 안심하는 1:1 프라이빗 진료실</h2>
+                <h3 className="funnel-copy">"누구와도 마주치지 않게, 당신의 이야기를 깊이 듣습니다."</h3>
+                <p className="funnel-desc">공장형 진료가 아닙니다. 하루 제한된 인원만 예약받아 충분한 상담을 진행합니다.</p>
+              </div>
+            </section>
+
+            {/* 4. 투명성 (솔루션 신뢰) */}
+            <section className="funnel-section section-solution">
+              <div className="container">
+                <span className="step-badge">STEP 4. 투명한 약재</span>
+                <h2 className="funnel-title">"내 가족이 먹을 수 없다면 달이지 않습니다"</h2>
+                <h3 className="funnel-copy">오픈 조제실과 식약처 인증 청정 한약재</h3>
+                <p className="funnel-desc">환자분이 직접 볼 수 있는 원내 조제실에서 가장 깨끗한 약재만을 고집합니다.</p>
+              </div>
+            </section>
+
+            {/* 5. 반박 제거 (FAQ) */}
+            <section className="funnel-section section-objection">
+              <div className="container">
+                <span className="step-badge">STEP 5. 팩트 체크</span>
+                <h2 className="funnel-title">한약 먹으면 간 나빠진다?</h2>
+                <h3 className="funnel-copy">속을 씻어내는 독소 0% 정화 한약의 진실</h3>
+                <div className="faq-accordion" style={{ marginTop: '30px' }}>
+                  <div className="faq-item open">
+                    <div className="faq-question">
+                      <span className="faq-q-icon">Q.</span>
+                      <h4>한약을 장기 복용해도 간이나 신장에 무리가 없나요?</h4>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* SNS 링크 */}
-              <div className="clinic-sns-section" style={{ marginBottom: "60px", backgroundColor: "#fff", padding: "40px", borderRadius: "16px", boxShadow: "0 4px 12px rgba(0,0,0,0.05)", textAlign: "center" }}>
-                <h3 style={{ fontSize: "1.5rem", fontWeight: "bold", marginBottom: "30px" }}>정원한의원 소식 만나보기</h3>
-                <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
-                  <a href="https://blog.naver.com/pjwblue8282" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
-                    <div style={{ fontSize: "2.5rem", color: "#03C75A" }}>🟩</div>
-                    <span style={{ fontWeight: "600" }}>네이버 블로그</span>
-                  </a>
-                  <a href="https://cafe.naver.com/" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
-                    <div style={{ fontSize: "2.5rem", color: "#03C75A" }}>☕</div>
-                    <span style={{ fontWeight: "600" }}>네이버 카페</span>
-                  </a>
-                  <a href="https://instagram.com/" target="_blank" rel="noreferrer" className="sns-link-card" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textDecoration: "none", color: "var(--text-main)", padding: "20px", borderRadius: "12px", border: "1px solid #eee", width: "140px", transition: "all 0.3s ease" }}>
-                    <div style={{ fontSize: "2.5rem", color: "#E1306C" }}>📷</div>
-                    <span style={{ fontWeight: "600" }}>인스타그램</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-        {/* BOOKING & MAP SECTION */}
-        <section id="booking" className="section">
-          <div className="container booking-grid">
-            <div className="booking-info">
-              <span className="booking-subtitle">{textContent.booking.badge}</span>
-              <h2 className="booking-title">{textContent.booking.title}</h2>
-              <p className="booking-desc">
-                {textContent.booking.desc}
-              </p>
-
-              <div className="booking-contact-list">
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">📍</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.addressTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.addressValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">📞</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.phoneTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.phoneValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">💬</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.kakaoTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.kakaoValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">💚</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.naverTitle}</h4>
-                    <p className="booking-contact-value">{textContent.booking.naverValue}</p>
-                  </div>
-                </div>
-                <div className="booking-contact-item">
-                  <div className="booking-contact-icon">🕒</div>
-                  <div>
-                    <h4 className="booking-contact-title">{textContent.booking.hoursTitle}</h4>
-                    <p className="booking-contact-value" style={{ whiteSpace: 'pre-wrap' }}>
-                      {textContent.booking.hoursValue}
-                    </p>
+                    <div className="faq-answer">
+                      <span className="faq-a-icon">A.</span>
+                      <p>경희정원의 해독탕은 오히려 간과 신장의 독소를 빼내어 수치를 정상화시키는 '청열해독' 처방입니다. 정기적인 혈액 검사 데이터가 그 안전성을 증명합니다.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            {/* Virtual Map & Quick Form */}
-            <div className="booking-card">
-              <h3 style={{ marginBottom: '8px', textAlign: 'center' }}>1:1 간편 상담 및 예약 신청</h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'center', marginBottom: '24px' }}>
-                19년 해독 임상 노하우의 박제욱 원장님이 직접 확인 후 연락드립니다.
-              </p>
-              <form onSubmit={handleConsultationSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">이름</label>
-                    <input 
-                      type="text" 
-                      className="form-input" 
-                      placeholder="성함을 입력해주세요" 
-                      value={bookingForm.name}
-                      onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">연락처</label>
-                    <input 
-                      type="tel" 
-                      className="form-input" 
-                      placeholder="010-0000-0000" 
-                      value={bookingForm.tel}
-                      onChange={(e) => setBookingForm({ ...bookingForm, tel: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">문의 종류</label>
-                    <select 
-                      className="form-select"
-                      value={bookingForm.specialtyId}
-                      onChange={(e) => setBookingForm({ ...bookingForm, specialtyId: e.target.value })}
-                    >
-                      {specialties.map(spec => (
-                        <option key={spec.id} value={spec.id}>{spec.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">문의 사항 (선택)</label>
-                    <textarea 
-                      rows="3" 
-                      className="form-textarea" 
-                      placeholder="증상이나 궁금한 점을 간단히 남겨주세요."
-                      value={bookingForm.memo}
-                      onChange={(e) => setBookingForm({ ...bookingForm, memo: e.target.value })}
-                    ></textarea>
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px' }}>
-                    상담 신청 보내기
+            {/* 6. 정보 & 행동 유도 */}
+            <section className="funnel-section section-cta">
+              <div className="container">
+                <span className="step-badge">STEP 6. 오시는 길</span>
+                <h2 className="funnel-title">경희정원한의원 오시는 길</h2>
+                <h3 className="funnel-copy">서울특별시 양천구 오목로 344 (목동, 청학빌딩) 2층</h3>
+                
+                <div className="cta-action-box" style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginTop: '30px' }}>
+                  <button 
+                    className="btn btn-accent btn-large" 
+                    onClick={() => {
+                      setBookingForm({ ...bookingForm, specialtyId: 'detox' });
+                      setShowBookingModal(true);
+                    }}
+                  >
+                    네이버 실시간 예약
                   </button>
+                  <a href="tel:02-2649-7582" className="btn btn-outline" style={{ fontSize: '1.2rem', padding: '15px 40px' }}>
+                    📞 02-2649-7582
+                  </a>
                 </div>
-              </form>
-              
-              {bookingSuccess && (
-                <div className="modal-overlay" onClick={resetBookingForm}>
-                  <div className="modal-content text-center" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
-                    <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍃</div>
-                    <h2 className="modal-title" style={{ marginBottom: '16px', fontSize: '1.6rem' }}>상담 신청 접수 완료</h2>
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: '1.6' }}>
-                      <strong>{bookingForm.name}</strong> 환자님의 소중한 상담 신청이 전달되었습니다.<br />
-                      기재해 주신 연락처(<strong>{bookingForm.tel}</strong>)로 신속히 연락해 드리겠습니다.
-                    </p>
-
-                    {/* 사전 설문지 링크 유도 (노쇼 방지) */}
-                    <div style={{
-                      backgroundColor: 'rgba(200, 162, 97, 0.08)',
-                      border: '1px dashed var(--accent-color)',
-                      borderRadius: 'var(--radius-md)',
-                      padding: '20px',
-                      marginBottom: '24px',
-                      textAlign: 'center'
-                    }}>
-                      <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
-                      <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
-                        19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
-                      </p>
-                      <a 
-                        href={PRE_CONSULTATION_FORM_URL} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn btn-accent"
-                        style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
-                      >
-                        사전 설문지 작성하기 (구글폼)
-                      </a>
-                    </div>
-
-                    <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
-                      확인
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+              </div>
+            </section>
           </div>
         ) : isReviewPage ? (
-          <div className="review-page-wrapper" style={{ paddingTop: "80px", minHeight: "100vh", backgroundColor: "var(--bg-color)" }}>
-        {/* TREATMENT REVIEWS SECTION */}
-        <section id="reviews" className="section section-alt">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-badge">Community</span>
-              <h2 className="section-title">이웃들의 진짜 치료 후기</h2>
-              <p className="section-desc">
-                정원 한의원에서 회복과 활력을 찾으신 소중한 환자분들의 생생한 체험 이야기입니다.
-              </p>
-            </div>
+          <div className="review-page-wrapper six-step-funnel">
+            {/* 1. 가치 입증 */}
+            <section className="funnel-section section-authority">
+              <div className="container">
+                <span className="step-badge">STEP 1. 압도적 결과</span>
+                <h2 className="funnel-title">14년, 3,800개의 리얼 데이터가 증명합니다.</h2>
+                <h3 className="funnel-copy">더 이상 치료를 포기하지 마세요.</h3>
+                <p className="funnel-desc">수많은 환자분들이 이미 쾌적한 일상을 되찾았습니다.</p>
+              </div>
+            </section>
 
-            {/* Filter Buttons */}
-            <div className="reviews-filters">
-              <button 
-                className={`filter-btn ${filterSpecialty === 'all' ? 'active' : ''}`}
-                onClick={() => setFilterSpecialty('all')}
-              >
-                전체
-              </button>
-              {specialties.map(spec => (
-                <button
-                  key={spec.id}
-                  className={`filter-btn ${filterSpecialty === spec.id ? 'active' : ''}`}
-                  onClick={() => setFilterSpecialty(spec.id)}
-                >
-                  {spec.title}
-                </button>
-              ))}
-            </div>
-
-            {/* Review Cards Grid */}
-            <div className="reviews-grid">
-              {reviews
-                .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
-                .map(review => (
-                  <div key={review.id} className="review-card">
-                    <div className="review-meta">
-                      <div className="review-rating">
-                        {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                      </div>
-                      <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
-                    </div>
-                    <h4 className="review-title">{review.title}</h4>
-                    <p className="review-content">{review.content}</p>
-                    <div className="review-footer">
-                      <span className="review-writer">{review.name} 환자님</span>
-                      <span>{review.date}</span>
-                    </div>
-                  </div>
-                ))}
-            </div>
-
-            {/* Review Write Form */}
-            <div className="review-form-container">
-              <h3 className="review-form-title">만족스러우셨나요? 치료 후기 작성하기</h3>
-              {reviewSuccess ? (
-                <div className="booking-success">
-                  <div className="booking-success-icon">🎉</div>
-                  <h4>후기가 정상적으로 등록되었습니다!</h4>
-                  <p style={{ marginTop: '10px' }}>귀중한 후기를 남겨주셔서 대단히 감사드립니다.</p>
+            {/* 2 & 3. 리얼리티 증명 및 분류/검색 */}
+            <section className="funnel-section section-problem">
+              <div className="container">
+                <span className="step-badge">STEP 2. 100% 자필 후기</span>
+                <h2 className="funnel-title">나와 똑같은 부위의 후기를 확인하세요.</h2>
+                <div className="reviews-filters" style={{ marginTop: '30px', justifyContent: 'center' }}>
+                  <button 
+                    className={`filter-btn ${filterSpecialty === 'all' ? 'active' : ''}`}
+                    onClick={() => setFilterSpecialty('all')}
+                  >전체</button>
+                  {specialties.map(spec => (
+                    <button key={spec.id} className={`filter-btn ${filterSpecialty === spec.id ? 'active' : ''}`} onClick={() => setFilterSpecialty(spec.id)}>
+                      {spec.title}
+                    </button>
+                  ))}
                 </div>
-              ) : (
-                <form onSubmit={handleReviewSubmit}>
-                  <div className="form-grid">
-                    <div className="form-group">
-                      <label className="form-label">성함</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder="이름을 입력해 주세요" 
-                        value={newReview.name}
-                        onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                        required
-                      />
+                
+                {/* 5. 의료법 준수 로그인 게시판 (반박 제거) */}
+                <div className="reviews-grid" style={{ marginTop: '40px' }}>
+                  {!loggedInUser ? (
+                    <div className="no-reviews-card" style={{ margin: '0 auto' }}>
+                      <span style={{ fontSize: '3rem' }}>🔒</span>
+                      <h3>의료법 제56조에 의거, 치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
+                      <p>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                      <button className="btn btn-accent" onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
                     </div>
-                    <div className="form-group">
-                      <label className="form-label">받으신 치료 과목</label>
-                      <select 
-                        className="form-select"
-                        value={newReview.specialtyId}
-                        onChange={(e) => setNewReview({ ...newReview, specialtyId: e.target.value })}
-                      >
-                        {specialties.map(spec => (
-                          <option key={spec.id} value={spec.id}>{spec.title}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">만족도 평점</label>
-                      <div className="rating-select">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <span 
-                            key={star} 
-                            className={`star-option ${star <= newReview.rating ? 'filled' : ''}`}
-                            onClick={() => setNewReview({ ...newReview, rating: star })}
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">후기 제목</label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder="한 줄 요약을 작성해 주세요" 
-                        value={newReview.title}
-                        onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
-                        required
-                      />
-                    </div>
-                    <div className="form-group full-width">
-                      <label className="form-label">치료 상세 후기 내용</label>
-                      <textarea 
-                        rows="4" 
-                        className="form-textarea" 
-                        placeholder="치료 과정 중 느낀 변화나 한의원의 친절함 등을 공유해 주세요."
-                        value={newReview.content}
-                        onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
-                        required
-                      ></textarea>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                    후기 등록 완료
+                  ) : (
+                    reviews
+                      .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
+                      .map(review => (
+                        <div key={review.id} className="review-card" style={{ textAlign: 'left' }}>
+                          <div className="review-meta">
+                            <div className="review-rating">
+                              {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                            </div>
+                            <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
+                          </div>
+                          <h4 className="review-title">{review.title}</h4>
+                          <p className="review-content">{review.content}</p>
+                          <div className="review-footer">
+                            <span className="review-writer">{review.name} 환자님</span>
+                            <span>{review.date}</span>
+                          </div>
+                        </div>
+                      ))
+                  )}
+                </div>
+              </div>
+            </section>
+
+            {/* 4. 장기 유지 증명 */}
+            <section className="funnel-section section-shift">
+              <div className="container">
+                <span className="step-badge">STEP 3. 장기 추적 데이터</span>
+                <h2 className="funnel-title">1년이 아니라 '10년 후'에도 요요가 없어야 합니다.</h2>
+                <h3 className="funnel-copy">"치료 종결 5년 차 환자 인터뷰"</h3>
+                <p className="funnel-desc">일시적으로 땀구멍만 막는 치료는 반드시 재발합니다. 체질 자체가 변한 환자들의 장기 유지 데이터를 확인하세요.</p>
+              </div>
+            </section>
+
+            {/* 6. 행동 유도 */}
+            <section className="funnel-section section-cta">
+              <div className="container">
+                <span className="step-badge">STEP 4. 새로운 시작</span>
+                <h2 className="funnel-title">이제 당신이 주인공이 될 차례입니다.</h2>
+                <h3 className="funnel-copy">수백 개의 후기 다음 칸은, 바로 환자님의 자리입니다.</h3>
+                <div className="cta-action-box">
+                  <button className="btn btn-accent btn-large" onClick={() => setShowBookingModal(true)}>
+                    원장님 1:1 상담 예약
                   </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </section>
+                </div>
+              </div>
+            </section>
           </div>
         ) : isDetoxPage ? (
           <div className="detox-page" style={{ paddingTop: '40px' }}>
@@ -1438,405 +1216,118 @@ function App() {
 // SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
 // ==========================================================================
 function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, setShowBookingModal, setBookingForm, bookingForm }) {
-  // Filter reviews for this specialty
-  const conditionReviews = reviews.filter(r => r.specialtyId === specialty.id);
+  // FAQ toggle state
+  const [openFaq, setOpenFaq] = useState(null);
 
-  // Tab State for Head/Face/Both sweat condition (du-myeon)
-  const [activeTab, setActiveTab] = useState('both');
+  if (!specialty || !specialty.sixSteps) return null;
 
-  // Multi-select State for Upper Body Sweat (sangche)
-  const [selectedParts, setSelectedParts] = useState(['head']);
-
-  // Toggle helper for multi-select parts
-  const togglePart = (partKey) => {
-    if (selectedParts.includes(partKey)) {
-      if (selectedParts.length > 1) {
-        setSelectedParts(selectedParts.filter(p => p !== partKey));
-      }
-    } else {
-      setSelectedParts([...selectedParts, partKey]);
-    }
-  };
-
-  // Multi-select State for Lower Body Sweat (hache)
-  const [selectedHacheParts, setSelectedHacheParts] = useState(['buttocks']);
-
-  // Toggle helper for lower body parts
-  const toggleHachePart = (partKey) => {
-    if (selectedHacheParts.includes(partKey)) {
-      if (selectedHacheParts.length > 1) {
-        setSelectedHacheParts(selectedHacheParts.filter(p => p !== partKey));
-      }
-    } else {
-      setSelectedHacheParts([...selectedHacheParts, partKey]);
-    }
-  };
-
-  // Determine current active content (tabs & multi-select parts support)
-  let currentSummary = specialty.summary;
-  let currentDetails = specialty.details;
-
-  if ((specialty.id === 'du-myeon' || specialty.id === 'sujok') && specialty.tabs) {
-    currentSummary = specialty.tabs[activeTab].summary;
-    currentDetails = specialty.tabs[activeTab].details;
-  } else if (specialty.id === 'sangche' && specialty.parts) {
-    const partNames = selectedParts.map(p => specialty.parts[p]?.name).join(', ');
-    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedParts.map(p => specialty.parts[p]?.summary).join('\n\n');
-    currentDetails = selectedParts.map(p => specialty.parts[p]?.details);
-  } else if (specialty.id === 'hache' && specialty.parts) {
-    const partNames = selectedHacheParts.map(p => specialty.parts[p]?.name).join(', ');
-    currentSummary = `[선택하신 불편 부위: ${partNames}]\n\n` + selectedHacheParts.map(p => specialty.parts[p]?.summary).join('\n\n');
-    currentDetails = selectedHacheParts.map(p => specialty.parts[p]?.details);
-  }
+  const { problem, authority, shift, solution, objection, cta } = specialty.sixSteps;
 
   return (
-    <div className="specialty-detail-page">
-      {/* Detail Page Hero */}
-      <section className="detail-hero">
+    <div className="specialty-detail-page six-step-funnel">
+      <button className="btn-back sticky-back" onClick={onBack} style={{ margin: '20px', position: 'sticky', top: '20px', zIndex: 100 }}>
+        ← 전체 프로그램 목록
+      </button>
+
+      {/* 1. Problem & Empathy */}
+      <section className="funnel-section section-problem">
         <div className="container">
-          <button className="btn-back" onClick={onBack}>
-            ← 전체 프로그램 목록
-          </button>
-          
-          <div className="detail-hero-grid">
-            <div className="detail-hero-content">
-              <div className="detail-icon-badge">{specialty.icon}</div>
-              <span className="detail-subtitle">{specialty.subtitle}</span>
-              <h1 className="detail-title">{specialty.title}</h1>
-              
-              {/* Tab UI for Head/Face Sweat or Hand/Foot Sweat */}
-              {(specialty.id === 'du-myeon' || specialty.id === 'sujok') && (
-                <div className="detail-tabs">
-                  <button 
-                    className={`tab-btn ${activeTab === 'both' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('both')}
-                  >
-                    {specialty.id === 'du-myeon' ? '얼굴·머리 땀 둘 다' : '손·발 땀 둘 다'}
-                  </button>
-                  <button 
-                    className={`tab-btn ${activeTab === 'head' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('head')}
-                  >
-                    {specialty.id === 'du-myeon' ? '머리 땀만 (두한증)' : '손 땀만 (수한증)'}
-                  </button>
-                  <button 
-                    className={`tab-btn ${activeTab === 'face' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('face')}
-                  >
-                    {specialty.id === 'du-myeon' ? '얼굴 땀만 (안면다한증)' : '발 땀만 (족한증)'}
-                  </button>
-                </div>
-              )}
-
-              {/* Multi-select UI for Upper Body Sweat (sangche) */}
-              {specialty.id === 'sangche' && specialty.parts && (
-                <div className="detail-parts-selector">
-                  {['head', 'chest', 'back', 'armpit', 'belly', 'waist'].map((key) => {
-                    const part = specialty.parts[key];
-                    if (!part) return null;
-                    const isSelected = selectedParts.includes(key);
-                    return (
-                      <button
-                        key={key}
-                        onClick={() => togglePart(key)}
-                        className={`part-btn ${isSelected ? 'active' : ''}`}
-                      >
-                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
-                        {part.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              {/* Multi-select UI for Lower Body Sweat (hache) */}
-              {specialty.id === 'hache' && specialty.parts && (
-                <div className="detail-parts-selector">
-                  {['buttocks', 'groin', 'thigh', 'calf'].map((key) => {
-                    const part = specialty.parts[key];
-                    if (!part) return null;
-                    const isSelected = selectedHacheParts.includes(key);
-                    return (
-                      <button
-                        key={key}
-                        onClick={() => toggleHachePart(key)}
-                        className={`part-btn ${isSelected ? 'active' : ''}`}
-                      >
-                        <span className="btn-icon">{isSelected ? '✓' : '+'}</span>
-                        {part.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-
-              <p className="detail-desc">{currentSummary}</p>
-              <div className="detail-hero-btns">
-                <button 
-                  className="btn btn-accent" 
-                  onClick={() => {
-                    setBookingForm({ ...bookingForm, specialtyId: specialty.id });
-                    setShowBookingModal(true);
-                  }}
-                >
-                  네이버 실시간 예약
-                </button>
-                <button 
-                  className="btn btn-outline-white"
-                  onClick={() => {
-                    const element = document.getElementById('booking');
-                    if (element) {
-                      const headerOffset = 80;
-                      const elementPosition = element.getBoundingClientRect().top;
-                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  1:1 간편 상담 신청
-                </button>
-              </div>
-            </div>
-            
-            <div className="detail-hero-visual">
-              <div className="detail-visual-circle">
-                <span className="detail-visual-icon">{specialty.icon}</span>
-              </div>
-            </div>
-          </div>
+          <span className="step-badge">STEP 1. 공감</span>
+          <h2 className="funnel-title">{problem.title}</h2>
+          <h3 className="funnel-copy">"{problem.copy}"</h3>
+          <p className="funnel-desc">{problem.desc}</p>
         </div>
       </section>
 
-      {/* Jacheong's Strange Marketing Layout 도입부 (대표원장의 편지 & 고객의 소리) */}
-      <section className="detail-letter-section">
+      {/* 2. Authority & Value Proof */}
+      <section className="funnel-section section-authority">
         <div className="container">
-          
-          {/* 1단계: 고객의 목소리 (자가 질문 카드) */}
-          <div className="target-question-container">
-            <div className="section-header">
-              <span className="section-badge" style={{ color: 'var(--accent-color)', backgroundColor: 'var(--accent-light)' }}>Self Check</span>
-              <h2 className="section-title">혹시 지금 이런 아픔을 겪고 계신가요?</h2>
-              <p className="section-desc">
-                다한증 이웃들이 매일같이 내원하며 원장실 문을 두드리고 털어놓는 고민들입니다.
-              </p>
-            </div>
-            <div className="target-question-grid">
-              {specialty.target.map((t, idx) => (
-                <div key={idx} className="target-question-card">
-                  <span className="question-badge-q">Q</span>
-                  <p className="target-question-text">“{t}”</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* 2~5단계: 공감, 인사, 권위 제시, 해결책 예고 */}
-          <div className="detail-letter-grid">
-            <div className="letter-box">
-              <div className="letter-header">
-                {textContent.detox.letterTitle}
-              </div>
-              <div className="letter-body">
-                {textContent.detox.letterBody.map((paragraph, idx) => (
-                  <p key={idx} dangerouslySetInnerHTML={{ __html: paragraph }}></p>
-                ))}
-              </div>
-              <div className="letter-signature">
-                경희정원한의원 대표원장 <strong>박제욱 드림</strong>
-              </div>
-            </div>
-
-            {/* 권위 제시 카드 */}
+          <span className="step-badge">STEP 2. 가치 입증</span>
+          <h2 className="funnel-title">{authority.title}</h2>
+          <h3 className="funnel-copy">{authority.copy}</h3>
+          <p className="funnel-desc">{authority.desc}</p>
+          <div style={{ marginTop: '40px' }}>
             <DirectorProfile />
           </div>
-
         </div>
       </section>
 
-      {/* Blog Images Section */}
-      {specialty.images && specialty.images.length > 0 && (
-        <section className="section detail-images-section">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-badge">Gallery</span>
-              <h2 className="section-title">치료 과정 및 원리</h2>
-            </div>
-            <div className="images-grid" style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
-              {specialty.images.map((imgSrc, idx) => (
-                <img key={idx} src={imgSrc} alt={`${specialty.title} ${idx + 1}`} style={{ maxWidth: '100%', borderRadius: '10px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Cause & Treatment Process -> 본문 3대 소주제 Q&A 개편 */}
-      <section className="section detail-treatment-section">
+      {/* 3. Paradigm Shift */}
+      <section className="funnel-section section-shift">
         <div className="container">
-          <div className="section-header">
-            <span className="section-badge">Solution</span>
-            <h2 className="section-title">정원 {specialty.title} 3대 핵심 치료 Q&A</h2>
-            <p className="section-desc">
-              환자분들이 치료 전에 가장 많이 묻고 궁금해하시는 대표적인 의문점들을 명확하게 풀어드립니다.
-            </p>
+          <span className="step-badge">STEP 3. 원인 파악</span>
+          <h2 className="funnel-title">{shift.title}</h2>
+          <h3 className="funnel-copy">{shift.copy}</h3>
+          <p className="funnel-desc">{shift.desc}</p>
+          <div className="shift-visual">
+            <div className="pot-graphic">🔥 냄비 뚜껑(땀구멍)을 막지 말고, 가스 불(열독)을 끄세요 🔥</div>
           </div>
+        </div>
+      </section>
 
-          <div className="qa-treatment-list">
-            {currentDetails.map((detail, idx) => (
-              <div key={idx} className="qa-treatment-card">
-                <div className="qa-question-row">
-                  <span className="qa-badge-q">Q</span>
-                  <h3 className="qa-question-text">{detail.title}</h3>
+      {/* 4. Solution */}
+      <section className="funnel-section section-solution">
+        <div className="container">
+          <span className="step-badge">STEP 4. 해결책</span>
+          <h2 className="funnel-title">{solution.title}</h2>
+          <h3 className="funnel-copy">{solution.copy}</h3>
+          <div className="solution-steps">
+            <p className="funnel-desc" style={{whiteSpace: 'pre-line'}}>{solution.desc}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Objection Handling (FAQ) */}
+      <section className="funnel-section section-objection">
+        <div className="container">
+          <span className="step-badge">STEP 5. 반박 제거</span>
+          <h2 className="funnel-title">{objection.title}</h2>
+          <h3 className="funnel-copy">{objection.copy}</h3>
+          
+          <div className="faq-accordion">
+            {objection.faqs && objection.faqs.map((faq, idx) => (
+              <div key={idx} className={`faq-item ${openFaq === idx ? 'open' : ''}`}>
+                <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
+                  <span className="faq-q-icon">Q.</span>
+                  <h4>{faq.q}</h4>
+                  <span className="faq-toggle-icon">{openFaq === idx ? '−' : '+'}</span>
                 </div>
-                <div className="qa-answer-row">
-                  <span className="qa-badge-a">A</span>
-                  <p className="qa-answer-text">{detail.desc}</p>
-                </div>
+                {openFaq === idx && (
+                  <div className="faq-answer">
+                    <span className="faq-a-icon">A.</span>
+                    <p style={{whiteSpace: 'pre-wrap'}}>{faq.a}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 8 Core Principles of Detox Treatment */}
-      <section className="section section-alt detail-principles-section">
+      {/* 6. CTA (Call To Action) */}
+      <section className="funnel-section section-cta">
         <div className="container">
-          <div className="section-header">
-            <span className="section-badge">Principles</span>
-            <h2 className="section-title">정원 해독 다한증 치료의 8대 핵심 원리</h2>
-            <p className="section-desc">
-              무작정 땀구멍만 막아두는 대증요법과 달리, 몸속 독소를 해소하여 자율신경계 스스로 땀 조절력을 복구하도록 하는 8가지 대원칙입니다.
+          <span className="step-badge">STEP 6. 행동 유도</span>
+          <h2 className="funnel-title">{cta.title}</h2>
+          <h3 className="funnel-copy">{cta.copy}</h3>
+          
+          <div className="cta-cool-box" style={{ marginTop: '30px', marginBottom: '30px' }}>
+            <p className="cta-cool-attitude">
+              <strong>꼭 저희 경희정원한의원이 아니어도 좋습니다.</strong> 다만, 겉만 억지로 막아 다른 부위에 땀이 터지는 보상성 부작용이나 내성으로 평생 후회하지 마시고, 원인을 다스리는 치료를 제공하는 곳인지 꼼꼼히 비교해 보시길 진심으로 바랍니다.
             </p>
           </div>
 
-          <div className="principles-grid">
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">1</span>
-                <h4 className="principle-card-title">독소의 침투와 축적</h4>
-              </div>
-              <p className="principle-card-desc">
-                지속적인 스트레스와 피로, 그리고 잘못된 생활습관이 신체 순환 장애를 유발하고 <strong>체내 열독과 노폐물</strong> 등의 유해 물질을 누적시켜 자연 정화 기능을 상실하게 만듭니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">2</span>
-                <h4 className="principle-card-title">자율신경계 과흥분</h4>
-              </div>
-              <p className="principle-card-desc">
-                배출되지 못하고 고인 노폐물 독소들이 혈액을 타고 돌며 자율신경계 중 <strong>교감신경을 만성 과흥분 상태</strong>로 만들고, 땀샘에 과도한 발한 신호를 오작동으로 송신합니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">3</span>
-                <h4 className="principle-card-title">독소와 땀 분비의 비례</h4>
-              </div>
-              <p className="principle-card-desc">
-                체내에 쌓인 잔류 독소량이 증가할수록 땀이 분비되는 면적이 전신으로 확장되고, 땀이 마르지 않는 지속 시간 및 발한 강도가 정비례하여 악화됩니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">4</span>
-                <h4 className="principle-card-title">삼위일체 배독치료</h4>
-              </div>
-              <p className="principle-card-desc">
-                체질 맞춤 <strong>해독지한탕</strong>으로 속의 독소를 배출하고, 자율신경절 전도를 안정시키는 <strong>배독약침</strong>과 기혈 순환을 돕는 <strong>화주뜸</strong> 요법으로 독소를 청소합니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">5</span>
-                <h4 className="principle-card-title">치료와 예방의 역할 분담</h4>
-              </div>
-              <p className="principle-card-desc">
-                한약과 약침, 화주뜸으로 몸속 독소의 80~90%를 제거해 땀샘을 복구하는 것은 <strong>한의사의 역할</strong>이며, 치료 후 바른 생활습관을 유지하는 것은 <strong>환자의 노력</strong>입니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">6</span>
-                <h4 className="principle-card-title">80/90 법칙 (치료 목표)</h4>
-              </div>
-              <p className="principle-card-desc">
-                독소를 8~90% 정화해 내면 땀 분비 빈도가 60~90% 감소합니다. (예: 하루 10시간 흐르던 비정상적인 땀이 2시간 이내의 건강한 수준으로 축소됨을 직접 경험합니다).
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">7</span>
-                <h4 className="principle-card-title">장기 뽀송함의 유지</h4>
-              </div>
-              <p className="principle-card-desc">
-                체질 개선이 끝난 뒤에는 독소 자극 요인이 사라져 요요가 없습니다. 일상 중 <strong>연 5~8회 가벼운 배독 약침 관리</strong>를 병행하는 것으로 10년 이상 뽀송함 유지가 가능합니다.
-              </p>
-            </div>
-
-            <div className="principle-card">
-              <div className="principle-header">
-                <span className="principle-step-num">8</span>
-                <h4 className="principle-card-title">스트레스와 일시적 변동</h4>
-              </div>
-              <p className="principle-card-desc">
-                치료 중 큰 일시적 스트레스(독감, 투자 실패, 이별, 법적 송사 등)를 만나면 땀이 잠시 늘 수 있으나, 독소 기저치가 낮아져 있으므로 스트레스가 진정되면 원래의 보송함으로 빠르게 복원됩니다.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Specialty-Specific Reviews Redirect */}
-      <section className="section detail-reviews-section" style={{ textAlign: 'center', padding: '40px 0' }}>
-        <div className="container">
-          <h2 className="section-title">{specialty.title} 치료 이웃들의 생생한 후기</h2>
-          <p style={{ marginBottom: '20px', color: 'var(--gray-600)' }}>더 많은 완치 사례와 친필 후기는 메인 화면의 '치료후기' 메뉴에서 확인하실 수 있습니다.</p>
-          <button className="btn btn-primary" onClick={() => { 
-            onBack(); 
-            setTimeout(() => {
-              setIsReviewPage(true);
-              window.scrollTo(0, 0);
-            }, 50); 
-          }}>치료후기 게시판 바로가기</button>
-        </div>
-      </section>
-
-      {/* High-Converting CTA Banner (결론: 여유로운 태도, 희소성) */}
-      <section className="section-detail-cta">
-        <div className="container">
-          <div className="detail-cta-content">
-            <div className="cta-cool-box">
-              <p className="cta-cool-attitude">
-                <strong>꼭 저희 경희정원한의원이 아니어도 좋습니다.</strong> 다만, 겉만 억지로 막아 다른 부위에 땀이 터지는 보상성 부작용이나 내성으로 평생 후회하지 마시고, 원인을 다스리는 치료를 제공하는 곳인지 꼼꼼히 비교해 보시길 진심으로 바랍니다.
-              </p>
-              <div className="cta-scarcity-box">
-                📢 경희정원한의원은 의료진의 집중적인 치료와 깊이 있는 개별 심층 진료를 위해 <strong>하루 예약/상담 인원을 제한</strong>하고 있습니다. 예약이 조기 마감될 수 있는 점 양해 부탁드립니다.
-              </div>
-            </div>
-
-            <h2>평생 땀샘을 억제하며 불편하게 사시겠습니까?<br />경희정원의 비움 요법으로 근본 원인을 해소하세요.</h2>
-            <p>19년 임상 노하우와 900+ 다한증 치료 빅데이터로 증명된 비움과 채움의 자연 치유</p>
-            <div className="detail-cta-btns">
-              <button 
-                className="btn btn-accent" 
-                onClick={() => {
-                  setBookingForm({ ...bookingForm, specialtyId: specialty.id });
-                  setShowBookingModal(true);
-                }}
-              >
-                네이버 실시간 예약
-              </button>
-              <button className="btn btn-outline-white" onClick={onBack}>
-                전체 진료 목록 보기
-              </button>
-            </div>
+          <div className="cta-action-box">
+            <button 
+              className="btn btn-accent btn-large" 
+              onClick={() => {
+                setBookingForm({ ...bookingForm, specialtyId: specialty.id });
+                setShowBookingModal(true);
+              }}
+              style={{ fontSize: '1.2rem', padding: '15px 40px' }}
+            >
+              {cta.btnText}
+            </button>
           </div>
         </div>
       </section>

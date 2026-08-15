@@ -2482,5 +2482,161 @@
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
+/* ==========================================================================
+   6-Step Funnel Layout Styles (Specialty Detail Page)
+   ========================================================================== */
 
+.six-step-funnel {
+  background-color: var(--bg-alt);
+}
 
+.funnel-section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.funnel-section:nth-child(even) {
+  background-color: var(--card-bg);
+}
+
+.step-badge {
+  display: inline-block;
+  background-color: var(--accent-light);
+  color: var(--accent-color);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.funnel-title {
+  font-size: 2.2rem;
+  font-family: var(--font-serif);
+  color: var(--text-main);
+  margin-bottom: 15px;
+}
+
+.funnel-copy {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 25px;
+}
+
+.funnel-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.shift-visual {
+  margin-top: 40px;
+}
+
+.pot-graphic {
+  background: linear-gradient(135deg, rgba(200,162,97,0.1) 0%, rgba(200,162,97,0.02) 100%);
+  border: 1px dashed var(--accent-color);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.faq-accordion {
+  margin-top: 40px;
+  text-align: left;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-item {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item.open {
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 15px rgba(200, 162, 97, 0.1);
+}
+
+.faq-question {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--card-bg);
+}
+
+.faq-question:hover {
+  background-color: var(--bg-alt);
+}
+
+.faq-q-icon {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-right: 15px;
+}
+
+.faq-question h4 {
+  flex: 1;
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.faq-toggle-icon {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-toggle-icon {
+  color: var(--accent-color);
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 0 24px 24px 24px;
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px dashed var(--border-color);
+  background-color: rgba(255, 255, 255, 0.02);
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.faq-a-icon {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-right: 15px;
+}
+
+.faq-answer p {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.cta-action-box {
+  margin-top: 40px;
+}
