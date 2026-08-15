@@ -572,7 +572,7 @@ function App() {
                 <h2 className="funnel-title">한약 먹으면 간 나빠진다?</h2>
                 <h3 className="funnel-copy">속을 씻어내는 독소 0% 정화 한약의 진실</h3>
                 <div className="faq-accordion" style={{ marginTop: '30px' }}>
-                  <div className="faq-item open">
+                  <div className="faq-item active">
                     <div className="faq-question">
                       <span className="faq-q-icon">Q.</span>
                       <h4>한약을 장기 복용해도 간이나 신장에 무리가 없나요?</h4>
@@ -1486,18 +1486,16 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
           
           <div className="faq-accordion">
             {objection.faqs && objection.faqs.map((faq, idx) => (
-              <div key={idx} className={`faq-item ${openFaq === idx ? 'open' : ''}`}>
+              <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`}>
                 <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
                   <span className="faq-q-icon">Q.</span>
                   <h4>{faq.q}</h4>
                   <span className="faq-toggle-icon">{openFaq === idx ? '−' : '+'}</span>
                 </div>
-                {openFaq === idx && (
-                  <div className="faq-answer">
-                    <span className="faq-a-icon">A.</span>
-                    <p style={{whiteSpace: 'pre-wrap'}}>{faq.a}</p>
-                  </div>
-                )}
+                <div className="faq-answer">
+                  <span className="faq-a-icon">A.</span>
+                  <p style={{whiteSpace: 'pre-wrap'}}>{faq.a}</p>
+                </div>
               </div>
             ))}
           </div>
