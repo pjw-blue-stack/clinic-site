@@ -2640,3 +2640,105 @@
 .cta-action-box {
   margin-top: 40px;
 }
+
+/* =========================================
+   Floating Quick Menu
+   ========================================= */
+.floating-quick-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background-color: #ffffff;
+  box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+  z-index: 9999;
+  height: 70px;
+}
+
+.quick-menu-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-right: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.quick-menu-item:last-child {
+  border-right: none;
+}
+
+.quick-icon {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+/* 색상 테마별 구분 */
+.quick-menu-call {
+  color: var(--primary-color);
+}
+.quick-menu-call:hover {
+  background-color: var(--secondary-color);
+}
+
+.quick-menu-kakao {
+  background-color: #FEE500;
+  color: #3b1e1e;
+  border-right: none;
+}
+.quick-menu-kakao:hover {
+  background-color: #fddb00;
+}
+
+.quick-menu-naver {
+  background-color: #03C75A;
+  color: #ffffff;
+}
+.quick-menu-naver:hover {
+  background-color: #02b350;
+}
+
+@media (min-width: 769px) {
+  /* PC 화면에서는 플로팅 메뉴를 화면 우측 하단 둥근 버튼 형태로 변경 */
+  .floating-quick-menu {
+    top: 50%;
+    right: 20px;
+    bottom: auto;
+    left: auto;
+    width: 80px;
+    height: auto;
+    flex-direction: column;
+    background-color: transparent;
+    box-shadow: none;
+    transform: translateY(-50%);
+    gap: 15px;
+  }
+  
+  .quick-menu-item {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .quick-menu-item:hover {
+    transform: translateX(-5px) scale(1.05);
+  }
+
+  .quick-text {
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+  
+  .quick-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+  }
+}

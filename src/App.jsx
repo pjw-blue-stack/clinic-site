@@ -1827,6 +1827,22 @@ function ColumnPage({
           </div>
         </div>
       )}
+
+      {/* Floating Quick Menu (하단 고정 퀵메뉴) */}
+      <div className="floating-quick-menu">
+        <a href="tel:02-2649-7582" className="quick-menu-item quick-menu-call">
+          <span className="quick-icon">📞</span>
+          <span className="quick-text">전화상담</span>
+        </a>
+        <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="quick-menu-item quick-menu-kakao">
+          <span className="quick-icon">💬</span>
+          <span className="quick-text">카톡상담</span>
+        </a>
+        <button className="quick-menu-item quick-menu-naver" onClick={() => setShowBookingModal(true)}>
+          <span className="quick-icon">📅</span>
+          <span className="quick-text">네이버예약</span>
+        </button>
+      </div>
     </div>
   );
 }
