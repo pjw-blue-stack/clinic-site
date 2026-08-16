@@ -1421,9 +1421,23 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
             </div>
             
             <div className="detail-hero-visual">
-              <div className="detail-visual-circle">
-                <span className="detail-visual-icon">{specialty.icon}</span>
-              </div>
+              {specialty.id === 'sujok' ? (
+                <div className="hero-ghibli-image-container" style={{ width: '100%', height: 'auto', aspectRatio: '16/9', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc' }}>
+                  <img 
+                    src={
+                      activeTab === 'hand' ? '/images/ghibli_sweaty_hands_1786840280563.jpg' :
+                      activeTab === 'foot' ? '/images/ghibli_sweaty_feet_1786840228204.jpg' :
+                      '/images/ghibli_sweaty_both_1786840242168.jpg'
+                    } 
+                    alt="불편한 상황"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'opacity 0.3s ease' }}
+                  />
+                </div>
+              ) : (
+                <div className="detail-visual-circle">
+                  <span className="detail-visual-icon">{specialty.icon}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
