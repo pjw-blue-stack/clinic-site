@@ -1631,7 +1631,7 @@
 
 .detail-hero-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
   position: relative;
