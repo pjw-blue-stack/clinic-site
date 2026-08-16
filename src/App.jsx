@@ -1427,7 +1427,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       if (specialty.id === 'sujok') {
                         if (activeTab === 'hand') return '/images/ghibli_sweaty_hands_1786840280563.jpg';
                         if (activeTab === 'foot') return '/images/ghibli_sweaty_feet_1786840228204.jpg';
-                        return '/images/ghibli_sweaty_both_1786840242168.jpg';
+                        return '/images/ghibli_sweaty_both_fixed_1786859540856.jpg';
                       }
                       if (specialty.id === 'du-myeon') {
                         if (activeTab === 'head') return '/images/ghibli_sweaty_head_1786858414579.jpg';
