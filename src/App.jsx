@@ -1422,7 +1422,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
             
             <div className="detail-hero-visual">
               {specialty.id === 'sujok' ? (
-                <div className="hero-ghibli-image-container" style={{ width: '100%', height: 'auto', aspectRatio: '16/9', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc' }}>
+                <div className="hero-ghibli-image-container" style={{ width: '100%', height: '100%', minHeight: '400px', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 24px 48px rgba(0,0,0,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f8fafc' }}>
                   <img 
                     src={
                       activeTab === 'hand' ? '/images/ghibli_sweaty_hands_1786840280563.jpg' :
