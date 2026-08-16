@@ -1421,14 +1421,26 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
             </div>
             
             <div className="detail-hero-visual">
-              {specialty.id === 'sujok' ? (
                 <div className="hero-ghibli-image-container" style={{ position: 'absolute', top: '-50px', bottom: '-70px', left: 0, right: '-50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img 
-                    src={
-                      activeTab === 'hand' ? '/images/ghibli_sweaty_hands_1786840280563.jpg' :
-                      activeTab === 'foot' ? '/images/ghibli_sweaty_feet_1786840228204.jpg' :
-                      '/images/ghibli_sweaty_both_1786840242168.jpg'
-                    } 
+                    src={(() => {
+                      if (specialty.id === 'sujok') {
+                        if (activeTab === 'hand') return '/images/ghibli_sweaty_hands_1786840280563.jpg';
+                        if (activeTab === 'foot') return '/images/ghibli_sweaty_feet_1786840228204.jpg';
+                        return '/images/ghibli_sweaty_both_1786840242168.jpg';
+                      }
+                      if (specialty.id === 'du-myeon') {
+                        if (activeTab === 'head') return '/images/ghibli_sweaty_head_1786858414579.jpg';
+                        if (activeTab === 'face') return '/images/ghibli_sweaty_face_1786858424914.jpg';
+                        return '/images/ghibli_sweaty_head_face_1786858400182.jpg';
+                      }
+                      if (specialty.id === 'sangche') return '/images/ghibli_sweaty_upper_1786858446561.jpg';
+                      if (specialty.id === 'hache') return '/images/ghibli_sweaty_lower_1786858457417.jpg';
+                      if (specialty.id === 'jeonsin') return '/images/ghibli_sweaty_whole_1786858470503.jpg';
+                      if (specialty.id === 'bosangseong') return '/images/ghibli_sweaty_compensatory_1786858493740.jpg';
+                      if (specialty.id === 'dohan') return '/images/ghibli_sweaty_night_1786858513250.jpg';
+                      return '/images/ghibli_sweaty_general_1786858532513.jpg';
+                    })()}
                     alt="불편한 상황"
                     style={{ 
                       width: '100%', 
@@ -1440,11 +1452,6 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                     }}
                   />
                 </div>
-              ) : (
-                <div className="detail-visual-circle">
-                  <span className="detail-visual-icon">{specialty.icon}</span>
-                </div>
-              )}
             </div>
           </div>
         </div>
