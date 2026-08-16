@@ -1422,7 +1422,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
             
             <div className="detail-hero-visual">
               {specialty.id === 'sujok' ? (
-                <div className="hero-ghibli-image-container" style={{ position: 'absolute', top: '-50px', bottom: '-70px', left: 0, right: '-50px', borderRadius: '32px', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.3)' }}>
+                <div className="hero-ghibli-image-container" style={{ position: 'absolute', top: '-50px', bottom: '-70px', left: 0, right: '-50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img 
                     src={
                       activeTab === 'hand' ? '/images/ghibli_sweaty_hands_1786840280563.jpg' :
@@ -1430,18 +1430,15 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                       '/images/ghibli_sweaty_both_1786840242168.jpg'
                     } 
                     alt="불편한 상황"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'opacity 0.3s ease' }}
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover', 
+                      transition: 'opacity 0.3s ease',
+                      maskImage: 'radial-gradient(ellipse at center, black 50%, transparent 100%)',
+                      WebkitMaskImage: 'radial-gradient(ellipse at center, black 50%, transparent 100%)'
+                    }}
                   />
-                  <div style={{
-                    position: 'absolute',
-                    top: 0, left: 0, right: 0, bottom: 0,
-                    pointerEvents: 'none',
-                    boxShadow: 'inset 0 0 100px 40px rgba(0,0,0,0.6)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    maskImage: 'radial-gradient(ellipse at center, transparent 40%, black 95%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 40%, black 95%)'
-                  }} />
                 </div>
               ) : (
                 <div className="detail-visual-circle">
