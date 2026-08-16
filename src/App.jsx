@@ -1432,6 +1432,16 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                     alt="불편한 상황"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'opacity 0.3s ease' }}
                   />
+                  <div style={{
+                    position: 'absolute',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    pointerEvents: 'none',
+                    boxShadow: 'inset 0 0 100px 40px rgba(0,0,0,0.6)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    maskImage: 'radial-gradient(ellipse at center, transparent 40%, black 95%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 40%, black 95%)'
+                  }} />
                 </div>
               ) : (
                 <div className="detail-visual-circle">

@@ -2758,16 +2758,3 @@
     margin-bottom: 0;
   }
 }
-
-.hero-ghibli-image-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  box-shadow: inset 0 0 60px 20px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  mask-image: radial-gradient(ellipse at center, transparent 65%, black 100%);
-  -webkit-mask-image: radial-gradient(ellipse at center, transparent 65%, black 100%);
-}
