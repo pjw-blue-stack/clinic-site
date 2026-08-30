@@ -536,9 +536,6 @@ function App() {
 
       <main className="main-content">
         {selectedSpecialty ? (
-        selectedSpecialty.id === 'jahan' ? (
-          <JahanDetail specialty={selectedSpecialty} onBook={() => setShowBookingModal(true)} />
-        ) : (
           <SpecialtyDetailPage 
             key={selectedSpecialty.id}
             specialty={selectedSpecialty} 
@@ -560,7 +557,7 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
-        ) ) : isColumnPage ? (
+        ) : isColumnPage ? (
           <ColumnPage 
             columns={columns}
             setColumns={setColumns}

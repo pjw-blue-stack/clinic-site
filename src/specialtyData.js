@@ -737,14 +737,6 @@ export const specialties = [
       }
     }
   }
-];
-
-
-export const reviewsData = [
-  { id: 1, type: "video", title: "15년된 보상성 다한증, 드디어 일상을 되찾았습니다.", patient: "김지민(가명) / 30대 / 회사원", rating: 5, date: "2026.07.15", content: "수술 후 배와 등으로 땀이 폭발해서...", tags: ["#보상성다한증", "#수술부작용", "#15년고통"], img: "/blog-img2.png" },
-  { id: 2, type: "text", title: "수족다한증, 이온영동기 내성을 극복하다.", patient: "이정우(가명) / 20대 / 대학생", rating: 5, date: "2026.06.28", content: "악수하는게 세상에서 제일 두려웠습니다...", tags: ["#손발땀", "#이온영동기내성", "#면접자신감"], img: null },
-  { id: 3, type: "video", title: "매운 것만 먹어도 줄줄 흐르던 안면땀, 이젠 화장이 안 지워져요.", patient: "박수진(가명) / 40대 / 교사", rating: 5, date: "2026.06.10", content: "식사 시간이 공포였습니다...", tags: ["#안면다한증", "#미각다한증", "#상열하한"], img: "/blog-img1.png" },
-  { id: 4, type: "text", title: "갱년기 도한증, 수면제 없이 꿀잠 잡니다.", patient: "최은숙(가명) / 50대 / 주부", rating: 5, date: "2026.05.22", content: "밤마다 식은땀으로 베개가 다 젖어서...", tags: ["#도한증", "#식은땀", "#갱년기불면증"], img: null }
   ,{
     "id": "jahan",
     "title": "식은땀 (자한증)",
@@ -783,4 +775,14 @@ export const reviewsData = [
       }
     }
   }
+
+];
+
+
+export const reviewsData = [
+  { id: 1, type: "video", title: "15년된 보상성 다한증, 드디어 일상을 되찾았습니다.", patient: "김지민(가명) / 30대 / 회사원", rating: 5, date: "2026.07.15", content: "수술 후 배와 등으로 땀이 폭발해서...", tags: ["#보상성다한증", "#수술부작용", "#15년고통"], img: "/blog-img2.png" },
+  { id: 2, type: "text", title: "수족다한증, 이온영동기 내성을 극복하다.", patient: "이정우(가명) / 20대 / 대학생", rating: 5, date: "2026.06.28", content: "악수하는게 세상에서 제일 두려웠습니다...", tags: ["#손발땀", "#이온영동기내성", "#면접자신감"], img: null },
+  { id: 3, type: "video", title: "매운 것만 먹어도 줄줄 흐르던 안면땀, 이젠 화장이 안 지워져요.", patient: "박수진(가명) / 40대 / 교사", rating: 5, date: "2026.06.10", content: "식사 시간이 공포였습니다...", tags: ["#안면다한증", "#미각다한증", "#상열하한"], img: "/blog-img1.png" },
+  { id: 4, type: "text", title: "갱년기 도한증, 수면제 없이 꿀잠 잡니다.", patient: "최은숙(가명) / 50대 / 주부", rating: 5, date: "2026.05.22", content: "밤마다 식은땀으로 베개가 다 젖어서...", tags: ["#도한증", "#식은땀", "#갱년기불면증"], img: null }
+
 ];
