@@ -189,7 +189,7 @@ export const textContent = {
     item1Title: "해독 임상 노하우",
     item1Desc: "3,800명 이상의 만성 난치병 환자를 치료하며 축적된 고유한 해독 기술력",
 
-    item2Num: "900",
+    item2Num: "1000",
     item2Unit: "명+",
     item2Title: "다한증 직접 치료 데이터",
     item2Desc: "전국 각지와 미국, 일본, 홍콩 등 해외에서 내원한 풍부한 임상 치료 사례",
@@ -202,7 +202,17 @@ export const textContent = {
     item4Num: "10",
     item4Unit: "년 이상",
     item4Title: "장기 호전 유지 증명",
-    item4Desc: "원인 제거 후 가벼운 예방 관리(연 5~8회)로 평생 재발 없이 뽀송함 유지"
+    item4Desc: "원인 제거 후 가벼운 예방 관리(연 5~8회)로 평생 재발 없이 뽀송함 유지",
+
+    item5Num: "26",
+    item5Unit: "년",
+    item5Title: "한의학 연구",
+    item5Desc: "26년의 끊임없는 한의학 연구로 증명하는 독보적인 치료 노하우와 결과",
+
+    item6Num: "글로벌",
+    item6Unit: "내원",
+    item6Title: "신뢰할 수 있는 치료 능력",
+    item6Desc: "미국, 중국, 일본, 홍콩, 말레이시아, 인도네시아 등 해외에서 찾아주는 한의원"
   },
 
   // 3. 치료 전/후 비교 섹션

@@ -854,6 +854,16 @@ function App() {
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item4Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item4Desc}</p>
                   </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item5Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item5Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item5Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item5Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item6Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item6Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item6Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item6Desc}</p>
+                  </div>
                 </div>
               </div>
             </section>
