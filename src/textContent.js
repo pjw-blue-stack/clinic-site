@@ -16,7 +16,7 @@ export const textContent = {
   // 1-1. 정원해독 치료 원리 (Detox Principles)
   detoxPrinciples: {
     badge: "Jeongwon Detox",
-    title: "정원 해독 요법 3단계 원리",
+    title: "정원 해독 요법",
     desc: "겉으로 드러난 증상만 덮지 않습니다. 몸속 깊은 곳의 독소를 비워내고, 무너진 체질을 개선하여 스스로 회복할 수 있는 자생력을 되찾아 드립니다.",
     steps: [
       {
