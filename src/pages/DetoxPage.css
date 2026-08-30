@@ -1,0 +1,277 @@
+/* DetoxPage.css */
+.detox-hero-section {
+  padding-top: 100px;
+  padding-bottom: 80px;
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+}
+
+.detox-badge {
+  background-color: rgba(212, 175, 55, 0.15);
+  color: #b58e2a;
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.detox-title {
+  white-space: pre-wrap;
+  color: var(--accent-color);
+  font-size: 3rem;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+
+.detox-desc {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* DOCTOR SECTION */
+.section-doctor {
+  padding: 80px 0;
+}
+
+.doctor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.doctor-placeholder {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.02));
+  border-radius: 24px;
+  padding: 60px 40px;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.doctor-placeholder h2 {
+  white-space: pre-wrap;
+  font-size: 2rem;
+  line-height: 1.4;
+  margin-top: 20px;
+}
+
+.doctor-intro-desc {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.doctor-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-item {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.stat-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.stat-num span {
+  font-size: 1rem;
+  margin-left: 5px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 5px;
+}
+
+.doctor-story p {
+  margin-bottom: 15px;
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+/* METHODS SECTION */
+.section-methods {
+  padding: 80px 0;
+}
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.method-card {
+  background: var(--bg-color);
+  border: 1px solid var(--glass-border);
+  padding: 40px 30px;
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.method-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
+
+.method-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.method-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+.method-card p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* DURATION SECTION */
+.section-duration {
+  padding: 80px 0;
+}
+
+.duration-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 40px auto 0;
+}
+
+.duration-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  gap: 20px;
+}
+
+.duration-icon {
+  font-size: 2.5rem;
+  background: rgba(212, 175, 55, 0.1);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.duration-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.duration-content h4 {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.duration-time {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: rgba(43, 61, 79, 0.05);
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+/* MAINTENANCE SECTION */
+.section-maintenance {
+  padding: 80px 0;
+}
+
+.maintenance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.maintenance-card {
+  text-align: center;
+  padding: 40px 30px;
+  background: var(--bg-color);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+}
+
+.maintenance-icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+}
+
+.maintenance-card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--accent-color);
+}
+
+.maintenance-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+  .doctor-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .methods-grid, .maintenance-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .detox-title {
+    font-size: 2.2rem;
+  }
+  
+  .methods-grid, .maintenance-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .duration-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .duration-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
