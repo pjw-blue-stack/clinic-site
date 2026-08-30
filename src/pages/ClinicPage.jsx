@@ -15,10 +15,31 @@ function ClinicPage({
   setBookingForm, 
   bookingForm 
 }) {
-  const { clinicGreeting, clinicHerb, clinicLocation } = textContent;
+  const { clinicNotice, clinicGreeting, clinicHerb, clinicLocation } = textContent;
 
   return (
     <div className="clinic-page-wrapper">
+      
+      {/* 0. 공지사항 */}
+      <section className="clinic-section clinic-notice-section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+        <div className="container">
+          <div className="notice-box glass-card">
+            <div className="notice-header">
+              <span className="notice-icon">📢</span>
+              <h2>{clinicNotice.title}</h2>
+            </div>
+            <ul className="notice-list">
+              {clinicNotice.list.map((notice, idx) => (
+                <li key={idx} className="notice-item">
+                  <span className="notice-title">{notice.title}</span>
+                  <span className="notice-date">{notice.date}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* 1. 원장 인사말 */}
       <section className="clinic-section clinic-greeting-section">
         <div className="container">
