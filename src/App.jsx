@@ -1011,36 +1011,142 @@ function App() {
               </div>
             </section>
 
-            {/* 4. CLINIC SPECIALTIES SECTION (홈페이지 해당 메뉴) */}
-            <section id="specialties" className="section" style={{ backgroundColor: '#f0f4f8' }}>
-              <div className="container">
-                <div className="section-header">
+            {/* 4. CLINIC SPECIALTIES SECTION (애플 스타일) */}
+            <section id="specialties" className="apple-specialties-container">
+              {/* Header */}
+              <div className="container" style={{ paddingBottom: '20px' }}>
+                <div className="section-header" style={{ marginBottom: 0 }}>
                   <span className="section-badge">{textContent.specialtiesHeader.badge}</span>
                   <h2>{textContent.specialtiesHeader.title}</h2>
                   <p className="section-desc">
                     {textContent.specialtiesHeader.desc}
                   </p>
                 </div>
+              </div>
 
-                <div className="specialties-grid">
-                  {specialties.map((specialty) => (
-                    <div 
-                      key={specialty.id} 
-                      className="specialty-card glass-card"
-                      style={{ padding: '30px', borderTop: '4px solid var(--accent-color)', cursor: 'pointer', transition: 'all 0.3s ease' }}
-                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.1)'; }} 
-                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.05)'; }}
-                      onClick={() => {
-                        setSelectedSpecialty(specialty);
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      <div className="specialty-icon" style={{ fontSize: '2.5rem', marginBottom: '15px' }}>{specialty.icon}</div>
-                      <h3 className="specialty-title" style={{ fontSize: '1.3rem', marginBottom: '10px' }}>{specialty.title}</h3>
-                      <p className="specialty-desc" style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{specialty.summary}</p>
-                      <span className="specialty-more" style={{ display: 'inline-block', marginTop: '20px', color: 'var(--primary-color)', fontWeight: 'bold' }}>자세히 보기 →</span>
+              {/* Hero 1: 수족다한증 (iPhone Style) */}
+              {(() => {
+                const spec = specialties.find(s => s.id === 'sujok');
+                return spec ? (
+                  <div className="apple-full-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
+                    <h3 className="apple-title">{spec.title.split(' ')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.split(' ')[1] || spec.subtitle}</p>
+                    <div className="apple-btns">
+                      <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
+                      <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                     </div>
-                  ))}
+                    <div className="apple-product-img">{spec.icon}</div>
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Hero 2: 안면다한증 (MacBook Air Style) */}
+              {(() => {
+                const spec = specialties.find(s => s.id === 'du-myeon');
+                return spec ? (
+                  <div className="apple-full-section apple-theme-light-blue" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
+                    <h3 className="apple-title">{spec.title.split(' ')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.split(' ')[1] || spec.subtitle}</p>
+                    <div className="apple-btns">
+                      <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
+                      <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                    </div>
+                    <div className="apple-product-img" style={{ fontSize: '15rem', bottom: '-40px' }}>{spec.icon}</div>
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Grid 1: 상체땀 / 하체땀 (iPad Air / MacBook Pro Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'sangche');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'hache');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+
+              {/* Grid 2: 전신다한증 / 보상성다한증 (iPad Pro / AirPods Pro Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'jeonsin');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'bosangseong');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+
+              {/* Grid 3: 도한증 / 카카오톡 실시간 상담 (Apple Watch / Trade In Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'dohan');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
+                
+                {/* 카카오톡 실시간 상담 배너 */}
+                <div className="apple-half-section apple-theme-light" onClick={() => window.open('https://pf.kakao.com/_xgzxjxexj', '_blank')}>
+                  <h3 className="apple-title" style={{ fontSize: '2.5rem' }}><span style={{ color: '#FEE500' }}>💬</span> KakaoTalk</h3>
+                  <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>
+                    10년 이상의 노하우를 가진<br/>박제욱 원장님과 직접 상담해보세요.
+                  </p>
+                  <div className="apple-btns">
+                    <button className="apple-btn-primary" style={{ backgroundColor: '#FEE500', color: '#000' }} onClick={(e) => { e.stopPropagation(); window.open('https://pf.kakao.com/_xgzxjxexj', '_blank'); }}>카톡 상담하기</button>
+                  </div>
+                  <div className="apple-product-img" style={{ fontSize: '9rem' }}>📱</div>
                 </div>
               </div>
             </section>
