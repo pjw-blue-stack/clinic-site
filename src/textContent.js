@@ -360,7 +360,7 @@ export const textContent = {
   clinicLocation: {
     badge: "Location",
     title: "경희정원한의원 오시는 길",
-    address: "서울특별시 양천구 오목로 344 (목동, 청학빌딩) 2층",
+    address: "서울 양천구 목동로 218 화창빌딩 2층",
     transport: [
       { 
         mode: "[지하철]", 
