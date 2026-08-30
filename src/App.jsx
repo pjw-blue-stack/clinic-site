@@ -447,6 +447,13 @@ function App() {
               도한증(밤)
             </a>
             <a 
+              href="#jahan" 
+              className="nav-link"
+              onClick={(e) => { e.preventDefault(); handleNavClick('jahan'); }}
+            >
+              식은땀(낮)
+            </a>
+            <a 
               href="#selfcheck" 
               className={`nav-link ${isSelfCheckPage ? 'active' : ''}`}
               onClick={(e) => { 
@@ -529,6 +536,9 @@ function App() {
 
       <main className="main-content">
         {selectedSpecialty ? (
+        selectedSpecialty.id === 'jahan' ? (
+          <JahanDetail specialty={selectedSpecialty} onBook={() => setShowBookingModal(true)} />
+        ) : (
           <SpecialtyDetailPage 
             key={selectedSpecialty.id}
             specialty={selectedSpecialty} 
@@ -550,7 +560,7 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
-        ) : isColumnPage ? (
+        ) ) : isColumnPage ? (
           <ColumnPage 
             columns={columns}
             setColumns={setColumns}
@@ -1013,16 +1023,6 @@ function App() {
 
             {/* 4. CLINIC SPECIALTIES SECTION (애플 스타일) */}
             <section id="specialties" className="apple-specialties-container">
-              {/* Header */}
-              <div className="container" style={{ paddingBottom: '20px' }}>
-                <div className="section-header" style={{ marginBottom: 0 }}>
-                  <span className="section-badge">{textContent.specialtiesHeader.badge}</span>
-                  <h2>{textContent.specialtiesHeader.title}</h2>
-                  <p className="section-desc">
-                    {textContent.specialtiesHeader.desc}
-                  </p>
-                </div>
-              </div>
 
               {/* Hero 1: 수족다한증 (iPhone Style) */}
               {(() => {
@@ -1137,17 +1137,20 @@ function App() {
                   ) : null;
                 })()}
                 
-                {/* 카카오톡 실시간 상담 배너 */}
-                <div className="apple-half-section apple-theme-light" onClick={() => window.open('https://pf.kakao.com/_xgzxjxexj', '_blank')}>
-                  <h3 className="apple-title" style={{ fontSize: '2.5rem' }}><span style={{ color: '#FEE500' }}>💬</span> KakaoTalk</h3>
-                  <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>
-                    10년 이상의 노하우를 가진<br/>박제욱 원장님과 직접 상담해보세요.
-                  </p>
-                  <div className="apple-btns">
-                    <button className="apple-btn-primary" style={{ backgroundColor: '#FEE500', color: '#000' }} onClick={(e) => { e.stopPropagation(); window.open('https://pf.kakao.com/_xgzxjxexj', '_blank'); }}>카톡 상담하기</button>
-                  </div>
-                  <div className="apple-product-img" style={{ fontSize: '9rem' }}>📱</div>
-                </div>
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'jahan');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                    </div>
+                  ) : null;
+                })()}
               </div>
             </section>
 
