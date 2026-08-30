@@ -892,33 +892,37 @@ function App() {
             </section>
 
             {/* 3. DETOX PRINCIPLES SECTION (정원해독 치료 원리) */}
-            <section className="section section-principles" style={{ backgroundColor: '#ffffff', padding: '80px 0' }}>
+            <section className="section section-principles" style={{ 
+              backgroundImage: 'linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.95)), url(/images/jeongwon_detox_bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              padding: '100px 0',
+              textAlign: 'center'
+            }}>
               <div className="container">
-                <div className="section-header">
+                <div className="section-header" style={{ marginBottom: '40px' }}>
                   <span className="section-badge">{textContent.detoxPrinciples.badge}</span>
                   <h2>{textContent.detoxPrinciples.title}</h2>
-                  <p className="section-desc">
+                  <p className="section-desc" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-main)' }}>
                     {textContent.detoxPrinciples.desc}
                   </p>
                 </div>
-                <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginTop: '40px' }}>
-                  {textContent.detoxPrinciples.steps.map((step, idx) => (
-                    <div 
-                      key={idx} 
-                      className="principle-card glass-card" 
-                      style={{ padding: '40px 30px', textAlign: 'center', position: 'relative', overflow: 'hidden', border: '1px solid rgba(74, 144, 226, 0.1)', cursor: 'pointer' }}
-                      onClick={() => setSelectedDetoxStep(step)}
-                    >
-                      <div className="principle-step-num" style={{ position: 'absolute', top: '-15px', right: '-15px', fontSize: '8rem', fontWeight: '900', color: 'rgba(74, 144, 226, 0.04)', zIndex: 0 }}>{step.stepNum}</div>
-                      <div className="principle-icon" style={{ fontSize: '3.5rem', marginBottom: '20px', position: 'relative', zIndex: 1 }}>{step.icon}</div>
-                      <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '15px', position: 'relative', zIndex: 1 }}>{step.title}</h3>
-                      <p style={{ color: 'var(--text-main)', lineHeight: '1.6', position: 'relative', zIndex: 1 }}>{step.desc}</p>
-                      <div style={{ marginTop: '20px', position: 'relative', zIndex: 1 }}>
-                        <span style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '600', borderBottom: '1px solid var(--primary-color)' }}>자세히 보기 &rarr;</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                
+                <button 
+                  className="btn btn-primary btn-large" 
+                  onClick={() => {
+                    setIsColumnPage(false);
+                    setIsClinicPage(false);
+                    setIsReviewPage(false);
+                    setIsSelfCheckPage(false);
+                    setSelectedSpecialty(null);
+                    setIsDetoxPage(true);
+                    window.scrollTo(0, 0);
+                  }}
+                  style={{ fontSize: '1.2rem', padding: '15px 40px', borderRadius: '30px', boxShadow: '0 10px 20px rgba(74, 144, 226, 0.3)' }}
+                >
+                  정원 해독 자세히 보기
+                </button>
               </div>
             </section>
 
