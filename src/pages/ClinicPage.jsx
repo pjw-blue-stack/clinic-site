@@ -185,6 +185,11 @@ function ClinicPage({
             <p>비대면 상담부터 예약까지 빠르고 편리하게 도와드립니다.</p>
             
             <div className="cta-links-grid">
+              <a href="tel:02-732-1117" className="cta-card phone-link">
+                <div className="cta-icon" style={{ fontSize: '2.5rem', marginBottom: '15px' }}>📞</div>
+                <h3 style={{ fontSize: '1.2rem', marginBottom: '10px' }}>전화 상담</h3>
+                <p style={{ fontSize: '0.95rem' }}>02-732-1117</p>
+              </a>
               <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="cta-card kakao-link">
                 <div className="cta-icon">💬</div>
                 <h3>카카오톡 상담</h3>
