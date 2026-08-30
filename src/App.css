@@ -1131,8 +1131,8 @@
 
 .value-proof-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .value-proof-item {
@@ -1141,11 +1141,11 @@
   position: relative;
 }
 
-.value-proof-item:not(:last-child)::after {
+.value-proof-item:not(:nth-child(3n))::after {
   content: '';
   position: absolute;
   top: 20%;
-  right: -15px;
+  right: -10px;
   width: 1px;
   height: 60%;
   background-color: rgba(11, 43, 32, 0.1);
@@ -1300,7 +1300,10 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 40px 20px;
   }
-  .value-proof-item:nth-child(2)::after {
+  .value-proof-item::after {
+    display: block;
+  }
+  .value-proof-item:nth-child(2n)::after {
     display: none;
   }
 }

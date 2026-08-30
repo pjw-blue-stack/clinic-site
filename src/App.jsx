@@ -833,7 +833,7 @@ function App() {
             {/* 2. VALUE PROOF SECTION (가치 입증) */}
             <section className="section-value-proof" style={{ backgroundColor: '#f8fafc', padding: '60px 0' }}>
               <div className="container">
-                <div className="value-proof-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                <div className="value-proof-grid">
                   <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item1Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item1Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item1Title}</h4>
