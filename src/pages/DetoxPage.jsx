@@ -71,6 +71,31 @@ function DetoxPage({ setShowBookingModal }) {
         </div>
       </section>
 
+      {/* 2.5 LIMITATIONS SECTION */}
+      <section className="section-limitations" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
+        <div className="container">
+          <div className="text-center mb-4">
+            <span className="section-badge">{textContent.detoxLimitations.badge}</span>
+            <h2>{textContent.detoxLimitations.title}</h2>
+            <p className="section-subtitle">{textContent.detoxLimitations.desc}</p>
+          </div>
+          
+          <div className="limitations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', marginTop: '40px' }}>
+            <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
+              <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>💊</div>
+              <h3 style={{ fontSize: '1.4rem', color: '#333', marginBottom: '15px' }}>{textContent.detoxLimitations.western.title}</h3>
+              <p style={{ color: '#666', lineHeight: '1.7', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.western.desc}</p>
+            </div>
+            
+            <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
+              <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🍂</div>
+              <h3 style={{ fontSize: '1.4rem', color: '#333', marginBottom: '15px' }}>{textContent.detoxLimitations.eastern.title}</h3>
+              <p style={{ color: '#666', lineHeight: '1.7', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.eastern.desc}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. INTERACTIVE COMPARISON SECTION */}
       {/* 3. TOXINS CORRELATION GRAPHS */}
       <section className="section-compare bg-white" style={{ padding: '80px 0' }}>
