@@ -104,9 +104,9 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
       col3: { title: '진료 및 예약', links: [{ text: '상담 예약하기', action: 'booking' }] }
     },
     'booking': {
-      col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'booking' }, { text: '공지사항', action: 'booking' }] },
-      col2: { title: '의학 및 한약재', links: [{ text: '의학 칼럼', action: 'booking' }, { text: '청정 GMP 한약재', action: 'booking' }] },
-      col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'booking' }, { text: '오시는 길', action: 'booking' }, { text: '상담 / 예약 / 문의', action: 'booking' }] }
+      col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'clinic#greeting' }, { text: '공지사항', action: 'clinic#notice' }] },
+      col2: { title: '의학 및 한약재', links: [{ text: '의학 칼럼', action: 'column' }, { text: '청정 GMP 한약재', action: 'clinic#herb' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'clinic#hours' }, { text: '오시는 길', action: 'clinic#location' }, { text: '상담 / 예약 / 문의', action: 'clinic#cta' }] }
     },
     'default': {
       col1: { title: '해당 부위 다한증', links: [{ text: '특징 및 증상' }, { text: '원인 분석 (기허/음허)' }, { text: '보약식 해독 치료' }] },
@@ -119,12 +119,33 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
 
   const handleAction = (action) => {
     setHoveredMenu(null);
-    if (action === 'booking') {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+    if (action.startsWith('clinic')) {
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); 
+      const hash = action.split('#')[1];
+      if (hash) {
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 150); // slight delay to allow page render
+      } else {
+        window.scrollTo(0, 0);
+      }
+    } else if (action === 'column') {
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsClinicPage(false); setIsColumnPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+    } else if (action === 'booking') {
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'reviews') {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsClinicPage(false); setIsReviewPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsClinicPage(false); setIsColumnPage(false); setIsReviewPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'selfcheck') {
-      setIsDetoxPage(false); setIsClinicPage(false); setIsReviewPage(false); setIsSelfCheckPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+      setIsDetoxPage(false); setIsClinicPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsSelfCheckPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     }
   };
 

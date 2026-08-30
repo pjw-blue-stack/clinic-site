@@ -21,7 +21,7 @@ function ClinicPage({
     <div className="clinic-page-wrapper">
 
       {/* 1. 원장 인사말 */}
-      <section className="clinic-section clinic-greeting-section">
+      <section id="greeting" className="clinic-section clinic-greeting-section">
         <div className="container">
           <div className="clinic-greeting-content glass-card">
             <span className="section-badge">{clinicGreeting.badge}</span>
@@ -50,7 +50,7 @@ function ClinicPage({
       </section>
       
       {/* 1-1. 공지사항 */}
-      <section className="clinic-section clinic-notice-section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+      <section id="notice" className="clinic-section clinic-notice-section" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
         <div className="container">
           <div className="notice-box glass-card">
             <div className="notice-header">
@@ -88,7 +88,7 @@ function ClinicPage({
       </section>
 
       {/* 3. 청정 GMP 한약재 */}
-      <section className="clinic-section clinic-herb-section">
+      <section id="herb" className="clinic-section clinic-herb-section">
         <div className="container">
           <div className="text-center mb-5">
             <span className="section-badge">{clinicHerb.badge}</span>
@@ -110,7 +110,7 @@ function ClinicPage({
 
       
       {/* 3.5 진료시간 안내 */}
-      <section className="clinic-section clinic-schedule-section">
+      <section id="hours" className="clinic-section clinic-schedule-section">
         <div className="container">
           <div className="text-center mb-5">
             <span className="section-badge">{clinicSchedule.badge}</span>
@@ -135,7 +135,7 @@ function ClinicPage({
       </section>
 
       {/* 4. 오시는 길 */}
-      <section className="clinic-section clinic-location-section bg-light">
+      <section id="location" className="clinic-section clinic-location-section bg-light">
         <div className="container">
           <div className="text-center mb-5">
             <span className="section-badge">{clinicLocation.badge}</span>
@@ -178,7 +178,7 @@ function ClinicPage({
       </section>
 
       {/* 5. 상담 및 예약 */}
-      <section className="clinic-section clinic-cta-section">
+      <section id="cta" className="clinic-section clinic-cta-section">
         <div className="container">
           <div className="cta-banner glass-card text-center">
             <h2>다한증 치료, 더 이상 미루지 마세요.</h2>
