@@ -161,7 +161,7 @@ function DetoxPage({ setShowBookingModal }) {
       </section>
 
       {/* 4. TOXINS CORRELATION GRAPHS */}
-      <section className="section-compare bg-white" style={{ padding: '80px 0' }}>
+      <section className="section-compare bg-white" style={{ padding: '80px 0 20px' }}>
         <div className="container text-center">
           <div className="compare-text" style={{ marginBottom: '40px' }}>
             <span className="section-badge">{textContent.detoxGraphs.badge}</span>
@@ -190,7 +190,7 @@ function DetoxPage({ setShowBookingModal }) {
       </section>
 
       {/* 5. DURATION SECTION */}
-      <section className="section-duration bg-light">
+      <section className="section-duration bg-light" style={{ paddingTop: '40px' }}>
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">{textContent.detoxDuration.badge}</span>
