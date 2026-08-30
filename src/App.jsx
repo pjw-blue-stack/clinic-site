@@ -6,6 +6,7 @@ import { textContent } from './textContent';
 import SelfCheckPage from './SelfCheckPage';
 import DetoxPage from './pages/DetoxPage';
 import ClinicPage from './pages/ClinicPage';
+import ColumnPage from './pages/ColumnPage';
 
 // 구글폼 사전 설문지 URL (노쇼 방지용)
 const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
@@ -105,7 +106,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
     },
     'booking': {
       col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'clinic#greeting' }, { text: '공지사항', action: 'clinic#notice' }] },
-      col2: { title: '의학 및 한약재', links: [{ text: '의학 칼럼', action: 'column' }, { text: '청정 GMP 한약재', action: 'clinic#herb' }] },
+      col2: { title: '의학 및 한약재', links: [{ text: '다한증 의학 칼럼', action: 'column' }, { text: '청정 GMP 한약재', action: 'clinic#herb' }] },
       col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'clinic#hours' }, { text: '오시는 길', action: 'clinic#location' }, { text: '상담 / 예약 / 문의', action: 'clinic#cta' }] }
     },
     'default': {
@@ -678,6 +679,18 @@ function App() {
           />
                 ) : isClinicPage ? (
           <ClinicPage 
+            columns={columns}
+            setColumns={setColumns}
+            selectedColumn={selectedColumn}
+            setSelectedColumn={setSelectedColumn}
+            showWriteForm={showWriteForm}
+            setShowWriteForm={setShowWriteForm}
+            setShowBookingModal={setShowBookingModal}
+            setBookingForm={setBookingForm}
+            bookingForm={bookingForm}
+          />
+        ) : isColumnPage ? (
+          <ColumnPage 
             columns={columns}
             setColumns={setColumns}
             selectedColumn={selectedColumn}
