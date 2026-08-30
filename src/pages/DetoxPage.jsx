@@ -6,6 +6,7 @@ function DetoxPage({ setShowBookingModal }) {
   const [showCostModal, setShowCostModal] = useState(false);
   const [openQaIndex, setOpenQaIndex] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
+  const [selectedLimitation, setSelectedLimitation] = useState(null);
 
   useEffect(() => {
     // Scroll effects if needed in the future
@@ -71,36 +72,55 @@ function DetoxPage({ setShowBookingModal }) {
         </div>
       </section>
 
-      {/* 2.5 LIMITATIONS SECTION */}
-      <section className="section-limitations" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
+      {/* 2.5 LIMITATIONS OF WESTERN MEDICINE */}
+      <section className="section-limitations-western" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
         <div className="container">
           <div className="text-center mb-4">
-            <span className="section-badge">{textContent.detoxLimitations.badge}</span>
-            <h2>{textContent.detoxLimitations.title}</h2>
-            <p className="section-subtitle">{textContent.detoxLimitations.desc}</p>
+            <span className="section-badge">{textContent.detoxWesternLimitations.badge}</span>
+            <h2>{textContent.detoxWesternLimitations.title}</h2>
+            <p className="section-subtitle">{textContent.detoxWesternLimitations.desc}</p>
           </div>
           
-          <div className="limitations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '30px', marginTop: '40px' }}>
-            <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
-              <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>💊</div>
-              <h3 style={{ fontSize: '1.4rem', color: '#333', marginBottom: '15px' }}>{textContent.detoxLimitations.western.title}</h3>
-              <p style={{ color: '#666', lineHeight: '1.6', marginBottom: '15px', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.western.desc}</p>
-              {textContent.detoxLimitations.western.details && (
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0, textAlign: 'left' }}>
-                  {textContent.detoxLimitations.western.details.map((detail, idx) => (
-                    <li key={idx} style={{ marginBottom: '10px', fontSize: '0.95rem', color: '#555', lineHeight: '1.5' }}>
-                      <strong style={{ color: 'var(--primary-color)', display: 'block', marginBottom: '2px' }}>• {detail.label}</strong>
-                      <span style={{ paddingLeft: '12px', display: 'block' }}>{detail.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+          <div className="limitations-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginTop: '40px' }}>
+            {textContent.detoxWesternLimitations.methods.map((method, idx) => (
+              <div 
+                key={idx} 
+                className="limitation-card glass-card hover-lift" 
+                style={{ padding: '30px 20px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)', border: '1px solid #f0f0f0', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s ease' }}
+                onClick={() => setSelectedLimitation(method)}
+              >
+                <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '15px' }}>{method.icon}</div>
+                <h3 style={{ fontSize: '1.2rem', color: '#333', marginBottom: '10px' }}>{method.title}</h3>
+                <p style={{ color: '#666', fontSize: '0.95rem', lineHeight: '1.5', wordBreak: 'keep-all' }}>{method.desc}</p>
+                <div style={{ marginTop: '15px' }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: '600', borderBottom: '1px solid var(--primary-color)' }}>자세히 보기 &rarr;</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2.6 LIMITATIONS OF EASTERN MEDICINE */}
+      <section className="section-limitations-eastern bg-light" style={{ padding: '80px 0' }}>
+        <div className="container">
+          <div className="doctor-grid" style={{ alignItems: 'center' }}>
+            <div className="doctor-image-wrapper">
+              <div className="doctor-placeholder" style={{ padding: '40px', backgroundColor: '#fff', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+                <span className="section-badge">{textContent.detoxEasternLimitations.badge}</span>
+                <h2 style={{ fontSize: '2rem', marginBottom: '20px' }}>{textContent.detoxEasternLimitations.title}</h2>
+                <div style={{ fontSize: '4rem', opacity: '0.1', color: 'var(--primary-color)' }}>🍂</div>
+              </div>
             </div>
-            
-            <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
-              <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>🍂</div>
-              <h3 style={{ fontSize: '1.4rem', color: '#333', marginBottom: '15px' }}>{textContent.detoxLimitations.eastern.title}</h3>
-              <p style={{ color: '#666', lineHeight: '1.7', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.eastern.desc}</p>
+            <div className="doctor-content">
+              <p className="doctor-intro-desc" style={{ fontSize: '1.3rem', color: '#333', fontWeight: '600', marginBottom: '20px' }}>
+                {textContent.detoxEasternLimitations.desc}
+              </p>
+              <div className="doctor-story">
+                <p style={{ lineHeight: '1.8', fontSize: '1.05rem', color: '#555' }}>
+                  {textContent.detoxEasternLimitations.content}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -298,6 +318,28 @@ function DetoxPage({ setShowBookingModal }) {
             </div>
             <div className="form-submit" style={{ marginTop: '30px' }}>
               <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedMethod(null)}>
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* LIMITATION DETAIL MODAL */}
+      {selectedLimitation && (
+        <div className="modal-overlay" onClick={() => setSelectedLimitation(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close" onClick={() => setSelectedLimitation(null)}>×</button>
+            <div className="modal-header" style={{ marginBottom: '20px' }}>
+              <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>{selectedLimitation.icon}</div>
+              <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>{selectedLimitation.title}</h2>
+            </div>
+            <div className="modal-body" style={{ textAlign: 'center', padding: '10px 0' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--text-main)', wordBreak: 'keep-all' }}>
+                {selectedLimitation.modalContent}
+              </p>
+            </div>
+            <div className="form-submit" style={{ marginTop: '30px' }}>
+              <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedLimitation(null)}>
                 확인
               </button>
             </div>
