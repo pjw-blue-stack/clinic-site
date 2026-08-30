@@ -148,27 +148,26 @@ function ClinicPage({
             <p>비대면 상담부터 예약까지 빠르고 편리하게 도와드립니다.</p>
             
             <div className="cta-links-grid">
-              <a href="http://pf.kakao.com/" target="_blank" rel="noreferrer" className="cta-card kakao-link">
+              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="cta-card kakao-link">
                 <div className="cta-icon">💬</div>
                 <h3>카카오톡 상담</h3>
                 <p>비즈 카카오톡 실시간 상담</p>
               </a>
-              <a href="https://talk.naver.com/" target="_blank" rel="noreferrer" className="cta-card naver-talk-link">
+              <a href="https://talk.naver.com/ct/w4xpjd?frm=mnmb&frm=nmb_detail#nafullscreen" target="_blank" rel="noreferrer" className="cta-card naver-talk-link">
                 <div className="cta-icon">N</div>
                 <h3>네이버 톡톡</h3>
                 <p>네이버 간편 채팅 상담</p>
               </a>
-              <div 
+              <a 
+                href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" 
+                target="_blank" 
+                rel="noreferrer" 
                 className="cta-card naver-booking-link" 
-                onClick={() => {
-                  setBookingForm({ ...bookingForm, specialtyId: 'detox' });
-                  setShowBookingModal(true);
-                }}
               >
                 <div className="cta-icon">📅</div>
                 <h3>네이버 예약</h3>
                 <p>원하는 시간에 진료 예약</p>
-              </div>
+              </a>
             </div>
           </div>
         </div>
