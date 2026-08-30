@@ -8,6 +8,7 @@ function DetoxPage({ setShowBookingModal }) {
   const [openQaIndex, setOpenQaIndex] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
   const [selectedLimitation, setSelectedLimitation] = useState(null);
+  const [selectedMaintenance, setSelectedMaintenance] = useState(null);
 
   useEffect(() => {
     // Scroll effects if needed in the future
@@ -223,10 +224,18 @@ function DetoxPage({ setShowBookingModal }) {
 
           <div className="maintenance-grid">
             {textContent.detoxMaintenance.list.map((item, idx) => (
-              <div key={idx} className="maintenance-card">
+              <div 
+                key={idx} 
+                className="maintenance-card hover-lift"
+                style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+                onClick={() => setSelectedMaintenance(item)}
+              >
                 <div className="maintenance-icon">{item.icon}</div>
                 <h4>{item.title}</h4>
                 <p>{item.desc}</p>
+                <div style={{ marginTop: '15px' }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: '600', borderBottom: '1px solid var(--primary-color)' }}>자세히 보기 &rarr;</span>
+                </div>
               </div>
             ))}
           </div>
@@ -344,6 +353,28 @@ function DetoxPage({ setShowBookingModal }) {
               <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedLimitation(null)}>
                 확인
               </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
+      {/* Maintenance Detail Modal */}
+      {selectedMaintenance && createPortal(
+        <div className="modal-overlay active" onClick={() => setSelectedMaintenance(null)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close" onClick={() => setSelectedMaintenance(null)}>×</button>
+            <div className="modal-header">
+              <div style={{ fontSize: '3rem', textAlign: 'center', marginBottom: '15px' }}>{selectedMaintenance.icon}</div>
+              <h3 style={{ textAlign: 'center', fontSize: '1.5rem', color: 'var(--text-main)', marginBottom: '10px' }}>{selectedMaintenance.title}</h3>
+              <p style={{ textAlign: 'center', color: 'var(--primary-color)', fontWeight: '600', marginBottom: '20px' }}>{selectedMaintenance.desc}</p>
+            </div>
+            <div className="modal-body">
+              <div style={{ backgroundColor: '#f8fafc', padding: '20px', borderRadius: '12px', lineHeight: '1.7', color: 'var(--text-main)', fontSize: '1rem', wordBreak: 'keep-all' }}>
+                {selectedMaintenance.detail}
+              </div>
+            </div>
+            <div className="modal-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+              <button className="btn btn-primary" onClick={() => setSelectedMaintenance(null)} style={{ padding: '10px 30px' }}>확인</button>
             </div>
           </div>
         </div>,
