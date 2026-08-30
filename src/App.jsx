@@ -1122,7 +1122,7 @@ function App() {
                       </div>
                       <button 
                         className="btn btn-accent btn-large" 
-                        onClick={() => setShowLoginModal(true)}
+                        onClick={() => { setIsReviewPage(true); window.scrollTo(0, 0); }}
                         style={{ padding: '15px 50px', fontSize: '1.1rem', borderRadius: '30px', boxShadow: '0 5px 15px rgba(80, 227, 194, 0.4)' }}
                       >
                         치료 후기 보기 &rarr;
