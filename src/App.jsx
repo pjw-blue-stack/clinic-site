@@ -747,16 +747,23 @@ function App() {
                 {/* 5. 의료법 준수 로그인 게시판 (반박 제거) */}
                 <div className="reviews-grid" style={{ marginTop: '40px' }}>
                   {!loggedInUser ? (
-                    <>
-                      {[1, 2, 3].map((item) => (
-                        <div key={`locked-${item}`} className="no-reviews-card" style={{ textAlign: 'center', padding: '40px', backgroundColor: '#f9fbfd', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                          <span style={{ fontSize: '3rem', marginBottom: '15px' }}>🔒</span>
-                          <h3 style={{ fontSize: '1.2rem', marginBottom: '15px', wordBreak: 'keep-all' }}>의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
-                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
-                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
-                        </div>
-                      ))}
-                    </>
+                    <div className="no-reviews-card hover-lift" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 40px', backgroundColor: '#f9fbfd', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', margin: '0 auto', maxWidth: '800px', transition: 'all 0.3s ease' }}>
+                      <span style={{ fontSize: '3.5rem', marginBottom: '20px', display: 'block' }}>🔒</span>
+                      <h3 style={{ fontSize: '1.5rem', marginBottom: '20px', color: 'var(--text-main)', fontWeight: '700' }}>
+                        의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.
+                      </h3>
+                      <div style={{ color: 'var(--text-light)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '30px', wordBreak: 'keep-all' }}>
+                        <p style={{ marginBottom: '10px' }}>경희정원한의원은 환자분들의 소중한 개인정보를 철저히 보호하며, 거짓되거나 과장된 대가성 후기를 엄격히 배제합니다.</p>
+                        <p>오직 본원에서 치료를 마친 분들의 <strong>100% 진실된 실제 치유 사례</strong>만을 투명하게 제공합니다.<br/>수많은 다한증 환자분들이 쾌적한 일상을 되찾은 기적 같은 변화를 직접 확인해 보세요.</p>
+                      </div>
+                      <button 
+                        className="btn btn-accent btn-large" 
+                        onClick={() => setShowLoginModal(true)}
+                        style={{ padding: '15px 40px', fontSize: '1.1rem', borderRadius: '30px', boxShadow: '0 5px 15px rgba(80, 227, 194, 0.4)' }}
+                      >
+                        1초 간편 로그인하고 후기 보기
+                      </button>
+                    </div>
                   ) : (
                     reviews
                       .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
@@ -1089,16 +1096,23 @@ function App() {
 
                 <div className="reviews-grid">
                   {!loggedInUser ? (
-                    <>
-                      {[1, 2, 3].map((item) => (
-                        <div key={`locked-${item}`} className="no-reviews-card hover-lift" style={{ textAlign: 'center', padding: '40px', backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', transition: 'all 0.3s ease' }}>
-                          <span style={{ fontSize: '3rem', marginBottom: '15px' }}>🔒</span>
-                          <h3 style={{ fontSize: '1.2rem', marginBottom: '15px', wordBreak: 'keep-all' }}>의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
-                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
-                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
-                        </div>
-                      ))}
-                    </>
+                    <div className="no-reviews-card hover-lift" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '60px 40px', backgroundColor: 'rgba(255,255,255,0.95)', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', margin: '0 auto', maxWidth: '800px', transition: 'all 0.3s ease' }}>
+                      <span style={{ fontSize: '3.5rem', marginBottom: '20px', display: 'block' }}>🔒</span>
+                      <h3 style={{ fontSize: '1.5rem', marginBottom: '20px', color: 'var(--text-main)', fontWeight: '700' }}>
+                        의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.
+                      </h3>
+                      <div style={{ color: 'var(--text-light)', fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '30px', wordBreak: 'keep-all' }}>
+                        <p style={{ marginBottom: '10px' }}>경희정원한의원은 환자분들의 소중한 개인정보를 철저히 보호하며, 거짓되거나 과장된 대가성 후기를 엄격히 배제합니다.</p>
+                        <p>오직 본원에서 치료를 마친 분들의 <strong>100% 진실된 실제 치유 사례</strong>만을 투명하게 제공합니다.<br/>수많은 다한증 환자분들이 쾌적한 일상을 되찾은 기적 같은 변화를 직접 확인해 보세요.</p>
+                      </div>
+                      <button 
+                        className="btn btn-accent btn-large" 
+                        onClick={() => setShowLoginModal(true)}
+                        style={{ padding: '15px 40px', fontSize: '1.1rem', borderRadius: '30px', boxShadow: '0 5px 15px rgba(80, 227, 194, 0.4)' }}
+                      >
+                        1초 간편 로그인하고 후기 보기
+                      </button>
+                    </div>
                   ) : (
                     reviews && reviews.slice(0, 3).map(review => (
                       <div key={review.id} className="review-card hover-lift" style={{ textAlign: 'left', backgroundColor: 'rgba(255,255,255,0.9)', padding: '25px', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', border: '1px solid rgba(255,255,255,0.5)', transition: 'all 0.3s ease' }}>
