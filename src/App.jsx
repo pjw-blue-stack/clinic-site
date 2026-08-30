@@ -766,22 +766,20 @@ function App() {
                 {/* 5. 의료법 준수 로그인 게시판 (반박 제거) */}
                 <div className="reviews-grid" style={{ marginTop: '40px' }}>
                   {!loggedInUser ? (
-                    <div className="no-reviews-text" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px 20px', margin: '0 auto', maxWidth: '800px' }}>
-                      <h3 style={{ fontSize: '1.6rem', marginBottom: '25px', color: 'var(--text-main)', fontWeight: '700', lineHeight: '1.5' }}>
-                        의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.
-                      </h3>
-                      <div style={{ color: 'var(--text-dark)', fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '40px', wordBreak: 'keep-all' }}>
-                        <p style={{ marginBottom: '15px' }}>경희정원한의원은 환자분들의 소중한 개인정보를 철저히 보호하며, 거짓되거나 과장된 대가성 후기를 엄격히 배제합니다.</p>
-                        <p>오직 본원에서 치료를 마친 분들의 <strong>100% 진실된 실제 치유 사례</strong>만을 투명하게 제공합니다.<br/>수많은 다한증 환자분들이 쾌적한 일상을 되찾은 기적 같은 변화를 직접 확인해 보세요.</p>
-                      </div>
-                      <button 
-                        className="btn btn-accent btn-large" 
-                        onClick={() => setShowLoginModal(true)}
-                        style={{ padding: '15px 50px', fontSize: '1.1rem', borderRadius: '30px', boxShadow: '0 5px 15px rgba(80, 227, 194, 0.4)' }}
-                      >
-                        치료 후기 보기 &rarr;
-                      </button>
-                    </div>
+                    <>
+                      {[1, 2, 3, 4, 5, 6].map((item) => (
+                        <div key={`locked-${item}`} className="no-reviews-card hover-lift" style={{ textAlign: 'center', padding: '40px', backgroundColor: '#f9fbfd', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', justifyContent: 'center', transition: 'all 0.3s ease' }}>
+                          <span style={{ fontSize: '3rem', marginBottom: '15px' }}>🔒</span>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '15px', wordBreak: 'keep-all', color: 'var(--text-main)', lineHeight: '1.4' }}>
+                            의료법 제56조에 의거,<br/>
+                            <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>[{filterSpecialty === 'all' ? '다한증' : getSpecialtyName(filterSpecialty)}]</span> 치료 후기는<br/>
+                            로그인 후 열람하실 수 있습니다.
+                          </h3>
+                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
+                        </div>
+                      ))}
+                    </>
                   ) : (
                     reviews
                       .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
