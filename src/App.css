@@ -3116,14 +3116,14 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   z-index: 998;
-  transform: translate3d(0, 0, 0);
+  will-change: opacity, backdrop-filter;
 }
 
 .mega-menu-overlay.active {
