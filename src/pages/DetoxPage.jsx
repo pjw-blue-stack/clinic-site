@@ -5,6 +5,7 @@ import './DetoxPage.css';
 function DetoxPage({ setShowBookingModal }) {
   const [showCostModal, setShowCostModal] = useState(false);
   const [openQaIndex, setOpenQaIndex] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState(null);
 
   useEffect(() => {
     // Scroll effects if needed in the future
@@ -109,10 +110,18 @@ function DetoxPage({ setShowBookingModal }) {
           
           <div className="methods-grid">
             {textContent.detoxMethods.methods.map((method, idx) => (
-              <div key={idx} className="method-card">
+              <div 
+                key={idx} 
+                className="method-card"
+                style={{ cursor: 'pointer', position: 'relative', overflow: 'hidden' }}
+                onClick={() => setSelectedMethod(method)}
+              >
                 <div className="method-icon">{method.icon}</div>
                 <h3>{method.title}</h3>
                 <p>{method.desc}</p>
+                <div style={{ marginTop: '20px' }}>
+                  <span style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '600', borderBottom: '1px solid var(--primary-color)' }}>자세히 보기 &rarr;</span>
+                </div>
               </div>
             ))}
           </div>
@@ -232,6 +241,29 @@ function DetoxPage({ setShowBookingModal }) {
                 }}
               >
                 예약 및 문의하기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* METHOD DETAIL MODAL */}
+      {selectedMethod && (
+        <div className="modal-overlay" onClick={() => setSelectedMethod(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close" onClick={() => setSelectedMethod(null)}>×</button>
+            <div className="modal-header" style={{ marginBottom: '20px' }}>
+              <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>{selectedMethod.icon}</div>
+              <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>{selectedMethod.title}</h2>
+            </div>
+            <div className="modal-body" style={{ textAlign: 'center', padding: '10px 0' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--text-main)', wordBreak: 'keep-all' }}>
+                {selectedMethod.modalContent}
+              </p>
+            </div>
+            <div className="form-submit" style={{ marginTop: '30px' }}>
+              <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedMethod(null)}>
+                확인
               </button>
             </div>
           </div>
