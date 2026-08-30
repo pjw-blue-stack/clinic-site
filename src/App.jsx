@@ -802,7 +802,15 @@ function App() {
             </section>
           </div>
         ) : isDetoxPage ? (
-          <DetoxPage setShowBookingModal={setShowBookingModal} />
+          <DetoxPage 
+            setShowBookingModal={setShowBookingModal} 
+            reviews={reviews} 
+            setIsReviewPage={setIsReviewPage} 
+            setIsDetoxPage={setIsDetoxPage}
+            getSpecialtyName={getSpecialtyName}
+            loggedInUser={loggedInUser}
+            setShowLoginModal={setShowLoginModal}
+          />
         ) : (
           <>
             {/* 1. HERO SECTION (최신 공지사항) */}

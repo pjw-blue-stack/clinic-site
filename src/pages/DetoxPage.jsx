@@ -3,7 +3,15 @@ import { createPortal } from 'react-dom';
 import { textContent } from '../textContent';
 import './DetoxPage.css';
 
-function DetoxPage({ setShowBookingModal }) {
+function DetoxPage({ 
+  setShowBookingModal, 
+  reviews, 
+  setIsReviewPage, 
+  setIsDetoxPage, 
+  getSpecialtyName, 
+  loggedInUser, 
+  setShowLoginModal 
+}) {
   const [showCostModal, setShowCostModal] = useState(false);
   const [openQaIndex, setOpenQaIndex] = useState(null);
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -269,6 +277,61 @@ function DetoxPage({ setShowBookingModal }) {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. REVIEWS SECTION */}
+      <section className="section-reviews" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
+        <div className="container">
+          <div className="text-center mb-4">
+            <span className="section-badge">Reviews</span>
+            <h2>다한증 치료 후기</h2>
+            <p className="section-subtitle">수많은 환자분들이 이미 쾌적한 일상을 되찾았습니다.</p>
+          </div>
+
+          <div className="reviews-grid" style={{ marginTop: '40px' }}>
+            {!loggedInUser ? (
+              <div className="no-reviews-card" style={{ margin: '0 auto', textAlign: 'center', padding: '40px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)' }}>
+                <span style={{ fontSize: '3rem' }}>🔒</span>
+                <h3>의료법 제56조에 의거, 치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
+                <p style={{ color: 'var(--text-light)', marginBottom: '20px' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                <button className="btn btn-accent" onClick={() => setShowLoginModal && setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
+              </div>
+            ) : (
+              reviews && reviews.slice(0, 3).map(review => (
+                <div key={review.id} className="review-card" style={{ textAlign: 'left', backgroundColor: '#fff', padding: '25px', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)', border: '1px solid #f0f0f0' }}>
+                  <div className="review-meta" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                    <div className="review-rating" style={{ color: '#FFD700', fontSize: '1.1rem' }}>
+                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                    </div>
+                    <span className="review-tag" style={{ fontSize: '0.8rem', backgroundColor: 'var(--accent-light)', color: 'var(--accent-color)', padding: '4px 8px', borderRadius: '4px', fontWeight: 'bold' }}>
+                      {getSpecialtyName ? getSpecialtyName(review.specialtyId) : '다한증'}
+                    </span>
+                  </div>
+                  <h4 className="review-title" style={{ fontSize: '1.1rem', marginBottom: '10px', color: 'var(--text-main)' }}>{review.title}</h4>
+                  <p className="review-content" style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{review.content}</p>
+                  <div className="review-footer" style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-light)', borderTop: '1px solid #f0f0f0', paddingTop: '15px' }}>
+                    <span className="review-writer" style={{ fontWeight: '600' }}>{review.name} 환자님</span>
+                    <span>{review.date}</span>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+          <div style={{ textAlign: 'center', marginTop: '40px' }}>
+            <button 
+              className="btn btn-outline btn-large" 
+              onClick={() => {
+                if (setIsDetoxPage) setIsDetoxPage(false);
+                if (setIsReviewPage) setIsReviewPage(true);
+                window.scrollTo(0, 0);
+              }}
+              style={{ padding: '15px 40px', fontSize: '1.1rem' }}
+            >
+              다한증 치료 후기 더보기 &rarr;
+            </button>
           </div>
         </div>
       </section>
