@@ -1071,31 +1071,67 @@ function App() {
               </div>
             </section>
 
-            {/* 5. OBJECTION REMOVAL SECTION (Q&A) */}
-            <section className="section section-objection-removal" style={{ backgroundColor: '#ffffff', paddingBottom: '100px' }}>
-              <div className="container">
-                <div className="section-header">
-                  <span className="section-badge">{textContent.faq.badge}</span>
-                  <h2>{textContent.faq.title}</h2>
-                  <p className="section-desc">
-                    {textContent.faq.desc}
-                  </p>
+            {/* 5. REVIEWS PREVIEW SECTION */}
+            <section className="section section-reviews-preview" style={{ 
+              padding: '100px 0', 
+              backgroundImage: 'url(/images/clinic_review_bg.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              position: 'relative'
+            }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(5px)' }}></div>
+              <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                <div className="section-header text-center mb-5">
+                  <span className="section-badge">Reviews</span>
+                  <h2>다한증 치료 후기</h2>
+                  <p className="section-desc">수많은 환자분들이 이미 쾌적한 일상을 되찾았습니다.</p>
                 </div>
 
-                <div className="faq-container" style={{ maxWidth: '800px', margin: '0 auto' }}>
-                  {textContent.faq.list.map((item, idx) => (
-                    <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`} style={{ borderBottom: '1px solid #eef2f6', marginBottom: '10px' }}>
-                      <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)} style={{ padding: '20px 10px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: '600', color: 'var(--primary-dark)', fontSize: '1.05rem', paddingRight: '20px' }}>{item.question}</span>
-                        <span className="faq-icon" style={{ color: 'var(--accent-color)', fontSize: '1.5rem', fontWeight: '300' }}>{openFaq === idx ? '−' : '+'}</span>
+                <div className="reviews-grid">
+                  {!loggedInUser ? (
+                    <>
+                      {[1, 2, 3].map((item) => (
+                        <div key={`locked-${item}`} className="no-reviews-card hover-lift" style={{ textAlign: 'center', padding: '40px', backgroundColor: 'rgba(255,255,255,0.9)', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', transition: 'all 0.3s ease' }}>
+                          <span style={{ fontSize: '3rem', marginBottom: '15px' }}>🔒</span>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '15px', wordBreak: 'keep-all' }}>의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
+                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
+                        </div>
+                      ))}
+                    </>
+                  ) : (
+                    reviews && reviews.slice(0, 3).map(review => (
+                      <div key={review.id} className="review-card hover-lift" style={{ textAlign: 'left', backgroundColor: 'rgba(255,255,255,0.9)', padding: '25px', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.05)', border: '1px solid rgba(255,255,255,0.5)', transition: 'all 0.3s ease' }}>
+                        <div className="review-meta" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                          <div className="review-rating" style={{ color: '#FFD700', fontSize: '1.1rem' }}>
+                            {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                          </div>
+                          <span className="review-tag" style={{ fontSize: '0.8rem', backgroundColor: 'var(--accent-light)', color: 'var(--accent-color)', padding: '4px 8px', borderRadius: '4px', fontWeight: 'bold' }}>
+                            {getSpecialtyName(review.specialtyId)}
+                          </span>
+                        </div>
+                        <h4 className="review-title" style={{ fontSize: '1.1rem', marginBottom: '10px', color: 'var(--text-main)' }}>{review.title}</h4>
+                        <p className="review-content" style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{review.content}</p>
+                        <div className="review-footer" style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-light)', borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '15px' }}>
+                          <span className="review-writer" style={{ fontWeight: '600' }}>{review.name} 환자님</span>
+                          <span>{review.date}</span>
+                        </div>
                       </div>
-                      <div className="faq-answer" style={{ maxHeight: openFaq === idx ? '1500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease', padding: openFaq === idx ? '0 10px 20px 10px' : '0 10px' }}>
-                        <p style={{ whiteSpace: 'pre-wrap', color: 'var(--text-main)', lineHeight: '1.6', fontSize: '0.95rem' }}>
-                          {item.answer}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
+                </div>
+
+                <div style={{ textAlign: 'center', marginTop: '50px' }}>
+                  <button 
+                    className="btn btn-primary btn-large" 
+                    onClick={() => {
+                      setIsReviewPage(true);
+                      window.scrollTo(0, 0);
+                    }}
+                    style={{ padding: '15px 40px', fontSize: '1.1rem', boxShadow: '0 10px 20px rgba(74, 144, 226, 0.3)' }}
+                  >
+                    치료 후기 전체 보기 &rarr;
+                  </button>
                 </div>
               </div>
             </section>
