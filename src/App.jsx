@@ -82,6 +82,71 @@ const getAppleGridImage = (id) => {
   return imgMap[id] || '/images/ghibli_sweaty_general_1786858532513.jpg';
 };
 
+
+const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage, setIsSelfCheckPage, setIsReviewPage, setIsClinicPage, setSelectedSpecialty }) => {
+  if (!hoveredMenu) return null;
+
+  const contentMap = {
+    'detox': {
+      col1: { title: '정원해독 요법', links: [{ text: '진정성과 철학' }, { text: '13,200제 맞춤 해독' }] },
+      col2: { title: '관련 안내', links: [{ text: '의학 칼럼' }, { text: '공지사항' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '예약 바로가기', action: 'booking' }] }
+    },
+    'selfcheck': {
+      col1: { title: 'AI 자가진단', links: [{ text: '다한증 진단 테스트' }, { text: '결과 분석' }] },
+      col2: { title: '진단 후 단계', links: [{ text: '치료후기 확인' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '결과 상담 예약', action: 'booking' }] }
+    },
+    'reviews': {
+      col1: { title: '치료 후기', links: [{ text: '손발땀 후기' }, { text: '도한증 후기' }, { text: '전신 다한증 후기' }] },
+      col2: { title: '의학 정보', links: [{ text: '대표원장 칼럼' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '상담 예약하기', action: 'booking' }] }
+    },
+    'booking': {
+      col1: { title: '한의원 안내', links: [{ text: '오시는 길 (목동역)' }, { text: '진료 시간표' }] },
+      col2: { title: '자주 묻는 질문', links: [{ text: '한약 부작용 FAQ' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '네이버 실시간 예약', action: 'booking' }] }
+    },
+    'default': {
+      col1: { title: '해당 부위 다한증', links: [{ text: '특징 및 증상' }, { text: '원인 분석 (기허/음허)' }, { text: '보약식 해독 치료' }] },
+      col2: { title: '빠른 링크', links: [{ text: '치료 후기 보기', action: 'reviews' }, { text: 'AI 자가진단', action: 'selfcheck' }] },
+      col3: { title: '진료 및 예약', links: [{ text: '대표원장 1:1 상담 예약', action: 'booking' }] }
+    }
+  };
+
+  const content = contentMap[hoveredMenu] || contentMap['default'];
+
+  const handleAction = (action) => {
+    setHoveredMenu(null);
+    if (action === 'booking') {
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+    } else if (action === 'reviews') {
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsClinicPage(false); setIsReviewPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+    } else if (action === 'selfcheck') {
+      setIsDetoxPage(false); setIsClinicPage(false); setIsReviewPage(false); setIsSelfCheckPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+    }
+  };
+
+  return (
+    <div className={`mega-menu ${hoveredMenu ? 'active' : ''}`} onMouseLeave={() => setHoveredMenu(null)}>
+      <div className="container mega-menu-container">
+        {[content.col1, content.col2, content.col3].map((col, idx) => (
+          <div className="mega-col" key={idx}>
+            <h4 className="mega-col-title">{col.title}</h4>
+            <ul className="mega-col-list">
+              {col.links.map((link, lIdx) => (
+                <li key={lIdx} onClick={() => link.action ? handleAction(link.action) : null} className={link.action ? 'clickable' : ''}>
+                  {link.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
@@ -148,6 +213,7 @@ function App() {
 
   // Modals state
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
+  const [hoveredMenu, setHoveredMenu] = useState(null);
   const [columns, setColumns] = useState(defaultColumns);
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [isReviewPage, setIsReviewPage] = useState(false);
@@ -387,7 +453,7 @@ function App() {
   return (
     <>
       {/* HEADER */}
-      <header className="header">
+      <header className="header" onMouseLeave={() => setHoveredMenu(null)}>
         <div className="container header-container">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
             <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '38px', width: '38px', objectFit: 'contain' }} />
@@ -396,7 +462,7 @@ function App() {
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <a 
               href="#specialties" 
-              className={`nav-link ${isDetoxPage ? 'active' : ''}`}
+              className={`nav-link ${isDetoxPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('detox')}
               onClick={(e) => { 
                 e.preventDefault(); 
                 setIsMobileMenuOpen(false);
@@ -414,63 +480,63 @@ function App() {
             </a>
             <a 
               href="#sujok" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('sujok')}
               onClick={(e) => { e.preventDefault(); handleNavClick('sujok'); }}
             >
               손발땀
             </a>
             <a 
               href="#du-myeon" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('du-myeon')}
               onClick={(e) => { e.preventDefault(); handleNavClick('du-myeon'); }}
             >
               머리 얼굴땀
             </a>
             <a 
               href="#sangche" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('sangche')}
               onClick={(e) => { e.preventDefault(); handleNavClick('sangche'); }}
             >
               상체땀
             </a>
             <a 
               href="#hache" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('hache')}
               onClick={(e) => { e.preventDefault(); handleNavClick('hache'); }}
             >
               하체땀
             </a>
             <a 
               href="#jeonsin" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('jeonsin')}
               onClick={(e) => { e.preventDefault(); handleNavClick('jeonsin'); }}
             >
               전신땀
             </a>
             <a 
               href="#bosangseong" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('bosangseong')}
               onClick={(e) => { e.preventDefault(); handleNavClick('bosangseong'); }}
             >
               보상성 다한증
             </a>
             <a 
               href="#dohan" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('dohan')}
               onClick={(e) => { e.preventDefault(); handleNavClick('dohan'); }}
             >
               도한증(밤)
             </a>
             <a 
               href="#jahan" 
-              className="nav-link"
+              className="nav-link" onMouseEnter={() => setHoveredMenu('jahan')}
               onClick={(e) => { e.preventDefault(); handleNavClick('jahan'); }}
             >
               식은땀(낮)
             </a>
             <a 
               href="#selfcheck" 
-              className={`nav-link ${isSelfCheckPage ? 'active' : ''}`}
+              className={`nav-link ${isSelfCheckPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('selfcheck')}
               onClick={(e) => { 
                 e.preventDefault(); 
                 setIsMobileMenuOpen(false);
@@ -488,7 +554,7 @@ function App() {
             </a>
             <a 
               href="#reviews" 
-              className={`nav-link ${isReviewPage ? 'active' : ''}`}
+              className={`nav-link ${isReviewPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('reviews')}
               onClick={(e) => { 
                 e.preventDefault(); 
                 setIsMobileMenuOpen(false);
@@ -506,7 +572,7 @@ function App() {
             </a>
             <a 
               href="#booking" 
-              className={`nav-link ${isClinicPage ? 'active' : ''}`}
+              className={`nav-link ${isClinicPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('booking')}
               onClick={(e) => { 
                 e.preventDefault(); 
                 setIsMobileMenuOpen(false);

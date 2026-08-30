@@ -3099,3 +3099,84 @@
   }
 
 }
+
+/* ==========================================================================
+   Mega Menu (Hover Dropdown)
+   ========================================================================== */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  visibility: hidden;
+}
+
+.mega-menu.active {
+  max-height: 400px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.mega-menu-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mega-col {
+  flex: 1;
+  max-width: 250px;
+}
+
+.mega-col-title {
+  font-size: 0.85rem;
+  color: #86868b;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.mega-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mega-col-list li {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  transition: color 0.2s;
+  cursor: default;
+}
+
+.mega-col-list li.clickable {
+  cursor: pointer;
+}
+
+.mega-col-list li.clickable:hover {
+  color: #0071e3;
+}
