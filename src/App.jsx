@@ -126,22 +126,27 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
   };
 
   return (
-    <div className={`mega-menu ${hoveredMenu ? 'active' : ''}`} onMouseLeave={() => setHoveredMenu(null)}>
-      <div className="container mega-menu-container">
-        {[content.col1, content.col2, content.col3].map((col, idx) => (
-          <div className="mega-col" key={idx}>
-            <h4 className="mega-col-title">{col.title}</h4>
-            <ul className="mega-col-list">
-              {col.links.map((link, lIdx) => (
-                <li key={lIdx} onClick={() => link.action ? handleAction(link.action) : null} className={link.action ? 'clickable' : ''}>
-                  {link.text}
-                </li>
-              ))}
-            </ul>
+    <>
+      <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
+      <div className={`mega-menu ${hoveredMenu ? 'active' : ''}`} onMouseLeave={() => setHoveredMenu(null)}>
+        <div className="mega-menu-inner">
+          <div className="container mega-menu-container">
+            {[content.col1, content.col2, content.col3].map((col, idx) => (
+              <div className="mega-col" key={idx}>
+                <h4 className="mega-col-title">{col.title}</h4>
+                <ul className="mega-col-list">
+                  {col.links.map((link, lIdx) => (
+                    <li key={lIdx} onClick={() => link.action ? handleAction(link.action) : null} className={link.action ? 'clickable' : ''}>
+                      {link.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

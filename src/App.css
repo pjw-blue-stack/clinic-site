@@ -3110,26 +3110,54 @@
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
+.mega-menu-overlay {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 998;
+}
+
+.mega-menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .mega-menu {
   position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 999;
 }
 
 .mega-menu.active {
+  grid-template-rows: 1fr;
+}
+
+.mega-menu-inner {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mega-menu.active .mega-menu-inner {
   opacity: 1;
-  pointer-events: auto;
   transform: translateY(0);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) 0.05s;
 }
 
 .mega-menu-container {
