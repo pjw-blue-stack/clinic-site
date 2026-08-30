@@ -866,141 +866,167 @@ function App() {
           </div>
         ) : (
           <>
-            {/* HERO SECTION */}
-        <section id="home" className="hero">
-          <div className="container hero-grid">
-            <div className="hero-content">
-              <div className="hero-badge">
-                <span>✦</span> {textContent.mainHero.badge}
-              </div>
-              <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
-                {textContent.mainHero.title}
-              </h1>
-              <p className="hero-desc">
-                {textContent.mainHero.desc}
-              </p>
-              <div className="hero-btns">
-                <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
-                  {textContent.mainHero.btnBooking}
-                </button>
-                <button className="btn btn-outline" onClick={() => {
-                  setSelectedSpecialty(null);
-                  setIsColumnPage(false);
-                  setSelectedColumn(null);
-                  setIsClinicPage(false);
-                  setIsDetoxPage(false);
-                  setIsReviewPage(true);
-                  window.scrollTo(0, 0);
-                }}>
-                  {textContent.mainHero.btnReviews}
-                </button>
-              </div>
-            </div>
-            
-            <div className="hero-visual">
-              <div className="hero-circle-bg"></div>
-              <div className="hero-card hero-card-1">
-                <div className="hero-card-icon">💧</div>
-                <h4 className="hero-card-title">{textContent.mainHero.card1Title}</h4>
-                <p className="hero-card-desc">{textContent.mainHero.card1Desc}</p>
-              </div>
-              <div className="hero-card hero-card-2">
-                <div className="hero-card-icon">🧠</div>
-                <h4 className="hero-card-title">{textContent.mainHero.card2Title}</h4>
-                <p className="hero-card-desc">{textContent.mainHero.card2Desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* VALUE PROOF SECTION */}
-        <section className="section-value-proof">
-          <div className="container">
-            <div className="value-proof-grid">
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item1Num}<span>{textContent.valueProof.item1Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item1Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item1Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item2Num}<span>{textContent.valueProof.item2Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item2Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item2Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item3Num}<span>{textContent.valueProof.item3Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item3Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item3Desc}</p>
-              </div>
-              <div className="value-proof-item">
-                <div className="value-proof-num">{textContent.valueProof.item4Num}<span>{textContent.valueProof.item4Unit}</span></div>
-                <h4 className="value-proof-title">{textContent.valueProof.item4Title}</h4>
-                <p className="value-proof-desc">{textContent.valueProof.item4Desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CLINIC SPECIALTIES SECTION */}
-        <section id="specialties" className="section">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-badge">{textContent.specialtiesHeader.badge}</span>
-              <h2>{textContent.specialtiesHeader.title}</h2>
-              <p className="section-desc">
-                {textContent.specialtiesHeader.desc}
-              </p>
-            </div>
-
-            <div className="specialties-grid">
-              {specialties.map((specialty) => (
-                <div 
-                  key={specialty.id} 
-                  className="specialty-card"
-                  onClick={() => {
-                    setSelectedSpecialty(specialty);
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  <div className="specialty-icon">{specialty.icon}</div>
-                  <h3 className="specialty-title">{specialty.title}</h3>
-                  <p className="specialty-desc">{specialty.summary}</p>
-                  <span className="specialty-more">자세히 보기 →</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        {/* OBJECTION REMOVAL SECTION */}
-        <section className="section section-objection-removal">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-badge">{textContent.faq.badge}</span>
-              <h2>{textContent.faq.title}</h2>
-              <p className="section-desc">
-                {textContent.faq.desc}
-              </p>
-            </div>
-
-            <div className="faq-container">
-              {textContent.faq.list.map((item, idx) => (
-                <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`}>
-                  <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)}>
-                    <span>{item.question}</span>
-                    <span className="faq-icon">{openFaq === idx ? '−' : '+'}</span>
+            {/* 1. HERO SECTION (최신 공지사항) */}
+            <section id="home" className="hero announcement-hero" style={{ background: 'linear-gradient(135deg, var(--bg-color) 0%, #e2e8f0 100%)', padding: '100px 0 80px' }}>
+              <div className="container hero-grid">
+                <div className="hero-content">
+                  <div className="hero-badge">
+                    <span>{textContent.announcementHero.badge.charAt(0)}</span> {textContent.announcementHero.badge.slice(2)}
                   </div>
-                  <div className="faq-answer">
-                    <p style={{ whiteSpace: 'pre-wrap' }}>
-                      {item.answer}
-                    </p>
+                  <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
+                    {textContent.announcementHero.title}
+                  </h1>
+                  <p className="hero-desc">
+                    {textContent.announcementHero.desc}
+                  </p>
+                  <div className="hero-btns">
+                    <button className="btn btn-primary btn-pulse" onClick={() => setShowBookingModal(true)}>
+                      {textContent.announcementHero.btnBooking}
+                    </button>
+                    <button className="btn btn-outline" onClick={() => {
+                      setSelectedSpecialty(null);
+                      setIsColumnPage(false);
+                      setSelectedColumn(null);
+                      setIsClinicPage(false);
+                      setIsDetoxPage(false);
+                      setIsReviewPage(true);
+                      window.scrollTo(0, 0);
+                    }}>
+                      {textContent.announcementHero.btnReviews}
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                
+                <div className="hero-visual announcement-board glass-card" style={{ padding: '30px', textAlign: 'left', borderTop: '4px solid var(--accent-color)' }}>
+                  <h3 style={{ marginBottom: '20px', color: 'var(--primary-dark)', fontSize: '1.4rem' }}>최신 공지사항</h3>
+                  <div className="announcement-list" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {textContent.announcementHero.announcements.map((ann) => (
+                      <div key={ann.id} className="announcement-item" style={{ padding: '15px', borderRadius: '10px', backgroundColor: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.9)', cursor: 'pointer', transition: 'all 0.3s ease', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+                        <div>
+                          <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '4px', backgroundColor: 'var(--accent-light)', color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '8px' }}>{ann.tag}</span>
+                          <h4 style={{ margin: 0, fontSize: '1.05rem', color: 'var(--text-main)' }}>{ann.title}</h4>
+                        </div>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-light)' }}>{ann.date}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
 
+            {/* 2. VALUE PROOF SECTION (가치 입증) */}
+            <section className="section-value-proof" style={{ backgroundColor: '#f8fafc', padding: '60px 0' }}>
+              <div className="container">
+                <div className="value-proof-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item1Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item1Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item1Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item1Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item2Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item2Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item2Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item2Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item3Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item3Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item3Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item3Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item4Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item4Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item4Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item4Desc}</p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
+            {/* 3. DETOX PRINCIPLES SECTION (정원해독 치료 원리) */}
+            <section className="section section-principles" style={{ backgroundColor: '#ffffff', padding: '80px 0' }}>
+              <div className="container">
+                <div className="section-header">
+                  <span className="section-badge">{textContent.detoxPrinciples.badge}</span>
+                  <h2>{textContent.detoxPrinciples.title}</h2>
+                  <p className="section-desc">
+                    {textContent.detoxPrinciples.desc}
+                  </p>
+                </div>
+                <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginTop: '40px' }}>
+                  {textContent.detoxPrinciples.steps.map((step, idx) => (
+                    <div key={idx} className="principle-card glass-card" style={{ padding: '40px 30px', textAlign: 'center', position: 'relative', overflow: 'hidden', border: '1px solid rgba(74, 144, 226, 0.1)' }}>
+                      <div className="principle-step-num" style={{ position: 'absolute', top: '-15px', right: '-15px', fontSize: '8rem', fontWeight: '900', color: 'rgba(74, 144, 226, 0.04)', zIndex: 0 }}>{step.stepNum}</div>
+                      <div className="principle-icon" style={{ fontSize: '3.5rem', marginBottom: '20px', position: 'relative', zIndex: 1 }}>{step.icon}</div>
+                      <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '15px', position: 'relative', zIndex: 1 }}>{step.title}</h3>
+                      <p style={{ color: 'var(--text-main)', lineHeight: '1.6', position: 'relative', zIndex: 1 }}>{step.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 4. CLINIC SPECIALTIES SECTION (홈페이지 해당 메뉴) */}
+            <section id="specialties" className="section" style={{ backgroundColor: '#f0f4f8' }}>
+              <div className="container">
+                <div className="section-header">
+                  <span className="section-badge">{textContent.specialtiesHeader.badge}</span>
+                  <h2>{textContent.specialtiesHeader.title}</h2>
+                  <p className="section-desc">
+                    {textContent.specialtiesHeader.desc}
+                  </p>
+                </div>
+
+                <div className="specialties-grid">
+                  {specialties.map((specialty) => (
+                    <div 
+                      key={specialty.id} 
+                      className="specialty-card glass-card"
+                      style={{ padding: '30px', borderTop: '4px solid var(--accent-color)', cursor: 'pointer', transition: 'all 0.3s ease' }}
+                      onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.1)'; }} 
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.05)'; }}
+                      onClick={() => {
+                        setSelectedSpecialty(specialty);
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      <div className="specialty-icon" style={{ fontSize: '2.5rem', marginBottom: '15px' }}>{specialty.icon}</div>
+                      <h3 className="specialty-title" style={{ fontSize: '1.3rem', marginBottom: '10px' }}>{specialty.title}</h3>
+                      <p className="specialty-desc" style={{ color: 'var(--text-light)', fontSize: '0.95rem' }}>{specialty.summary}</p>
+                      <span className="specialty-more" style={{ display: 'inline-block', marginTop: '20px', color: 'var(--primary-color)', fontWeight: 'bold' }}>자세히 보기 →</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 5. OBJECTION REMOVAL SECTION (Q&A) */}
+            <section className="section section-objection-removal" style={{ backgroundColor: '#ffffff', paddingBottom: '100px' }}>
+              <div className="container">
+                <div className="section-header">
+                  <span className="section-badge">{textContent.faq.badge}</span>
+                  <h2>{textContent.faq.title}</h2>
+                  <p className="section-desc">
+                    {textContent.faq.desc}
+                  </p>
+                </div>
+
+                <div className="faq-container" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                  {textContent.faq.list.map((item, idx) => (
+                    <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`} style={{ borderBottom: '1px solid #eef2f6', marginBottom: '10px' }}>
+                      <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)} style={{ padding: '20px 10px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: '600', color: 'var(--primary-dark)', fontSize: '1.05rem', paddingRight: '20px' }}>{item.question}</span>
+                        <span className="faq-icon" style={{ color: 'var(--accent-color)', fontSize: '1.5rem', fontWeight: '300' }}>{openFaq === idx ? '−' : '+'}</span>
+                      </div>
+                      <div className="faq-answer" style={{ maxHeight: openFaq === idx ? '1500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease', padding: openFaq === idx ? '0 10px 20px 10px' : '0 10px' }}>
+                        <p style={{ whiteSpace: 'pre-wrap', color: 'var(--text-main)', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                          {item.answer}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
           </>
         )}
       </main>
