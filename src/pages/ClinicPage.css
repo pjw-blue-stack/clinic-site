@@ -1,0 +1,239 @@
+.clinic-page-wrapper {
+  background-color: var(--bg-color);
+  font-family: 'Pretendard', sans-serif;
+  padding-top: 80px;
+}
+
+.clinic-section {
+  padding: 80px 0;
+}
+
+.clinic-section.bg-light {
+  background-color: #fbfbfd;
+}
+
+/* Greeting Section */
+.clinic-greeting-content {
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  text-align: center;
+}
+
+.greeting-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-top: 20px;
+  line-height: 1.4;
+}
+
+.greeting-desc {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--accent-color);
+  margin-bottom: 40px;
+}
+
+.greeting-body {
+  display: flex;
+  gap: 40px;
+  text-align: left;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.greeting-story {
+  flex: 1;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.greeting-story p {
+  margin-bottom: 15px;
+}
+
+.greeting-profile-wrapper {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.greeting-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.greeting-history li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* Herb Section */
+.herb-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.herb-feature-card {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+  border: 1px solid var(--glass-border);
+  transition: transform 0.3s ease;
+}
+
+.herb-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
+
+.herb-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.herb-feature-card h3 {
+  font-size: 1.2rem;
+  color: var(--primary-dark);
+  margin-bottom: 15px;
+}
+
+.herb-feature-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Location Section */
+.location-content {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+}
+
+.map-container {
+  height: 400px;
+  background-color: #eef2f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-placeholder {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.transport-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 40px;
+  gap: 30px;
+  background: white;
+}
+
+.transport-item h4 {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.transport-item p {
+  color: var(--text-main);
+}
+
+/* CTA Section */
+.cta-banner {
+  padding: 60px 40px;
+  background: linear-gradient(135deg, var(--bg-color), #fff);
+  border-radius: 20px;
+}
+
+.cta-banner h2 {
+  font-size: 1.8rem;
+  color: var(--primary-dark);
+  margin-bottom: 10px;
+}
+
+.cta-banner p {
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+.cta-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cta-card {
+  padding: 30px 20px;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid var(--glass-border);
+  text-decoration: none;
+  color: var(--text-main);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-card:hover {
+  transform: translateY(-5px);
+}
+
+.kakao-link:hover {
+  border-color: #fee500;
+  box-shadow: 0 10px 20px rgba(254, 229, 0, 0.2);
+}
+.naver-talk-link:hover, .naver-booking-link:hover {
+  border-color: #03c75a;
+  box-shadow: 0 10px 20px rgba(3, 199, 90, 0.2);
+}
+
+.cta-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.cta-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: var(--primary-dark);
+}
+
+.cta-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .greeting-body {
+    flex-direction: column;
+  }
+  .greeting-profile-wrapper {
+    width: 100%;
+  }
+  .transport-info {
+    grid-template-columns: 1fr;
+  }
+  .cta-links-grid {
+    grid-template-columns: 1fr;
+  }
+}
