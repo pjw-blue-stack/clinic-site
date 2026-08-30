@@ -123,8 +123,8 @@ function ClinicPage({
               <div className="map-placeholder">
                 <p>📍 지도 영역 (네이버/카카오 지도 연동)</p>
                 <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
-                  <a href="https://map.naver.com/" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#03c75a', color: '#03c75a' }}>네이버 지도로 보기</a>
-                  <a href="https://map.kakao.com/" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#fee500', color: '#3c1e1e' }}>카카오맵으로 보기</a>
+                  <a href="https://map.naver.com/p/search/%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#03c75a', color: '#03c75a' }}>네이버 지도로 보기</a>
+                  <a href="https://map.kakao.com/?q=%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#fee500', color: '#3c1e1e' }}>카카오맵으로 보기</a>
                 </div>
               </div>
             </div>
