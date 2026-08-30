@@ -104,7 +104,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
       col3: { title: '진료 및 예약', links: [{ text: '상담 예약하기', action: 'booking' }] }
     },
     'booking': {
-      col1: { title: '경희정원 소개', links: [{ text: '공지사항', action: 'booking' }, { text: '대표원장 인사말', action: 'booking' }] },
+      col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'booking' }, { text: '공지사항', action: 'booking' }] },
       col2: { title: '의학 및 한약재', links: [{ text: '의학 칼럼', action: 'booking' }, { text: '청정 GMP 한약재', action: 'booking' }] },
       col3: { title: '진료 및 예약', links: [{ text: '오시는 길', action: 'booking' }, { text: '상담 및 예약 (문의게시판)', action: 'booking' }] }
     },
