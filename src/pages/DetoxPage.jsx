@@ -161,7 +161,7 @@ function DetoxPage({ setShowBookingModal }) {
       </section>
 
       {/* 4. TOXINS CORRELATION GRAPHS */}
-      <section className="section-compare bg-white" style={{ padding: '80px 0 20px' }}>
+      <section className="section-compare bg-white" style={{ padding: '80px 0 20px', height: 'auto' }}>
         <div className="container text-center">
           <div className="compare-text" style={{ marginBottom: '40px' }}>
             <span className="section-badge">{textContent.detoxGraphs.badge}</span>
