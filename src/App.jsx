@@ -84,8 +84,6 @@ const getAppleGridImage = (id) => {
 
 
 const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage, setIsSelfCheckPage, setIsReviewPage, setIsClinicPage, setSelectedSpecialty }) => {
-  if (!hoveredMenu) return null;
-
   const contentMap = {
     'detox': {
       col1: { title: '정원해독 요법', links: [{ text: '진정성과 철학' }, { text: '13,200제 맞춤 해독' }] },
