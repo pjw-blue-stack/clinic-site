@@ -1324,7 +1324,7 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
     currentDetails = selectedHacheParts.map(p => specialty.parts[p]?.details);
   }
 
-  const { problem, authority, shift, solution, objection, cta } = specialty.sixSteps;
+  const { problem, authority, shift, solution, objection, cta, timeline, pricing } = specialty.sixSteps;
 
   return (
     <div className="specialty-detail-page six-step-funnel">
@@ -1501,6 +1501,64 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
           <h3 className="funnel-copy">{solution.copy}</h3>
           <div className="solution-steps">
             <p className="funnel-desc" style={{whiteSpace: 'pre-line'}}>{solution.desc}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.5 Timeline & Pricing & Self-Check */}
+      {timeline && (
+        <section className="funnel-section section-timeline">
+          <div className="container">
+            <h2 className="funnel-title" style={{ textAlign: 'center', marginBottom: '40px' }}>{timeline.title}</h2>
+            <div className="timeline-container">
+              {timeline.steps.map((step, idx) => (
+                <div key={idx} className="timeline-item">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content glass-card">
+                    <h4 className="timeline-step">{step.step} <span className="timeline-period">({step.period})</span></h4>
+                    <p className="timeline-desc">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {pricing && (
+        <section className="funnel-section section-pricing">
+          <div className="container">
+            <div className="pricing-card glass-card">
+              <h2 className="funnel-title" style={{ textAlign: 'center', marginBottom: '15px' }}>{pricing.title}</h2>
+              <div className="pricing-amount">
+                <span className="pricing-highlight">{pricing.description}</span>
+              </div>
+              <p className="pricing-subtext">{pricing.subtext}</p>
+              <div className="pricing-action">
+                <button 
+                  className="btn btn-accent btn-pulse" 
+                  onClick={() => window.open('https://pf.kakao.com', '_blank')}
+                  style={{ fontSize: '1.2rem', padding: '15px 30px', marginTop: '20px' }}
+                >
+                  {pricing.btnText}
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="funnel-section section-selfcheck-banner">
+        <div className="container">
+          <div className="selfcheck-banner glass-card" style={{ background: 'linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(80, 227, 194, 0.1))', padding: '40px', borderRadius: '20px', textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+            <h2 style={{ fontSize: '2rem', marginBottom: '15px', color: 'var(--text-main)' }}>내 다한증은 얼마나 심각할까?</h2>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-light)', marginBottom: '30px' }}>단 1분만에 알아보는 AI 맞춤형 다한증 자가진단 테스트</p>
+            <button 
+              className="btn btn-primary btn-large btn-pulse"
+              onClick={() => window.location.href = '?page=selfcheck'}
+            >
+              자가진단 테스트 시작하기
+            </button>
           </div>
         </div>
       </section>
