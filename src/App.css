@@ -3222,3 +3222,14 @@ main.main-content.blurred, footer.footer.blurred {
   filter: blur(10px);
   pointer-events: none;
 }
+
+.detail-hero h1,
+.detail-hero h2,
+.detail-hero h3,
+.detail-hero h4,
+.detail-hero h5,
+.detail-hero h6,
+.detail-hero .detail-title {
+  color: var(--text-inverse);
+}
+
