@@ -747,12 +747,16 @@ function App() {
                 {/* 5. 의료법 준수 로그인 게시판 (반박 제거) */}
                 <div className="reviews-grid" style={{ marginTop: '40px' }}>
                   {!loggedInUser ? (
-                    <div className="no-reviews-card" style={{ margin: '0 auto' }}>
-                      <span style={{ fontSize: '3rem' }}>🔒</span>
-                      <h3>의료법 제56조에 의거, 치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
-                      <p>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
-                      <button className="btn btn-accent" onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
-                    </div>
+                    <>
+                      {[1, 2, 3].map((item) => (
+                        <div key={`locked-${item}`} className="no-reviews-card" style={{ textAlign: 'center', padding: '40px', backgroundColor: '#f9fbfd', borderRadius: '16px', boxShadow: '0 5px 20px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                          <span style={{ fontSize: '3rem', marginBottom: '15px' }}>🔒</span>
+                          <h3 style={{ fontSize: '1.2rem', marginBottom: '15px', wordBreak: 'keep-all' }}>의료법 제56조에 의거,<br/>치료 후기는 로그인 후 열람하실 수 있습니다.</h3>
+                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
+                        </div>
+                      ))}
+                    </>
                   ) : (
                     reviews
                       .filter(review => filterSpecialty === 'all' || review.specialtyId === filterSpecialty)
