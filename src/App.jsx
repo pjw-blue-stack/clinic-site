@@ -67,6 +67,21 @@ const DirectorProfile = () => (
   </div>
 );
 
+
+const getAppleGridImage = (id) => {
+  const imgMap = {
+    'sujok': '/images/ghibli_sweaty_both_fixed_1786859540856.jpg',
+    'du-myeon': '/images/ghibli_sweaty_head_face_1786858400182.jpg',
+    'sangche': '/images/ghibli_sweaty_upper_1786858446561.jpg',
+    'hache': '/images/ghibli_sweaty_lower_1786858457417.jpg',
+    'jeonsin': '/images/ghibli_sweaty_whole_1786858470503.jpg',
+    'bosangseong': '/images/ghibli_sweaty_compensatory_1786858493740.jpg',
+    'dohan': '/images/ghibli_sweaty_night_1786858513250.jpg',
+    'jahan': '/images/ghibli_sweaty_day_1788053312092.jpg'
+  };
+  return imgMap[id] || '/images/ghibli_sweaty_general_1786858532513.jpg';
+};
+
 function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
