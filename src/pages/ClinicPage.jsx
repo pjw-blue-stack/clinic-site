@@ -15,7 +15,7 @@ function ClinicPage({
   setBookingForm, 
   bookingForm 
 }) {
-  const { clinicNotice, clinicGreeting, clinicHerb, clinicLocation } = textContent;
+  const { clinicNotice, clinicGreeting, clinicHerb, clinicSchedule, clinicLocation } = textContent;
 
   return (
     <div className="clinic-page-wrapper">
@@ -104,6 +104,32 @@ function ClinicPage({
                 <p>{feat.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      
+      {/* 3.5 진료시간 안내 */}
+      <section className="clinic-section clinic-schedule-section">
+        <div className="container">
+          <div className="text-center mb-5">
+            <span className="section-badge">{clinicSchedule.badge}</span>
+            <h2>{clinicSchedule.title}</h2>
+            <p className="section-subtitle">{clinicSchedule.desc}</p>
+          </div>
+          
+          <div className="schedule-card glass-card">
+            <div className="schedule-header">
+              <h3>진료 안내</h3>
+            </div>
+            <ul className="schedule-list">
+              {clinicSchedule.items.map((item, idx) => (
+                <li key={idx} className={`schedule-item ${item.highlight ? 'highlight' : ''} ${item.isHoliday ? 'holiday' : ''}`}>
+                  <span className="schedule-day">{item.day}</span>
+                  <span className="schedule-time">{item.time}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
