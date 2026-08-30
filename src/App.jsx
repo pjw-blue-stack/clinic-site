@@ -248,6 +248,7 @@ function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [selectedDetoxStep, setSelectedDetoxStep] = useState(null);
 
   // Sync state to URL for page refreshes and history
   useEffect(() => {
@@ -869,11 +870,19 @@ function App() {
                 </div>
                 <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginTop: '40px' }}>
                   {textContent.detoxPrinciples.steps.map((step, idx) => (
-                    <div key={idx} className="principle-card glass-card" style={{ padding: '40px 30px', textAlign: 'center', position: 'relative', overflow: 'hidden', border: '1px solid rgba(74, 144, 226, 0.1)' }}>
+                    <div 
+                      key={idx} 
+                      className="principle-card glass-card" 
+                      style={{ padding: '40px 30px', textAlign: 'center', position: 'relative', overflow: 'hidden', border: '1px solid rgba(74, 144, 226, 0.1)', cursor: 'pointer' }}
+                      onClick={() => setSelectedDetoxStep(step)}
+                    >
                       <div className="principle-step-num" style={{ position: 'absolute', top: '-15px', right: '-15px', fontSize: '8rem', fontWeight: '900', color: 'rgba(74, 144, 226, 0.04)', zIndex: 0 }}>{step.stepNum}</div>
                       <div className="principle-icon" style={{ fontSize: '3.5rem', marginBottom: '20px', position: 'relative', zIndex: 1 }}>{step.icon}</div>
                       <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '15px', position: 'relative', zIndex: 1 }}>{step.title}</h3>
                       <p style={{ color: 'var(--text-main)', lineHeight: '1.6', position: 'relative', zIndex: 1 }}>{step.desc}</p>
+                      <div style={{ marginTop: '20px', position: 'relative', zIndex: 1 }}>
+                        <span style={{ fontSize: '0.9rem', color: 'var(--primary-color)', fontWeight: '600', borderBottom: '1px solid var(--primary-color)' }}>자세히 보기 &rarr;</span>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -1302,6 +1311,30 @@ function App() {
       </div>
       {/* MEGA MENU OVERLAY */}
       <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
+      {/* Detox Step Modal */}
+      {selectedDetoxStep && (
+        <div className="modal-overlay" onClick={() => setSelectedDetoxStep(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close" onClick={() => setSelectedDetoxStep(null)}>×</button>
+            <div className="modal-header" style={{ marginBottom: '20px' }}>
+              <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>{selectedDetoxStep.icon}</div>
+              <div className="modal-subtitle" style={{ color: 'var(--primary-color)' }}>{selectedDetoxStep.stepNum}단계</div>
+              <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>{selectedDetoxStep.title}</h2>
+            </div>
+            <div className="modal-body" style={{ textAlign: 'center', padding: '10px 0' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--text-main)', wordBreak: 'keep-all' }}>
+                {selectedDetoxStep.modalContent}
+              </p>
+            </div>
+            <div className="form-submit" style={{ marginTop: '30px' }}>
+              <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedDetoxStep(null)}>
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </>
   );
 }
