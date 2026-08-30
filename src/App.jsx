@@ -469,6 +469,24 @@ function App() {
               식은땀(낮)
             </a>
             <a 
+              href="#column" 
+              className={`nav-link ${isColumnPage ? 'active' : ''}`}
+              onClick={(e) => { 
+                e.preventDefault(); 
+                setIsMobileMenuOpen(false);
+                setSelectedSpecialty(null);
+                setIsColumnPage(true);
+                setSelectedColumn(null);
+                setIsReviewPage(false);
+                setIsClinicPage(false);
+                setIsDetoxPage(false);
+                setIsSelfCheckPage(false);
+                window.scrollTo(0, 0); 
+              }}
+            >
+              의학 칼럼
+            </a>
+            <a 
               href="#selfcheck" 
               className={`nav-link ${isSelfCheckPage ? 'active' : ''}`}
               onClick={(e) => { 
