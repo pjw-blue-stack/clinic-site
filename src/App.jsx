@@ -878,7 +878,270 @@ function App() {
           </div>
         ) : isDetoxPage ? (
           <DetoxPage setShowBookingModal={setShowBookingModal} />
-        ) : null}
+        ) : (
+          <>
+            {/* 1. HERO SECTION (최신 공지사항) */}
+            <section id="home" className="hero announcement-hero" style={{ background: 'linear-gradient(135deg, var(--bg-color) 0%, #e2e8f0 100%)', padding: '100px 0 80px' }}>
+              <div className="container hero-grid">
+                <div className="hero-content">
+                  <div className="hero-badge">
+                    <span>{textContent.announcementHero.badge.charAt(0)}</span> {textContent.announcementHero.badge.slice(2)}
+                  </div>
+                  <h1 className="hero-title" style={{ whiteSpace: 'pre-wrap' }}>
+                    {textContent.announcementHero.title}
+                  </h1>
+                  <p className="hero-desc">
+                    {textContent.announcementHero.desc}
+                  </p>
+                  <div className="hero-btns">
+                    <button className="btn btn-primary btn-pulse" onClick={() => setShowBookingModal(true)}>
+                      {textContent.announcementHero.btnBooking}
+                    </button>
+                    <button className="btn btn-outline" onClick={() => {
+                      setSelectedSpecialty(null);
+                      setIsColumnPage(false);
+                      setSelectedColumn(null);
+                      setIsClinicPage(false);
+                      setIsDetoxPage(false);
+                      setIsReviewPage(true);
+                      window.scrollTo(0, 0);
+                    }}>
+                      {textContent.announcementHero.btnReviews}
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="hero-visual announcement-board glass-card" style={{ padding: '30px', textAlign: 'left', borderTop: '4px solid var(--accent-color)' }}>
+                  <h3 style={{ marginBottom: '20px', color: 'var(--primary-dark)', fontSize: '1.4rem' }}>최신 공지사항</h3>
+                  <div className="announcement-list" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                    {textContent.announcementHero.announcements.map((ann) => (
+                      <div key={ann.id} className="announcement-item" style={{ padding: '15px', borderRadius: '10px', backgroundColor: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.9)', cursor: 'pointer', transition: 'all 0.3s ease', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
+                        <div>
+                          <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '4px', backgroundColor: 'var(--accent-light)', color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '8px' }}>{ann.tag}</span>
+                          <h4 style={{ margin: 0, fontSize: '1.05rem', color: 'var(--text-main)' }}>{ann.title}</h4>
+                        </div>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-light)' }}>{ann.date}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 2. VALUE PROOF SECTION (가치 입증) */}
+            <section className="section-value-proof" style={{ backgroundColor: '#f8fafc', padding: '60px 0' }}>
+              <div className="container">
+                <div className="value-proof-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item1Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item1Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item1Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item1Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item2Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item2Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item2Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item2Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item3Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item3Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item3Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item3Desc}</p>
+                  </div>
+                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                    <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item4Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item4Unit}</span></div>
+                    <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item4Title}</h4>
+                    <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item4Desc}</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 3. DETOX PRINCIPLES SECTION (정원해독 치료 원리) */}
+            <section className="section section-principles" style={{ backgroundColor: '#ffffff', padding: '80px 0' }}>
+              <div className="container">
+                <div className="section-header">
+                  <span className="section-badge">{textContent.detoxPrinciples.badge}</span>
+                  <h2>{textContent.detoxPrinciples.title}</h2>
+                  <p className="section-desc">
+                    {textContent.detoxPrinciples.desc}
+                  </p>
+                </div>
+                <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginTop: '40px' }}>
+                  {textContent.detoxPrinciples.steps.map((step, idx) => (
+                    <div key={idx} className="principle-card glass-card" style={{ padding: '40px 30px', textAlign: 'center', position: 'relative', overflow: 'hidden', border: '1px solid rgba(74, 144, 226, 0.1)' }}>
+                      <div className="principle-step-num" style={{ position: 'absolute', top: '-15px', right: '-15px', fontSize: '8rem', fontWeight: '900', color: 'rgba(74, 144, 226, 0.04)', zIndex: 0 }}>{step.stepNum}</div>
+                      <div className="principle-icon" style={{ fontSize: '3.5rem', marginBottom: '20px', position: 'relative', zIndex: 1 }}>{step.icon}</div>
+                      <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '15px', position: 'relative', zIndex: 1 }}>{step.title}</h3>
+                      <p style={{ color: 'var(--text-main)', lineHeight: '1.6', position: 'relative', zIndex: 1 }}>{step.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* 4. CLINIC SPECIALTIES SECTION (애플 스타일) */}
+            <section id="specialties" className="apple-specialties-container">
+
+              {/* Hero 1: 수족다한증 (iPhone Style) */}
+              {(() => {
+                const spec = specialties.find(s => s.id === 'sujok');
+                return spec ? (
+                  <div className="apple-full-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
+                    <h3 className="apple-title">{spec.title.split(' (')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.includes('(') ? '(' + spec.title.split('(')[1] : spec.subtitle}</p>
+                    <div className="apple-btns">
+                      <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
+                      <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                    </div>
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Hero 2: 안면다한증 (MacBook Air Style) */}
+              {(() => {
+                const spec = specialties.find(s => s.id === 'du-myeon');
+                return spec ? (
+                  <div className="apple-full-section apple-theme-light-blue" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
+                    <h3 className="apple-title">{spec.title.split(' (')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.includes('(') ? '(' + spec.title.split('(')[1] : spec.subtitle}</p>
+                    <div className="apple-btns">
+                      <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
+                      <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                    </div>
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Grid 1: 상체땀 / 하체땀 (iPad Air / MacBook Pro Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'sangche');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'hache');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+
+              {/* Grid 2: 전신다한증 / 보상성다한증 (iPad Pro / AirPods Pro Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'jeonsin');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'bosangseong');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+
+              {/* Grid 3: 도한증 / 카카오톡 실시간 상담 (Apple Watch / Trade In Style) */}
+              <div className="apple-grid-row">
+                {(() => {
+                  const spec1 = specialties.find(s => s.id === 'dohan');
+                  return spec1 ? (
+                    <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+                
+                {(() => {
+                  const spec2 = specialties.find(s => s.id === 'jahan');
+                  return spec2 ? (
+                    <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
+                      <div className="apple-btns">
+                        <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
+                        <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
+                      </div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    </div>
+                  ) : null;
+                })()}
+              </div>
+            </section>
+
+            {/* 5. OBJECTION REMOVAL SECTION (Q&A) */}
+            <section className="section section-objection-removal" style={{ backgroundColor: '#ffffff', paddingBottom: '100px' }}>
+              <div className="container">
+                <div className="section-header">
+                  <span className="section-badge">{textContent.faq.badge}</span>
+                  <h2>{textContent.faq.title}</h2>
+                  <p className="section-desc">
+                    {textContent.faq.desc}
+                  </p>
+                </div>
+
+                <div className="faq-container" style={{ maxWidth: '800px', margin: '0 auto' }}>
+                  {textContent.faq.list.map((item, idx) => (
+                    <div key={idx} className={`faq-item ${openFaq === idx ? 'active' : ''}`} style={{ borderBottom: '1px solid #eef2f6', marginBottom: '10px' }}>
+                      <div className="faq-question" onClick={() => setOpenFaq(openFaq === idx ? null : idx)} style={{ padding: '20px 10px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: '600', color: 'var(--primary-dark)', fontSize: '1.05rem', paddingRight: '20px' }}>{item.question}</span>
+                        <span className="faq-icon" style={{ color: 'var(--accent-color)', fontSize: '1.5rem', fontWeight: '300' }}>{openFaq === idx ? '−' : '+'}</span>
+                      </div>
+                      <div className="faq-answer" style={{ maxHeight: openFaq === idx ? '1500px' : '0', overflow: 'hidden', transition: 'max-height 0.3s ease', padding: openFaq === idx ? '0 10px 20px 10px' : '0 10px' }}>
+                        <p style={{ whiteSpace: 'pre-wrap', color: 'var(--text-main)', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                          {item.answer}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </>
+        )}
       </main>
 
       {/* FOOTER */}
