@@ -453,9 +453,7 @@ function App() {
   return (
     <>
       {/* HEADER */}
-      {/* MEGA MENU OVERLAY */}
-      <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
-
+      {/* HEADER */}
       <div className="header-wrapper" onMouseLeave={() => setHoveredMenu(null)}>
       <header className="header">
         <div className="container header-container">
@@ -1562,6 +1560,8 @@ function App() {
           <span className="quick-text">네이버예약</span>
         </button>
       </div>
+      {/* MEGA MENU OVERLAY */}
+      <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
     </>
   );
 }
