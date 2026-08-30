@@ -174,6 +174,29 @@ function App() {
   // Navigation & Scroll
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activePulseIndex, setActivePulseIndex] = useState(null);
+
+  // Random pulse animation for Value Proof cards
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePulseIndex(prev => {
+        let nextIdx = Math.floor(Math.random() * 6);
+        while (nextIdx === prev) {
+          nextIdx = Math.floor(Math.random() * 6);
+        }
+        return nextIdx;
+      });
+    }, 6000);
+
+    const initialTimeout = setTimeout(() => {
+      setActivePulseIndex(Math.floor(Math.random() * 6));
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(initialTimeout);
+    };
+  }, []);
 
   // Scroll effect for interactive before/after compare (cross-browser robust)
   useEffect(() => {
@@ -834,32 +857,32 @@ function App() {
             <section className="section-value-proof" style={{ backgroundColor: '#f8fafc', padding: '60px 0' }}>
               <div className="container">
                 <div className="value-proof-grid">
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 0 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item1Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item1Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item1Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item1Desc}</p>
                   </div>
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 1 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item2Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item2Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item2Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item2Desc}</p>
                   </div>
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 2 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item3Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item3Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item3Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item3Desc}</p>
                   </div>
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 3 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item4Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item4Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item4Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item4Desc}</p>
                   </div>
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 4 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '3rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item5Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item5Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item5Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item5Desc}</p>
                   </div>
-                  <div className="value-proof-item glass-card" style={{ padding: '30px', textAlign: 'center' }}>
+                  <div className={`value-proof-item glass-card ${activePulseIndex === 5 ? 'card-pulse-active' : ''}`} style={{ padding: '30px', textAlign: 'center' }}>
                     <div className="value-proof-num" style={{ fontSize: '2.5rem', color: 'var(--primary-color)', fontWeight: '800' }}>{textContent.valueProof.item6Num}<span style={{ fontSize: '1.2rem' }}>{textContent.valueProof.item6Unit}</span></div>
                     <h4 className="value-proof-title" style={{ margin: '15px 0 10px', fontSize: '1.1rem' }}>{textContent.valueProof.item6Title}</h4>
                     <p className="value-proof-desc" style={{ fontSize: '0.9rem', color: 'var(--text-light)' }}>{textContent.valueProof.item6Desc}</p>
