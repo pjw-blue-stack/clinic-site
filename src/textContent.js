@@ -153,7 +153,7 @@ export const textContent = {
   // 1-5. 부위별 치료 기간 (Duration)
   detoxDuration: {
     badge: "Duration",
-    title: "부위별 예상 치료 기간",
+    title: "다한증별 예상 치료 기간 및 비용",
     desc: "우리 몸의 세포가 재생되고 자율신경계가 조절력을 회복하는 데 필요한 생물학적 시간입니다.",
     list: [
       {

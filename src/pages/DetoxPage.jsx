@@ -151,12 +151,6 @@ function DetoxPage({ setShowBookingModal }) {
               </div>
             ))}
           </div>
-
-          <div className="cost-btn-wrapper">
-            <button className="btn btn-outline btn-large" onClick={() => setShowCostModal(true)}>
-              {textContent.detoxMethods.btnCost}
-            </button>
-          </div>
         </div>
       </section>
 
@@ -208,6 +202,12 @@ function DetoxPage({ setShowBookingModal }) {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="cost-btn-wrapper" style={{ marginTop: '40px', textAlign: 'center' }}>
+            <button className="btn btn-outline btn-large" onClick={() => setShowCostModal(true)}>
+              {textContent.detoxMethods.btnCost}
+            </button>
           </div>
         </div>
       </section>
