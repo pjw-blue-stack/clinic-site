@@ -126,11 +126,9 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
   };
 
   return (
-    <>
-      <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
-      <div className={`mega-menu ${hoveredMenu ? 'active' : ''}`} onMouseLeave={() => setHoveredMenu(null)}>
-        <div className="mega-menu-inner">
-          <div className="container mega-menu-container">
+    <div className={`mega-menu ${hoveredMenu ? 'active' : ''}`} onMouseLeave={() => setHoveredMenu(null)}>
+      <div className="mega-menu-inner">
+        <div className="container mega-menu-container">
             {[content.col1, content.col2, content.col3].map((col, idx) => (
               <div className="mega-col" key={idx}>
                 <h4 className="mega-col-title">{col.title}</h4>
@@ -145,8 +143,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
             ))}
           </div>
         </div>
-      </div>
-    </>
+    </div>
   );
 };
 
@@ -456,6 +453,9 @@ function App() {
   return (
     <>
       {/* HEADER */}
+      {/* MEGA MENU OVERLAY */}
+      <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
+
       <div className="header-wrapper" onMouseLeave={() => setHoveredMenu(null)}>
       <header className="header">
         <div className="container header-container">
