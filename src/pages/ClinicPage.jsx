@@ -133,11 +133,17 @@ function ClinicPage({
               <a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#03c75a', color: '#03c75a', padding: '8px 16px', fontSize: '0.9rem' }}>네이버 지도로 열기</a>
               <a href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#fee500', color: '#3c1e1e', padding: '8px 16px', fontSize: '0.9rem' }}>카카오맵으로 열기</a>
             </div>
-            <div className="transport-info">
+            <div className="transport-info" style={{ display: 'flex', flexDirection: 'column', gap: '25px', textAlign: 'left', padding: '20px 10px' }}>
               {clinicLocation.transport.map((item, idx) => (
-                <div key={idx} className="transport-item">
-                  <h4>{item.mode}</h4>
-                  <p>{item.detail}</p>
+                <div key={idx} className="transport-item" style={{ width: '100%' }}>
+                  <h4 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#333', marginBottom: '10px' }}>{item.mode}</h4>
+                  {Array.isArray(item.detail) ? (
+                    item.detail.map((line, lIdx) => (
+                      <p key={lIdx} dangerouslySetInnerHTML={{ __html: line }} style={{ margin: '5px 0', fontSize: '0.95rem', color: '#555', lineHeight: '1.5' }} />
+                    ))
+                  ) : (
+                    <p style={{ margin: '5px 0', fontSize: '0.95rem', color: '#555', lineHeight: '1.5' }}>{item.detail}</p>
+                  )}
                 </div>
               ))}
             </div>

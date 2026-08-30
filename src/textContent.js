@@ -350,8 +350,25 @@ export const textContent = {
     title: "경희정원한의원 오시는 길",
     address: "서울특별시 양천구 오목로 344 (목동, 청학빌딩) 2층",
     transport: [
-      { mode: "지하철", detail: "5호선 오목교역 8번 출구 앞 도보 1분 거리" },
-      { mode: "주차안내", detail: "건물 내 전용 주차장 무료 이용 (만차 시 인근 공영주차장 이용 안내)" }
+      { 
+        mode: "[지하철]", 
+        detail: ["- 5호선 <span style=\"font-weight: 500; text-decoration: underline;\">목동역 3번 출구</span>로 나와 직진, <span style=\"font-weight: 500; text-decoration: underline;\">도보로 145m거리</span>, 2층에 위치해 있습니다."] 
+      },
+      { 
+        mode: "[버스] 홍익병원 맞은편", 
+        detail: [
+          "- 정류소명 : <span style=\"font-weight: 500; text-decoration: underline;\">목동역, 홍익병원</span>", 
+          "~ 602, 650, 654, N62, 5616, 6620, 6623, 6628, 6629, 6630, 6715"
+        ] 
+      },
+      { 
+        mode: "[자동차]", 
+        detail: [
+          "- 네비게이션 입력 : '<span style=\"color: #279e27; font-weight: bold;\">양천구 목동로 218</span>'",
+          "- 건물 뒤쪽에 1층 지상주차장 있습니다.",
+          "- 저희 건물 1층 <span style=\"color: #0066cc; font-weight: 500;\">'본죽'</span>과 옆건물 <span style=\"color: #0066cc; font-weight: 500;\">'GS25'</span> 사이에 <span style=\"color: #0066cc; font-weight: 500; text-decoration: underline;\">주차장 입구</span>가 있습니다."
+        ] 
+      }
     ]
   },
 
