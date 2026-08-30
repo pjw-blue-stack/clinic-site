@@ -86,7 +86,7 @@ const getAppleGridImage = (id) => {
 };
 
 
-const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage, setIsSelfCheckPage, setIsReviewPage, setIsClinicPage, setSelectedSpecialty }) => {
+const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage, setIsSelfCheckPage, setIsReviewPage, setIsClinicPage, setIsColumnPage, setSelectedSpecialty }) => {
   const contentMap = {
     'detox': {
       col1: { title: '정원해독 요법', links: [{ text: '진정성과 철학' }, { text: '13,200제 맞춤 해독' }] },
@@ -648,6 +648,7 @@ function App() {
         setIsSelfCheckPage={setIsSelfCheckPage}
         setIsReviewPage={setIsReviewPage}
         setIsClinicPage={setIsClinicPage}
+        setIsColumnPage={setIsColumnPage}
         setSelectedSpecialty={setSelectedSpecialty}
       />
       </div>
