@@ -7,37 +7,7 @@ function DetoxPage({ setShowBookingModal }) {
   const [openQaIndex, setOpenQaIndex] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const compareEl = document.getElementById('interactive-compare');
-      if (compareEl) {
-        const rect = compareEl.getBoundingClientRect();
-        const progress = document.querySelector('.compare-indicator-progress');
-        const viewHeight = window.innerHeight;
-        
-        if (rect.top <= viewHeight && rect.bottom >= 0) {
-          let scrollPercent = ((viewHeight - rect.top) / (viewHeight + rect.height)) * 100;
-          if (scrollPercent < 0) scrollPercent = 0;
-          if (scrollPercent > 100) scrollPercent = 100;
-          
-          if (progress) {
-            progress.style.width = `${scrollPercent}%`;
-          }
-          
-          const images = document.querySelectorAll('.compare-img');
-          images.forEach((img, index) => {
-            const threshold = (index / (images.length - 1)) * 100;
-            if (scrollPercent >= threshold - 15) {
-              img.classList.add('visible');
-            } else {
-              img.classList.remove('visible');
-            }
-          });
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Scroll effects if needed in the future
   }, []);
 
   const toggleQa = (index) => {
@@ -101,31 +71,30 @@ function DetoxPage({ setShowBookingModal }) {
       </section>
 
       {/* 3. INTERACTIVE COMPARISON SECTION */}
-      <section id="interactive-compare" className="section-compare">
-        <div className="compare-sticky-wrapper">
-          <div className="compare-container container">
-            <div className="compare-text">
-              <span className="section-badge">{textContent.detoxGraphs.badge}</span>
-              <h2>{textContent.detoxGraphs.title}</h2>
-              <div className="compare-label-wrapper">
-                <p className="compare-label-before">
-                  {textContent.detoxGraphs.desc}
-                </p>
-              </div>
+      {/* 3. TOXINS CORRELATION GRAPHS */}
+      <section className="section-compare bg-white" style={{ padding: '80px 0' }}>
+        <div className="container text-center">
+          <div className="compare-text" style={{ marginBottom: '40px' }}>
+            <span className="section-badge">{textContent.detoxGraphs.badge}</span>
+            <h2>{textContent.detoxGraphs.title}</h2>
+            <p className="section-desc" style={{ maxWidth: '800px', margin: '20px auto 0', lineHeight: '1.7', fontSize: '1.05rem', color: '#555' }}>
+              {textContent.detoxGraphs.desc}
+            </p>
+          </div>
+          <div className="graphs-container" style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center' }}>
+            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
+              <img 
+                src="/detox_graph1.png" 
+                alt={textContent.detoxGraphs.graph1Alt}
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
+              />
             </div>
-            <div className="compare-visual-box">
-              <div className="compare-image-wrapper">
-                <img src="/treatment_step1.jpg" alt="치료 전 상태 (단계 1)" className="compare-img step1" />
-                <img src="/treatment_step2.jpg" alt="치료 진행 상태 (단계 2)" className="compare-img step2" />
-                <img src="/treatment_step3.jpg" alt="치료 진행 상태 (단계 3)" className="compare-img step3" />
-                <img src="/treatment_step4.jpg" alt="치료 후 상태 (단계 4)" className="compare-img step4" />
-              </div>
-              <div className="compare-indicator-bar">
-                <div className="compare-indicator-progress"></div>
-              </div>
-              <p className="compare-scroll-hint">
-                {textContent.compare.indicatorText}
-              </p>
+            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
+              <img 
+                src="/detox_graph2.png" 
+                alt={textContent.detoxGraphs.graph2Alt}
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
+              />
             </div>
           </div>
         </div>
