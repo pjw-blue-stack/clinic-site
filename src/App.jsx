@@ -106,7 +106,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
     },
     'booking': {
       col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'clinic#greeting' }, { text: '공지사항', action: 'clinic#notice' }] },
-      col2: { title: '의학 및 한약재', links: [{ text: '다한증 의학 칼럼', action: 'column' }, { text: '청정 GMP 한약재', action: 'clinic#herb' }] },
+      col2: { title: '의학 및 한약재', links: [{ text: '다한증 의학 칼럼', action: 'clinic#column' }, { text: '청정 GMP 한약재', action: 'clinic#herb' }] },
       col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'clinic#hours' }, { text: '오시는 길', action: 'clinic#location' }, { text: '상담 / 예약 / 문의', action: 'clinic#cta' }] }
     },
     'default': {
@@ -139,8 +139,6 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
       } else {
         window.scrollTo(0, 0);
       }
-    } else if (action === 'column') {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsClinicPage(false); setIsColumnPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'booking') {
       setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'reviews') {
@@ -679,18 +677,6 @@ function App() {
           />
                 ) : isClinicPage ? (
           <ClinicPage 
-            columns={columns}
-            setColumns={setColumns}
-            selectedColumn={selectedColumn}
-            setSelectedColumn={setSelectedColumn}
-            showWriteForm={showWriteForm}
-            setShowWriteForm={setShowWriteForm}
-            setShowBookingModal={setShowBookingModal}
-            setBookingForm={setBookingForm}
-            bookingForm={bookingForm}
-          />
-        ) : isColumnPage ? (
-          <ColumnPage 
             columns={columns}
             setColumns={setColumns}
             selectedColumn={selectedColumn}

@@ -70,7 +70,7 @@ function ClinicPage({
       </section>
 
       {/* 2. 의학 칼럼 */}
-      <section className="clinic-section clinic-column-section" style={{ padding: 0 }}>
+      <section id="column" className="clinic-section clinic-column-section" style={{ padding: 0 }}>
         <ColumnPage 
           columns={columns}
           setColumns={setColumns}
