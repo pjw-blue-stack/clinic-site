@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { textContent } from '../textContent';
 import './DetoxPage.css';
 
@@ -265,7 +266,7 @@ function DetoxPage({ setShowBookingModal }) {
       </section>
 
       {/* COST MODAL */}
-      {showCostModal && (
+      {showCostModal && createPortal(
         <div className="modal-overlay" onClick={() => setShowCostModal(false)}>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setShowCostModal(false)}>✕</button>
@@ -299,11 +300,12 @@ function DetoxPage({ setShowBookingModal }) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* METHOD DETAIL MODAL */}
-      {selectedMethod && (
+      {selectedMethod && createPortal(
         <div className="modal-overlay" onClick={() => setSelectedMethod(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
             <button className="modal-close" onClick={() => setSelectedMethod(null)}>×</button>
@@ -322,29 +324,31 @@ function DetoxPage({ setShowBookingModal }) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
       {/* LIMITATION DETAIL MODAL */}
-      {selectedLimitation && (
-        <div className="modal-overlay" onClick={() => setSelectedLimitation(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 9999, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px', width: '90%', backgroundColor: '#fff', padding: '40px', borderRadius: '20px', boxShadow: '0 20px 60px rgba(0,0,0,0.2)', position: 'relative', zIndex: 10000, opacity: 1, transform: 'none' }}>
-            <button className="modal-close" onClick={() => setSelectedLimitation(null)} style={{ position: 'absolute', top: '15px', right: '20px', fontSize: '2rem', background: 'none', border: 'none', cursor: 'pointer', color: '#999' }}>×</button>
-            <div className="modal-header" style={{ marginBottom: '20px', textAlign: 'center' }}>
+      {selectedLimitation && createPortal(
+        <div className="modal-overlay" onClick={() => setSelectedLimitation(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close" onClick={() => setSelectedLimitation(null)}>×</button>
+            <div className="modal-header" style={{ marginBottom: '20px' }}>
               <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>{selectedLimitation.icon}</div>
-              <h2 className="modal-title" style={{ fontSize: '1.8rem', color: '#222' }}>{selectedLimitation.title}</h2>
+              <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>{selectedLimitation.title}</h2>
             </div>
             <div className="modal-body" style={{ textAlign: 'center', padding: '10px 0' }}>
-              <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: '#555', wordBreak: 'keep-all' }}>
+              <p style={{ fontSize: '1.1rem', lineHeight: '1.7', color: 'var(--text-main)', wordBreak: 'keep-all' }}>
                 {selectedLimitation.modalContent}
               </p>
             </div>
             <div className="form-submit" style={{ marginTop: '30px' }}>
-              <button type="button" className="btn btn-primary" style={{ width: '100%', padding: '15px', borderRadius: '8px', border: 'none', backgroundColor: 'var(--primary-color)', color: '#fff', fontSize: '1.1rem', cursor: 'pointer' }} onClick={() => setSelectedLimitation(null)}>
+              <button type="button" className="btn btn-primary" style={{ width: '100%' }} onClick={() => setSelectedLimitation(null)}>
                 확인
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
