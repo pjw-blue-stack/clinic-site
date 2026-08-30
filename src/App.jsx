@@ -902,7 +902,7 @@ function App() {
               <div className="container">
                 <div className="section-header" style={{ marginBottom: '40px' }}>
                   <span className="section-badge">{textContent.detoxPrinciples.badge}</span>
-                  <h2>{textContent.detoxPrinciples.title}</h2>
+                  <h2 className="apple-title" style={{ color: 'var(--primary-dark)', marginBottom: '20px' }}>{textContent.detoxPrinciples.title}</h2>
                   <p className="section-desc" style={{ maxWidth: '700px', margin: '0 auto', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-main)' }}>
                     {textContent.detoxPrinciples.desc}
                   </p>
