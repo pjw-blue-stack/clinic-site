@@ -1032,7 +1032,7 @@ function App() {
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                     </div>
-                    <div className="apple-product-img">{spec.icon}</div>
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                   </div>
                 ) : null;
               })()}
@@ -1048,7 +1048,7 @@ function App() {
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                     </div>
-                    <div className="apple-product-img" style={{ fontSize: '15rem', bottom: '-40px' }}>{spec.icon}</div>
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                   </div>
                 ) : null;
               })()}
@@ -1065,7 +1065,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
@@ -1079,7 +1079,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
@@ -1097,7 +1097,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
@@ -1111,7 +1111,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
@@ -1129,7 +1129,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec1.icon}</div>
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
@@ -1144,7 +1144,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <div className="apple-product-img" style={{ fontSize: '9rem' }}>{spec2.icon}</div>
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
                     </div>
                   ) : null;
                 })()}
