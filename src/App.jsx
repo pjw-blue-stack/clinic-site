@@ -106,7 +106,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
     'booking': {
       col1: { title: '경희정원 소개', links: [{ text: '대표원장 인사말', action: 'booking' }, { text: '공지사항', action: 'booking' }] },
       col2: { title: '의학 및 한약재', links: [{ text: '의학 칼럼', action: 'booking' }, { text: '청정 GMP 한약재', action: 'booking' }] },
-      col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'booking' }, { text: '오시는 길', action: 'booking' }, { text: '상담 및 예약 (문의게시판)', action: 'booking' }] }
+      col3: { title: '진료 및 예약', links: [{ text: '진료시간 안내', action: 'booking' }, { text: '오시는 길', action: 'booking' }, { text: '상담 / 예약 / 문의', action: 'booking' }] }
     },
     'default': {
       col1: { title: '해당 부위 다한증', links: [{ text: '특징 및 증상' }, { text: '원인 분석 (기허/음허)' }, { text: '보약식 해독 치료' }] },
