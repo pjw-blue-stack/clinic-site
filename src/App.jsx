@@ -469,24 +469,6 @@ function App() {
               식은땀(낮)
             </a>
             <a 
-              href="#column" 
-              className={`nav-link ${isColumnPage ? 'active' : ''}`}
-              onClick={(e) => { 
-                e.preventDefault(); 
-                setIsMobileMenuOpen(false);
-                setSelectedSpecialty(null);
-                setIsColumnPage(true);
-                setSelectedColumn(null);
-                setIsReviewPage(false);
-                setIsClinicPage(false);
-                setIsDetoxPage(false);
-                setIsSelfCheckPage(false);
-                window.scrollTo(0, 0); 
-              }}
-            >
-              의학 칼럼
-            </a>
-            <a 
               href="#selfcheck" 
               className={`nav-link ${isSelfCheckPage ? 'active' : ''}`}
               onClick={(e) => { 
@@ -590,22 +572,6 @@ function App() {
             setBookingForm={setBookingForm}
             bookingForm={bookingForm}
           />
-        ) : isColumnPage ? (
-          <ColumnPage 
-            columns={columns}
-            setColumns={setColumns}
-            selectedColumn={selectedColumn}
-            setSelectedColumn={setSelectedColumn}
-            onBack={() => {
-              setIsColumnPage(false);
-              setSelectedColumn(null);
-            }}
-            showWriteForm={showWriteForm}
-            setShowWriteForm={setShowWriteForm}
-            setShowBookingModal={setShowBookingModal}
-            setBookingForm={setBookingForm}
-            bookingForm={bookingForm}
-          />
                 ) : isClinicPage ? (
           <div className="clinic-page-wrapper six-step-funnel">
             {/* 1. 원장 철학 (가치 입증 & 공감) */}
@@ -670,6 +636,24 @@ function App() {
                   </div>
                 </div>
               </div>
+            </section>
+
+            {/* 5.5 의학 칼럼 */}
+            <section className="funnel-section section-column" id="column-section" style={{ padding: '0', backgroundColor: '#fff' }}>
+              <ColumnPage 
+                columns={columns}
+                setColumns={setColumns}
+                selectedColumn={selectedColumn}
+                setSelectedColumn={setSelectedColumn}
+                onBack={() => {
+                  setSelectedColumn(null);
+                }}
+                showWriteForm={showWriteForm}
+                setShowWriteForm={setShowWriteForm}
+                setShowBookingModal={setShowBookingModal}
+                setBookingForm={setBookingForm}
+                bookingForm={bookingForm}
+              />
             </section>
 
             {/* 6. 정보 & 행동 유도 */}
