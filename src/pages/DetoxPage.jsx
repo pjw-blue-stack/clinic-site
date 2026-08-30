@@ -51,7 +51,7 @@ function DetoxPage({
       </section>
 
       {/* 2. DOCTOR STORYTELLING SECTION */}
-      <section className="section-doctor bg-light">
+      <section id="detox-philosophy" className="section-doctor bg-light">
         <div className="container">
           <div className="doctor-grid">
             <div className="doctor-image-wrapper">
@@ -83,7 +83,7 @@ function DetoxPage({
       </section>
 
       {/* 2.5 LIMITATIONS OF WESTERN MEDICINE */}
-      <section className="section-limitations-western" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
+      <section id="detox-limitations" className="section-limitations-western" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">{textContent.detoxWesternLimitations.badge}</span>
@@ -137,7 +137,7 @@ function DetoxPage({
       </section>
 
       {/* 3. TREATMENT METHODS */}
-      <section className="section-methods">
+      <section id="detox-methods" className="section-methods">
         <div className="container text-center">
           <span className="section-badge">{textContent.detoxMethods.badge}</span>
           <h2>{textContent.detoxMethods.title}</h2>
@@ -164,7 +164,7 @@ function DetoxPage({
       </section>
 
       {/* 4. TOXINS CORRELATION GRAPHS */}
-      <section className="section-compare bg-white" style={{ padding: '80px 0 20px', height: 'auto' }}>
+      <section id="detox-correlation" className="section-compare bg-white" style={{ padding: '80px 0 20px', height: 'auto' }}>
         <div className="container text-center">
           <div className="compare-text" style={{ marginBottom: '40px' }}>
             <span className="section-badge">{textContent.detoxGraphs.badge}</span>
@@ -193,7 +193,7 @@ function DetoxPage({
       </section>
 
       {/* 4.5. IMPROVEMENT EXPECTATION SECTION */}
-      <section className="section-improvement" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
+      <section id="detox-improvement" className="section-improvement" style={{ padding: '80px 0', backgroundColor: '#fdfdfd' }}>
         <div className="container text-center">
           <span className="section-badge">Expectation</span>
           <h2 style={{ fontSize: '2rem', marginBottom: '20px', color: 'var(--text-main)' }}>정원해독치료를 받으면, 어느정도 좋아질 수 있나요?</h2>
@@ -207,7 +207,7 @@ function DetoxPage({
       </section>
 
       {/* REVIEWS SECTION (Moved from bottom) */}
-      <section className="section-reviews" style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
+      <section id="detox-reviews" className="section-reviews" style={{ padding: '80px 0', backgroundColor: '#ffffff' }}>
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">Reviews</span>
@@ -259,7 +259,7 @@ function DetoxPage({
 
 
       {/* 5. DURATION SECTION */}
-      <section className="section-duration bg-light" style={{ paddingTop: '40px' }}>
+      <section id="detox-duration" className="section-duration bg-light" style={{ paddingTop: '40px' }}>
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">{textContent.detoxDuration.badge}</span>
@@ -288,7 +288,7 @@ function DetoxPage({
       </section>
 
       {/* 6. MAINTENANCE SECTION */}
-      <section className="section-maintenance">
+      <section id="detox-maintenance" className="section-maintenance">
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">{textContent.detoxMaintenance.badge}</span>
@@ -317,7 +317,7 @@ function DetoxPage({
       </section>
 
       {/* 7. Q&A SECTION */}
-      <section className="section-qa bg-light">
+      <section id="detox-qa" className="section-qa bg-light">
         <div className="container">
           <div className="text-center mb-4">
             <span className="section-badge">{textContent.faq.badge}</span>

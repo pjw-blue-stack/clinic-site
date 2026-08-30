@@ -90,9 +90,9 @@ const getAppleGridImage = (id) => {
 const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage, setIsSelfCheckPage, setIsReviewPage, setIsClinicPage, setIsColumnPage, setSelectedSpecialty }) => {
   const contentMap = {
     'detox': {
-      col1: { title: '정원해독 요법', links: [{ text: '진정성과 철학' }, { text: '13,200제 맞춤 해독' }] },
-      col2: { title: '관련 안내', links: [{ text: '의학 칼럼' }, { text: '공지사항' }] },
-      col3: { title: '진료 및 예약', links: [{ text: '예약 바로가기', action: 'booking' }] }
+      col1: { title: '정원해독 철학 및 원리', links: [{ text: '진정성과 철학', action: 'detox#detox-philosophy' }, { text: '기존 치료의 한계', action: 'detox#detox-limitations' }, { text: '정원 해독 요법 3단계', action: 'detox#detox-methods' }] },
+      col2: { title: '치료 효과 및 후기', links: [{ text: '독소와 다한증의 관계', action: 'detox#detox-correlation' }, { text: '치료 기대 효과', action: 'detox#detox-improvement' }, { text: '다한증 치료 후기', action: 'detox#detox-reviews' }] },
+      col3: { title: '관리 및 안내', links: [{ text: '치료 기간 및 비용', action: 'detox#detox-duration' }, { text: '다한증 관리 요법', action: 'detox#detox-maintenance' }, { text: '자주 묻는 질문(Q&A)', action: 'detox#detox-qa' }] }
     },
     'selfcheck': {
       col1: { title: 'AI 자가진단', links: [{ text: '다한증 진단 테스트' }, { text: '결과 분석' }] },
@@ -122,6 +122,25 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
     setHoveredMenu(null);
     if (action.startsWith('clinic')) {
       setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); 
+      const hash = action.split('#')[1];
+      if (hash) {
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            const headerOffset = 100;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 150); // slight delay to allow page render
+      } else {
+        window.scrollTo(0, 0);
+      }
+    } else if (action.startsWith('detox#')) {
+      setIsDetoxPage(true); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(false); setSelectedSpecialty(null); 
       const hash = action.split('#')[1];
       if (hash) {
         setTimeout(() => {
