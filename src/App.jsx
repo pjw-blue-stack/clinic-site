@@ -819,7 +819,7 @@ function App() {
                     {textContent.announcementHero.desc}
                   </p>
                   <div className="hero-btns">
-                    <button className="btn btn-primary btn-pulse" onClick={() => setShowBookingModal(true)}>
+                    <button className="btn btn-primary" onClick={() => setShowBookingModal(true)}>
                       {textContent.announcementHero.btnBooking}
                     </button>
                     <button className="btn btn-outline" onClick={() => {
