@@ -84,7 +84,17 @@ function DetoxPage({ setShowBookingModal }) {
             <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
               <div className="limitation-icon" style={{ fontSize: '3rem', marginBottom: '20px' }}>💊</div>
               <h3 style={{ fontSize: '1.4rem', color: '#333', marginBottom: '15px' }}>{textContent.detoxLimitations.western.title}</h3>
-              <p style={{ color: '#666', lineHeight: '1.7', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.western.desc}</p>
+              <p style={{ color: '#666', lineHeight: '1.6', marginBottom: '15px', wordBreak: 'keep-all' }}>{textContent.detoxLimitations.western.desc}</p>
+              {textContent.detoxLimitations.western.details && (
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, textAlign: 'left' }}>
+                  {textContent.detoxLimitations.western.details.map((detail, idx) => (
+                    <li key={idx} style={{ marginBottom: '10px', fontSize: '0.95rem', color: '#555', lineHeight: '1.5' }}>
+                      <strong style={{ color: 'var(--primary-color)', display: 'block', marginBottom: '2px' }}>• {detail.label}</strong>
+                      <span style={{ paddingLeft: '12px', display: 'block' }}>{detail.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             
             <div className="limitation-card" style={{ padding: '40px 30px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #f0f0f0', position: 'relative' }}>
