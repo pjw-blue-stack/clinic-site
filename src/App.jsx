@@ -574,6 +574,32 @@ function App() {
           />
                 ) : isClinicPage ? (
           <div className="clinic-page-wrapper six-step-funnel">
+            {/* 0. 공지사항 */}
+            <section className="funnel-section section-notice" style={{ padding: '60px 0 20px 0', backgroundColor: '#fbfbfd' }}>
+              <div className="container">
+                <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: '#fff', borderRadius: '15px', padding: '30px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', border: '1px solid #eee' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                    <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>📢</span>
+                    <h2 style={{ fontSize: '1.5rem', fontWeight: '700', margin: '0', color: '#1d1d1f' }}>경희정원 공지사항</h2>
+                  </div>
+                  <ul style={{ listStyle: 'none', padding: '0', margin: '0' }}>
+                    <li style={{ padding: '15px 0', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} className="notice-item">
+                      <span style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1d1d1f' }}>[안내] 다한증 원장님 1:1 맞춤 진료 사전예약 안내</span>
+                      <span style={{ fontSize: '0.9rem', color: '#86868b' }}>2026.08.30</span>
+                    </li>
+                    <li style={{ padding: '15px 0', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} className="notice-item">
+                      <span style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1d1d1f' }}>[공지] 추석 연휴 휴진 및 정상 진료 일정 안내</span>
+                      <span style={{ fontSize: '0.9rem', color: '#86868b' }}>2026.08.25</span>
+                    </li>
+                    <li style={{ padding: '15px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} className="notice-item">
+                      <span style={{ fontSize: '1.1rem', fontWeight: '500', color: '#1d1d1f' }}>[소식] 건물 내 전용 주차장 만차 시 공영주차장 안내</span>
+                      <span style={{ fontSize: '0.9rem', color: '#86868b' }}>2026.08.10</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             {/* 1. 원장 철학 (가치 입증 & 공감) */}
             <section className="funnel-section section-problem">
               <div className="container">
