@@ -451,7 +451,8 @@ function App() {
   return (
     <>
       {/* HEADER */}
-      <header className="header" onMouseLeave={() => setHoveredMenu(null)}>
+      <div className="header-wrapper" onMouseLeave={() => setHoveredMenu(null)}>
+      <header className="header">
         <div className="container header-container">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
             <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '38px', width: '38px', objectFit: 'contain' }} />
@@ -612,6 +613,17 @@ function App() {
           </div>
         </div>
       </header>
+      <MegaMenu 
+        hoveredMenu={hoveredMenu} 
+        setHoveredMenu={setHoveredMenu}
+        handleNavClick={handleNavClick}
+        setIsDetoxPage={setIsDetoxPage}
+        setIsSelfCheckPage={setIsSelfCheckPage}
+        setIsReviewPage={setIsReviewPage}
+        setIsClinicPage={setIsClinicPage}
+        setSelectedSpecialty={setSelectedSpecialty}
+      />
+      </div>
 
       <main className="main-content">
         {selectedSpecialty ? (
