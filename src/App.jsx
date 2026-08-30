@@ -628,7 +628,7 @@ function App() {
       />
       </div>
 
-      <main className="main-content">
+      <main className={`main-content ${hoveredMenu ? 'blurred' : ''}`}>
         {selectedSpecialty ? (
           <SpecialtyDetailPage 
             key={selectedSpecialty.id}
@@ -1306,7 +1306,7 @@ function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="footer">
+      <footer className={`footer ${hoveredMenu ? 'blurred' : ''}`}>
         <div className="container">
           <div className="footer-grid">
             <div className="footer-info-col" style={{ textAlign: 'left' }}>

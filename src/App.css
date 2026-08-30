@@ -3116,14 +3116,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.25);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: 998;
-  will-change: opacity, backdrop-filter;
+  will-change: opacity;
 }
 
 .mega-menu-overlay.active {
@@ -3213,4 +3211,14 @@
   left: 0;
   width: 100%;
   z-index: 1000;
+}
+
+main.main-content, footer.footer {
+  transition: filter 0.4s ease;
+  will-change: filter;
+}
+
+main.main-content.blurred, footer.footer.blurred {
+  filter: blur(10px);
+  pointer-events: none;
 }
