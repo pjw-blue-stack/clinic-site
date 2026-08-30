@@ -127,37 +127,7 @@ function DetoxPage({ setShowBookingModal }) {
         </div>
       </section>
 
-      {/* 3. INTERACTIVE COMPARISON SECTION */}
-      {/* 3. TOXINS CORRELATION GRAPHS */}
-      <section className="section-compare bg-white" style={{ padding: '80px 0' }}>
-        <div className="container text-center">
-          <div className="compare-text" style={{ marginBottom: '40px' }}>
-            <span className="section-badge">{textContent.detoxGraphs.badge}</span>
-            <h2>{textContent.detoxGraphs.title}</h2>
-            <p className="section-desc" style={{ maxWidth: '800px', margin: '20px auto 0', lineHeight: '1.7', fontSize: '1.05rem', color: '#555' }}>
-              {textContent.detoxGraphs.desc}
-            </p>
-          </div>
-          <div className="graphs-container" style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center' }}>
-            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
-              <img 
-                src="/detox_graph1.png" 
-                alt={textContent.detoxGraphs.graph1Alt}
-                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
-              />
-            </div>
-            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
-              <img 
-                src="/detox_graph2.png" 
-                alt={textContent.detoxGraphs.graph2Alt}
-                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. TREATMENT METHODS */}
+      {/* 3. TREATMENT METHODS */}
       <section className="section-methods">
         <div className="container text-center">
           <span className="section-badge">{textContent.detoxMethods.badge}</span>
@@ -186,6 +156,35 @@ function DetoxPage({ setShowBookingModal }) {
             <button className="btn btn-outline btn-large" onClick={() => setShowCostModal(true)}>
               {textContent.detoxMethods.btnCost}
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. TOXINS CORRELATION GRAPHS */}
+      <section className="section-compare bg-white" style={{ padding: '80px 0' }}>
+        <div className="container text-center">
+          <div className="compare-text" style={{ marginBottom: '40px' }}>
+            <span className="section-badge">{textContent.detoxGraphs.badge}</span>
+            <h2>{textContent.detoxGraphs.title}</h2>
+            <p className="section-desc" style={{ maxWidth: '800px', margin: '20px auto 0', lineHeight: '1.7', fontSize: '1.05rem', color: '#555' }}>
+              {textContent.detoxGraphs.desc}
+            </p>
+          </div>
+          <div className="graphs-container" style={{ display: 'flex', flexDirection: 'column', gap: '40px', alignItems: 'center' }}>
+            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
+              <img 
+                src="/detox_graph1.png" 
+                alt={textContent.detoxGraphs.graph1Alt}
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
+              />
+            </div>
+            <div className="graph-card" style={{ width: '100%', maxWidth: '900px', padding: '20px', borderRadius: '16px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', backgroundColor: '#f9fbfd', border: '1px solid #eef2f6' }}>
+              <img 
+                src="/detox_graph2.png" 
+                alt={textContent.detoxGraphs.graph2Alt}
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px' }}
+              />
+            </div>
           </div>
         </div>
       </section>
