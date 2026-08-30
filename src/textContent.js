@@ -351,10 +351,10 @@ export const textContent = {
     desc: "편안한 진료를 위해 시간을 확인해 주세요.",
     items: [
       { day: "월·화·목·금", time: "09:30 - 19:00" },
-      { day: "수요일 (야간)", time: "09:30 - 20:00", highlight: True },
+      { day: "수요일 (야간)", time: "09:30 - 20:00", highlight: true },
       { day: "토요일", time: "09:30 - 16:00" },
       { day: "점심 시간", time: "13:00 - 14:00" },
-      { day: "일요일·공휴일", time: "휴진", isHoliday: True }
+      { day: "일요일·공휴일", time: "휴진", isHoliday: true }
     ]
   },
   clinicLocation: {
