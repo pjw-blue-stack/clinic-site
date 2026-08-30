@@ -1026,8 +1026,8 @@ function App() {
                 const spec = specialties.find(s => s.id === 'sujok');
                 return spec ? (
                   <div className="apple-full-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
-                    <h3 className="apple-title">{spec.title.split(' ')[0]}</h3>
-                    <p className="apple-subtitle">{spec.title.split(' ')[1] || spec.subtitle}</p>
+                    <h3 className="apple-title">{spec.title.split(' (')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.includes('(') ? '(' + spec.title.split('(')[1] : spec.subtitle}</p>
                     <div className="apple-btns">
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1042,8 +1042,8 @@ function App() {
                 const spec = specialties.find(s => s.id === 'du-myeon');
                 return spec ? (
                   <div className="apple-full-section apple-theme-light-blue" onClick={() => { setSelectedSpecialty(spec); window.scrollTo(0,0); }}>
-                    <h3 className="apple-title">{spec.title.split(' ')[0]}</h3>
-                    <p className="apple-subtitle">{spec.title.split(' ')[1] || spec.subtitle}</p>
+                    <h3 className="apple-title">{spec.title.split(' (')[0]}</h3>
+                    <p className="apple-subtitle">{spec.title.includes('(') ? '(' + spec.title.split('(')[1] : spec.subtitle}</p>
                     <div className="apple-btns">
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1059,8 +1059,8 @@ function App() {
                   const spec1 = specialties.find(s => s.id === 'sangche');
                   return spec1 ? (
                     <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1073,8 +1073,8 @@ function App() {
                   const spec2 = specialties.find(s => s.id === 'hache');
                   return spec2 ? (
                     <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1091,8 +1091,8 @@ function App() {
                   const spec1 = specialties.find(s => s.id === 'jeonsin');
                   return spec1 ? (
                     <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1105,8 +1105,8 @@ function App() {
                   const spec2 = specialties.find(s => s.id === 'bosangseong');
                   return spec2 ? (
                     <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1123,8 +1123,8 @@ function App() {
                   const spec1 = specialties.find(s => s.id === 'dohan');
                   return spec1 ? (
                     <div className="apple-half-section apple-theme-light-gray" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.split(' ')[1] || spec1.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
@@ -1138,8 +1138,8 @@ function App() {
                   const spec2 = specialties.find(s => s.id === 'jahan');
                   return spec2 ? (
                     <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
-                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' ')[0]}</h3>
-                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.split(' ')[1] || spec2.subtitle}</p>
+                      <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
+                      <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
