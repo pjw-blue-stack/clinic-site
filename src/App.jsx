@@ -145,24 +145,70 @@ function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
-  // Sync state to URL for page refreshes
+  // Sync state to URL for page refreshes and history
   useEffect(() => {
+    let targetSearch = '';
     if (selectedSpecialty) {
-      window.history.replaceState({}, '', `?specialty=${selectedSpecialty.id}`);
+      targetSearch = `?specialty=${selectedSpecialty.id}`;
     } else if (isColumnPage) {
-      window.history.replaceState({}, '', `?page=column`);
+      targetSearch = `?page=column`;
     } else if (isReviewPage) {
-      window.history.replaceState({}, '', `?page=review`);
+      targetSearch = `?page=review`;
     } else if (isClinicPage) {
-      window.history.replaceState({}, '', `?page=clinic`);
+      targetSearch = `?page=clinic`;
     } else if (isDetoxPage) {
-      window.history.replaceState({}, '', `?page=detox`);
+      targetSearch = `?page=detox`;
     } else if (isSelfCheckPage) {
-      window.history.replaceState({}, '', `?page=selfcheck`);
-    } else {
-      window.history.replaceState({}, '', window.location.pathname);
+      targetSearch = `?page=selfcheck`;
+    }
+
+    if (window.location.search !== targetSearch) {
+      window.history.pushState({}, '', targetSearch || window.location.pathname);
     }
   }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage, isSelfCheckPage]);
+
+  // Handle browser back button (popstate)
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      let specId = params.get('specialty');
+      let pageId = params.get('page');
+      
+      // Backward compatibility mapping for merged categories
+      if (specId === 'anmyeon' || specId === 'duhan' || specId === 'migak') {
+        specId = 'du-myeon';
+      }
+
+      if (specId) {
+        const specialty = specialties.find(s => s.id === specId);
+        if (specialty) {
+          setSelectedSpecialty(specialty);
+          setIsColumnPage(false);
+          setIsReviewPage(false);
+          setIsClinicPage(false);
+          setIsDetoxPage(false);
+          setIsSelfCheckPage(false);
+        }
+      } else if (pageId) {
+        setSelectedSpecialty(null);
+        setIsColumnPage(pageId === 'column');
+        setIsReviewPage(pageId === 'review');
+        setIsClinicPage(pageId === 'clinic');
+        setIsDetoxPage(pageId === 'detox');
+        setIsSelfCheckPage(pageId === 'selfcheck');
+      } else {
+        setSelectedSpecialty(null);
+        setIsColumnPage(false);
+        setIsReviewPage(false);
+        setIsClinicPage(false);
+        setIsDetoxPage(false);
+        setIsSelfCheckPage(false);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Reviews state
   const [reviews, setReviews] = useState(reviewsData);
