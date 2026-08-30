@@ -254,20 +254,6 @@ function DetoxPage({
               ))
             )}
           </div>
-
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <button 
-              className="btn btn-outline btn-large" 
-              onClick={() => {
-                if (setIsDetoxPage) setIsDetoxPage(false);
-                if (setIsReviewPage) setIsReviewPage(true);
-                window.scrollTo(0, 0);
-              }}
-              style={{ padding: '15px 40px', fontSize: '1.1rem' }}
-            >
-              다한증 치료 후기 더보기 &rarr;
-            </button>
-          </div>
         </div>
       </section>
 
