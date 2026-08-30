@@ -65,6 +65,50 @@ function ClinicPage({
                 </div>
               </div>
             </div>
+
+            {/* 상담 및 문의 게시판 */}
+            <div className="inquiry-board-wrapper" style={{ marginTop: '50px', textAlign: 'left' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h3 className="inquiry-board-title">상담 및 문의 게시판</h3>
+                <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }}>글쓰기</button>
+              </div>
+              <div className="inquiry-table-container">
+                <table className="inquiry-table">
+                  <thead>
+                    <tr>
+                      <th width="10%">번호</th>
+                      <th width="15%">답변상태</th>
+                      <th width="45%">제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>3</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">다한증 한약 부작용은 없나요? 🔒</td>
+                      <td>김*원</td>
+                      <td>2026.08.30</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><span className="status-badge status-waiting">답변대기</span></td>
+                      <td className="inquiry-title">원장님 진료 예약 문의드립니다. 🔒</td>
+                      <td>이*영</td>
+                      <td>2026.08.29</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">수족다한증 치료 기간 질문 🔒</td>
+                      <td>박*준</td>
+                      <td>2026.08.28</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -136,6 +180,50 @@ function ClinicPage({
                 </div>
               ))}
             </div>
+
+            {/* 상담 및 문의 게시판 */}
+            <div className="inquiry-board-wrapper" style={{ marginTop: '50px', textAlign: 'left' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h3 className="inquiry-board-title">상담 및 문의 게시판</h3>
+                <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }}>글쓰기</button>
+              </div>
+              <div className="inquiry-table-container">
+                <table className="inquiry-table">
+                  <thead>
+                    <tr>
+                      <th width="10%">번호</th>
+                      <th width="15%">답변상태</th>
+                      <th width="45%">제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>3</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">다한증 한약 부작용은 없나요? 🔒</td>
+                      <td>김*원</td>
+                      <td>2026.08.30</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><span className="status-badge status-waiting">답변대기</span></td>
+                      <td className="inquiry-title">원장님 진료 예약 문의드립니다. 🔒</td>
+                      <td>이*영</td>
+                      <td>2026.08.29</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">수족다한증 치료 기간 질문 🔒</td>
+                      <td>박*준</td>
+                      <td>2026.08.28</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -168,6 +256,50 @@ function ClinicPage({
                 <h3>네이버 예약</h3>
                 <p>원하는 시간에 진료 예약</p>
               </a>
+            </div>
+
+            {/* 상담 및 문의 게시판 */}
+            <div className="inquiry-board-wrapper" style={{ marginTop: '50px', textAlign: 'left' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                <h3 className="inquiry-board-title">상담 및 문의 게시판</h3>
+                <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }}>글쓰기</button>
+              </div>
+              <div className="inquiry-table-container">
+                <table className="inquiry-table">
+                  <thead>
+                    <tr>
+                      <th width="10%">번호</th>
+                      <th width="15%">답변상태</th>
+                      <th width="45%">제목</th>
+                      <th width="15%">작성자</th>
+                      <th width="15%">작성일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>3</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">다한증 한약 부작용은 없나요? 🔒</td>
+                      <td>김*원</td>
+                      <td>2026.08.30</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><span className="status-badge status-waiting">답변대기</span></td>
+                      <td className="inquiry-title">원장님 진료 예약 문의드립니다. 🔒</td>
+                      <td>이*영</td>
+                      <td>2026.08.29</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td><span className="status-badge status-done">답변완료</span></td>
+                      <td className="inquiry-title">수족다한증 치료 기간 질문 🔒</td>
+                      <td>박*준</td>
+                      <td>2026.08.28</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
