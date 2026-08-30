@@ -3114,8 +3114,8 @@
   position: fixed;
   top: var(--header-height, 80px);
   left: 0;
-  width: 100vw;
-  height: calc(100vh - var(--header-height, 80px));
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -3123,6 +3123,7 @@
   pointer-events: none;
   transition: opacity 0.4s ease;
   z-index: 998;
+  transform: translate3d(0, 0, 0);
 }
 
 .mega-menu-overlay.active {
