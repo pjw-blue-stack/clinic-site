@@ -118,15 +118,20 @@ function ClinicPage({
           </div>
 
           <div className="location-content">
-            <div className="map-container">
-              {/* Naver Map iframe or placeholder */}
-              <div className="map-placeholder">
-                <p>📍 지도 영역 (네이버/카카오 지도 연동)</p>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
-                  <a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#03c75a', color: '#03c75a' }}>네이버 지도로 보기</a>
-                  <a href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#fee500', color: '#3c1e1e' }}>카카오맵으로 보기</a>
-                </div>
-              </div>
+            <div className="map-container" style={{ display: 'block' }}>
+              <iframe 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                loading="lazy" 
+                allowFullScreen 
+                src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                title="경희정원한의원 오시는 길"
+              ></iframe>
+            </div>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', padding: '15px 0', backgroundColor: '#fff', borderBottom: '1px solid var(--glass-border)' }}>
+              <a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#03c75a', color: '#03c75a', padding: '8px 16px', fontSize: '0.9rem' }}>네이버 지도로 열기</a>
+              <a href="https://map.kakao.com/?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EB%A1%9C%20218%20%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ borderColor: '#fee500', color: '#3c1e1e', padding: '8px 16px', fontSize: '0.9rem' }}>카카오맵으로 열기</a>
             </div>
             <div className="transport-info">
               {clinicLocation.transport.map((item, idx) => (
