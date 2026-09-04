@@ -283,6 +283,7 @@ function App() {
   }, []);
 
   // Modals state
+  const setColumns = () => {};
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   
