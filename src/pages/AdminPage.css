@@ -1,0 +1,24 @@
+/* AdminPage.css */
+
+.admin-page {
+  font-family: 'Pretendard', sans-serif;
+}
+
+.admin-header h2 {
+  margin: 0;
+}
+
+.admin-sidebar li:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.admin-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-form .form-input, .admin-form .form-select {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+}

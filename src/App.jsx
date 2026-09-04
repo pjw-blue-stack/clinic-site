@@ -11,7 +11,9 @@ import SelfCheckPage from './SelfCheckPage';
 import DetoxPage from './pages/DetoxPage';
 import ClinicPage from './pages/ClinicPage';
 import ColumnPage from './pages/ColumnPage';
+import AdminPage from './pages/AdminPage';
 
+const ADMIN_EMAILS = ['parkjeuk@gmail.com'];
 // 구글폼 사전 설문지 URL (노쇼 방지용)
 const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
 
@@ -294,6 +296,8 @@ function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isAdminPage, setIsAdminPage] = useState(false);
+  const isAdmin = loggedInUser && ADMIN_EMAILS.includes(auth.currentUser?.email);
   const [selectedDetoxStep, setSelectedDetoxStep] = useState(null);
 
   // Sync state to URL for page refreshes and history
@@ -369,11 +373,18 @@ function App() {
   const [filterSpecialty, setFilterSpecialty] = useState('all');
   const [newReview, setNewReview] = useState({
     name: '',
-    specialtyId: 'detox',
     title: '',
     content: '',
-    rating: 5
+    rating: 5,
+    specialtyId: 'sujok',
+    isSecret: false
   });
+
+  // Notices state
+  const noticesRef = collection(db, 'notices');
+  const noticesQuery = query(noticesRef, orderBy('createdAt', 'desc'));
+  const [firestoreNotices] = useCollectionData(noticesQuery, { idField: 'id' });
+  const notices = firestoreNotices && firestoreNotices.length > 0 ? firestoreNotices : textContent.announcementHero.announcements;
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
   // QnA state
@@ -517,10 +528,11 @@ function App() {
       await addDoc(collection(db, 'reviews'), submittedReview);
       setNewReview({
         name: '',
-        specialtyId: 'detox',
         title: '',
         content: '',
-        rating: 5
+        rating: 5,
+        specialtyId: 'sujok',
+        isSecret: false
       });
       setReviewSuccess(true);
       setTimeout(() => setReviewSuccess(false), 3000);
@@ -619,7 +631,6 @@ function App() {
 
   return (
     <>
-      {/* HEADER */}
       {/* HEADER */}
       <div className="header-wrapper" onMouseLeave={() => setHoveredMenu(null)}>
       <header className="header">
@@ -761,8 +772,13 @@ function App() {
 
           <div className="header-actions">
             {loggedInUser ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{loggedInUser}</span>
+                {isAdmin && (
+                  <button className="btn btn-sm btn-outline" onClick={() => setIsAdminPage(true)} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>
+                    관리자 페이지
+                  </button>
+                )}
                 <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={handleLogout}>
                   로그아웃
                 </button>
@@ -797,7 +813,13 @@ function App() {
       </div>
 
       <main className={`main-content ${hoveredMenu ? 'blurred' : ''}`}>
-        {selectedSpecialty ? (
+        {isAdminPage ? (
+          <AdminPage 
+            onBack={() => setIsAdminPage(false)} 
+            qnaList={qnaList}
+            handleQnaAnswer={handleQnaAnswer}
+          />
+        ) : selectedSpecialty ? (
           <SpecialtyDetailPage 
             key={selectedSpecialty.id}
             specialty={selectedSpecialty} 
@@ -983,7 +1005,7 @@ function App() {
                 <div className="hero-visual announcement-board glass-card" style={{ padding: '30px', textAlign: 'left', borderTop: '4px solid var(--accent-color)' }}>
                   <h3 style={{ marginBottom: '20px', color: 'var(--primary-dark)', fontSize: '1.4rem' }}>최신 공지사항</h3>
                   <div className="announcement-list" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                    {textContent.announcementHero.announcements.map((ann) => (
+                    {notices.slice(0, 5).map((ann) => (
                       <div key={ann.id} className="announcement-item" style={{ padding: '15px', borderRadius: '10px', backgroundColor: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.9)', cursor: 'pointer', transition: 'all 0.3s ease', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.05)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}>
                         <div>
                           <span style={{ display: 'inline-block', padding: '3px 8px', borderRadius: '4px', backgroundColor: 'var(--accent-light)', color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '8px' }}>{ann.tag}</span>
