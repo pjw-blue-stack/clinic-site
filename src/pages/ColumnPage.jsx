@@ -154,22 +154,17 @@ function ColumnPage({
   // Render Column List Board
   return (
     <div className="column-board-page">
-      <section className="column-hero" style={{ padding: '80px 0 40px', backgroundColor: 'var(--secondary-color)' }}>
+      <section className="column-hero" style={{ padding: '80px 0 20px', backgroundColor: 'var(--secondary-color)' }}>
         <div className="container" style={{ textAlign: 'center' }}>
           <span className="detail-subtitle" style={{ color: 'var(--primary-color)', display: 'block' }}>Medical Column</span>
           <h1 className="detail-title" style={{ fontSize: '3rem', color: 'var(--primary-dark)' }}>다한증 의학 칼럼</h1>
           <p className="detail-desc" style={{ margin: '0 auto', maxWidth: '700px', fontSize: '1.1rem', color: 'var(--text-muted)' }}>
             19년 임상 해독 노하우와 자율신경계 연구를 바탕으로 다한증 완치의 근본 해법과 의학 정보를 투명하게 전달해 드립니다.
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: '30px' }}>
-            <button className="btn btn-accent" onClick={() => setShowWriteForm(true)}>
-              ✍ 칼럼 작성하기 (원장님 전용)
-            </button>
-          </div>
         </div>
       </section>
 
-      <section className="section" style={{ backgroundColor: 'var(--secondary-color)' }}>
+      <section className="section" style={{ backgroundColor: 'var(--secondary-color)', paddingTop: '20px' }}>
         <div className="container" style={{ maxWidth: '1000px' }}>
           
           <div className="column-tabs-wrapper" style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '30px', flexWrap: 'wrap' }}>
