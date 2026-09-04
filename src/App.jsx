@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { auth, googleProvider } from './firebase';
+import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import './App.css';
 import { specialties, reviewsData } from './specialtyData';
 import { defaultColumns } from './columnData';
@@ -436,16 +438,41 @@ function App() {
     window.scrollTo(0, 0);
   };
 
+  // Firebase Auth State Listener
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedInUser(user.displayName || user.email);
+      } else {
+        setLoggedInUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   // Login handler
-  const handleSocialLogin = (platform) => {
-    setLoggedInUser(`정원 이웃 (${platform} 로그인)`);
-    setShowLoginModal(false);
-    alert(`${platform} 계정으로 로그인이 완료되었습니다.`);
+  const handleSocialLogin = async (platform) => {
+    if (platform === '구글') {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        setShowLoginModal(false);
+        alert(`환영합니다, ${result.user.displayName || result.user.email}님!`);
+      } catch (error) {
+        console.error("로그인 에러:", error);
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    } else {
+      alert(`${platform} 로그인은 현재 준비 중입니다. 구글 로그인을 이용해주세요.`);
+    }
   };
 
-  const handleLogout = () => {
-    setLoggedInUser(null);
-    alert('로그아웃 되었습니다.');
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      alert('로그아웃 되었습니다.');
+    } catch (error) {
+      console.error("로그아웃 에러:", error);
+    }
   };
 
   // Review Form Submit

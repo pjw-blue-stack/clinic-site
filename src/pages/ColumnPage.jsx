@@ -1,4 +1,7 @@
 import React, { useState, useMemo } from 'react';
+import { collection, addDoc, query, orderBy } from 'firebase/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { db } from '../firebase';
 import './ColumnPage.css';
 
 function ColumnPage({ 
@@ -27,8 +30,14 @@ function ColumnPage({
 
   const categories = ['전체', '수족다한증', '전신다한증', '두안면다한증', '보상성다한증'];
 
+  // Fetch columns from Firestore
+  const columnsRef = collection(db, 'columns');
+  const q = query(columnsRef, orderBy('createdAt', 'desc'));
+  const [firestoreColumns, loading, error] = useCollectionData(q, { idField: 'id' });
+  const displayColumns = firestoreColumns && firestoreColumns.length > 0 ? firestoreColumns : columns; // Fallback to default if empty
+
   const filteredColumns = useMemo(() => {
-    let result = columns;
+    let result = displayColumns;
     if (activeTab !== '전체') {
       result = result.filter(col => col.category === activeTab);
     }
@@ -39,9 +48,9 @@ function ColumnPage({
       );
     }
     return result;
-  }, [columns, activeTab, searchTerm]);
+  }, [displayColumns, activeTab, searchTerm]);
 
-  const handleWriteSubmit = (e) => {
+  const handleWriteSubmit = async (e) => {
     e.preventDefault();
     if (!writeFormInput.title || !writeFormInput.summary || !writeFormInput.content) {
       alert('모든 필드를 채워주세요.');
@@ -49,28 +58,33 @@ function ColumnPage({
     }
 
     const newColumn = {
-      id: columns.length + 1,
       title: writeFormInput.title,
       category: writeFormInput.category,
       summary: writeFormInput.summary,
       content: writeFormInput.content,
       date: new Date().toISOString().split('T')[0],
+      createdAt: Date.now(),
       author: '대표원장 박제욱',
       readTime: writeFormInput.readTime,
       icon: writeFormInput.icon
     };
 
-    setColumns([newColumn, ...columns]);
-    setWriteFormInput({
-      title: '',
-      category: '전신다한증',
-      summary: '',
-      content: '',
-      icon: '🔬',
-      readTime: '3분'
-    });
-    setShowWriteForm(false);
-    alert('새 칼럼이 등록되었습니다!');
+    try {
+      await addDoc(collection(db, 'columns'), newColumn);
+      setWriteFormInput({
+        title: '',
+        category: '전신다한증',
+        summary: '',
+        content: '',
+        icon: '🔬',
+        readTime: '3분'
+      });
+      setShowWriteForm(false);
+      alert('새 칼럼이 등록되었습니다!');
+    } catch (err) {
+      console.error("Error adding document: ", err);
+      alert('칼럼 등록에 실패했습니다.');
+    }
   };
 
   // Render Column Detail View

@@ -1,0 +1,11 @@
+{
+  "projectId": "jungwon-homepage",
+  "appId": "1:594080834053:web:c5596b4e9a2dec5f82326c",
+  "storageBucket": "jungwon-homepage.firebasestorage.app",
+  "apiKey": "AIzaSyAi_D3ESFwcrcDgFTylCVlkYRK534sdP54",
+  "authDomain": "jungwon-homepage.firebaseapp.com",
+  "messagingSenderId": "594080834053",
+  "measurementId": "G-1C07PNB61R",
+  "projectNumber": "594080834053",
+  "version": "2"
+}
