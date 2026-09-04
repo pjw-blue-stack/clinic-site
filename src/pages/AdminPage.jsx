@@ -186,7 +186,7 @@ export default function AdminPage({ onBack, qnaList }) {
               <div style={{ backgroundColor: '#f9fbfd', padding: '20px', borderRadius: '8px', borderLeft: '4px solid var(--primary-color)' }}>
                 <h4 style={{ marginBottom: '10px' }}>현재 최고 관리자 모드 접속 중</h4>
                 <p style={{ lineHeight: '1.6', color: '#555' }}>
-                  현재 <strong>원장님의 구글 계정(parkjeuk@gmail.com)</strong>으로 연동되어 최고 관리자 권한을 부여받으셨습니다.<br/><br/>
+                  현재 <strong>원장님의 구글 계정(pjw-blue@hanmail.net)</strong>으로 연동되어 최고 관리자 권한을 부여받으셨습니다.<br/><br/>
                   추후 데스크 실장님이나 직원분들을 위한 전용 관리자 아이디/비밀번호 로그인 시스템은 별도의 <strong>'직원 전용 로그인'</strong> 페이지를 통해 업데이트될 예정입니다.
                 </p>
               </div>

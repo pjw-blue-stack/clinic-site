@@ -13,7 +13,7 @@ import ClinicPage from './pages/ClinicPage';
 import ColumnPage from './pages/ColumnPage';
 import AdminPage from './pages/AdminPage';
 
-const ADMIN_EMAILS = ['parkjeuk@gmail.com'];
+const ADMIN_EMAILS = ['pjw-blue@hanmail.net'];
 // 구글폼 사전 설문지 URL (노쇼 방지용)
 const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
 
