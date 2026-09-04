@@ -5,6 +5,8 @@ import { textContent } from '../textContent';
 import DirectorProfile from '../components/DirectorProfile';
 
 function ClinicPage({
+  notices,
+  qnaList,
   columns, 
   setColumns, 
   selectedColumn, 
@@ -58,12 +60,18 @@ function ClinicPage({
               <h2>{clinicNotice.title}</h2>
             </div>
             <ul className="notice-list">
-              {clinicNotice.list.map((notice, idx) => (
-                <li key={idx} className="notice-item">
-                  <span className="notice-title">{notice.title}</span>
-                  <span className="notice-date">{notice.date}</span>
+              {notices && notices.length > 0 ? (
+                notices.slice(0, 5).map((notice, idx) => (
+                  <li key={idx} className="notice-item">
+                    <span className="notice-title">{notice.tag} {notice.title}</span>
+                    <span className="notice-date">{notice.date}</span>
+                  </li>
+                ))
+              ) : (
+                <li className="notice-item">
+                  <span className="notice-title">등록된 공지사항이 없습니다.</span>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
         </div>
@@ -230,27 +238,25 @@ function ClinicPage({
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>3</td>
-                      <td><span className="status-badge status-done">답변완료</span></td>
-                      <td className="inquiry-title">다한증 한약 부작용은 없나요? 🔒</td>
-                      <td>김*원</td>
-                      <td>2026.08.30</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><span className="status-badge status-waiting">답변대기</span></td>
-                      <td className="inquiry-title">원장님 진료 예약 문의드립니다. 🔒</td>
-                      <td>이*영</td>
-                      <td>2026.08.29</td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td><span className="status-badge status-done">답변완료</span></td>
-                      <td className="inquiry-title">수족다한증 치료 기간 질문 🔒</td>
-                      <td>박*준</td>
-                      <td>2026.08.28</td>
-                    </tr>
+                    {qnaList && qnaList.length > 0 ? (
+                      qnaList.map((q, idx) => (
+                        <tr key={idx}>
+                          <td>{qnaList.length - idx}</td>
+                          <td>
+                            <span className={`status-badge ${q.isAnswered ? 'status-done' : 'status-waiting'}`}>
+                              {q.isAnswered ? '답변완료' : '답변대기'}
+                            </span>
+                          </td>
+                          <td className="inquiry-title">{q.question} {q.isSecret && '🔒'}</td>
+                          <td>{q.author}</td>
+                          <td>{new Date(q.createdAt).toLocaleDateString()}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>등록된 문의가 없습니다.</td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

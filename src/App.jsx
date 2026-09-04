@@ -858,6 +858,10 @@ function App() {
           />
                 ) : isClinicPage ? (
           <ClinicPage 
+            notices={notices}
+            columns={columns}
+            qnaList={qnaList}
+            reviews={reviews}
             columns={columns}
             setColumns={setColumns}
             selectedColumn={selectedColumn}
