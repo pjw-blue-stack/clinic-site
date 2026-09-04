@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { auth, googleProvider } from './firebase';
+import { collection, addDoc, query, orderBy } from 'firebase/firestore';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { auth, googleProvider, db } from './firebase';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import './App.css';
 import { specialties, reviewsData } from './specialtyData';
@@ -360,7 +362,10 @@ function App() {
   }, []);
 
   // Reviews state
-  const [reviews, setReviews] = useState(reviewsData);
+  const reviewsRef = collection(db, 'reviews');
+  const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
+  const [firestoreReviews] = useCollectionData(reviewsQuery, { idField: 'id' });
+  const reviews = firestoreReviews && firestoreReviews.length > 0 ? firestoreReviews : reviewsData;
   const [filterSpecialty, setFilterSpecialty] = useState('all');
   const [newReview, setNewReview] = useState({
     name: '',
@@ -476,7 +481,7 @@ function App() {
   };
 
   // Review Form Submit
-  const handleReviewSubmit = (e) => {
+  const handleReviewSubmit = async (e) => {
     e.preventDefault();
     if (!newReview.name || !newReview.title || !newReview.content) {
       alert('모든 항목을 입력해주세요.');
@@ -484,25 +489,30 @@ function App() {
     }
     
     const submittedReview = {
-      id: reviews.length + 1,
       name: newReview.name.substring(0, 1) + '*' + newReview.name.substring(Math.max(1, newReview.name.length - 1)),
       specialtyId: newReview.specialtyId,
       title: newReview.title,
       content: newReview.content,
       rating: newReview.rating,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0],
+      createdAt: Date.now()
     };
 
-    setReviews([submittedReview, ...reviews]);
-    setNewReview({
-      name: '',
-      specialtyId: 'detox',
-      title: '',
-      content: '',
-      rating: 5
-    });
-    setReviewSuccess(true);
-    setTimeout(() => setReviewSuccess(false), 3000);
+    try {
+      await addDoc(collection(db, 'reviews'), submittedReview);
+      setNewReview({
+        name: '',
+        specialtyId: 'detox',
+        title: '',
+        content: '',
+        rating: 5
+      });
+      setReviewSuccess(true);
+      setTimeout(() => setReviewSuccess(false), 3000);
+    } catch (err) {
+      console.error("Error adding review: ", err);
+      alert('리뷰 등록에 실패했습니다.');
+    }
   };
 
   // Booking Form Submit
