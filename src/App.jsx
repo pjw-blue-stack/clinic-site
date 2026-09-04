@@ -424,7 +424,7 @@ function App() {
 
   // Helper for scroll
   const scrollToSection = (id) => {
-    setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false); setHoveredMenu(null);
     setSelectedSpecialty(null); 
     setIsColumnPage(false);
     setSelectedColumn(null);
@@ -451,7 +451,7 @@ function App() {
 
   // Nav click to open specialty detail page directly
   const handleNavClick = (id) => {
-    setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false); setHoveredMenu(null);
     setIsColumnPage(false);
     setSelectedColumn(null);
     setIsSelfCheckPage(false);
@@ -467,7 +467,7 @@ function App() {
 
   // Nav click to open column board page directly
   const handleColumnPageClick = () => {
-    setIsMobileMenuOpen(false);
+    setIsMobileMenuOpen(false); setHoveredMenu(null);
     setSelectedSpecialty(null);
     setSelectedColumn(null);
     setIsColumnPage(true);
@@ -656,7 +656,7 @@ function App() {
               className={`nav-link ${isDetoxPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('detox')}
               onClick={(e) => { 
                 e.preventDefault(); 
-                setIsMobileMenuOpen(false);
+                setIsMobileMenuOpen(false); setHoveredMenu(null);
                 setSelectedSpecialty(null);
                 setIsColumnPage(false);
                 setSelectedColumn(null);
@@ -730,7 +730,7 @@ function App() {
               className={`nav-link ${isSelfCheckPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('selfcheck')}
               onClick={(e) => { 
                 e.preventDefault(); 
-                setIsMobileMenuOpen(false);
+                setIsMobileMenuOpen(false); setHoveredMenu(null);
                 setSelectedSpecialty(null);
                 setIsColumnPage(false);
                 setSelectedColumn(null);
@@ -748,7 +748,7 @@ function App() {
               className={`nav-link ${isReviewPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('reviews')}
               onClick={(e) => { 
                 e.preventDefault(); 
-                setIsMobileMenuOpen(false);
+                setIsMobileMenuOpen(false); setHoveredMenu(null);
                 setSelectedSpecialty(null);
                 setIsColumnPage(false);
                 setSelectedColumn(null);
@@ -766,7 +766,7 @@ function App() {
               className={`nav-link ${isClinicPage ? 'active' : ''}`} onMouseEnter={() => setHoveredMenu('booking')}
               onClick={(e) => { 
                 e.preventDefault(); 
-                setIsMobileMenuOpen(false);
+                setIsMobileMenuOpen(false); setHoveredMenu(null);
                 setSelectedSpecialty(null);
                 setIsColumnPage(false);
                 setSelectedColumn(null);
