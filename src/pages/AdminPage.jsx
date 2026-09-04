@@ -12,6 +12,11 @@ export default function AdminPage({ onBack, qnaList }) {
   const noticesQuery = query(noticesRef, orderBy('createdAt', 'desc'));
   const [notices] = useCollectionData(noticesQuery, { idField: 'id' });
 
+  // Columns state
+  const columnsRef = collection(db, 'columns');
+  const columnsQuery = query(columnsRef, orderBy('id', 'asc'));
+  const [columns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
+
   const [newNotice, setNewNotice] = useState({ tag: '[공지]', title: '', content: '' });
 
   const handleNoticeSubmit = async (e) => {
@@ -35,6 +40,61 @@ export default function AdminPage({ onBack, qnaList }) {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       try {
         await deleteDoc(doc(db, 'notices', id));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  // Column functions
+  const [newColumn, setNewColumn] = useState({ 
+    title: '', 
+    category: '전신다한증', 
+    summary: '', 
+    content: '', 
+    icon: '🔬', 
+    readTime: '3분' 
+  });
+
+  const handleColumnSubmit = async (e) => {
+    e.preventDefault();
+    if (!newColumn.title || !newColumn.summary || !newColumn.content) {
+      alert('모든 필드를 채워주세요.');
+      return;
+    }
+    try {
+      const columnData = {
+        title: newColumn.title,
+        category: newColumn.category,
+        summary: newColumn.summary,
+        content: newColumn.content,
+        date: new Date().toISOString().split('T')[0],
+        createdAt: Date.now(),
+        author: '대표원장 박제욱',
+        readTime: newColumn.readTime,
+        icon: newColumn.icon
+      };
+      
+      await addDoc(collection(db, 'columns'), columnData);
+      setNewColumn({ 
+        title: '', 
+        category: '전신다한증', 
+        summary: '', 
+        content: '', 
+        icon: '🔬', 
+        readTime: '3분' 
+      });
+      alert('의학 칼럼이 등록되었습니다.');
+    } catch (err) {
+      console.error(err);
+      alert('등록 실패');
+    }
+  };
+
+  const handleDeleteColumn = async (firestoreId) => {
+    if (window.confirm('이 칼럼을 정말 삭제하시겠습니까?')) {
+      try {
+        await deleteDoc(doc(db, 'columns', firestoreId));
       } catch (err) {
         console.error(err);
       }
@@ -78,6 +138,13 @@ export default function AdminPage({ onBack, qnaList }) {
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'notices' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'notices' ? 'bold' : 'normal', color: activeTab === 'notices' ? 'var(--primary-dark)' : '#555' }}
             >
               공지사항 관리
+            </li>
+            <li 
+              className={activeTab === 'columns' ? 'active' : ''} 
+              onClick={() => setActiveTab('columns')}
+              style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'columns' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'columns' ? 'bold' : 'normal', color: activeTab === 'columns' ? 'var(--primary-dark)' : '#555' }}
+            >
+              의학 칼럼 관리
             </li>
             <li 
               className={activeTab === 'qna' ? 'active' : ''} 
@@ -130,6 +197,48 @@ export default function AdminPage({ onBack, qnaList }) {
                     <button className="btn btn-sm btn-outline" onClick={() => handleDeleteNotice(notice.id)} style={{ padding: '5px 10px', borderColor: '#ff4d4f', color: '#ff4d4f' }}>삭제</button>
                   </div>
                 )) : <p style={{ color: '#888' }}>등록된 공지사항이 없습니다.</p>}
+              </div>
+            </section>
+          )}
+
+          {activeTab === 'columns' && (
+            <section className="admin-section" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '20px', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>새 의학 칼럼 작성</h3>
+              <form onSubmit={handleColumnSubmit} className="admin-form">
+                <div className="form-group" style={{ marginBottom: '15px' }}>
+                  <input type="text" className="form-input" placeholder="칼럼 제목을 입력하세요" value={newColumn.title} onChange={e => setNewColumn({...newColumn, title: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                </div>
+                <div className="form-group" style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>
+                  <select className="form-select" value={newColumn.category} onChange={e => setNewColumn({...newColumn, category: e.target.value})} style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}>
+                    <option value="전신다한증">전신다한증</option>
+                    <option value="수족다한증">수족다한증</option>
+                    <option value="두안면다한증">두안면다한증</option>
+                    <option value="보상성다한증">보상성다한증</option>
+                  </select>
+                  <input type="text" className="form-input" placeholder="이모지 아이콘 (예: 🔬)" value={newColumn.icon} onChange={e => setNewColumn({...newColumn, icon: e.target.value})} style={{ width: '100px', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                  <input type="text" className="form-input" placeholder="읽는 시간 (예: 3분)" value={newColumn.readTime} onChange={e => setNewColumn({...newColumn, readTime: e.target.value})} style={{ width: '120px', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                </div>
+                <div className="form-group" style={{ marginBottom: '15px' }}>
+                  <input type="text" className="form-input" placeholder="요약 내용을 1~2줄로 입력하세요" value={newColumn.summary} onChange={e => setNewColumn({...newColumn, summary: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                </div>
+                <div className="form-group" style={{ marginBottom: '20px' }}>
+                  <textarea className="form-input" rows="8" placeholder="칼럼 본문을 입력하세요 (줄바꿈이 그대로 적용됩니다)" value={newColumn.content} onChange={e => setNewColumn({...newColumn, content: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                </div>
+                <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>의학 칼럼 등록</button>
+              </form>
+
+              <h3 style={{ fontSize: '1.5rem', marginTop: '40px', marginBottom: '20px', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>등록된 의학 칼럼 목록</h3>
+              <div className="admin-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {columns && columns.length > 0 ? columns.map(column => (
+                  <div key={column.firestoreId} className="admin-list-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px', backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #eee' }}>
+                    <div>
+                      <strong style={{ marginRight: '8px', color: 'var(--primary-color)' }}>[{column.category}]</strong>
+                      <strong>{column.title}</strong>
+                      {column.date && <span style={{ fontSize: '0.85rem', color: '#888', marginLeft: '10px' }}>{column.date}</span>}
+                    </div>
+                    <button className="btn btn-sm btn-outline" onClick={() => handleDeleteColumn(column.firestoreId)} style={{ padding: '5px 10px', borderColor: '#ff4d4f', color: '#ff4d4f' }}>삭제</button>
+                  </div>
+                )) : <p style={{ color: '#888' }}>등록된 의학 칼럼이 없습니다.</p>}
               </div>
             </section>
           )}

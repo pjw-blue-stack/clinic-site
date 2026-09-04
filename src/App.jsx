@@ -285,7 +285,13 @@ function App() {
   // Modals state
   const [selectedSpecialty, setSelectedSpecialty] = useState(null);
   const [hoveredMenu, setHoveredMenu] = useState(null);
-  const [columns, setColumns] = useState(defaultColumns);
+  
+  // Columns state
+  const columnsRef = collection(db, 'columns');
+  const columnsQuery = query(columnsRef, orderBy('id', 'asc'));
+  const [firestoreColumns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
+  const columns = firestoreColumns && firestoreColumns.length > 0 ? firestoreColumns : defaultColumns;
+  
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [isReviewPage, setIsReviewPage] = useState(false);
   const [isClinicPage, setIsClinicPage] = useState(false);
@@ -639,6 +645,7 @@ function App() {
             <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '38px', width: '38px', objectFit: 'contain' }} />
           </a>
 
+          {!isAdminPage && (
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <a 
               href="#specialties" 
@@ -769,6 +776,7 @@ function App() {
               한의원
             </a>
           </nav>
+          )}
 
           <div className="header-actions">
             {loggedInUser ? (
@@ -788,9 +796,11 @@ function App() {
                 로그인
               </button>
             )}
+            {!isAdminPage && (
             <button className="btn btn-accent" onClick={() => setShowBookingModal(true)}>
               실시간 예약
             </button>
+            )}
             <button className={`mobile-toggle ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               <span></span>
               <span></span>
