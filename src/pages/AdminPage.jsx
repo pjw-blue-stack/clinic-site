@@ -11,6 +11,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const [noticeMode, setNoticeMode] = useState('list');
   const [columnMode, setColumnMode] = useState('list');
   const [qnaMode, setQnaMode] = useState('list');
+  const [reviewMode, setReviewMode] = useState('list');
   
   const [editTargetId, setEditTargetId] = useState(null);
 
@@ -132,6 +133,64 @@ export default function AdminPage({ onBack, qnaList }) {
     }
   };
 
+  // Reviews state
+  const reviewsRef = collection(db, 'reviews');
+  const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
+  const [reviews] = useCollectionData(reviewsQuery, { idField: 'id' });
+
+  const initialReview = { name: '', specialtyId: '전신다한증', title: '', content: '', rating: 5 };
+  const [reviewForm, setReviewForm] = useState(initialReview);
+
+  const openReviewWrite = () => {
+    setReviewForm(initialReview);
+    setEditTargetId(null);
+    setReviewMode('write');
+  };
+
+  const openReviewEdit = (review) => {
+    setReviewForm({ 
+      name: review.name, 
+      specialtyId: review.specialtyId, 
+      title: review.title, 
+      content: review.content, 
+      rating: review.rating 
+    });
+    setEditTargetId(review.id);
+    setReviewMode('edit');
+  };
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!reviewForm.title || !reviewForm.content || !reviewForm.name) return;
+    try {
+      if (reviewMode === 'edit' && editTargetId) {
+        await updateDoc(doc(db, 'reviews', editTargetId), reviewForm);
+        alert('치료후기가 수정되었습니다.');
+      } else {
+        await addDoc(collection(db, 'reviews'), {
+          ...reviewForm,
+          date: new Date().toISOString().split('T')[0],
+          createdAt: Date.now()
+        });
+        alert('치료후기가 등록되었습니다.');
+      }
+      setReviewMode('list');
+    } catch (err) {
+      console.error(err);
+      alert('처리 실패');
+    }
+  };
+
+  const handleDeleteReview = async (id) => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      try {
+        await deleteDoc(doc(db, 'reviews', id));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   // QnA states
   const [answerText, setAnswerText] = useState('');
 
@@ -162,6 +221,7 @@ export default function AdminPage({ onBack, qnaList }) {
     setNoticeMode('list');
     setColumnMode('list');
     setQnaMode('list');
+    setReviewMode('list');
   }, [activeTab]);
 
   return (
@@ -196,6 +256,13 @@ export default function AdminPage({ onBack, qnaList }) {
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'qna' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'qna' ? 'bold' : 'normal', color: activeTab === 'qna' ? 'var(--primary-dark)' : '#555' }}
             >
               Q&A 게시판 관리
+            </li>
+            <li 
+              className={activeTab === 'reviews' ? 'active' : ''} 
+              onClick={() => setActiveTab('reviews')}
+              style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'reviews' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'reviews' ? 'bold' : 'normal', color: activeTab === 'reviews' ? 'var(--primary-dark)' : '#555' }}
+            >
+              치료후기 관리
             </li>
             <li 
               className={activeTab === 'settings' ? 'active' : ''} 
@@ -432,6 +499,87 @@ export default function AdminPage({ onBack, qnaList }) {
                       <textarea className="form-input" rows="6" value={answerText} onChange={e => setAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>답변 저장</button>
+                  </form>
+                </>
+              )}
+            </section>
+          )}
+
+          {/* ======================= REVIEWS ======================= */}
+          {activeTab === 'reviews' && (
+            <section className="admin-section" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              
+              {reviewMode === 'list' && (
+                <>
+                  <div className="admin-tab-header">
+                    <h3 style={{ fontSize: '1.5rem', margin: 0 }}>치료후기 목록</h3>
+                    <button className="btn btn-primary" onClick={openReviewWrite}>글쓰기</button>
+                  </div>
+                  <div className="admin-table-container">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th width="15%">질환명</th>
+                          <th width="45%">제목</th>
+                          <th width="10%">작성자</th>
+                          <th width="10%">별점</th>
+                          <th width="20%">관리</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {reviews && reviews.length > 0 ? reviews.map(review => (
+                          <tr key={review.id}>
+                            <td><strong style={{ color: 'var(--primary-color)' }}>{review.specialtyId}</strong></td>
+                            <td className="title-cell">{review.title}</td>
+                            <td>{review.name}</td>
+                            <td>{'⭐'.repeat(review.rating || 5)}</td>
+                            <td className="actions-cell">
+                              <button className="admin-action-btn edit" onClick={() => openReviewEdit(review)}>수정</button>
+                              <button className="admin-action-btn delete" onClick={() => handleDeleteReview(review.id)}>삭제</button>
+                            </td>
+                          </tr>
+                        )) : (
+                          <tr><td colSpan="5" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>등록된 치료후기가 없습니다.</td></tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
+
+              {(reviewMode === 'write' || reviewMode === 'edit') && (
+                <>
+                  <div className="admin-tab-header">
+                    <h3 style={{ fontSize: '1.5rem', margin: 0 }}>{reviewMode === 'edit' ? '치료후기 수정' : '새 치료후기 작성'}</h3>
+                    <button className="btn btn-outline" onClick={() => setReviewMode('list')}>← 목록으로</button>
+                  </div>
+                  <form onSubmit={handleReviewSubmit} className="admin-form">
+                    <div className="form-group" style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>
+                      <select className="form-select" value={reviewForm.specialtyId} onChange={e => setReviewForm({...reviewForm, specialtyId: e.target.value})} style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}>
+                        <option value="전신다한증">전신다한증</option>
+                        <option value="수족다한증">수족다한증</option>
+                        <option value="두안면다한증">두안면다한증</option>
+                        <option value="보상성다한증">보상성다한증</option>
+                        <option value="두안면/미각다한증">두안면/미각다한증</option>
+                      </select>
+                      <input type="text" className="form-input" placeholder="작성자 (예: 박*욱)" value={reviewForm.name} onChange={e => setReviewForm({...reviewForm, name: e.target.value})} required style={{ width: '150px', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                      <select className="form-select" value={reviewForm.rating} onChange={e => setReviewForm({...reviewForm, rating: Number(e.target.value)})} style={{ width: '100px', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}>
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                      </select>
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '15px' }}>
+                      <input type="text" className="form-input" placeholder="제목을 입력하세요" value={reviewForm.title} onChange={e => setReviewForm({...reviewForm, title: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '20px' }}>
+                      <textarea className="form-input" rows="5" placeholder="후기 내용을 입력하세요" value={reviewForm.content} onChange={e => setReviewForm({...reviewForm, content: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                    </div>
+                    <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>
+                      {reviewMode === 'edit' ? '치료후기 수정' : '치료후기 등록'}
+                    </button>
                   </form>
                 </>
               )}
