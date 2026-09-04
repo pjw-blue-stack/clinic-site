@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, addDoc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, updateDoc, doc } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { auth, googleProvider, db } from './firebase';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
@@ -376,6 +376,21 @@ function App() {
   });
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
+  // QnA state
+  const qnaRef = collection(db, 'qna');
+  const qnaQuery = query(qnaRef, orderBy('createdAt', 'desc'));
+  const [firestoreQna] = useCollectionData(qnaQuery, { idField: 'id' });
+  const qnaList = firestoreQna || [];
+  
+  const [showQnaModal, setShowQnaModal] = useState(false);
+  const [newQna, setNewQna] = useState({
+    category: 'detox',
+    question: '',
+    isSecret: false
+  });
+  const [answeringQnaId, setAnsweringQnaId] = useState(null);
+  const [qnaAnswerText, setQnaAnswerText] = useState('');
+
   // Booking Form state
   const [bookingForm, setBookingForm] = useState({
     name: '',
@@ -523,6 +538,55 @@ function App() {
       return;
     }
     setBookingSuccess(true);
+  };
+
+  // QnA Submit
+  const handleQnaSubmit = async (e) => {
+    e.preventDefault();
+    if (!loggedInUser || !auth.currentUser) {
+      alert("구글 로그인 후 질문을 남기실 수 있습니다.");
+      return;
+    }
+    if (!newQna.question) {
+      alert("질문 내용을 입력해주세요.");
+      return;
+    }
+    
+    try {
+      await addDoc(collection(db, 'qna'), {
+        category: newQna.category,
+        question: newQna.question,
+        answer: '',
+        author: auth.currentUser.displayName || auth.currentUser.email.split('@')[0],
+        authorEmail: auth.currentUser.email,
+        createdAt: Date.now(),
+        isSecret: newQna.isSecret,
+        isAnswered: false
+      });
+      alert('질문이 성공적으로 등록되었습니다. 원장님 확인 후 답변이 달립니다.');
+      setShowQnaModal(false);
+      setNewQna({ ...newQna, question: '' });
+    } catch(err) {
+      console.error(err);
+      alert('질문 등록에 실패했습니다.');
+    }
+  };
+
+  // QnA Answer Submit
+  const handleQnaAnswer = async (qnaId) => {
+    if(!qnaAnswerText) return;
+    try {
+      await updateDoc(doc(db, 'qna', qnaId), {
+        answer: qnaAnswerText,
+        isAnswered: true
+      });
+      setAnsweringQnaId(null);
+      setQnaAnswerText('');
+      alert('답변이 등록되었습니다.');
+    } catch(err) {
+      console.error(err);
+      alert('답변 등록에 실패했습니다.');
+    }
   };
 
   // Consultation Form Submit
@@ -874,6 +938,14 @@ function App() {
             getSpecialtyName={getSpecialtyName}
             loggedInUser={loggedInUser}
             setShowLoginModal={setShowLoginModal}
+            qnaList={qnaList}
+            setShowQnaModal={setShowQnaModal}
+            setNewQna={setNewQna}
+            answeringQnaId={answeringQnaId}
+            setAnsweringQnaId={setAnsweringQnaId}
+            qnaAnswerText={qnaAnswerText}
+            setQnaAnswerText={setQnaAnswerText}
+            handleQnaAnswer={handleQnaAnswer}
           />
         ) : (
           <>
@@ -1433,6 +1505,60 @@ function App() {
         </div>
       )}
 
+      {/* QnA MODAL */}
+      {showQnaModal && (
+        <div className="modal-overlay" onClick={() => setShowQnaModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+            <button className="modal-close" onClick={() => setShowQnaModal(false)}>✕</button>
+            <div className="modal-header">
+              <span className="modal-badge">Q&A</span>
+              <h2 className="modal-title">원장님께 질문 남기기</h2>
+              <p style={{ color: 'var(--text-muted)', marginTop: '10px' }}>궁금하신 점을 남겨주시면 원장님이 직접 답변해 드립니다.</p>
+            </div>
+            
+            <form onSubmit={handleQnaSubmit} className="booking-form" style={{ marginTop: '20px' }}>
+              <div className="form-group" style={{ textAlign: 'left' }}>
+                <label className="form-label">카테고리</label>
+                <select 
+                  className="form-select"
+                  value={newQna.category}
+                  onChange={(e) => setNewQna({...newQna, category: e.target.value})}
+                >
+                  <option value="detox">정원해독</option>
+                  <option value="hyperhidrosis">다한증(수족/전신 등)</option>
+                  <option value="diet">해독다이어트</option>
+                  <option value="other">기타 문의</option>
+                </select>
+              </div>
+              <div className="form-group" style={{ textAlign: 'left' }}>
+                <label className="form-label">질문 내용</label>
+                <textarea 
+                  className="form-input" 
+                  rows="5"
+                  placeholder="증상이나 치료에 대해 궁금하신 점을 자유롭게 적어주세요."
+                  value={newQna.question}
+                  onChange={(e) => setNewQna({...newQna, question: e.target.value})}
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group" style={{ textAlign: 'left' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.95rem' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={newQna.isSecret}
+                    onChange={(e) => setNewQna({...newQna, isSecret: e.target.checked})}
+                  />
+                  비밀글로 작성하기 (작성자와 관리자만 볼 수 있습니다)
+                </label>
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '15px', fontSize: '1.1rem', marginTop: '10px' }}>
+                질문 등록하기
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Floating Quick Menu (하단 고정 퀵메뉴) */}
       <div className="floating-quick-menu">
         <a href="tel:02-2649-7582" className="quick-menu-item quick-menu-call">
@@ -1481,7 +1607,24 @@ function App() {
 // ==========================================================================
 // SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
 // ==========================================================================
-function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, setShowBookingModal, setBookingForm, bookingForm }) {
+function SpecialtyDetailPage({ 
+  specialty, 
+  onBack, 
+  reviews, 
+  getSpecialtyName, 
+  setShowBookingModal, 
+  setBookingForm, 
+  bookingForm,
+  qnaList,
+  setShowQnaModal,
+  setNewQna,
+  loggedInUser,
+  answeringQnaId,
+  setAnsweringQnaId,
+  qnaAnswerText,
+  setQnaAnswerText,
+  handleQnaAnswer
+}) {
   // Tab State for Head/Face/Both sweat condition (du-myeon)
   const [activeTab, setActiveTab] = useState('both');
 
@@ -1798,6 +1941,69 @@ function SpecialtyDetailPage({ specialty, onBack, reviews, getSpecialtyName, set
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* 환자 Q&A 게시판 */}
+          <div className="qna-board" style={{ marginTop: '50px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.5rem', margin: 0 }}>온라인 상담 / Q&A</h3>
+              <button className="btn btn-primary btn-sm" onClick={() => {
+                setNewQna({ category: specialty.id, question: '', isSecret: false });
+                setShowQnaModal(true);
+              }}>
+                질문 남기기
+              </button>
+            </div>
+            
+            <div className="qna-list">
+              {qnaList && qnaList.filter(q => q.category === specialty.id || q.category === 'all').length > 0 ? (
+                qnaList.filter(q => q.category === specialty.id || q.category === 'all').map(q => (
+                  <div key={q.id} className="qna-card" style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '12px', marginBottom: '15px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', textAlign: 'left' }}>
+                    <div className="qna-q" style={{ marginBottom: '15px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--text-main)', flex: 1, marginRight: '10px', wordBreak: 'keep-all' }}>
+                          <span style={{ color: 'var(--primary-color)', marginRight: '5px' }}>Q.</span>
+                          {q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.question : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.') : q.question}
+                        </span>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author} | {new Date(q.createdAt).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                    {q.isAnswered ? (
+                      <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid var(--accent-color)' }}>
+                        <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', marginRight: '8px' }}>A.</span>
+                        <span style={{ color: 'var(--text-main)', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.answer : '비밀글입니다.') : q.answer}</span>
+                      </div>
+                    ) : (
+                      <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid #e2e8f0' }}>
+                        <span style={{ color: 'var(--text-light)' }}>원장님께서 확인 중입니다. 곧 답변이 달릴 예정입니다.</span>
+                        {loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) && (
+                          <div style={{ marginTop: '15px' }}>
+                            {answeringQnaId === q.id ? (
+                              <div>
+                                <textarea className="form-input" rows="4" value={qnaAnswerText} onChange={(e) => setQnaAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요"></textarea>
+                                <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                                  <button className="btn btn-sm btn-accent" onClick={() => handleQnaAnswer(q.id)}>등록</button>
+                                  <button className="btn btn-sm btn-outline" onClick={() => setAnsweringQnaId(null)}>취소</button>
+                                </div>
+                              </div>
+                            ) : (
+                              <button className="btn btn-sm btn-outline" onClick={() => {
+                                setAnsweringQnaId(q.id);
+                                setQnaAnswerText(q.answer || '');
+                              }}>원장님 답변 달기 (관리자용)</button>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)', backgroundColor: '#f9fbfd', borderRadius: '12px' }}>
+                  등록된 질문이 없습니다. 궁금한 점이 있으시면 언제든 남겨주세요!
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

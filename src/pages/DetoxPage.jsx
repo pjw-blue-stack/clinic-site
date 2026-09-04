@@ -10,7 +10,15 @@ function DetoxPage({
   setIsDetoxPage, 
   getSpecialtyName, 
   loggedInUser, 
-  setShowLoginModal 
+  setShowLoginModal,
+  qnaList,
+  setShowQnaModal,
+  setNewQna,
+  answeringQnaId,
+  setAnsweringQnaId,
+  qnaAnswerText,
+  setQnaAnswerText,
+  handleQnaAnswer
 }) {
   const [showCostModal, setShowCostModal] = useState(false);
   const [openQaIndex, setOpenQaIndex] = useState(null);
@@ -351,6 +359,69 @@ function DetoxPage({
                 )}
               </div>
             ))}
+          </div>
+
+          {/* 환자 Q&A 게시판 */}
+          <div className="qna-board" style={{ marginTop: '50px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.5rem', margin: 0 }}>온라인 상담 / Q&A</h3>
+              <button className="btn btn-primary btn-sm" onClick={() => {
+                setNewQna({ category: 'detox', question: '', isSecret: false });
+                setShowQnaModal(true);
+              }}>
+                질문 남기기
+              </button>
+            </div>
+            
+            <div className="qna-list">
+              {qnaList && qnaList.filter(q => q.category === 'detox' || q.category === 'all').length > 0 ? (
+                qnaList.filter(q => q.category === 'detox' || q.category === 'all').map(q => (
+                  <div key={q.id} className="qna-card" style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '12px', marginBottom: '15px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', textAlign: 'left' }}>
+                    <div className="qna-q" style={{ marginBottom: '15px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                        <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--text-main)', flex: 1, marginRight: '10px', wordBreak: 'keep-all' }}>
+                          <span style={{ color: 'var(--primary-color)', marginRight: '5px' }}>Q.</span>
+                          {q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.question : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.') : q.question}
+                        </span>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author} | {new Date(q.createdAt).toLocaleDateString()}</span>
+                      </div>
+                    </div>
+                    {q.isAnswered ? (
+                      <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid var(--accent-color)' }}>
+                        <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', marginRight: '8px' }}>A.</span>
+                        <span style={{ color: 'var(--text-main)', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.answer : '비밀글입니다.') : q.answer}</span>
+                      </div>
+                    ) : (
+                      <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid #e2e8f0' }}>
+                        <span style={{ color: 'var(--text-light)' }}>원장님께서 확인 중입니다. 곧 답변이 달릴 예정입니다.</span>
+                        {loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) && (
+                          <div style={{ marginTop: '15px' }}>
+                            {answeringQnaId === q.id ? (
+                              <div>
+                                <textarea className="form-input" rows="4" value={qnaAnswerText} onChange={(e) => setQnaAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요"></textarea>
+                                <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                                  <button className="btn btn-sm btn-accent" onClick={() => handleQnaAnswer(q.id)}>등록</button>
+                                  <button className="btn btn-sm btn-outline" onClick={() => setAnsweringQnaId(null)}>취소</button>
+                                </div>
+                              </div>
+                            ) : (
+                              <button className="btn btn-sm btn-outline" onClick={() => {
+                                setAnsweringQnaId(q.id);
+                                setQnaAnswerText(q.answer || '');
+                              }}>원장님 답변 달기 (관리자용)</button>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)', backgroundColor: '#f9fbfd', borderRadius: '12px' }}>
+                  등록된 질문이 없습니다. 궁금한 점이 있으시면 언제든 남겨주세요!
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
