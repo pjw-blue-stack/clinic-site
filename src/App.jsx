@@ -291,7 +291,7 @@ function App() {
   const columnsRef = collection(db, 'columns');
   const columnsQuery = query(columnsRef, orderBy('id', 'asc'));
   const [firestoreColumns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
-  const columns = firestoreColumns && firestoreColumns.length > 0 ? firestoreColumns : defaultColumns;
+  const columns = firestoreColumns || [];
   
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [isReviewPage, setIsReviewPage] = useState(false);
@@ -376,7 +376,7 @@ function App() {
   const reviewsRef = collection(db, 'reviews');
   const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
   const [firestoreReviews] = useCollectionData(reviewsQuery, { idField: 'id' });
-  const reviews = firestoreReviews && firestoreReviews.length > 0 ? firestoreReviews : reviewsData;
+  const reviews = firestoreReviews || [];
   const [filterSpecialty, setFilterSpecialty] = useState('all');
   const [newReview, setNewReview] = useState({
     name: '',
@@ -391,7 +391,7 @@ function App() {
   const noticesRef = collection(db, 'notices');
   const noticesQuery = query(noticesRef, orderBy('createdAt', 'desc'));
   const [firestoreNotices] = useCollectionData(noticesQuery, { idField: 'id' });
-  const notices = firestoreNotices && firestoreNotices.length > 0 ? firestoreNotices : textContent.announcementHero.announcements;
+  const notices = firestoreNotices || [];
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
   // QnA state
