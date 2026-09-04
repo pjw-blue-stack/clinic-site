@@ -641,7 +641,11 @@ function App() {
       <div className="header-wrapper" onMouseLeave={() => setHoveredMenu(null)}>
       <header className="header">
         <div className="container header-container">
-          <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
+          <a href="#home" className="logo" onClick={(e) => { 
+            e.preventDefault(); 
+            if (isAdminPage) setIsAdminPage(false);
+            scrollToSection('home'); 
+          }}>
             <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '38px', width: '38px', objectFit: 'contain' }} />
           </a>
 
