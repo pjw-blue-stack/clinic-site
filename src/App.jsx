@@ -782,7 +782,7 @@ function App() {
             {loggedInUser ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{loggedInUser}</span>
-                {isAdmin && (
+                {isAdmin && !isAdminPage && (
                   <button className="btn btn-sm btn-outline" onClick={() => setIsAdminPage(true)} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>
                     관리자 페이지
                   </button>
@@ -796,7 +796,7 @@ function App() {
                 로그인
               </button>
             )}
-            {!isAdminPage && (
+            {!isAdmin && !isAdminPage && (
             <button className="btn btn-accent" onClick={() => setShowBookingModal(true)}>
               실시간 예약
             </button>
