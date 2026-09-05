@@ -357,7 +357,7 @@ function App() {
     }
 
     if (window.location.search !== targetSearch) {
-      window.history.pushState({}, '', targetSearch || window.location.pathname);
+      window.history.pushState({}, '', (targetSearch || window.location.pathname) + window.location.hash);
     }
   }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage, isSelfCheckPage]);
 
