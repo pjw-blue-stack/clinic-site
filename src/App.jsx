@@ -548,6 +548,15 @@ function App() {
     try {
       await signOut(auth);
       alert('로그아웃 되었습니다.');
+      setIsAdminPage(false);
+      setIsMyPage(false);
+      setIsSignupPage(false);
+      setIsColumnPage(false);
+      setIsReviewPage(false);
+      setIsClinicPage(false);
+      setIsDetoxPage(false);
+      setIsSelfCheckPage(false);
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error("로그아웃 에러:", error);
     }
