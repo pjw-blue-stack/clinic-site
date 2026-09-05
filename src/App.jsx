@@ -475,6 +475,8 @@ function App() {
     setIsClinicPage(false);
     setIsDetoxPage(false);
     setIsSelfCheckPage(false);
+    setIsSignupPage(false);
+    setIsMyPage(false);
     
     setTimeout(() => {
       setActiveSection(id);
@@ -501,6 +503,8 @@ function App() {
     setIsReviewPage(false);
     setIsClinicPage(false);
     setIsDetoxPage(false);
+    setIsSignupPage(false);
+    setIsMyPage(false);
     const specialty = specialties.find(s => s.id === id);
     if (specialty) {
       setSelectedSpecialty(specialty);
