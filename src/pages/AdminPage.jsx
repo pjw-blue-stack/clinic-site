@@ -259,7 +259,7 @@ export default function AdminPage({ onBack, qnaList }) {
       alert('답변이 등록되었습니다.');
     } catch (err) {
       console.error(err);
-      alert('답변 등록 실패');
+      alert('답변 등록 실패: ' + err.message);
     }
   };
 
