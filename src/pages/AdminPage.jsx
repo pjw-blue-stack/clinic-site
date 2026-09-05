@@ -18,6 +18,20 @@ export default function AdminPage({ onBack, qnaList }) {
 
   const [uploading, setUploading] = useState(false);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.hash === '#admin') {
+        setNoticeMode('list');
+        setColumnMode('list');
+        setQnaMode('list');
+        setReviewMode('list');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+
   const handleMediaUpload = async (e, formSetter, currentForm) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -57,13 +71,13 @@ export default function AdminPage({ onBack, qnaList }) {
   const openNoticeWrite = () => {
     setNoticeForm(initialNotice);
     setEditTargetId(null);
-    setNoticeMode('write');
+    setNoticeMode('write'); window.history.pushState({}, '', '#admin-form');
   };
 
   const openNoticeEdit = (notice) => {
     setNoticeForm({ tag: notice.tag, title: notice.title, content: notice.content, thumbnailUrl: notice.thumbnailUrl || '' });
     setEditTargetId(notice.id);
-    setNoticeMode('edit');
+    setNoticeMode('edit'); window.history.pushState({}, '', '#admin-form');
   };
 
   const handleNoticeSubmit = async (e) => {
@@ -105,7 +119,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const openColumnWrite = () => {
     setColumnForm(initialColumn);
     setEditTargetId(null);
-    setColumnMode('write');
+    setColumnMode('write'); window.history.pushState({}, '', '#admin-form');
   };
 
   const openColumnEdit = (column) => {
@@ -118,7 +132,7 @@ export default function AdminPage({ onBack, qnaList }) {
       readTime: column.readTime || '3분' 
     });
     setEditTargetId(column.firestoreId);
-    setColumnMode('edit');
+    setColumnMode('edit'); window.history.pushState({}, '', '#admin-form');
   };
 
   const handleColumnSubmit = async (e) => {
@@ -169,7 +183,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const openReviewWrite = () => {
     setReviewForm(initialReview);
     setEditTargetId(null);
-    setReviewMode('write');
+    setReviewMode('write'); window.history.pushState({}, '', '#admin-form');
   };
 
   const openReviewEdit = (review) => {
@@ -181,7 +195,7 @@ export default function AdminPage({ onBack, qnaList }) {
       rating: review.rating 
     });
     setEditTargetId(review.id);
-    setReviewMode('edit');
+    setReviewMode('edit'); window.history.pushState({}, '', '#admin-form');
   };
 
   const handleReviewSubmit = async (e) => {
@@ -222,7 +236,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const openQnaAnswer = (q) => {
     setAnswerText(q.answer || '');
     setEditTargetId(q.id);
-    setQnaMode('answer');
+    setQnaMode('answer'); window.history.pushState({}, '', '#admin-form');
   };
 
   const submitAnswer = async (e) => {
@@ -345,7 +359,13 @@ export default function AdminPage({ onBack, qnaList }) {
                 <>
                   <div className="admin-tab-header">
                     <h3 style={{ fontSize: '1.5rem', margin: 0 }}>{noticeMode === 'edit' ? '공지사항 수정' : '새 공지사항 작성'}</h3>
-                    <button className="btn btn-outline" onClick={() => setNoticeMode('list')}>← 목록으로</button>
+                    <button className="btn btn-outline" onClick={() => {
+                      if (window.location.hash === '#admin-form') {
+                        window.history.back();
+                      } else {
+                        setNoticeMode('list');
+                      }
+                    }}>← 목록으로</button>
                   </div>
                   <form onSubmit={handleNoticeSubmit} className="admin-form">
                     <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -423,7 +443,13 @@ export default function AdminPage({ onBack, qnaList }) {
                 <>
                   <div className="admin-tab-header">
                     <h3 style={{ fontSize: '1.5rem', margin: 0 }}>{columnMode === 'edit' ? '의학 칼럼 수정' : '새 의학 칼럼 작성'}</h3>
-                    <button className="btn btn-outline" onClick={() => setColumnMode('list')}>← 목록으로</button>
+                    <button className="btn btn-outline" onClick={() => {
+                      if (window.location.hash === '#admin-form') {
+                        window.history.back();
+                      } else {
+                        setColumnMode('list');
+                      }
+                    }}>← 목록으로</button>
                   </div>
                   <form onSubmit={handleColumnSubmit} className="admin-form">
                     <div className="form-group" style={{ marginBottom: '15px' }}>
@@ -516,7 +542,13 @@ export default function AdminPage({ onBack, qnaList }) {
                 <>
                   <div className="admin-tab-header">
                     <h3 style={{ fontSize: '1.5rem', margin: 0 }}>Q&A 답변 작성 및 수정</h3>
-                    <button className="btn btn-outline" onClick={() => setQnaMode('list')}>← 목록으로</button>
+                    <button className="btn btn-outline" onClick={() => {
+                      if (window.location.hash === '#admin-form') {
+                        window.history.back();
+                      } else {
+                        setQnaMode('list');
+                      }
+                    }}>← 목록으로</button>
                   </div>
                   
                   {(() => {
@@ -592,7 +624,13 @@ export default function AdminPage({ onBack, qnaList }) {
                 <>
                   <div className="admin-tab-header">
                     <h3 style={{ fontSize: '1.5rem', margin: 0 }}>{reviewMode === 'edit' ? '치료후기 수정' : '새 치료후기 작성'}</h3>
-                    <button className="btn btn-outline" onClick={() => setReviewMode('list')}>← 목록으로</button>
+                    <button className="btn btn-outline" onClick={() => {
+                      if (window.location.hash === '#admin-form') {
+                        window.history.back();
+                      } else {
+                        setReviewMode('list');
+                      }
+                    }}>← 목록으로</button>
                   </div>
                   <form onSubmit={handleReviewSubmit} className="admin-form">
                     <div className="form-group" style={{ marginBottom: '15px', display: 'flex', gap: '10px' }}>

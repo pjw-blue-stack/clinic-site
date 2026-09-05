@@ -308,7 +308,7 @@ function App() {
 
   useEffect(() => {
     const handlePopState = (e) => {
-      if (window.location.hash === '#admin') {
+      if (window.location.hash.startsWith('#admin')) {
         setIsAdminPage(true);
       } else {
         setIsAdminPage(false);
@@ -317,7 +317,7 @@ function App() {
     window.addEventListener('popstate', handlePopState);
     
     // Initial check
-    if (window.location.hash === '#admin') {
+    if (window.location.hash.startsWith('#admin')) {
       setIsAdminPage(true);
     }
     
@@ -331,7 +331,7 @@ function App() {
 
   const handleCloseAdmin = () => {
     setIsAdminPage(false);
-    if (window.location.hash === '#admin') {
+    if (window.location.hash.startsWith('#admin')) {
       window.history.pushState({}, '', window.location.pathname + window.location.search);
     }
   };
