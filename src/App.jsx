@@ -556,6 +556,7 @@ function App() {
       setIsClinicPage(false);
       setIsDetoxPage(false);
       setIsSelfCheckPage(false);
+      window.history.pushState({}, '', '/');
       window.scrollTo(0, 0);
     } catch (error) {
       console.error("로그아웃 에러:", error);
@@ -573,7 +574,7 @@ function App() {
       setLoginPassword('');
       alert('로그인되었습니다!');
       if (ADMIN_EMAILS.includes(userCredential.user.email)) {
-        setIsAdminPage(true);
+        handleOpenAdmin();
       }
     } catch (error) {
       console.error(error);
@@ -606,7 +607,7 @@ function App() {
         const userCredential = await signInWithPopup(auth, googleProvider);
         setShowLoginModal(false);
         if (ADMIN_EMAILS.includes(userCredential.user.email)) {
-          setIsAdminPage(true);
+          handleOpenAdmin();
         }
       } catch (error) {
         console.error(error);

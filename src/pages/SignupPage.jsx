@@ -49,16 +49,20 @@ export default function SignupPage({ setPage }) {
     }
   };
 
-  const handleGoogleSignup = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
-      await saveUserToFirestore(user, user.displayName || user.email);
-      alert('구글 계정으로 가입/로그인 되었습니다!');
-      setPage('home');
-    } catch (error) {
-      console.error(error);
-      alert('구글 로그인에 실패했습니다.');
+  const handleSocialSignup = async (platform) => {
+    if (platform === '구글') {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        await saveUserToFirestore(user, user.displayName || user.email);
+        alert('구글 계정으로 가입/로그인 되었습니다!');
+        setPage('home');
+      } catch (error) {
+        console.error(error);
+        alert('구글 로그인에 실패했습니다.');
+      }
+    } else {
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글 로그인을 이용해 주세요.`);
     }
   };
 
@@ -91,14 +95,24 @@ export default function SignupPage({ setPage }) {
           </button>
         </form>
 
-        <div className="auth-divider">
-          <span>또는</span>
+        <div className="auth-divider" style={{ margin: '20px 0' }}>
+          <span>또는 소셜 계정으로 로그인</span>
         </div>
 
-        <button className="btn btn-outline auth-btn google-btn" onClick={handleGoogleSignup}>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" className="social-icon" />
-          구글 계정으로 시작하기
-        </button>
+        <div className="social-login-buttons">
+          <button className="social-btn naver" onClick={() => handleSocialSignup('네이버')}>
+            <span className="naver-icon">N</span>
+            <span>네이버 로그인</span>
+          </button>
+          <button className="social-btn kakao" onClick={() => handleSocialSignup('카카오')}>
+            <span className="kakao-icon">K</span>
+            <span>카카오 로그인</span>
+          </button>
+          <button className="social-btn google" onClick={() => handleSocialSignup('구글')}>
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+            <span>구글 로그인</span>
+          </button>
+        </div>
         
         <div className="auth-footer">
           이미 계정이 있으신가요? <button className="text-btn" onClick={() => setPage('login')}>로그인하기</button>
