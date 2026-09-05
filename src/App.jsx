@@ -934,7 +934,8 @@ function App() {
                             <span className="review-tag">{getSpecialtyName(review.specialtyId)}</span>
                           </div>
                           <h4 className="review-title">{review.title}</h4>
-                          <p className="review-content">{review.content}</p>
+                          {review.thumbnailUrl && <img src={review.thumbnailUrl} style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} alt="review media" />}
+                          <div className="review-content" dangerouslySetInnerHTML={{ __html: review.content }} style={{ fontSize: '0.9rem', color: '#666' }} />
                           <div className="review-footer">
                             <span className="review-writer">{review.name} 환자님</span>
                             <span>{review.date}</span>
@@ -1290,7 +1291,8 @@ function App() {
                           </span>
                         </div>
                         <h4 className="review-title" style={{ fontSize: '1.1rem', marginBottom: '10px', color: 'var(--text-main)' }}>{review.title}</h4>
-                        <p className="review-content" style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{review.content}</p>
+                        {review.thumbnailUrl && <img src={review.thumbnailUrl} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} alt="review media" />}
+                        <div className="review-content" dangerouslySetInnerHTML={{ __html: review.content }} style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }} />
                         <div className="review-footer" style={{ marginTop: '15px', display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-light)', borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '15px' }}>
                           <span className="review-writer" style={{ fontWeight: '600' }}>{review.name} 환자님</span>
                           <span>{review.date}</span>

@@ -62,8 +62,12 @@ function ClinicPage({
             <ul className="notice-list">
               {notices && notices.length > 0 ? (
                 notices.slice(0, 5).map((notice, idx) => (
-                  <li key={idx} className="notice-item">
-                    <span className="notice-title">{notice.tag} {notice.title}</span>
+                  <li key={idx} className="notice-item" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    {notice.thumbnailUrl && <img src={notice.thumbnailUrl} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} alt="thumbnail" />}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                      <span className="notice-title">{notice.tag} {notice.title}</span>
+                      <div className="notice-content-preview" dangerouslySetInnerHTML={{ __html: notice.content }} style={{ fontSize: '0.85rem', color: '#666', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical', overflow: 'hidden' }} />
+                    </div>
                     <span className="notice-date">{notice.date}</span>
                   </li>
                 ))

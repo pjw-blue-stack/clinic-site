@@ -113,9 +113,7 @@ function ColumnPage({
 
         <section className="section column-body-section" style={{ backgroundColor: 'var(--bg-color)' }}>
           <div className="container" style={{ maxWidth: '800px' }}>
-            <div className="column-full-content" style={{ fontSize: '1.1rem', lineHeight: '2.0', color: 'var(--text-main)', textAlign: 'left', whiteSpace: 'pre-wrap' }}>
-              {selectedColumn.content}
-            </div>
+            <div className="column-content" dangerouslySetInnerHTML={{ __html: selectedColumn.content }} style={{ fontSize: '1.1rem', lineHeight: '2.0', color: 'var(--text-main)', textAlign: 'left', whiteSpace: 'pre-line' }} />
             
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '60px' }}>
               <button className="btn btn-outline" onClick={() => { setSelectedColumn(null); window.scrollTo(0, 0); }}>
@@ -201,7 +199,13 @@ function ColumnPage({
             <div className="columns-list-grid">
               {filteredColumns.map(col => (
                 <div key={col.id} className="column-card" onClick={() => { setSelectedColumn(col); window.scrollTo(0,0); }}>
-                  <div className="column-card-icon">{col.icon}</div>
+                  {col.thumbnailUrl ? (
+                    <div style={{ width: '100%', height: '160px', overflow: 'hidden', borderRadius: '8px 8px 0 0', marginBottom: '15px' }}>
+                       <img src={col.thumbnailUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="thumbnail" />
+                    </div>
+                  ) : (
+                    <div className="column-card-icon">{col.icon}</div>
+                  )}
                   <div className="column-card-badge">{col.category}</div>
                   <h3 className="column-card-title">{col.title}</h3>
                   <p className="column-card-desc">{col.summary}</p>

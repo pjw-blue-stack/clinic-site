@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { db } from '../firebase';
+import { uploadMedia } from '../utils/uploadMedia';
 import './AdminPage.css';
 
 export default function AdminPage({ onBack, qnaList }) {
   const [activeTab, setActiveTab] = useState('notices');
+
+  const [uploading, setUploading] = useState(false);
+
+  const handleMediaUpload = async (e, formSetter, currentForm) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      setUploading(true);
+      const url = await uploadMedia(file);
+      formSetter({ ...currentForm, thumbnailUrl: url });
+    } catch (err) {
+      alert("업로드 실패: " + err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   // Modes: 'list', 'write', 'edit'
   const [noticeMode, setNoticeMode] = useState('list');
@@ -26,7 +45,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const [columns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
 
   // Notice Form State
-  const initialNotice = { tag: '[공지]', title: '', content: '' };
+  const initialNotice = { tag: '[공지]', title: '', content: '', thumbnailUrl: '' };
   const [noticeForm, setNoticeForm] = useState(initialNotice);
 
   const openNoticeWrite = () => {
@@ -36,7 +55,7 @@ export default function AdminPage({ onBack, qnaList }) {
   };
 
   const openNoticeEdit = (notice) => {
-    setNoticeForm({ tag: notice.tag, title: notice.title, content: notice.content });
+    setNoticeForm({ tag: notice.tag, title: notice.title, content: notice.content, thumbnailUrl: notice.thumbnailUrl || '' });
     setEditTargetId(notice.id);
     setNoticeMode('edit');
   };
@@ -74,7 +93,7 @@ export default function AdminPage({ onBack, qnaList }) {
   };
 
   // Column Form State
-  const initialColumn = { title: '', category: '전신다한증', summary: '', content: '', icon: '🔬', readTime: '3분' };
+  const initialColumn = { title: '', category: '전신다한증', summary: '', content: '', icon: '🔬', readTime: '3분', thumbnailUrl: '' };
   const [columnForm, setColumnForm] = useState(initialColumn);
 
   const openColumnWrite = () => {
@@ -138,7 +157,7 @@ export default function AdminPage({ onBack, qnaList }) {
   const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
   const [reviews] = useCollectionData(reviewsQuery, { idField: 'id' });
 
-  const initialReview = { name: '', specialtyId: '전신다한증', title: '', content: '', rating: 5 };
+  const initialReview = { name: '', specialtyId: '전신다한증', title: '', content: '', rating: 5, thumbnailUrl: '' };
   const [reviewForm, setReviewForm] = useState(initialReview);
 
   const openReviewWrite = () => {
@@ -335,7 +354,15 @@ export default function AdminPage({ onBack, qnaList }) {
                       <input type="text" className="form-input" placeholder="제목을 입력하세요" value={noticeForm.title} onChange={e => setNoticeForm({...noticeForm, title: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
                     </div>
                     <div className="form-group" style={{ marginBottom: '20px' }}>
-                      <textarea className="form-input" rows="5" placeholder="내용을 입력하세요" value={noticeForm.content} onChange={e => setNoticeForm({...noticeForm, content: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                      
+<div style={{ marginBottom: '15px' }}>
+  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>썸네일 / 미디어 첨부</label>
+  <input type="file" accept="image/*,video/*" onChange={(e) => handleMediaUpload(e, setNoticeForm, noticeForm)} disabled={uploading} />
+  {uploading && <span style={{ marginLeft: '10px', color: 'blue' }}>업로드 중...</span>}
+  {noticeForm.thumbnailUrl && <div style={{ marginTop: '10px' }}><img src={noticeForm.thumbnailUrl} alt="thumbnail" style={{ maxWidth: '200px', borderRadius: '8px' }}/></div>}
+</div>
+<ReactQuill theme="snow" value={noticeForm.content} onChange={(val) => setNoticeForm({...noticeForm, content: val})} style={{ height: '300px', marginBottom: '50px', backgroundColor: 'white' }} />
+
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>
                       {noticeMode === 'edit' ? '공지사항 수정' : '공지사항 등록'}
@@ -410,7 +437,15 @@ export default function AdminPage({ onBack, qnaList }) {
                       <input type="text" className="form-input" placeholder="요약 내용을 1~2줄로 입력하세요" value={columnForm.summary} onChange={e => setColumnForm({...columnForm, summary: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
                     </div>
                     <div className="form-group" style={{ marginBottom: '20px' }}>
-                      <textarea className="form-input" rows="8" placeholder="칼럼 본문을 입력하세요 (줄바꿈이 그대로 적용됩니다)" value={columnForm.content} onChange={e => setColumnForm({...columnForm, content: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                      
+<div style={{ marginBottom: '15px' }}>
+  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>썸네일 / 미디어 첨부</label>
+  <input type="file" accept="image/*,video/*" onChange={(e) => handleMediaUpload(e, setColumnForm, columnForm)} disabled={uploading} />
+  {uploading && <span style={{ marginLeft: '10px', color: 'blue' }}>업로드 중...</span>}
+  {columnForm.thumbnailUrl && <div style={{ marginTop: '10px' }}><img src={columnForm.thumbnailUrl} alt="thumbnail" style={{ maxWidth: '200px', borderRadius: '8px' }}/></div>}
+</div>
+<ReactQuill theme="snow" value={columnForm.content} onChange={(val) => setColumnForm({...columnForm, content: val})} style={{ height: '400px', marginBottom: '50px', backgroundColor: 'white' }} />
+
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>
                       {columnMode === 'edit' ? '의학 칼럼 수정' : '의학 칼럼 등록'}
@@ -575,7 +610,15 @@ export default function AdminPage({ onBack, qnaList }) {
                       <input type="text" className="form-input" placeholder="제목을 입력하세요" value={reviewForm.title} onChange={e => setReviewForm({...reviewForm, title: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }} />
                     </div>
                     <div className="form-group" style={{ marginBottom: '20px' }}>
-                      <textarea className="form-input" rows="5" placeholder="후기 내용을 입력하세요" value={reviewForm.content} onChange={e => setReviewForm({...reviewForm, content: e.target.value})} required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                      
+<div style={{ marginBottom: '15px' }}>
+  <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>썸네일 / 미디어 첨부</label>
+  <input type="file" accept="image/*,video/*" onChange={(e) => handleMediaUpload(e, setReviewForm, reviewForm)} disabled={uploading} />
+  {uploading && <span style={{ marginLeft: '10px', color: 'blue' }}>업로드 중...</span>}
+  {reviewForm.thumbnailUrl && <div style={{ marginTop: '10px' }}><img src={reviewForm.thumbnailUrl} alt="thumbnail" style={{ maxWidth: '200px', borderRadius: '8px' }}/></div>}
+</div>
+<ReactQuill theme="snow" value={reviewForm.content} onChange={(val) => setReviewForm({...reviewForm, content: val})} style={{ height: '200px', marginBottom: '50px', backgroundColor: 'white' }} />
+
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>
                       {reviewMode === 'edit' ? '치료후기 수정' : '치료후기 등록'}
