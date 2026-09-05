@@ -8,7 +8,13 @@ import { uploadMedia } from '../utils/uploadMedia';
 import './AdminPage.css';
 
 export default function AdminPage({ onBack, qnaList }) {
-  const [activeTab, setActiveTab] = useState('notices');
+  const [activeTab, setActiveTab] = useState(() => {
+    return localStorage.getItem('adminActiveTab') || 'notices';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('adminActiveTab', activeTab);
+  }, [activeTab]);
 
   const [uploading, setUploading] = useState(false);
 
