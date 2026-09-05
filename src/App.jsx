@@ -280,6 +280,8 @@ function App() {
       else if (pageId === 'clinic') { setIsSignupPage(false); setIsMyPage(false); setIsClinicPage(true); }
       else if (pageId === 'detox') { setIsSignupPage(false); setIsMyPage(false); setIsDetoxPage(true); }
       else if (pageId === 'selfcheck') { setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true); }
+      else if (pageId === 'signup') { setIsSignupPage(true); }
+      else if (pageId === 'mypage') { setIsMyPage(true); }
       window.scrollTo(0, 0);
     }
   }, []);
@@ -361,12 +363,16 @@ function App() {
       targetSearch = `?page=detox`;
     } else if (isSelfCheckPage) {
       targetSearch = `?page=selfcheck`;
+    } else if (isSignupPage) {
+      targetSearch = `?page=signup`;
+    } else if (isMyPage) {
+      targetSearch = `?page=mypage`;
     }
 
     if (window.location.search !== targetSearch) {
       window.history.pushState({}, '', (targetSearch || window.location.pathname) + window.location.hash);
     }
-  }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage, isSelfCheckPage]);
+  }, [selectedSpecialty, isColumnPage, isReviewPage, isClinicPage, isDetoxPage, isSelfCheckPage, isSignupPage, isMyPage]);
 
   // Handle browser back button (popstate)
   useEffect(() => {
@@ -397,6 +403,8 @@ function App() {
         setIsClinicPage(pageId === 'clinic');
         setIsDetoxPage(pageId === 'detox');
         setIsSelfCheckPage(pageId === 'selfcheck');
+        setIsSignupPage(pageId === 'signup');
+        setIsMyPage(pageId === 'mypage');
       } else {
         setSelectedSpecialty(null);
         setIsColumnPage(false);
@@ -404,6 +412,8 @@ function App() {
         setIsClinicPage(false);
         setIsDetoxPage(false);
         setIsSelfCheckPage(false);
+        setIsSignupPage(false);
+        setIsMyPage(false);
       }
     };
 
