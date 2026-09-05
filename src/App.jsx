@@ -130,7 +130,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
   const handleAction = (action) => {
     setHoveredMenu(null);
     if (action.startsWith('clinic')) {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); 
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsSignupPage(false); setIsMyPage(false); setIsClinicPage(true); setSelectedSpecialty(null); 
       const hash = action.split('#')[1];
       if (hash) {
         setTimeout(() => {
@@ -149,7 +149,7 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
         window.scrollTo(0, 0);
       }
     } else if (action.startsWith('detox#')) {
-      setIsDetoxPage(true); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(false); setSelectedSpecialty(null); 
+      setIsSignupPage(false); setIsMyPage(false); setIsDetoxPage(true); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(false); setSelectedSpecialty(null); 
       const hash = action.split('#')[1];
       if (hash) {
         setTimeout(() => {
@@ -168,11 +168,11 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
         window.scrollTo(0, 0);
       }
     } else if (action === 'booking') {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsSignupPage(false); setIsMyPage(false); setIsClinicPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'reviews') {
-      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsClinicPage(false); setIsColumnPage(false); setIsReviewPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+      setIsDetoxPage(false); setIsSelfCheckPage(false); setIsClinicPage(false); setIsColumnPage(false); setIsSignupPage(false); setIsMyPage(false); setIsReviewPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     } else if (action === 'selfcheck') {
-      setIsDetoxPage(false); setIsClinicPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsSelfCheckPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
+      setIsDetoxPage(false); setIsClinicPage(false); setIsReviewPage(false); setIsColumnPage(false); setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true); setSelectedSpecialty(null); window.scrollTo(0, 0);
     }
   };
 
@@ -276,10 +276,10 @@ function App() {
       }
     } else if (pageId) {
       if (pageId === 'column') setIsColumnPage(true);
-      else if (pageId === 'review') setIsReviewPage(true);
-      else if (pageId === 'clinic') setIsClinicPage(true);
-      else if (pageId === 'detox') setIsDetoxPage(true);
-      else if (pageId === 'selfcheck') setIsSelfCheckPage(true);
+      else if (pageId === 'review') { setIsSignupPage(false); setIsMyPage(false); setIsReviewPage(true); }
+      else if (pageId === 'clinic') { setIsSignupPage(false); setIsMyPage(false); setIsClinicPage(true); }
+      else if (pageId === 'detox') { setIsSignupPage(false); setIsMyPage(false); setIsDetoxPage(true); }
+      else if (pageId === 'selfcheck') { setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true); }
       window.scrollTo(0, 0);
     }
   }, []);
@@ -774,7 +774,7 @@ function App() {
                 setIsReviewPage(false);
                 setIsClinicPage(false);
                 setIsSelfCheckPage(false);
-                setIsDetoxPage(true);
+                setIsSignupPage(false); setIsMyPage(false); setIsDetoxPage(true);
                 window.scrollTo(0, 0); 
               }}
             >
@@ -848,7 +848,7 @@ function App() {
                 setIsReviewPage(false);
                 setIsClinicPage(false);
                 setIsDetoxPage(false);
-                setIsSelfCheckPage(true);
+                setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true);
                 window.scrollTo(0, 0); 
               }}
             >
@@ -866,7 +866,7 @@ function App() {
                 setIsClinicPage(false);
                 setIsDetoxPage(false);
                 setIsSelfCheckPage(false);
-                setIsReviewPage(true);
+                setIsSignupPage(false); setIsMyPage(false); setIsReviewPage(true);
                 window.scrollTo(0, 0); 
               }}
             >
@@ -884,7 +884,7 @@ function App() {
                 setIsReviewPage(false);
                 setIsDetoxPage(false);
                 setIsSelfCheckPage(false);
-                setIsClinicPage(true);
+                setIsSignupPage(false); setIsMyPage(false); setIsClinicPage(true);
                 window.scrollTo(0, 0); 
               }}
             >
@@ -1144,7 +1144,7 @@ function App() {
                       setSelectedColumn(null);
                       setIsClinicPage(false);
                       setIsDetoxPage(false);
-                      setIsReviewPage(true);
+                      setIsSignupPage(false); setIsMyPage(false); setIsReviewPage(true);
                       window.scrollTo(0, 0);
                     }}>
                       {textContent.announcementHero.btnReviews}
@@ -1232,7 +1232,7 @@ function App() {
                     setIsReviewPage(false);
                     setIsSelfCheckPage(false);
                     setSelectedSpecialty(null);
-                    setIsDetoxPage(true);
+                    setIsSignupPage(false); setIsMyPage(false); setIsDetoxPage(true);
                     window.scrollTo(0, 0);
                   }}
                   style={{ fontSize: '1.2rem', padding: '15px 40px', borderRadius: '30px', boxShadow: '0 10px 20px rgba(74, 144, 226, 0.3)' }}
@@ -1403,7 +1403,7 @@ function App() {
                       </div>
                       <button 
                         className="btn btn-accent btn-large" 
-                        onClick={() => { setIsReviewPage(true); window.scrollTo(0, 0); }}
+                        onClick={() => { setIsSignupPage(false); setIsMyPage(false); setIsReviewPage(true); window.scrollTo(0, 0); }}
                         style={{ padding: '15px 50px', fontSize: '1.1rem', borderRadius: '30px', boxShadow: '0 5px 15px rgba(80, 227, 194, 0.4)' }}
                       >
                         치료 후기 보기 &rarr;
