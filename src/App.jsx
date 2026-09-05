@@ -1696,10 +1696,6 @@ function App() {
             </div>
 
             <div className="social-login-buttons">
-              <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
-                <span>구글 로그인</span>
-              </button>
               <button className="social-btn naver" onClick={() => handleModalSocialLogin('네이버')}>
                 <span className="naver-icon">N</span>
                 <span>네이버 로그인</span>
@@ -1707,6 +1703,10 @@ function App() {
               <button className="social-btn kakao" onClick={() => handleModalSocialLogin('카카오')}>
                 <span className="kakao-icon">K</span>
                 <span>카카오 로그인</span>
+              </button>
+              <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
+                <span>구글 로그인</span>
               </button>
             </div>
           </div>
