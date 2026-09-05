@@ -1828,8 +1828,6 @@ function App() {
   );
 }
 
-export default App;
-
 // ==========================================================================
 // SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
 // ==========================================================================
