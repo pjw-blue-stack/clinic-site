@@ -944,6 +944,21 @@ function App() {
             qnaList={qnaList}
             handleQnaAnswer={handleQnaAnswer}
           />
+        ) : isSignupPage ? (
+          <SignupPage setPage={(page) => {
+            if (page === 'home') setIsSignupPage(false);
+            if (page === 'login') { setIsSignupPage(false); setShowLoginModal(true); }
+          }} />
+        ) : isMyPage ? (
+          <MyPage 
+            user={loggedInUser}
+            qnaList={qnaList}
+            reviews={reviews}
+            setPage={(page) => {
+              if (page === 'home') setIsMyPage(false);
+              if (page === 'login') { setIsMyPage(false); setShowLoginModal(true); }
+            }}
+          />
         ) : selectedSpecialty ? (
           <SpecialtyDetailPage 
             key={selectedSpecialty.id}
