@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import PolicyModal from '../components/PolicyModal';
 import './AuthPages.css';
 
 export default function SignupPage({ setPage }) {
@@ -10,6 +11,9 @@ export default function SignupPage({ setPage }) {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [agreePrivacy, setAgreePrivacy] = useState(false);
+  const [policyType, setPolicyType] = useState(null); // 'terms' | 'privacy' | null
 
   const saveUserToFirestore = async (user, displayName) => {
     const userRef = doc(db, 'users', user.uid);
@@ -27,6 +31,10 @@ export default function SignupPage({ setPage }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (!agreeTerms || !agreePrivacy) {
+      alert('필수 약관에 모두 동의해 주세요.');
+      return;
+    }
     if (password !== passwordConfirm) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
@@ -98,8 +106,25 @@ export default function SignupPage({ setPage }) {
             <label>비밀번호 확인</label>
             <input type="password" value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} required placeholder="비밀번호를 다시 입력하세요" minLength="6" />
           </div>
+
+          <div className="policy-checkboxes" style={{ margin: '20px 0', fontSize: '0.9rem', color: '#555' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', margin: 0 }}>
+                <input type="checkbox" checked={agreeTerms} onChange={e => setAgreeTerms(e.target.checked)} style={{ marginRight: '8px', width: '16px', height: '16px', cursor: 'pointer' }} />
+                [필수] 이용약관 동의
+              </label>
+              <button type="button" className="text-btn" onClick={() => setPolicyType('terms')} style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>내용보기</button>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', margin: 0 }}>
+                <input type="checkbox" checked={agreePrivacy} onChange={e => setAgreePrivacy(e.target.checked)} style={{ marginRight: '8px', width: '16px', height: '16px', cursor: 'pointer' }} />
+                [필수] 개인정보 수집 및 이용 동의
+              </label>
+              <button type="button" className="text-btn" onClick={() => setPolicyType('privacy')} style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>내용보기</button>
+            </div>
+          </div>
           
-          <button type="submit" className="btn btn-primary auth-btn" disabled={loading}>
+          <button type="submit" className="btn btn-primary auth-btn" disabled={loading || !agreeTerms || !agreePrivacy} style={{ opacity: (!agreeTerms || !agreePrivacy) ? 0.5 : 1 }}>
             {loading ? '가입 중...' : '회원가입 완료'}
           </button>
         </form>
@@ -127,6 +152,10 @@ export default function SignupPage({ setPage }) {
           이미 계정이 있으신가요? <button className="text-btn" onClick={() => setPage('login')}>로그인하기</button>
         </div>
       </div>
+
+      {policyType && (
+        <PolicyModal type={policyType} onClose={() => setPolicyType(null)} />
+      )}
     </div>
   );
 }

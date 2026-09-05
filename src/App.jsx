@@ -15,6 +15,7 @@ import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
+import PolicyModal from './components/PolicyModal';
 
 const ADMIN_EMAILS = ['pjw-blue@hanmail.net'];
 // 구글폼 사전 설문지 URL (노쇼 방지용)
@@ -314,6 +315,9 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   const [isAdminPage, setIsAdminPage] = useState(false);
+
+  // Policy Modal
+  const [policyType, setPolicyType] = useState(null);
 
   useEffect(() => {
     const handlePopState = (e) => {
@@ -1492,6 +1496,11 @@ function App() {
           </div>
 
           <div className="footer-bottom">
+            <div className="footer-policy-links" style={{ marginBottom: '10px', fontSize: '0.9rem', color: '#ccc' }}>
+              <span onClick={() => setPolicyType('terms')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>이용약관</span>
+              <span style={{ margin: '0 10px' }}>|</span>
+              <span onClick={() => setPolicyType('privacy')} style={{ cursor: 'pointer', textDecoration: 'underline' }}>개인정보처리방침</span>
+            </div>
             <p>© 2026 Jungwon Korean Medicine Clinic. All Rights Reserved. (Since 2012)</p>
             <p>본 사이트는 환자분들의 편의를 위해 제작된 데모 페이지입니다.</p>
           </div>
@@ -1658,9 +1667,6 @@ function App() {
         </div>
       )}
 
-      {/* SOCIAL LOGIN MODAL */}
-      
-
       {/* Floating Quick Menu (하단 고정 퀵메뉴) */}
       <div className="floating-quick-menu">
         <a href="tel:02-2649-7582" className="quick-menu-item quick-menu-call">
@@ -1814,9 +1820,15 @@ function App() {
           </div>
         </div>
       )}
+
+      {policyType && (
+        <PolicyModal type={policyType} onClose={() => setPolicyType(null)} />
+      )}
     </>
   );
 }
+
+export default App;
 
 // ==========================================================================
 // SpecialtyDetailPage Component (Detailed landing page for condition subtypes)
