@@ -305,7 +305,6 @@ function App() {
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   const [isAdminPage, setIsAdminPage] = useState(false);
@@ -531,9 +530,7 @@ function App() {
   const handleSocialLogin = async (platform) => {
     if (platform === '구글') {
       try {
-        const result = await signInWithPopup(auth, googleProvider);
-        setShowLoginModal(false);
-        alert(`환영합니다, ${result.user.displayName || result.user.email}님!`);
+        await signInWithPopup(auth, googleProvider);
       } catch (error) {
         console.error("로그인 에러:", error);
         alert('로그인에 실패했습니다. 다시 시도해주세요.');
@@ -831,14 +828,18 @@ function App() {
                     관리자 페이지
                   </button>
                 )}
+                <button className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => setPage('mypage')}>
+                  마이페이지
+                </button>
                 <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={handleLogout}>
                   로그아웃
                 </button>
               </div>
             ) : (
-              <button className="btn btn-outline" onClick={() => setShowLoginModal(true)}>
-                로그인
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button className="btn btn-outline" onClick={() => setPage('login')}>로그인</button>
+                <button className="btn btn-primary" onClick={() => setPage('signup')}>회원가입</button>
+              </div>
             )}
             {!isAdmin && !isAdminPage && (
             <button className="btn btn-accent" onClick={() => setShowBookingModal(true)}>
@@ -957,7 +958,7 @@ function App() {
                             로그인 후 열람하실 수 있습니다.
                           </h3>
                           <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
-                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
+                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setPage('login')}>1초 간편 로그인하고 후기 보기</button>
                         </div>
                       ))}
                     </>
@@ -1018,7 +1019,7 @@ function App() {
             setIsDetoxPage={setIsDetoxPage}
             getSpecialtyName={getSpecialtyName}
             loggedInUser={loggedInUser}
-            setShowLoginModal={setShowLoginModal}
+            setShowLoginModal={() => setPage('login')}
             qnaList={qnaList}
             setShowQnaModal={setShowQnaModal}
             setNewQna={setNewQna}
