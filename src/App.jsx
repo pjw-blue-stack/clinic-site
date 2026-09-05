@@ -332,7 +332,7 @@ function App() {
   const handleCloseAdmin = () => {
     setIsAdminPage(false);
     if (window.location.hash === '#admin') {
-      window.history.back();
+      window.history.pushState({}, '', window.location.pathname + window.location.search);
     }
   };
 
