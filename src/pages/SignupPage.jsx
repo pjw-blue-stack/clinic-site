@@ -47,6 +47,7 @@ export default function SignupPage({ setPage }) {
       console.error(error);
       if (error.code === 'auth/email-already-in-use') alert('이미 가입된 이메일입니다.');
       else if (error.code === 'auth/weak-password') alert('비밀번호는 6자리 이상이어야 합니다.');
+      else if (error.code === 'auth/operation-not-allowed') alert('이메일 회원가입 기능이 비활성화되어 있습니다. 파이어베이스 콘솔(Authentication > Sign-in method)에서 이메일/비밀번호 로그인을 사용 설정해주세요.');
       else alert(`회원가입에 실패했습니다. (사유: ${error.message})`);
     } finally {
       setLoading(false);
