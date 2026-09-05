@@ -572,6 +572,9 @@ function App() {
       setLoginEmail('');
       setLoginPassword('');
       alert('로그인되었습니다!');
+      if (ADMIN_EMAILS.includes(userCredential.user.email)) {
+        setIsAdminPage(true);
+      }
     } catch (error) {
       console.error(error);
       alert('이메일 또는 비밀번호가 올바르지 않습니다.');
@@ -600,8 +603,11 @@ function App() {
     if (platform === '구글') {
       try {
         const { signInWithPopup } = await import('firebase/auth');
-        await signInWithPopup(auth, googleProvider);
+        const userCredential = await signInWithPopup(auth, googleProvider);
         setShowLoginModal(false);
+        if (ADMIN_EMAILS.includes(userCredential.user.email)) {
+          setIsAdminPage(true);
+        }
       } catch (error) {
         console.error(error);
         alert('구글 로그인에 실패했습니다.');
