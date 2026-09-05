@@ -1760,6 +1760,45 @@ function App() {
           </div>
         </div>
       )}
+
+      {/* QnA Write Modal */}
+      {showQnaModal && (
+        <div className="modal-overlay" onClick={() => setShowQnaModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+            <button className="modal-close" onClick={() => setShowQnaModal(false)}>×</button>
+            <div className="modal-header">
+              <h2 className="modal-title">질문 작성하기</h2>
+              <p className="modal-subtitle">궁금한 점을 남겨주시면 원장님이 직접 답변해 드립니다.</p>
+            </div>
+            <form onSubmit={handleQnaSubmit} className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="form-group">
+                <label className="form-label">질문 내용</label>
+                <textarea 
+                  className="form-input" 
+                  rows="6"
+                  placeholder="질문 내용을 자세히 적어주세요."
+                  value={newQna.question}
+                  onChange={e => setNewQna({...newQna, question: e.target.value})}
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group checkbox-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <input 
+                  type="checkbox" 
+                  id="secret-qna"
+                  checked={newQna.isSecret}
+                  onChange={e => setNewQna({...newQna, isSecret: e.target.checked})}
+                />
+                <label htmlFor="secret-qna" style={{ cursor: 'pointer', margin: 0 }}>비밀글로 작성하기 (작성자와 관리자만 볼 수 있습니다)</label>
+              </div>
+              <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                <button type="submit" className="btn btn-primary" style={{ flex: 1, padding: '12px', fontSize: '1.1rem' }}>등록하기</button>
+                <button type="button" className="btn btn-outline" style={{ padding: '12px' }} onClick={() => setShowQnaModal(false)}>취소</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }
