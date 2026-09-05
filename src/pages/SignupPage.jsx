@@ -36,14 +36,18 @@ export default function SignupPage({ setPage }) {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await updateProfile(user, { displayName: name });
-      await saveUserToFirestore(user, name);
+      try {
+        await saveUserToFirestore(user, name);
+      } catch (fsError) {
+        console.warn('Firestore 저장 실패 (권한 문제일 수 있습니다):', fsError);
+      }
       alert('회원가입이 완료되었습니다!');
       setPage('home');
     } catch (error) {
       console.error(error);
       if (error.code === 'auth/email-already-in-use') alert('이미 가입된 이메일입니다.');
       else if (error.code === 'auth/weak-password') alert('비밀번호는 6자리 이상이어야 합니다.');
-      else alert('회원가입에 실패했습니다.');
+      else alert(`회원가입에 실패했습니다. (사유: ${error.message})`);
     } finally {
       setLoading(false);
     }
@@ -54,7 +58,11 @@ export default function SignupPage({ setPage }) {
       try {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
-        await saveUserToFirestore(user, user.displayName || user.email);
+        try {
+          await saveUserToFirestore(user, user.displayName || user.email);
+        } catch (fsError) {
+          console.warn('Firestore 저장 실패 (권한 문제일 수 있습니다):', fsError);
+        }
         alert('구글 계정으로 가입/로그인 되었습니다!');
         setPage('home');
       } catch (error) {
