@@ -383,7 +383,7 @@ function DetoxPage({
                           <span style={{ color: 'var(--primary-color)', marginRight: '5px' }}>Q.</span>
                           {q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.question : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.') : q.question}
                         </span>
-                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author} | {new Date(q.createdAt).toLocaleDateString()}</span>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author ? q.author[0] + '**' : ''} | {new Date(q.createdAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                     {q.isAnswered ? (

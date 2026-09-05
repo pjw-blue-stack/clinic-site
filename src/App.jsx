@@ -2184,7 +2184,7 @@ function SpecialtyDetailPage({
                           <span style={{ color: 'var(--primary-color)', marginRight: '5px' }}>Q.</span>
                           {isVisible ? (q.title || q.question.substring(0, 30) + '...') : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.'}
                         </span>
-                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author} | {new Date(q.createdAt).toLocaleDateString()}</span>
+                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author ? q.author[0] + '**' : ''} | {new Date(q.createdAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                     {expandedQnaId === q.id && isVisible && (

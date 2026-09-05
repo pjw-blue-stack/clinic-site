@@ -257,7 +257,7 @@ function ClinicPage({
                             </span>
                           </td>
                           <td className="inquiry-title">{q.title || q.question.substring(0, 30) + (q.question.length > 30 ? '...' : '')} {q.isSecret && '🔒'}</td>
-                          <td>{q.author}</td>
+                          <td>{q.author ? q.author[0] + '**' : ''}</td>
                           <td>{new Date(q.createdAt).toLocaleDateString()}</td>
                         </tr>
                       ))
