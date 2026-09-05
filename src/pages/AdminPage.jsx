@@ -301,7 +301,7 @@ export default function AdminPage({ onBack, qnaList }) {
       <header className="admin-header" style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
         <div>
           <button className="btn btn-outline" onClick={onBack} style={{ marginBottom: '15px' }}>← 메인으로 돌아가기</button>
-          <h2 style={{ fontSize: '2rem', color: '#333' }}>통합 관리자 대시보드</h2>
+          <h2 style={{ fontSize: '2rem', color: '#333' }}>관리자 페이지</h2>
         </div>
       </header>
 
