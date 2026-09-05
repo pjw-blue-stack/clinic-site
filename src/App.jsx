@@ -966,7 +966,7 @@ function App() {
           }} />
         ) : isMyPage ? (
           <MyPage 
-            user={loggedInUser}
+            user={auth.currentUser}
             qnaList={qnaList}
             reviews={reviews}
             setPage={(page) => {
