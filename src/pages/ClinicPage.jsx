@@ -15,7 +15,9 @@ function ClinicPage({
   setShowWriteForm, 
   setShowBookingModal, 
   setBookingForm, 
-  bookingForm 
+  bookingForm,
+  setShowQnaModal,
+  setNewQna
 }) {
   const { clinicNotice, clinicGreeting, clinicHerb, clinicSchedule, clinicLocation } = textContent;
 
@@ -228,7 +230,10 @@ function ClinicPage({
             <div className="inquiry-board-wrapper" style={{ marginTop: '50px', textAlign: 'left' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 className="inquiry-board-title">상담 및 문의 게시판</h3>
-                <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }}>글쓰기</button>
+                <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }} onClick={() => {
+                  setNewQna({ category: 'all', title: '', question: '', isSecret: false });
+                  setShowQnaModal(true);
+                }}>글쓰기</button>
               </div>
               <div className="inquiry-table-container">
                 <table className="inquiry-table">
@@ -251,7 +256,7 @@ function ClinicPage({
                               {q.isAnswered ? '답변완료' : '답변대기'}
                             </span>
                           </td>
-                          <td className="inquiry-title">{q.question} {q.isSecret && '🔒'}</td>
+                          <td className="inquiry-title">{q.title || q.question.substring(0, 30) + (q.question.length > 30 ? '...' : '')} {q.isSecret && '🔒'}</td>
                           <td>{q.author}</td>
                           <td>{new Date(q.createdAt).toLocaleDateString()}</td>
                         </tr>
