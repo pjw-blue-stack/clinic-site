@@ -8,23 +8,26 @@ import { uploadMedia } from '../utils/uploadMedia';
 import './AdminPage.css';
 
 export default function AdminPage({ onBack, qnaList }) {
-  const [activeTab, setActiveTab] = useState(() => {
-    return localStorage.getItem('adminActiveTab') || 'notices';
-  });
-
-  useEffect(() => {
-    localStorage.setItem('adminActiveTab', activeTab);
-  }, [activeTab]);
+  const getTabFromHash = () => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#admin-tab-')) {
+      return hash.replace('#admin-tab-', '');
+    }
+    return 'notices';
+  };
+  const [activeTab, setActiveTab] = useState(getTabFromHash);
 
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const handlePopState = () => {
-      if (window.location.hash === '#admin') {
+      const hash = window.location.hash;
+      if (hash.startsWith('#admin-tab-') || hash === '#admin') {
         setNoticeMode('list');
         setColumnMode('list');
         setQnaMode('list');
         setReviewMode('list');
+        setActiveTab(getTabFromHash());
       }
     };
     window.addEventListener('popstate', handlePopState);
@@ -282,35 +285,35 @@ export default function AdminPage({ onBack, qnaList }) {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             <li 
               className={activeTab === 'notices' ? 'active' : ''} 
-              onClick={() => setActiveTab('notices')}
+              onClick={() => { setActiveTab('notices'); window.history.pushState({}, '', '#admin-tab-notices'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'notices' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'notices' ? 'bold' : 'normal', color: activeTab === 'notices' ? 'var(--primary-dark)' : '#555' }}
             >
               공지사항 관리
             </li>
             <li 
               className={activeTab === 'columns' ? 'active' : ''} 
-              onClick={() => setActiveTab('columns')}
+              onClick={() => { setActiveTab('columns'); window.history.pushState({}, '', '#admin-tab-columns'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'columns' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'columns' ? 'bold' : 'normal', color: activeTab === 'columns' ? 'var(--primary-dark)' : '#555' }}
             >
               의학 칼럼 관리
             </li>
             <li 
               className={activeTab === 'qna' ? 'active' : ''} 
-              onClick={() => setActiveTab('qna')}
+              onClick={() => { setActiveTab('qna'); window.history.pushState({}, '', '#admin-tab-qna'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'qna' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'qna' ? 'bold' : 'normal', color: activeTab === 'qna' ? 'var(--primary-dark)' : '#555' }}
             >
               Q&A 게시판 관리
             </li>
             <li 
               className={activeTab === 'reviews' ? 'active' : ''} 
-              onClick={() => setActiveTab('reviews')}
+              onClick={() => { setActiveTab('reviews'); window.history.pushState({}, '', '#admin-tab-reviews'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'reviews' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'reviews' ? 'bold' : 'normal', color: activeTab === 'reviews' ? 'var(--primary-dark)' : '#555' }}
             >
               치료후기 관리
             </li>
             <li 
               className={activeTab === 'settings' ? 'active' : ''} 
-              onClick={() => setActiveTab('settings')}
+              onClick={() => { setActiveTab('settings'); window.history.pushState({}, '', '#admin-tab-settings'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', backgroundColor: activeTab === 'settings' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'settings' ? 'bold' : 'normal', color: activeTab === 'settings' ? 'var(--primary-dark)' : '#555' }}
             >
               관리자 설정
