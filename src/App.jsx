@@ -878,13 +878,15 @@ function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{loggedInUser}</span>
                 {isAdmin && !isAdminPage && (
-                  <button className="btn btn-sm btn-outline" onClick={handleOpenAdmin} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>
+                  <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem', borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }} onClick={handleOpenAdmin}>
                     관리자 페이지
                   </button>
                 )}
-                <button className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => setIsMyPage(true)}>
-                  마이페이지
-                </button>
+                {!isAdmin && (
+                  <button className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => setIsMyPage(true)}>
+                    마이페이지
+                  </button>
+                )}
                 <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={handleLogout}>
                   로그아웃
                 </button>
