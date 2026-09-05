@@ -38,7 +38,12 @@ export default function AdminPage({ onBack, qnaList }) {
     try {
       setUploading(true);
       const url = await uploadMedia(file);
-      formSetter({ ...currentForm, thumbnailUrl: url });
+      const imgTag = `<br/><img src="${url}" style="max-width: 100%; height: auto; border-radius: 8px;" /><br/>`;
+      formSetter({ 
+        ...currentForm, 
+        thumbnailUrl: currentForm.thumbnailUrl || url,
+        content: (currentForm.content || '') + imgTag
+      });
     } catch (err) {
       alert("업로드 실패: " + err.message);
     } finally {
