@@ -1492,7 +1492,7 @@ function App() {
           </div>
 
           <div className="footer-bottom">
-            <p>© 2026 Jeongwon Korean Medicine Clinic. All Rights Reserved.</p>
+            <p>© 2026 Jungwon Korean Medicine Clinic. All Rights Reserved. (Since 2012)</p>
             <p>본 사이트는 환자분들의 편의를 위해 제작된 데모 페이지입니다.</p>
           </div>
         </div>
