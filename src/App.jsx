@@ -194,6 +194,68 @@ const MegaMenu = ({ hoveredMenu, setHoveredMenu, handleNavClick, setIsDetoxPage,
             ))}
           </div>
         </div>
+
+      {/* Enhanced Login Modal */}
+      {showLoginModal && (
+        <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
+          <div className="modal-content login-modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowLoginModal(false)}>×</button>
+            <div className="login-header">
+              <h3>로그인</h3>
+              <p>원활한 서비스 이용을 위해 로그인해 주세요.</p>
+            </div>
+            
+            <form onSubmit={handleModalLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '20px' }}>
+              <input 
+                type="email" 
+                placeholder="아이디 (이메일)" 
+                value={loginEmail} 
+                onChange={e => setLoginEmail(e.target.value)} 
+                required 
+                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
+              />
+              <input 
+                type="password" 
+                placeholder="비밀번호" 
+                value={loginPassword} 
+                onChange={e => setLoginPassword(e.target.value)} 
+                required 
+                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
+              />
+              <button type="submit" className="btn btn-primary" style={{ padding: '14px', fontSize: '1.1rem', borderRadius: '8px' }}>
+                로그인
+              </button>
+            </form>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '30px', fontSize: '0.9rem' }}>
+              <button className="text-btn" onClick={() => { setShowLoginModal(false); setPage('signup'); }}>회원가입</button>
+              <span style={{ color: '#ccc' }}>|</span>
+              <button className="text-btn" onClick={handleFindId}>아이디 찾기</button>
+              <span style={{ color: '#ccc' }}>|</span>
+              <button className="text-btn" onClick={handleModalPasswordReset}>비밀번호 찾기</button>
+            </div>
+
+            <div className="auth-divider" style={{ margin: '20px 0' }}>
+              <span>또는 소셜 계정으로 로그인</span>
+            </div>
+
+            <div className="social-login-buttons">
+              <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+                <span>구글 로그인</span>
+              </button>
+              <button className="social-btn naver" onClick={() => handleModalSocialLogin('네이버')}>
+                <span className="naver-icon">N</span>
+                <span>네이버 로그인</span>
+              </button>
+              <button className="social-btn kakao" onClick={() => handleModalSocialLogin('카카오')}>
+                <span className="kakao-icon">K</span>
+                <span>카카오 로그인</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -305,6 +367,9 @@ function App() {
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   const [isAdminPage, setIsAdminPage] = useState(false);
@@ -548,6 +613,56 @@ function App() {
       console.error("로그아웃 에러:", error);
     }
   };
+
+  const handleModalLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const { signInWithEmailAndPassword } = await import('firebase/auth');
+      const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      // save user if not exists (assume already handled or handle it simply)
+      setShowLoginModal(false);
+      setLoginEmail('');
+      setLoginPassword('');
+      alert('로그인되었습니다!');
+    } catch (error) {
+      console.error(error);
+      alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+    }
+  };
+
+  const handleModalPasswordReset = async () => {
+    if (!loginEmail) {
+      alert('아이디(이메일)칸에 가입하신 이메일을 입력하신 후 다시 눌러주세요.');
+      return;
+    }
+    try {
+      const { sendPasswordResetEmail } = await import('firebase/auth');
+      await sendPasswordResetEmail(auth, loginEmail);
+      alert('입력하신 이메일로 비밀번호 재설정 링크가 전송되었습니다.');
+    } catch (error) {
+      alert('비밀번호 재설정 이메일 전송에 실패했습니다. (가입되지 않은 이메일일 수 있습니다)');
+    }
+  };
+
+  const handleFindId = () => {
+    alert('가입하신 이메일이 아이디입니다.\n기억나지 않으시면 한의원으로 문의해주세요.');
+  };
+
+  const handleModalSocialLogin = async (platform) => {
+    if (platform === '구글') {
+      try {
+        const { signInWithPopup } = await import('firebase/auth');
+        await signInWithPopup(auth, googleProvider);
+        setShowLoginModal(false);
+      } catch (error) {
+        console.error(error);
+        alert('구글 로그인에 실패했습니다.');
+      }
+    } else {
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글 로그인을 이용해 주세요.`);
+    }
+  };
+
 
   // Review Form Submit
   const handleReviewSubmit = async (e) => {
@@ -836,10 +951,9 @@ function App() {
                 </button>
               </div>
             ) : (
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button className="btn btn-outline" onClick={() => setPage('login')}>로그인</button>
-                <button className="btn btn-primary" onClick={() => setPage('signup')}>회원가입</button>
-              </div>
+              <button className="btn btn-outline" onClick={() => setShowLoginModal(true)}>
+                로그인
+              </button>
             )}
             {!isAdmin && !isAdminPage && (
             <button className="btn btn-accent" onClick={() => setShowBookingModal(true)}>
@@ -958,7 +1072,7 @@ function App() {
                             로그인 후 열람하실 수 있습니다.
                           </h3>
                           <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
-                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setPage('login')}>1초 간편 로그인하고 후기 보기</button>
+                          <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
                         </div>
                       ))}
                     </>
@@ -2032,6 +2146,68 @@ function SpecialtyDetailPage({
           </div>
         </div>
       </section>
+
+      {/* Enhanced Login Modal */}
+      {showLoginModal && (
+        <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
+          <div className="modal-content login-modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowLoginModal(false)}>×</button>
+            <div className="login-header">
+              <h3>로그인</h3>
+              <p>원활한 서비스 이용을 위해 로그인해 주세요.</p>
+            </div>
+            
+            <form onSubmit={handleModalLogin} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '20px' }}>
+              <input 
+                type="email" 
+                placeholder="아이디 (이메일)" 
+                value={loginEmail} 
+                onChange={e => setLoginEmail(e.target.value)} 
+                required 
+                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
+              />
+              <input 
+                type="password" 
+                placeholder="비밀번호" 
+                value={loginPassword} 
+                onChange={e => setLoginPassword(e.target.value)} 
+                required 
+                style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', fontSize: '1rem' }}
+              />
+              <button type="submit" className="btn btn-primary" style={{ padding: '14px', fontSize: '1.1rem', borderRadius: '8px' }}>
+                로그인
+              </button>
+            </form>
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '30px', fontSize: '0.9rem' }}>
+              <button className="text-btn" onClick={() => { setShowLoginModal(false); setPage('signup'); }}>회원가입</button>
+              <span style={{ color: '#ccc' }}>|</span>
+              <button className="text-btn" onClick={handleFindId}>아이디 찾기</button>
+              <span style={{ color: '#ccc' }}>|</span>
+              <button className="text-btn" onClick={handleModalPasswordReset}>비밀번호 찾기</button>
+            </div>
+
+            <div className="auth-divider" style={{ margin: '20px 0' }}>
+              <span>또는 소셜 계정으로 로그인</span>
+            </div>
+
+            <div className="social-login-buttons">
+              <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+                <span>구글 로그인</span>
+              </button>
+              <button className="social-btn naver" onClick={() => handleModalSocialLogin('네이버')}>
+                <span className="naver-icon">N</span>
+                <span>네이버 로그인</span>
+              </button>
+              <button className="social-btn kakao" onClick={() => handleModalSocialLogin('카카오')}>
+                <span className="kakao-icon">K</span>
+                <span>카카오 로그인</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
