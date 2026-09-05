@@ -2050,7 +2050,7 @@ function SpecialtyDetailPage({
                     {q.isAnswered ? (
                       <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid var(--accent-color)' }}>
                         <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', marginRight: '8px' }}>A.</span>
-                        <span style={{ color: 'var(--text-main)', whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.answer : '비밀글입니다.') : q.answer}</span>
+                        <div className="rich-text-content" dangerouslySetInnerHTML={{ __html: q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.answer : '비밀글입니다.') : q.answer }} style={{ color: 'var(--text-main)', lineHeight: '1.6' }} />
                       </div>
                     ) : (
                       <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid #e2e8f0' }}>

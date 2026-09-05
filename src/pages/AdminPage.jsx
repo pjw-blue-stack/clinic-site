@@ -244,6 +244,22 @@ export default function AdminPage({ onBack, qnaList }) {
   // QnA states
   const [answerText, setAnswerText] = useState('');
 
+  const handleQnaMediaUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      setUploading(true);
+      const url = await uploadMedia(file);
+      const imgTag = `<br/><img src="${url}" style="max-width: 100%; height: auto; border-radius: 8px;" /><br/>`;
+      setAnswerText((prev) => (prev || '') + imgTag);
+    } catch (err) {
+      alert("업로드 실패: " + err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+
   const openQnaAnswer = (q) => {
     setAnswerText(q.answer || '');
     setEditTargetId(q.id);
@@ -580,7 +596,12 @@ export default function AdminPage({ onBack, qnaList }) {
                   <form onSubmit={submitAnswer} className="admin-form">
                     <div className="form-group" style={{ marginBottom: '20px' }}>
                       <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>원장님 답변 내용</label>
-                      <textarea className="form-input" rows="6" value={answerText} onChange={e => setAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요" required style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #ddd' }}></textarea>
+                      <div style={{ marginBottom: '15px' }}>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>미디어 첨부 (썸네일 미지정)</label>
+                        <input type="file" accept="image/*,video/*" onChange={handleQnaMediaUpload} disabled={uploading} />
+                        {uploading && <span style={{ marginLeft: '10px', color: 'blue' }}>업로드 중...</span>}
+                      </div>
+                      <ReactQuill theme="snow" value={answerText} onChange={setAnswerText} style={{ height: '300px', marginBottom: '50px', backgroundColor: 'white' }} />
                     </div>
                     <button type="submit" className="btn btn-primary" style={{ padding: '10px 20px' }}>답변 저장</button>
                   </form>
