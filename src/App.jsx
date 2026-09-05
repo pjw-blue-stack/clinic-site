@@ -455,6 +455,7 @@ function App() {
   const [showQnaModal, setShowQnaModal] = useState(false);
   const [newQna, setNewQna] = useState({
     category: 'detox',
+    title: '',
     question: '',
     isSecret: false
   });
@@ -686,14 +687,15 @@ function App() {
       alert("구글 로그인 후 질문을 남기실 수 있습니다.");
       return;
     }
-    if (!newQna.question) {
-      alert("질문 내용을 입력해주세요.");
+    if (!newQna.title || !newQna.question) {
+      alert("제목과 질문 내용을 모두 입력해주세요.");
       return;
     }
     
     try {
       await addDoc(collection(db, 'qna'), {
         category: newQna.category,
+        title: newQna.title,
         question: newQna.question,
         answer: '',
         author: auth.currentUser.displayName || auth.currentUser.email.split('@')[0],
@@ -704,7 +706,7 @@ function App() {
       });
       alert('질문이 성공적으로 등록되었습니다. 원장님 확인 후 답변이 달립니다.');
       setShowQnaModal(false);
-      setNewQna({ ...newQna, question: '' });
+      setNewQna({ ...newQna, title: '', question: '' });
     } catch(err) {
       console.error(err);
       alert('질문 등록에 실패했습니다.');
@@ -1772,6 +1774,17 @@ function App() {
             </div>
             <form onSubmit={handleQnaSubmit} className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div className="form-group">
+                <label className="form-label">제목</label>
+                <input 
+                  type="text"
+                  className="form-input" 
+                  placeholder="질문 제목을 입력하세요."
+                  value={newQna.title}
+                  onChange={e => setNewQna({...newQna, title: e.target.value})}
+                  required
+                />
+              </div>
+              <div className="form-group">
                 <label className="form-label">질문 내용</label>
                 <textarea 
                   className="form-input" 
@@ -1826,6 +1839,9 @@ function SpecialtyDetailPage({
 }) {
   // Tab State for Head/Face/Both sweat condition (du-myeon)
   const [activeTab, setActiveTab] = useState('both');
+  
+  // QnA Accordion State
+  const [expandedQnaId, setExpandedQnaId] = useState(null);
 
   // Multi-select State for Upper Body Sweat (sangche)
   const [selectedParts, setSelectedParts] = useState(['head']);
@@ -2156,37 +2172,45 @@ function SpecialtyDetailPage({
             
             <div className="qna-list">
               {qnaList && qnaList.filter(q => q.category === specialty.id || q.category === 'all').length > 0 ? (
-                qnaList.filter(q => q.category === specialty.id || q.category === 'all').map(q => (
-                  <div key={q.id} className="qna-card" style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '12px', marginBottom: '15px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', textAlign: 'left' }}>
-                    <div className="qna-q" style={{ marginBottom: '15px' }}>
+                qnaList.filter(q => q.category === specialty.id || q.category === 'all').map(q => {
+                  const isVisible = q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author) : true;
+                  return (
+                  <div key={q.id} className="qna-card" style={{ backgroundColor: '#fff', padding: '20px', borderRadius: '12px', marginBottom: '15px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', textAlign: 'left', cursor: 'pointer' }} onClick={() => setExpandedQnaId(expandedQnaId === q.id ? null : q.id)}>
+                    <div className="qna-q" style={{ marginBottom: expandedQnaId === q.id ? '15px' : '0' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
                         <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--text-main)', flex: 1, marginRight: '10px', wordBreak: 'keep-all' }}>
                           <span style={{ color: 'var(--primary-color)', marginRight: '5px' }}>Q.</span>
-                          {q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.question : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.') : q.question}
+                          {isVisible ? (q.title || q.question.substring(0, 30) + '...') : '비밀글입니다. 작성자와 관리자만 볼 수 있습니다.'}
                         </span>
                         <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{q.author} | {new Date(q.createdAt).toLocaleDateString()}</span>
                       </div>
                     </div>
-                    {q.isAnswered ? (
+                    {expandedQnaId === q.id && isVisible && (
+                      <div style={{ padding: '15px 0', borderTop: '1px solid #eee', marginBottom: '15px', color: 'var(--text-main)', lineHeight: '1.6', whiteSpace: 'pre-wrap' }}>
+                        {q.question}
+                      </div>
+                    )}
+                    {expandedQnaId === q.id && q.isAnswered ? (
                       <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid var(--accent-color)' }}>
                         <span style={{ fontWeight: 'bold', color: 'var(--accent-color)', marginRight: '8px' }}>A.</span>
-                        <div className="rich-text-content" dangerouslySetInnerHTML={{ __html: q.isSecret ? (loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) || loggedInUser === q.author ? q.answer : '비밀글입니다.') : q.answer }} style={{ color: 'var(--text-main)', lineHeight: '1.6' }} />
+                        <div className="rich-text-content" dangerouslySetInnerHTML={{ __html: isVisible ? q.answer : '비밀글입니다.' }} style={{ color: 'var(--text-main)', lineHeight: '1.6' }} />
                       </div>
-                    ) : (
+                    ) : expandedQnaId === q.id && (
                       <div className="qna-a" style={{ backgroundColor: '#f9fbfd', padding: '15px', borderRadius: '8px', borderLeft: '4px solid #e2e8f0' }}>
                         <span style={{ color: 'var(--text-light)' }}>원장님께서 확인 중입니다. 곧 답변이 달릴 예정입니다.</span>
                         {loggedInUser && (loggedInUser.includes('원장') || loggedInUser.includes('parkjeuk')) && (
                           <div style={{ marginTop: '15px' }}>
                             {answeringQnaId === q.id ? (
                               <div>
-                                <textarea className="form-input" rows="4" value={qnaAnswerText} onChange={(e) => setQnaAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요"></textarea>
+                                <textarea className="form-input" rows="4" value={qnaAnswerText} onChange={(e) => setQnaAnswerText(e.target.value)} placeholder="원장님 답변을 입력하세요" onClick={e => e.stopPropagation()}></textarea>
                                 <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-                                  <button className="btn btn-sm btn-accent" onClick={() => handleQnaAnswer(q.id)}>등록</button>
-                                  <button className="btn btn-sm btn-outline" onClick={() => setAnsweringQnaId(null)}>취소</button>
+                                  <button className="btn btn-sm btn-accent" onClick={(e) => { e.stopPropagation(); handleQnaAnswer(q.id); }}>등록</button>
+                                  <button className="btn btn-sm btn-outline" onClick={(e) => { e.stopPropagation(); setAnsweringQnaId(null); }}>취소</button>
                                 </div>
                               </div>
                             ) : (
-                              <button className="btn btn-sm btn-outline" onClick={() => {
+                              <button className="btn btn-sm btn-outline" onClick={(e) => {
+                                e.stopPropagation();
                                 setAnsweringQnaId(q.id);
                                 setQnaAnswerText(q.answer || '');
                               }}>원장님 답변 달기 (관리자용)</button>
@@ -2196,7 +2220,7 @@ function SpecialtyDetailPage({
                       </div>
                     )}
                   </div>
-                ))
+                )})
               ) : (
                 <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)', backgroundColor: '#f9fbfd', borderRadius: '12px' }}>
                   등록된 질문이 없습니다. 궁금한 점이 있으시면 언제든 남겨주세요!

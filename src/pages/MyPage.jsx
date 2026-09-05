@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import './MyPage.css';
@@ -23,8 +23,10 @@ export default function MyPage({ user, qnaList, setPage, setShowQnaModal, setNew
     }
   };
 
+  const [expandedQnaId, setExpandedQnaId] = useState(null);
+
   const handleWriteQna = () => {
-    setNewQna({ category: 'all', question: '', isSecret: false });
+    setNewQna({ category: 'all', title: '', question: '', isSecret: false });
     setShowQnaModal(true);
   };
 
@@ -63,15 +65,20 @@ export default function MyPage({ user, qnaList, setPage, setShowQnaModal, setNew
             {myQnas.length > 0 ? (
               <div className="mypage-list">
                 {myQnas.map(q => (
-                  <div key={q.id} className="mypage-card">
+                  <div key={q.id} className="mypage-card" style={{ cursor: 'pointer' }} onClick={() => setExpandedQnaId(expandedQnaId === q.id ? null : q.id)}>
                     <div className="card-header">
                       <span className="card-date">{new Date(q.createdAt).toLocaleDateString()}</span>
                       <span className={`status-badge ${q.isAnswered ? 'answered' : 'waiting'}`}>
                         {q.isAnswered ? '답변완료' : '답변대기'}
                       </span>
                     </div>
-                    <h4 className="card-title">Q. {q.question}</h4>
-                    {q.isAnswered && (
+                    <h4 className="card-title" style={{ marginBottom: expandedQnaId === q.id ? '15px' : '0' }}>Q. {q.title || q.question.substring(0, 30) + '...'}</h4>
+                    {expandedQnaId === q.id && (
+                      <div style={{ padding: '15px 0', borderTop: '1px solid #eee', marginBottom: q.isAnswered ? '15px' : '0', color: 'var(--text-main)', lineHeight: '1.6', whiteSpace: 'pre-wrap', fontWeight: 'normal', fontSize: '1rem' }}>
+                        {q.question}
+                      </div>
+                    )}
+                    {expandedQnaId === q.id && q.isAnswered && (
                       <div className="card-answer" dangerouslySetInnerHTML={{ __html: q.answer }} />
                     )}
                   </div>
