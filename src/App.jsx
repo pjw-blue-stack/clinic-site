@@ -1697,7 +1697,7 @@ function App() {
 
             <div className="social-login-buttons">
               <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" />
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
                 <span>구글 로그인</span>
               </button>
               <button className="social-btn naver" onClick={() => handleModalSocialLogin('네이버')}>

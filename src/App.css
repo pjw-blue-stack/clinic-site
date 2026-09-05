@@ -3254,3 +3254,84 @@ main.main-content.blurred, footer.footer.blurred {
   color: var(--text-inverse);
 }
 
+
+/* Social Login Button Styles */
+.auth-divider {
+  position: relative;
+  text-align: center;
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #eee;
+}
+
+.auth-divider span {
+  padding: 0 15px;
+  color: #888;
+  font-size: 0.85rem;
+  background-color: #fff;
+}
+
+.social-login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.social-btn.google {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.social-btn.google img {
+  width: 20px;
+  height: 20px;
+}
+
+.social-btn.naver {
+  background-color: #03c75a;
+  color: #fff;
+}
+
+.social-btn.kakao {
+  background-color: #fee500;
+  color: #381e1f;
+}
+
+.naver-icon {
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.kakao-icon {
+  font-weight: 900;
+  font-size: 1.1rem;
+}
