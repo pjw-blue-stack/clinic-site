@@ -968,7 +968,8 @@ function App() {
           <MyPage 
             user={auth.currentUser}
             qnaList={qnaList}
-            reviews={reviews}
+            setShowQnaModal={setShowQnaModal}
+            setNewQna={setNewQna}
             setPage={(page) => {
               if (page === 'home') setIsMyPage(false);
               if (page === 'login') { setIsMyPage(false); setShowLoginModal(true); }

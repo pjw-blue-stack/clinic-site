@@ -3,7 +3,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import './MyPage.css';
 
-export default function MyPage({ user, qnaList, reviews, setPage }) {
+export default function MyPage({ user, qnaList, setPage, setShowQnaModal, setNewQna }) {
   if (!user) {
     return (
       <div className="mypage-container" style={{ padding: '100px 20px', textAlign: 'center' }}>
@@ -23,15 +23,19 @@ export default function MyPage({ user, qnaList, reviews, setPage }) {
     }
   };
 
+  const handleWriteQna = () => {
+    setNewQna({ category: 'all', question: '', isSecret: false });
+    setShowQnaModal(true);
+  };
+
   const myQnas = qnaList?.filter(q => q.authorEmail === user.email) || [];
-  const myReviews = reviews?.filter(r => r.authorEmail === user.email) || [];
 
   return (
     <div className="mypage-container">
       <div className="mypage-header">
         <div className="container">
-          <h2>마이페이지</h2>
-          <p>내 정보와 작성한 글을 관리하세요.</p>
+          <h2 style={{ color: 'white' }}>마이페이지</h2>
+          <p style={{ color: 'white', opacity: 0.9 }}>내 정보와 작성한 글을 관리하세요.</p>
         </div>
       </div>
 
@@ -49,7 +53,13 @@ export default function MyPage({ user, qnaList, reviews, setPage }) {
 
         <div className="mypage-main">
           <section className="mypage-section">
-            <h3 className="section-title">내가 쓴 Q&A 질문 ({myQnas.length})</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '2px solid var(--primary-color)', paddingBottom: '10px' }}>
+              <h3 className="section-title" style={{ borderBottom: 'none', marginBottom: 0, paddingBottom: 0 }}>내가 쓴 Q&A 질문 ({myQnas.length})</h3>
+              <button className="btn btn-primary btn-sm" onClick={handleWriteQna} style={{ borderRadius: '20px', padding: '6px 16px', fontSize: '0.9rem' }}>
+                + 새 질문 작성하기
+              </button>
+            </div>
+            
             {myQnas.length > 0 ? (
               <div className="mypage-list">
                 {myQnas.map(q => (
@@ -69,25 +79,6 @@ export default function MyPage({ user, qnaList, reviews, setPage }) {
               </div>
             ) : (
               <div className="empty-state">작성한 질문이 없습니다.</div>
-            )}
-          </section>
-
-          <section className="mypage-section" style={{ marginTop: '40px' }}>
-            <h3 className="section-title">내가 쓴 치료후기 ({myReviews.length})</h3>
-            {myReviews.length > 0 ? (
-              <div className="mypage-list">
-                {myReviews.map(r => (
-                  <div key={r.id} className="mypage-card">
-                    <div className="card-header">
-                      <span className="card-date">{new Date(r.createdAt || r.date).toLocaleDateString()}</span>
-                    </div>
-                    <h4 className="card-title">{r.title}</h4>
-                    <div className="card-preview">{r.content.replace(/<[^>]+>/g, '').substring(0, 100)}...</div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="empty-state">작성한 후기가 없습니다.</div>
             )}
           </section>
         </div>
