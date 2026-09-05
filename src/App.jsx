@@ -351,7 +351,11 @@ function App() {
   // Sync state to URL for page refreshes and history
   useEffect(() => {
     let targetSearch = '';
-    if (selectedSpecialty) {
+    if (isSignupPage) {
+      targetSearch = `?page=signup`;
+    } else if (isMyPage) {
+      targetSearch = `?page=mypage`;
+    } else if (selectedSpecialty) {
       targetSearch = `?specialty=${selectedSpecialty.id}`;
     } else if (isColumnPage) {
       targetSearch = `?page=column`;
@@ -363,10 +367,6 @@ function App() {
       targetSearch = `?page=detox`;
     } else if (isSelfCheckPage) {
       targetSearch = `?page=selfcheck`;
-    } else if (isSignupPage) {
-      targetSearch = `?page=signup`;
-    } else if (isMyPage) {
-      targetSearch = `?page=mypage`;
     }
 
     if (window.location.search !== targetSearch) {
