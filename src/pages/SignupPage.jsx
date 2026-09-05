@@ -87,7 +87,7 @@ export default function SignupPage({ setPage }) {
     <div className="auth-container">
       <div className="auth-box">
         <h2 className="auth-title">환자 회원가입</h2>
-        <p className="auth-subtitle">가입하시고 질문과 후기를 남겨보세요.</p>
+        <p className="auth-subtitle">가입하셔서, 치료후기를 확인하시고, 질문을 남겨보세요.</p>
         
         <form onSubmit={handleSignup} className="auth-form">
           <div className="form-group">
