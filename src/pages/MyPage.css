@@ -1,0 +1,157 @@
+.mypage-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.mypage-header h2 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.mypage-content {
+  display: flex;
+  gap: 30px;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mypage-sidebar {
+  flex: 0 0 300px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+}
+
+.profile-name {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+}
+
+.profile-email {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  width: 100%;
+}
+
+.mypage-main {
+  flex: 1;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.mypage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mypage-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 1px solid #eee;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-date {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-badge.answered {
+  background-color: #e6f6f4;
+  color: #0d9488;
+}
+
+.status-badge.waiting {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 15px;
+}
+
+.card-answer {
+  background-color: #f8fafc;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.card-preview {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  background: #f8fafc;
+  border-radius: 10px;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .mypage-content {
+    flex-direction: column;
+  }
+  .mypage-sidebar {
+    flex: none;
+    width: 100%;
+  }
+}

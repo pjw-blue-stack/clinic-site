@@ -242,6 +242,12 @@ export default function AdminPage({ onBack, qnaList }) {
   };
 
   // QnA states
+  const qnaRef = collection(db, 'qna'); // Wait, we don't have qnaRef here because it's passed as prop
+  const usersRef = collection(db, 'users');
+  const usersQuery = query(usersRef, orderBy('createdAt', 'desc'));
+  const [usersSnapshot] = useCollection(usersQuery);
+  const usersList = usersSnapshot?.docs.map(d => ({ firestoreId: d.id, ...d.data() })) || [];
+
   const [answerText, setAnswerText] = useState('');
 
   const handleQnaMediaUpload = async (e) => {
@@ -329,6 +335,13 @@ export default function AdminPage({ onBack, qnaList }) {
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'reviews' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'reviews' ? 'bold' : 'normal', color: activeTab === 'reviews' ? 'var(--primary-dark)' : '#555' }}
             >
               치료후기 관리
+            </li>
+            <li 
+              className={activeTab === 'users' ? 'active' : ''} 
+              onClick={() => { setActiveTab('users'); window.history.pushState({}, '', '#admin-tab-users'); }}
+              style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'users' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'users' ? 'bold' : 'normal', color: activeTab === 'users' ? 'var(--primary-dark)' : '#555' }}
+            >
+              회원 관리
             </li>
             <li 
               className={activeTab === 'settings' ? 'active' : ''} 
@@ -702,6 +715,42 @@ export default function AdminPage({ onBack, qnaList }) {
                   </form>
                 </>
               )}
+            </section>
+          )}
+
+
+          {/* ======================= USERS ======================= */}
+          {activeTab === 'users' && (
+            <section className="admin-section" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div className="admin-tab-header">
+                <h3 style={{ fontSize: '1.5rem', margin: 0 }}>환자 회원 관리 ({usersList.length}명)</h3>
+              </div>
+              <div className="admin-table-container">
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th style={{ width: '20%' }}>이름</th>
+                      <th style={{ width: '30%' }}>이메일</th>
+                      <th style={{ width: '20%' }}>가입 방식</th>
+                      <th style={{ width: '30%' }}>가입일</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersList.length > 0 ? usersList.map(u => (
+                      <tr key={u.firestoreId}>
+                        <td style={{ fontWeight: 'bold' }}>{u.name || '미입력'}</td>
+                        <td>{u.email}</td>
+                        <td>
+                          {u.provider === 'google.com' ? '구글 로그인' : u.provider === 'password' ? '이메일 가입' : u.provider}
+                        </td>
+                        <td>{u.createdAt ? new Date(u.createdAt).toLocaleString() : '알 수 없음'}</td>
+                      </tr>
+                    )) : (
+                      <tr><td colSpan="4" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </section>
           )}
 

@@ -11,6 +11,9 @@ import SelfCheckPage from './SelfCheckPage';
 import DetoxPage from './pages/DetoxPage';
 import ClinicPage from './pages/ClinicPage';
 import ColumnPage from './pages/ColumnPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
 
 const ADMIN_EMAILS = ['pjw-blue@hanmail.net'];
@@ -1550,93 +1553,7 @@ function App() {
       )}
 
       {/* SOCIAL LOGIN MODAL */}
-      {showLoginModal && (
-        <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
-          <div className="modal-content login-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowLoginModal(false)}>×</button>
-            <div className="modal-header" style={{ marginBottom: '15px' }}>
-              <div className="modal-icon">🌿</div>
-              <h2 className="modal-title" style={{ fontSize: '1.6rem' }}>정원 한의원 로그인</h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: '8px' }}>
-                치료 후기 작성 및 예약을 위해 간편 로그인을 진행하세요.
-              </p>
-            </div>
-            
-            <div className="login-options">
-              <button className="login-btn login-btn-kakao" onClick={() => handleSocialLogin('카카오톡')}>
-                <span>💬</span> 카카오로 로그인
-              </button>
-              <button className="login-btn login-btn-naver" onClick={() => handleSocialLogin('네이버')}>
-                <span>N</span> 네이버로 로그인
-              </button>
-              <button className="login-btn login-btn-google" onClick={() => handleSocialLogin('구글')}>
-                <span>G</span> Google로 로그인
-              </button>
-              <button className="login-btn login-btn-apple" onClick={() => handleSocialLogin('Apple')}>
-                <span></span> Apple로 로그인
-              </button>
-            </div>
-            
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '24px' }}>
-              로그인 시 정원 한의원의 <a href="#privacy" style={{ textDecoration: 'underline' }}>개인정보처리방침</a> 및 <a href="#terms" style={{ textDecoration: 'underline' }}>이용약관</a>에 동의하게 됩니다.
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* QnA MODAL */}
-      {showQnaModal && (
-        <div className="modal-overlay" onClick={() => setShowQnaModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
-            <button className="modal-close" onClick={() => setShowQnaModal(false)}>✕</button>
-            <div className="modal-header">
-              <span className="modal-badge">Q&A</span>
-              <h2 className="modal-title">원장님께 질문 남기기</h2>
-              <p style={{ color: 'var(--text-muted)', marginTop: '10px' }}>궁금하신 점을 남겨주시면 원장님이 직접 답변해 드립니다.</p>
-            </div>
-            
-            <form onSubmit={handleQnaSubmit} className="booking-form" style={{ marginTop: '20px' }}>
-              <div className="form-group" style={{ textAlign: 'left' }}>
-                <label className="form-label">카테고리</label>
-                <select 
-                  className="form-select"
-                  value={newQna.category}
-                  onChange={(e) => setNewQna({...newQna, category: e.target.value})}
-                >
-                  <option value="detox">정원해독</option>
-                  <option value="hyperhidrosis">다한증(수족/전신 등)</option>
-                  <option value="diet">해독다이어트</option>
-                  <option value="other">기타 문의</option>
-                </select>
-              </div>
-              <div className="form-group" style={{ textAlign: 'left' }}>
-                <label className="form-label">질문 내용</label>
-                <textarea 
-                  className="form-input" 
-                  rows="5"
-                  placeholder="증상이나 치료에 대해 궁금하신 점을 자유롭게 적어주세요."
-                  value={newQna.question}
-                  onChange={(e) => setNewQna({...newQna, question: e.target.value})}
-                  required
-                ></textarea>
-              </div>
-              <div className="form-group" style={{ textAlign: 'left' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.95rem' }}>
-                  <input 
-                    type="checkbox" 
-                    checked={newQna.isSecret}
-                    onChange={(e) => setNewQna({...newQna, isSecret: e.target.checked})}
-                  />
-                  비밀글로 작성하기 (작성자와 관리자만 볼 수 있습니다)
-                </label>
-              </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '15px', fontSize: '1.1rem', marginTop: '10px' }}>
-                질문 등록하기
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      
 
       {/* Floating Quick Menu (하단 고정 퀵메뉴) */}
       <div className="floating-quick-menu">
