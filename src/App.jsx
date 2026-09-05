@@ -303,7 +303,39 @@ function App() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+
   const [isAdminPage, setIsAdminPage] = useState(false);
+
+  useEffect(() => {
+    const handlePopState = (e) => {
+      if (window.location.hash === '#admin') {
+        setIsAdminPage(true);
+      } else {
+        setIsAdminPage(false);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    
+    // Initial check
+    if (window.location.hash === '#admin') {
+      setIsAdminPage(true);
+    }
+    
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleOpenAdmin = () => {
+    setIsAdminPage(true);
+    window.history.pushState({}, '', '#admin');
+  };
+
+  const handleCloseAdmin = () => {
+    setIsAdminPage(false);
+    if (window.location.hash === '#admin') {
+      window.history.back();
+    }
+  };
+
   const isAdmin = loggedInUser && ADMIN_EMAILS.includes(auth.currentUser?.email);
   const [selectedDetoxStep, setSelectedDetoxStep] = useState(null);
 
@@ -644,7 +676,7 @@ function App() {
         <div className="container header-container">
           <a href="#home" className="logo" onClick={(e) => { 
             e.preventDefault(); 
-            if (isAdminPage) setIsAdminPage(false);
+            if (isAdminPage) handleCloseAdmin();
             scrollToSection('home'); 
           }}>
             <img src="/Hyperhydrosis.svg" alt="경희정원한의원 로고" style={{ height: '38px', width: '38px', objectFit: 'contain' }} />
@@ -788,7 +820,7 @@ function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{loggedInUser}</span>
                 {isAdmin && !isAdminPage && (
-                  <button className="btn btn-sm btn-outline" onClick={() => setIsAdminPage(true)} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>
+                  <button className="btn btn-sm btn-outline" onClick={handleOpenAdmin} style={{ borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }}>
                     관리자 페이지
                   </button>
                 )}
@@ -830,7 +862,7 @@ function App() {
       <main className={`main-content ${hoveredMenu ? 'blurred' : ''}`}>
         {isAdminPage ? (
           <AdminPage 
-            onBack={() => setIsAdminPage(false)} 
+            onBack={handleCloseAdmin} 
             qnaList={qnaList}
             handleQnaAnswer={handleQnaAnswer}
           />
