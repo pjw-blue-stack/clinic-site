@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { collection, addDoc, query, orderBy, updateDoc, doc } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { auth, googleProvider, db } from './firebase';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import './App.css';
@@ -290,7 +290,8 @@ function App() {
   // Columns state
   const columnsRef = collection(db, 'columns');
   const columnsQuery = query(columnsRef, orderBy('id', 'asc'));
-  const [firestoreColumns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
+  const [firestoreColumnsSnapshot] = useCollection(columnsQuery);
+  const firestoreColumns = firestoreColumnsSnapshot?.docs.map(d => ({ firestoreId: d.id, ...d.data() })) || [];
   const columns = firestoreColumns || [];
   
   const [isColumnPage, setIsColumnPage] = useState(false);
@@ -407,7 +408,8 @@ function App() {
   // Reviews state
   const reviewsRef = collection(db, 'reviews');
   const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
-  const [firestoreReviews] = useCollectionData(reviewsQuery, { idField: 'id' });
+  const [firestoreReviewsSnapshot] = useCollection(reviewsQuery);
+  const firestoreReviews = firestoreReviewsSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
   const reviews = firestoreReviews || [];
   const [filterSpecialty, setFilterSpecialty] = useState('all');
   const [newReview, setNewReview] = useState({
@@ -422,14 +424,16 @@ function App() {
   // Notices state
   const noticesRef = collection(db, 'notices');
   const noticesQuery = query(noticesRef, orderBy('createdAt', 'desc'));
-  const [firestoreNotices] = useCollectionData(noticesQuery, { idField: 'id' });
+  const [firestoreNoticesSnapshot] = useCollection(noticesQuery);
+  const firestoreNotices = firestoreNoticesSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
   const notices = firestoreNotices || [];
   const [reviewSuccess, setReviewSuccess] = useState(false);
 
   // QnA state
   const qnaRef = collection(db, 'qna');
   const qnaQuery = query(qnaRef, orderBy('createdAt', 'desc'));
-  const [firestoreQna] = useCollectionData(qnaQuery, { idField: 'id' });
+  const [firestoreQnaSnapshot] = useCollection(qnaQuery);
+  const firestoreQna = firestoreQnaSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
   const qnaList = firestoreQna || [];
   
   const [showQnaModal, setShowQnaModal] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import { db } from '../firebase';
@@ -65,12 +65,14 @@ export default function AdminPage({ onBack, qnaList }) {
   // Notices state
   const noticesRef = collection(db, 'notices');
   const noticesQuery = query(noticesRef, orderBy('createdAt', 'desc'));
-  const [notices] = useCollectionData(noticesQuery, { idField: 'id' });
+  const [noticesSnapshot] = useCollection(noticesQuery);
+  const notices = noticesSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
 
   // Columns state
   const columnsRef = collection(db, 'columns');
   const columnsQuery = query(columnsRef, orderBy('id', 'asc'));
-  const [columns] = useCollectionData(columnsQuery, { idField: 'firestoreId' });
+  const [columnsSnapshot] = useCollection(columnsQuery);
+  const columns = columnsSnapshot?.docs.map(d => ({ firestoreId: d.id, ...d.data() })) || [];
 
   // Notice Form State
   const initialNotice = { tag: '[공지]', title: '', content: '', thumbnailUrl: '' };
@@ -183,7 +185,8 @@ export default function AdminPage({ onBack, qnaList }) {
   // Reviews state
   const reviewsRef = collection(db, 'reviews');
   const reviewsQuery = query(reviewsRef, orderBy('createdAt', 'desc'));
-  const [reviews] = useCollectionData(reviewsQuery, { idField: 'id' });
+  const [reviewsSnapshot] = useCollection(reviewsQuery);
+  const reviews = reviewsSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
 
   const initialReview = { name: '', specialtyId: '전신다한증', title: '', content: '', rating: 5, thumbnailUrl: '' };
   const [reviewForm, setReviewForm] = useState(initialReview);
