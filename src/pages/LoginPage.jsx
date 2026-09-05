@@ -75,8 +75,8 @@ export default function LoginPage({ setPage }) {
         
         <form onSubmit={handleLogin} className="auth-form">
           <div className="form-group">
-            <label>이메일</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="이메일을 입력하세요" />
+            <label>이메일 (아이디)</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="가입하신 이메일(아이디)을 입력하세요" />
           </div>
           <div className="form-group">
             <label>비밀번호</label>
