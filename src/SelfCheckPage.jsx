@@ -7,6 +7,7 @@ import './SelfCheckPage.css';
 const SelfCheckPage = ({ onComplete }) => {
   const [step, setStep] = useState(() => sessionStorage.getItem('selfCheckStep') || 'intro');
   const [score, setScore] = useState(() => Number(sessionStorage.getItem('selfCheckScore')) || 0);
+  const [answerHistory, setAnswerHistory] = useState(() => JSON.parse(sessionStorage.getItem('selfCheckHistory') || '[]'));
   const [globalQuestionCount, setGlobalQuestionCount] = useState(() => {
     const storedDate = localStorage.getItem('aiQuestionsDate');
     const today = new Date().toDateString();
@@ -38,19 +39,51 @@ const SelfCheckPage = ({ onComplete }) => {
   useEffect(() => {
     sessionStorage.setItem('selfCheckStep', step);
     sessionStorage.setItem('selfCheckScore', score);
+    sessionStorage.setItem('selfCheckHistory', JSON.stringify(answerHistory));
     sessionStorage.setItem('selfCheckShowChat', showChat);
     sessionStorage.setItem('selfCheckMessages', JSON.stringify(messages));
     if (consultationId) sessionStorage.setItem('selfCheckConsultId', consultationId);
-  }, [step, score, showChat, messages, consultationId]);
+  }, [step, score, answerHistory, showChat, messages, consultationId]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Don't intercept backspace if the user is typing in an input/textarea
+      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+      if (e.key === 'Backspace') {
+        if (step.startsWith('q')) {
+          const currentIdx = parseInt(step.replace('q', ''));
+          if (currentIdx > 0) {
+            e.preventDefault();
+            const prevIdx = currentIdx - 1;
+            setStep(`q${prevIdx}`);
+            setScore(prev => prev - (answerHistory[prevIdx] || 0));
+            setAnswerHistory(prev => prev.slice(0, -1));
+          } else if (currentIdx === 0) {
+            e.preventDefault();
+            setStep('intro');
+          }
+        } else if (step === 'result' && !showChat) {
+          e.preventDefault();
+          handleReset();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [step, answerHistory, showChat]);
 
   const handleReset = () => {
     setStep('intro');
     setScore(0);
+    setAnswerHistory([]);
     setShowChat(false);
     setMessages([]);
     setConsultationId(null);
     sessionStorage.removeItem('selfCheckStep');
     sessionStorage.removeItem('selfCheckScore');
+    sessionStorage.removeItem('selfCheckHistory');
     sessionStorage.removeItem('selfCheckShowChat');
     sessionStorage.removeItem('selfCheckMessages');
     sessionStorage.removeItem('selfCheckConsultId');
@@ -64,11 +97,13 @@ const SelfCheckPage = ({ onComplete }) => {
 
   const handleStart = () => {
     setScore(0);
+    setAnswerHistory([]);
     setStep('q0');
   };
 
   const handleAnswer = (addedScore, qIndex) => {
     setScore(prev => prev + addedScore);
+    setAnswerHistory(prev => [...prev, addedScore]);
     const nextIndex = qIndex + 1;
     if (nextIndex < questions.length) {
       setStep(`q${nextIndex}`);
