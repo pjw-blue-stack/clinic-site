@@ -186,43 +186,57 @@ const SelfCheckPage = ({ onComplete }) => {
             </button>
           </>
         ) : (
-          <div className="chat-container">
-            <div className="chat-header">
-              <span style={{ fontSize: '1.5rem' }}>🩺</span>
-              <h3>박제욱 원장 AI 상담</h3>
-            </div>
-            <div className="chat-messages">
-              {messages.map((m, idx) => (
-                <div key={idx} className={`chat-message ${m.role}`}>
-                  {m.content}
-                </div>
-              ))}
-              {isChatLoading && (
-                <div className="chat-message ai">
-                  <div className="chat-typing-indicator">
-                    <div className="chat-typing-dot"></div>
-                    <div className="chat-typing-dot"></div>
-                    <div className="chat-typing-dot"></div>
+          <>
+            <div className="chat-container">
+              <div className="chat-header">
+                <span style={{ fontSize: '1.5rem' }}>🩺</span>
+                <h3>박제욱 원장 AI 상담</h3>
+              </div>
+              <div className="chat-messages">
+                {messages.map((m, idx) => (
+                  <div key={idx} className={`chat-message ${m.role}`}>
+                    {m.content}
                   </div>
-                </div>
-              )}
-              <div ref={chatEndRef}></div>
+                ))}
+                {isChatLoading && (
+                  <div className="chat-message ai">
+                    <div className="chat-typing-indicator">
+                      <div className="chat-typing-dot"></div>
+                      <div className="chat-typing-dot"></div>
+                      <div className="chat-typing-dot"></div>
+                    </div>
+                  </div>
+                )}
+                <div ref={chatEndRef}></div>
+              </div>
+              <div className="chat-input-area">
+                <input 
+                  type="text" 
+                  className="chat-input"
+                  placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "질문 횟수(10회) 초과. 자세한 상담은 내원 부탁드립니다." : "궁금한 점을 자유롭게 물어보세요..."} 
+                  value={chatInput} 
+                  onChange={e => setChatInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  disabled={isChatLoading || messages.filter(m => m.role === 'user').length >= 10}
+                />
+                <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || messages.filter(m => m.role === 'user').length >= 10}>
+                  전송
+                </button>
+              </div>
             </div>
-            <div className="chat-input-area">
-              <input 
-                type="text" 
-                className="chat-input"
-                placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "질문 횟수(10회) 초과. 자세한 상담은 내원 부탁드립니다." : "궁금한 점을 자유롭게 물어보세요..."} 
-                value={chatInput} 
-                onChange={e => setChatInput(e.target.value)}
-                onKeyPress={handleKeyPress}
-                disabled={isChatLoading || messages.filter(m => m.role === 'user').length >= 10}
-              />
-              <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || messages.filter(m => m.role === 'user').length >= 10}>
-                전송
+            
+            <div style={{ marginTop: '25px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn btn-kakao" style={{ width: '100%', margin: '0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                💬 카카오톡으로 자세한 상담받기
+              </a>
+              <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="btn" style={{ background: '#03C75A', color: '#fff', fontWeight: 'bold', border: 'none', width: '100%', padding: '15px 30px', borderRadius: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+                N 네이버 톡톡으로 자세한 상담받기
+              </a>
+              <button className="btn btn-outline reset-btn" onClick={handleReset} style={{ width: '100%', margin: '0' }}>
+                테스트 다시 하기
               </button>
             </div>
-          </div>
+          </>
         )}
       </div>
     );
