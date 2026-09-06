@@ -142,7 +142,13 @@ const SelfCheckPage = ({ onComplete }) => {
       }
     } catch (error) {
       console.error("Chat error:", error);
-      setMessages(prev => [...prev, { role: 'ai', content: '죄송합니다. 통신 오류가 발생하여 답변을 가져오지 못했습니다. 잠시 후 다시 시도해주세요.' }]);
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + 2);
+      const hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      
+      const errorMsg = `현재 다른 환자분들을 상담하느라 잠시 AI 상담 한도가 다 찼습니다. 약 ${hours}시 ${minutes}분 경에 다시 질문을 남겨주시면 감사하겠습니다.`;
+      setMessages(prev => [...prev, { role: 'ai', content: errorMsg }]);
     } finally {
       setIsChatLoading(false);
     }
