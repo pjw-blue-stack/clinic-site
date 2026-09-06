@@ -786,12 +786,12 @@ export default function AdminPage({ onBack, qnaList }) {
                         <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '알 수 없음'}</td>
                         <td className="actions-cell">
                           {u.email !== 'pjw-blue@hanmail.net' && (
-                            <>
-                              <button className="admin-action-btn edit" style={{ marginBottom: '5px', width: '100%' }} onClick={() => handleToggleAdmin(u)}>
+                            <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
+                              <button className="admin-action-btn edit" onClick={() => handleToggleAdmin(u)}>
                                 {u.role === 'admin' ? '권한 해제' : '권한 부여'}
                               </button>
-                              <button className="admin-action-btn delete" style={{ width: '100%' }} onClick={() => handleDeleteUser(u)}>강제 탈퇴</button>
-                            </>
+                              <button className="admin-action-btn delete" onClick={() => handleDeleteUser(u)}>강제 탈퇴</button>
+                            </div>
                           )}
                         </td>
                       </tr>
