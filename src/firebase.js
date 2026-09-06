@@ -21,8 +21,15 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase App Check (reCAPTCHA Enterprise v3)
 if (typeof window !== "undefined") {
-  // Use debug token in development (localhost) automatically
-  if (window.location.hostname === "localhost") {
+  // Use debug token in development (localhost, local IP, or dev domains) automatically
+  if (
+    window.location.hostname === "localhost" || 
+    window.location.hostname === "127.0.0.1" || 
+    window.location.hostname.includes("dev") || 
+    window.location.hostname.startsWith("192.168.") ||
+    window.location.hostname.startsWith("10.") ||
+    import.meta.env.DEV
+  ) {
     self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
   }
   initializeAppCheck(app, {
