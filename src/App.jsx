@@ -334,7 +334,8 @@ function App() {
       const accessToken = params.get('access_token');
       const state = params.get('state');
 
-      if (accessToken && state === 'naver_login') {
+      if (accessToken && state && state.startsWith('naver_login')) {
+        const returnPath = state.split('|')[1] || '';
         setIsProcessingLogin(true);
         window.history.replaceState(null, null, window.location.pathname + window.location.search);
         
@@ -355,6 +356,7 @@ function App() {
               const { signInWithCustomToken } = await import('firebase/auth');
               await signInWithCustomToken(auth, data.firebaseToken);
               // alert removed
+              if (returnPath) window.location.replace('/' + returnPath);
             } else {
               throw new Error(data.error || 'Unknown error');
             }
@@ -373,7 +375,8 @@ function App() {
     const code = searchParams.get('code');
     const kakaoState = searchParams.get('state');
 
-    if (code && kakaoState === 'kakao_login') {
+    if (code && kakaoState && kakaoState.startsWith('kakao_login')) {
+      const returnPath = kakaoState.split('|')[1] || '';
       setIsProcessingLogin(true);
       window.history.replaceState(null, null, window.location.pathname + window.location.hash);
       
@@ -398,6 +401,7 @@ function App() {
             const { signInWithCustomToken } = await import('firebase/auth');
             await signInWithCustomToken(auth, data.firebaseToken);
             // alert removed
+            if (returnPath) window.location.replace('/' + returnPath);
           } else {
             throw new Error(data.error || 'Unknown error');
           }
@@ -796,7 +800,8 @@ function App() {
         return;
       }
       const redirectUri = encodeURIComponent(window.location.origin);
-      const state = encodeURIComponent('naver_login');
+      const stateParam = 'naver_login|' + window.location.search + window.location.hash;
+      const state = encodeURIComponent(stateParam);
       const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
       window.location.href = naverAuthUrl;
     } else if (platform === '카카오') {
@@ -806,7 +811,8 @@ function App() {
         return;
       }
       const redirectUri = encodeURIComponent(window.location.origin);
-      const state = encodeURIComponent('kakao_login');
+      const stateParam = 'kakao_login|' + window.location.search + window.location.hash;
+      const state = encodeURIComponent(stateParam);
       const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=${state}`;
       window.location.href = kakaoAuthUrl;
     } else {
