@@ -178,3 +178,53 @@ exports.createCustomTokenNaver = functions.https.onRequest((req, res) => {
     }
   });
 });
+
+/**
+ * 사용자 강제 탈퇴 (Firebase Auth에서 삭제)
+ */
+exports.deleteUserAccount = functions.https.onCall(async (data, context) => {
+  // 1. 요청자가 관리자인지 확인 (보안)
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', '인증되지 않은 사용자입니다.');
+  }
+
+  const requesterUid = context.auth.uid;
+  const requesterEmail = context.auth.token.email;
+
+  // 관리자 권한 확인 로직 (최고 관리자 이메일이거나 Firestore role이 admin인지 검사)
+  // 여기서는 Firestore를 직접 조회하거나 이메일 검사를 수행합니다.
+  const adminEmails = ['pjw-blue@hanmail.net'];
+  const db = admin.firestore();
+  
+  let isRequesterAdmin = false;
+  if (adminEmails.includes(requesterEmail)) {
+    isRequesterAdmin = true;
+  } else {
+    const requesterDoc = await db.collection('users').doc(requesterUid).get();
+    if (requesterDoc.exists && requesterDoc.data().role === 'admin') {
+      isRequesterAdmin = true;
+    }
+  }
+
+  if (!isRequesterAdmin) {
+    throw new functions.https.HttpsError('permission-denied', '관리자 권한이 없습니다.');
+  }
+
+  const targetUid = data.uid;
+  if (!targetUid) {
+    throw new functions.https.HttpsError('invalid-argument', '삭제할 사용자의 UID가 필요합니다.');
+  }
+
+  // 2. Firebase Auth에서 해당 유저 삭제
+  try {
+    await admin.auth().deleteUser(targetUid);
+    
+    // (선택) Firestore에서도 지우고 싶다면 여기서 지울 수 있지만, 프론트에서 이미 지우도록 짤 수 있음.
+    // await db.collection('users').doc(targetUid).delete();
+    
+    return { success: true, message: '사용자가 성공적으로 삭제되었습니다.' };
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw new functions.https.HttpsError('internal', '사용자 삭제에 실패했습니다.', error.message);
+  }
+});

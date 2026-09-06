@@ -313,6 +313,7 @@ function App() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const [isAdminPage, setIsAdminPage] = useState(false);
 
@@ -429,7 +430,6 @@ function App() {
     }
   };
 
-  const isAdmin = loggedInUser && ADMIN_EMAILS.includes(auth.currentUser?.email);
   const [selectedDetoxStep, setSelectedDetoxStep] = useState(null);
 
   // Sync state to URL for page refreshes and history
@@ -640,11 +640,25 @@ function App() {
               email: user.email || '',
               name: user.displayName || '회원',
               provider: provider,
+              role: 'user',
               createdAt: new Date().toISOString()
             });
+            if (ADMIN_EMAILS.includes(user.email)) {
+              setIsAdmin(true);
+            } else {
+              setIsAdmin(false);
+            }
           } else {
             // 이전에 가입되어 있었으나 이메일 등이 비어있을 수 있으므로 업데이트
             const data = userSnap.data();
+            
+            // 권한 체크
+            if (ADMIN_EMAILS.includes(user.email) || data.role === 'admin') {
+              setIsAdmin(true);
+            } else {
+              setIsAdmin(false);
+            }
+
             if (user.email && data.email !== user.email) {
               await updateDoc(userRef, { email: user.email, provider: provider });
             }
@@ -654,10 +668,12 @@ function App() {
           }
         } catch (err) {
           console.error("Failed to save user to Firestore:", err);
+          setIsAdmin(false);
         }
 
       } else {
         setLoggedInUser(null);
+        setIsAdmin(false);
       }
     });
     return () => unsubscribe();

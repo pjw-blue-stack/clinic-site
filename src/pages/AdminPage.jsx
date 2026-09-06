@@ -3,7 +3,8 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'f
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import { db } from '../firebase';
+import { db, functions } from '../firebase';
+import { httpsCallable } from 'firebase/functions';
 import { uploadMedia } from '../utils/uploadMedia';
 import './AdminPage.css';
 
@@ -249,6 +250,38 @@ export default function AdminPage({ onBack, qnaList }) {
   const usersList = usersSnapshot?.docs.map(d => ({ firestoreId: d.id, ...d.data() })) || [];
 
   const [answerText, setAnswerText] = useState('');
+
+  // User Management Actions
+  const handleToggleAdmin = async (user) => {
+    const newRole = user.role === 'admin' ? 'user' : 'admin';
+    const confirmMsg = newRole === 'admin' 
+      ? `'${user.name || user.email}'님에게 관리자 권한을 부여하시겠습니까?` 
+      : `'${user.name || user.email}'님의 관리자 권한을 해제하시겠습니까?`;
+    
+    if (window.confirm(confirmMsg)) {
+      try {
+        await updateDoc(doc(db, 'users', user.firestoreId), { role: newRole });
+        alert('권한이 성공적으로 변경되었습니다.');
+      } catch (err) {
+        console.error(err);
+        alert('권한 변경에 실패했습니다: ' + err.message);
+      }
+    }
+  };
+
+  const handleDeleteUser = async (user) => {
+    if (window.confirm(`정말 '${user.name || user.email}' 회원을 강제 탈퇴시키겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) {
+      try {
+        const deleteUserAccount = httpsCallable(functions, 'deleteUserAccount');
+        await deleteUserAccount({ uid: user.uid });
+        await deleteDoc(doc(db, 'users', user.firestoreId));
+        alert('회원이 성공적으로 강제 탈퇴 처리되었습니다.');
+      } catch (err) {
+        console.error(err);
+        alert('강제 탈퇴 처리에 실패했습니다: ' + err.message);
+      }
+    }
+  };
 
   const handleQnaMediaUpload = async (e) => {
     const file = e.target.files[0];
@@ -729,10 +762,12 @@ export default function AdminPage({ onBack, qnaList }) {
                 <table className="admin-table">
                   <thead>
                     <tr>
-                      <th style={{ width: '20%' }}>이름</th>
-                      <th style={{ width: '30%' }}>이메일</th>
-                      <th style={{ width: '20%' }}>가입 방식</th>
-                      <th style={{ width: '30%' }}>가입일</th>
+                      <th style={{ width: '15%' }}>이름</th>
+                      <th style={{ width: '25%' }}>이메일</th>
+                      <th style={{ width: '15%' }}>가입 방식</th>
+                      <th style={{ width: '15%' }}>권한</th>
+                      <th style={{ width: '15%' }}>가입일</th>
+                      <th style={{ width: '15%' }}>관리</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -743,10 +778,25 @@ export default function AdminPage({ onBack, qnaList }) {
                         <td>
                           {u.provider === 'google.com' ? '구글 로그인' : u.provider === 'password' ? '이메일 가입' : u.provider}
                         </td>
-                        <td>{u.createdAt ? new Date(u.createdAt).toLocaleString() : '알 수 없음'}</td>
+                        <td>
+                          {u.role === 'admin' ? (
+                            <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>관리자</span>
+                          ) : '일반 회원'}
+                        </td>
+                        <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '알 수 없음'}</td>
+                        <td className="actions-cell">
+                          {u.email !== 'pjw-blue@hanmail.net' && (
+                            <>
+                              <button className="admin-action-btn edit" style={{ marginBottom: '5px', width: '100%' }} onClick={() => handleToggleAdmin(u)}>
+                                {u.role === 'admin' ? '권한 해제' : '권한 부여'}
+                              </button>
+                              <button className="admin-action-btn delete" style={{ width: '100%' }} onClick={() => handleDeleteUser(u)}>강제 탈퇴</button>
+                            </>
+                          )}
+                        </td>
                       </tr>
                     )) : (
-                      <tr><td colSpan="4" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
+                      <tr><td colSpan="6" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
                     )}
                   </tbody>
                 </table>
