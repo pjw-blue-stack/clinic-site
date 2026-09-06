@@ -370,7 +370,7 @@ function App() {
         
         const returnPath = state.split('|')[1] || '';
         setIsProcessingLogin(true);
-        window.history.replaceState(null, null, window.location.pathname + window.location.search);
+        window.history.replaceState(null, null, '/' + returnPath);
         
         (async () => {
           try {
@@ -389,7 +389,6 @@ function App() {
               const { signInWithCustomToken } = await import('firebase/auth');
               await signInWithCustomToken(auth, data.firebaseToken);
               // alert removed
-              if (returnPath) window.location.replace('/' + returnPath);
             } else {
               throw new Error(data.error || 'Unknown error');
             }
@@ -415,7 +414,7 @@ function App() {
 
       const returnPath = kakaoState.split('|')[1] || '';
       setIsProcessingLogin(true);
-      window.history.replaceState(null, null, window.location.pathname + window.location.hash);
+      window.history.replaceState(null, null, '/' + returnPath);
       
       (async () => {
         try {
@@ -438,7 +437,6 @@ function App() {
             const { signInWithCustomToken } = await import('firebase/auth');
             await signInWithCustomToken(auth, data.firebaseToken);
             // alert removed
-            if (returnPath) window.location.replace('/' + returnPath);
           } else {
             throw new Error(data.error || 'Unknown error');
           }
