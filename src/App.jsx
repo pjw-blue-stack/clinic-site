@@ -619,9 +619,34 @@ function App() {
 
   // Firebase Auth State Listener
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setLoggedInUser(user.displayName || user.email);
+        
+        // Firestore users 컬렉션에 사용자 정보 저장/업데이트
+        try {
+          const { doc, getDoc, setDoc } = await import('firebase/firestore');
+          const userRef = doc(db, 'users', user.uid);
+          const userSnap = await getDoc(userRef);
+          
+          if (!userSnap.exists()) {
+            let provider = user.providerData[0]?.providerId || 'custom';
+            if (user.uid.startsWith('naver:')) provider = 'naver.com';
+            if (user.uid.startsWith('kakao:')) provider = 'kakao.com';
+            if (user.uid.startsWith('google:')) provider = 'google.com';
+
+            await setDoc(userRef, {
+              uid: user.uid,
+              email: user.email || '',
+              name: user.displayName || '회원',
+              provider: provider,
+              createdAt: new Date().toISOString()
+            });
+          }
+        } catch (err) {
+          console.error("Failed to save user to Firestore:", err);
+        }
+
       } else {
         setLoggedInUser(null);
       }
