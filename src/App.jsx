@@ -679,6 +679,14 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // Security: Auto-exit admin page if no longer admin
+  useEffect(() => {
+    if (!isAdmin && isAdminPage) {
+      setIsAdminPage(false);
+      window.history.pushState({}, '', '/');
+    }
+  }, [isAdmin, isAdminPage]);
+
   // Login handler
   const handleSocialLogin = async (platform) => {
     if (platform === '구글') {
