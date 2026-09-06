@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ClinicPage.css';
 import ColumnPage from './ColumnPage';
 import { textContent } from '../textContent';
