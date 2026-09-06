@@ -23,17 +23,25 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
       return res.status(400).json({ error: 'There is no token or code in the request body.' });
     }
 
+    console.log('Kakao token exchange request:', { clientId, redirectUri, code });
+
     try {
       // 1. 코드가 넘어왔다면 먼저 액세스 토큰으로 교환
       if (code) {
-        const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', null, {
-          params: {
+        const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', 
+          new URLSearchParams({
             grant_type: 'authorization_code',
             client_id: clientId,
+            client_secret: 'ww60WOhNQ2eHKMWtdrzRJzPSOdBliW6j',
             redirect_uri: redirectUri,
             code: code
+          }).toString(),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+            }
           }
-        });
+        );
         token = tokenResponse.data.access_token;
       }
 
@@ -46,21 +54,21 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
       const data = kakaoResponse.data;
       
       const uid = `kakao:${data.id}`;
-      const email = data.kakao_account?.email || `${uid}@kakao.com`; // 이메일이 없을 경우 가상 이메일 생성
+      const email = data.kakao_account?.email || `${uid}@kakao.com`;
       const displayName = data.kakao_account?.profile?.nickname || '카카오 사용자';
-      const photoURL = data.kakao_account?.profile?.profile_image_url || '';
+      const userRecord = { email, displayName };
+      if (data.kakao_account?.profile?.profile_image_url) {
+        userRecord.photoURL = data.kakao_account.profile.profile_image_url;
+      }
 
-      // 2. 파이어베이스 사용자 확인 및 생성
+      // 2. 파이어베이스 사용자 확인 및 생성/업데이트
       try {
-        await admin.auth().getUser(uid);
+        await admin.auth().updateUser(uid, userRecord);
       } catch (error) {
         if (error.code === 'auth/user-not-found') {
-          // 사용자가 없으면 새로 생성
           await admin.auth().createUser({
             uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
+            ...userRecord
           });
         } else {
           throw error;
@@ -102,20 +110,22 @@ exports.createCustomTokenNaver = functions.https.onRequest((req, res) => {
       const data = naverResponse.data.response;
       
       const uid = `naver:${data.id}`;
-      const email = data.email || `${uid}@naver.com`;
-      const displayName = data.name || data.nickname || '네이버 사용자';
-      const photoURL = data.profile_image || '';
+      const userRecord = {
+        email: data.email || `${uid}@naver.com`,
+        displayName: data.name || data.nickname || '네이버 사용자',
+      };
+      if (data.profile_image) {
+        userRecord.photoURL = data.profile_image;
+      }
 
-      // 2. 파이어베이스 사용자 확인 및 생성
+      // 2. 파이어베이스 사용자 확인 및 생성/업데이트
       try {
-        await admin.auth().getUser(uid);
+        await admin.auth().updateUser(uid, userRecord);
       } catch (error) {
         if (error.code === 'auth/user-not-found') {
           await admin.auth().createUser({
             uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
+            ...userRecord
           });
         } else {
           throw error;

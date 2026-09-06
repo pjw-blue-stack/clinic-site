@@ -353,7 +353,7 @@ function App() {
             }
           } catch (err) {
             console.error('Naver login failed:', err);
-            alert('네이버 로그인 처리 중 오류가 발생했습니다.');
+            alert(`네이버 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
           }
         })();
       }
@@ -393,7 +393,7 @@ function App() {
           }
         } catch (err) {
           console.error('Kakao login failed:', err);
-          alert('카카오 로그인 처리 중 오류가 발생했습니다.');
+          alert(`카카오 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
         }
       })();
     }
