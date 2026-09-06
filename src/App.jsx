@@ -625,16 +625,16 @@ function App() {
         
         // Firestore users 컬렉션에 사용자 정보 저장/업데이트
         try {
-          const { doc, getDoc, setDoc } = await import('firebase/firestore');
+          const { doc, getDoc, setDoc, updateDoc } = await import('firebase/firestore');
           const userRef = doc(db, 'users', user.uid);
           const userSnap = await getDoc(userRef);
           
-          if (!userSnap.exists()) {
-            let provider = user.providerData[0]?.providerId || 'custom';
-            if (user.uid.startsWith('naver:')) provider = 'naver.com';
-            if (user.uid.startsWith('kakao:')) provider = 'kakao.com';
-            if (user.uid.startsWith('google:')) provider = 'google.com';
+          let provider = user.providerData[0]?.providerId || 'custom';
+          if (user.uid.startsWith('naver:')) provider = 'naver.com';
+          if (user.uid.startsWith('kakao:')) provider = 'kakao.com';
+          if (user.uid.startsWith('google:')) provider = 'google.com';
 
+          if (!userSnap.exists()) {
             await setDoc(userRef, {
               uid: user.uid,
               email: user.email || '',
@@ -642,6 +642,15 @@ function App() {
               provider: provider,
               createdAt: new Date().toISOString()
             });
+          } else {
+            // 이전에 가입되어 있었으나 이메일 등이 비어있을 수 있으므로 업데이트
+            const data = userSnap.data();
+            if (user.email && data.email !== user.email) {
+              await updateDoc(userRef, { email: user.email, provider: provider });
+            }
+            if (user.displayName && data.name !== user.displayName) {
+              await updateDoc(userRef, { name: user.displayName });
+            }
           }
         } catch (err) {
           console.error("Failed to save user to Firestore:", err);
