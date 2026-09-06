@@ -22,6 +22,13 @@ function ClinicPage({
   setShowLoginModal
 }) {
   const { clinicNotice, clinicGreeting, clinicHerb, clinicSchedule, clinicLocation } = textContent;
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (e) => {
+    if (e.target.tagName === 'IMG') {
+      setSelectedImage(e.target.src);
+    }
+  };
 
   return (
     <div className="clinic-page-wrapper">
@@ -184,7 +191,7 @@ function ClinicPage({
                     </div>
                     <h4 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--primary-dark)', margin: 0 }}>{item.mode}</h4>
                   </div>
-                  <div style={{ paddingLeft: '4px' }}>
+                  <div style={{ paddingLeft: '4px' }} onClick={handleImageClick}>
                     {Array.isArray(item.detail) ? (
                       item.detail.map((line, lIdx) => (
                         <p key={lIdx} dangerouslySetInnerHTML={{ __html: line }} style={{ margin: '8px 0', fontSize: '0.95rem', color: '#555', lineHeight: '1.6' }} />
@@ -287,6 +294,52 @@ function ClinicPage({
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.85)',
+            zIndex: 9999,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '20px',
+            cursor: 'zoom-out'
+          }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <img 
+            src={selectedImage} 
+            alt="확대된 이미지" 
+            style={{ 
+              maxWidth: '100%', 
+              maxHeight: '100%', 
+              borderRadius: '8px',
+              objectFit: 'contain',
+              boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
+            }} 
+          />
+          <button 
+            style={{ 
+              position: 'absolute', 
+              top: '20px', 
+              right: '30px', 
+              background: 'transparent', 
+              border: 'none', 
+              color: '#fff', 
+              fontSize: '3rem', 
+              cursor: 'pointer',
+              lineHeight: 1
+            }}
+            onClick={() => setSelectedImage(null)}
+          >
+            &times;
+          </button>
+        </div>
+      )}
     </div>
   );
 }
