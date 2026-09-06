@@ -239,7 +239,7 @@ const SelfCheckPage = ({ onComplete }) => {
               <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action">
                 N 네이버 톡톡으로 자세한 상담받기
               </a>
-              <a href="/#qna" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
+              <a href="/?page=clinic" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
                 📝 홈페이지 Q&A 게시판에 문의하기
               </a>
               <button className="chat-action-btn btn-reset-action" onClick={handleReset}>
