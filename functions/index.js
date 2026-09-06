@@ -62,14 +62,24 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
       }
 
       // 2. 파이어베이스 사용자 확인 및 생성/업데이트
+      const saveUser = async (record) => {
+        try {
+          await admin.auth().updateUser(uid, record);
+        } catch (error) {
+          if (error.code === 'auth/user-not-found') {
+            await admin.auth().createUser({ uid: uid, ...record });
+          } else {
+            throw error;
+          }
+        }
+      };
+
       try {
-        await admin.auth().updateUser(uid, userRecord);
+        await saveUser(userRecord);
       } catch (error) {
-        if (error.code === 'auth/user-not-found') {
-          await admin.auth().createUser({
-            uid: uid,
-            ...userRecord
-          });
+        if (error.code === 'auth/email-already-exists' || error.code === 'auth/invalid-email') {
+          delete userRecord.email;
+          await saveUser(userRecord);
         } else {
           throw error;
         }
@@ -119,14 +129,24 @@ exports.createCustomTokenNaver = functions.https.onRequest((req, res) => {
       }
 
       // 2. 파이어베이스 사용자 확인 및 생성/업데이트
+      const saveUser = async (record) => {
+        try {
+          await admin.auth().updateUser(uid, record);
+        } catch (error) {
+          if (error.code === 'auth/user-not-found') {
+            await admin.auth().createUser({ uid: uid, ...record });
+          } else {
+            throw error;
+          }
+        }
+      };
+
       try {
-        await admin.auth().updateUser(uid, userRecord);
+        await saveUser(userRecord);
       } catch (error) {
-        if (error.code === 'auth/user-not-found') {
-          await admin.auth().createUser({
-            uid: uid,
-            ...userRecord
-          });
+        if (error.code === 'auth/email-already-exists' || error.code === 'auth/invalid-email') {
+          delete userRecord.email;
+          await saveUser(userRecord);
         } else {
           throw error;
         }
