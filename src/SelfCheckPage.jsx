@@ -74,7 +74,7 @@ const SelfCheckPage = ({ onComplete }) => {
     setShowChat(true);
     const initialMessage = {
       role: 'ai',
-      content: `안녕하세요 환자분, 정원한의원 박제욱 원장입니다. 자가진단 결과 다한증 상태가 [${riskCategory}] 단계로 의심되며, ${durationStr}가 권장됩니다. 결과에 대해 더 궁금한 점이 있으시다면 편하게 질문해주세요.`
+      content: `안녕하세요 환자분, 경희 정원 AI 상담입니다. 자가진단 결과 다한증 상태가 [${riskCategory}] 단계로 의심되며, ${durationStr}가 권장됩니다. 결과에 대해 더 궁금한 점이 있으시다면 편하게 질문해주세요.`
     };
     setMessages([initialMessage]);
 
@@ -175,11 +175,11 @@ const SelfCheckPage = ({ onComplete }) => {
           <>
             <p className="cta-text" style={{ marginTop: '30px' }}>
               결과에 대해 궁금한 점이 있으신가요?<br/>
-              <strong>박제욱 원장 AI</strong>에게 무료로 상담 받아보세요!
+              <strong>경희 정원 AI</strong>에게 무료로 상담 받아보세요!
             </p>
             
             <button className="btn btn-accent" style={{ display: 'block', width: '100%', marginBottom: '15px', background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', border: 'none', color: '#ffffff', fontWeight: 'bold' }} onClick={() => startChat(desc, risk, duration)}>
-              🩺 AI 원장님과 실시간 채팅 상담하기
+              🩺 실시간 AI 상담 시작하기
             </button>
             <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
               💬 내 예상 비용 카톡으로 안내받기
@@ -193,7 +193,7 @@ const SelfCheckPage = ({ onComplete }) => {
             <div className="chat-container">
               <div className="chat-header">
                 <span style={{ fontSize: '1.5rem' }}>🩺</span>
-                <h3>박제욱 원장 AI 상담</h3>
+                <h3>경희 정원 AI 상담</h3>
               </div>
               <div className="chat-messages" ref={chatContainerRef}>
                 {messages.map((m, idx) => (

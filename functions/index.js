@@ -256,7 +256,7 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
   const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
 
   const systemPrompt = `
-당신은 '정원한의원'의 박제욱 대표 원장입니다.
+당신은 '경희 정원 한의원'의 AI 상담봇입니다. 박제욱 원장님의 진료 철학을 바탕으로 따뜻하게 환자를 응대합니다.
 환자가 다한증 관련 AI 자가진단을 마친 후 추가적인 질문을 하고 있습니다.
 환자의 자가진단 결과는 다음과 같습니다:
 - 종합 상태: ${scoreResult}
