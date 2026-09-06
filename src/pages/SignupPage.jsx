@@ -10,12 +10,13 @@ export default function SignupPage({ setPage }) {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreePrivacy, setAgreePrivacy] = useState(false);
   const [policyType, setPolicyType] = useState(null); // 'terms' | 'privacy' | null
 
-  const saveUserToFirestore = async (user, displayName) => {
+  const saveUserToFirestore = async (user, displayName, phoneNumber = '') => {
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
@@ -23,6 +24,7 @@ export default function SignupPage({ setPage }) {
         uid: user.uid,
         email: user.email,
         name: displayName,
+        phone: phoneNumber,
         provider: user.providerData[0]?.providerId || 'email',
         createdAt: new Date().toISOString()
       });
@@ -45,7 +47,7 @@ export default function SignupPage({ setPage }) {
       const user = userCredential.user;
       await updateProfile(user, { displayName: name });
       try {
-        await saveUserToFirestore(user, name);
+        await saveUserToFirestore(user, name, phone);
       } catch (fsError) {
         console.warn('Firestore 저장 실패 (권한 문제일 수 있습니다):', fsError);
       }
@@ -117,6 +119,10 @@ export default function SignupPage({ setPage }) {
           <div className="form-group">
             <label>이메일 (아이디)</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="아이디로 쓰일 이메일을 입력하세요" />
+          </div>
+          <div className="form-group">
+            <label>연락처</label>
+            <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="010-0000-0000" />
           </div>
           <div className="form-group">
             <label>비밀번호</label>

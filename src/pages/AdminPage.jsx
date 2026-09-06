@@ -776,11 +776,12 @@ export default function AdminPage({ onBack, qnaList }) {
                   <thead>
                     <tr>
                       <th style={{ width: '15%' }}>이름</th>
-                      <th style={{ width: '25%' }}>이메일</th>
+                      <th style={{ width: '20%' }}>이메일</th>
+                      <th style={{ width: '15%' }}>연락처</th>
                       <th style={{ width: '15%' }}>가입 방식</th>
-                      <th style={{ width: '15%' }}>권한</th>
+                      <th style={{ width: '10%' }}>권한</th>
                       <th style={{ width: '15%' }}>가입일</th>
-                      <th style={{ width: '15%' }}>관리</th>
+                      <th style={{ width: '10%' }}>관리</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -788,6 +789,7 @@ export default function AdminPage({ onBack, qnaList }) {
                       <tr key={u.firestoreId}>
                         <td style={{ fontWeight: 'bold' }}>{u.name || '미입력'}</td>
                         <td>{u.email}</td>
+                        <td>{u.phone || '-'}</td>
                         <td>
                           {u.provider === 'google.com' ? '구글 로그인' : u.provider === 'password' ? '이메일 가입' : u.provider}
                         </td>
@@ -809,7 +811,7 @@ export default function AdminPage({ onBack, qnaList }) {
                         </td>
                       </tr>
                     )) : (
-                      <tr><td colSpan="6" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
+                      <tr><td colSpan="7" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
                     )}
                   </tbody>
                 </table>
