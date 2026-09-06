@@ -154,7 +154,7 @@ const SelfCheckPage = ({ onComplete }) => {
               <strong>박제욱 원장 AI</strong>에게 무료로 상담 받아보세요!
             </p>
             
-            <button className="btn btn-accent" style={{ display: 'block', width: '100%', marginBottom: '15px', background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', border: 'none' }} onClick={() => startChat(desc, risk, duration)}>
+            <button className="btn btn-accent" style={{ display: 'block', width: '100%', marginBottom: '15px', background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', border: 'none', color: '#ffffff', fontWeight: 'bold' }} onClick={() => startChat(desc, risk, duration)}>
               🩺 AI 원장님과 실시간 채팅 상담하기
             </button>
             <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
