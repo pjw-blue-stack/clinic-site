@@ -14,13 +14,16 @@ const SelfCheckPage = ({ onComplete }) => {
   const [chatInput, setChatInput] = useState('');
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [consultationId, setConsultationId] = useState(() => sessionStorage.getItem('selfCheckConsultId') || null);
-  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
-  }, [messages]);
+  }, [messages, isChatLoading]);
 
   useEffect(() => {
     sessionStorage.setItem('selfCheckStep', step);
@@ -192,7 +195,7 @@ const SelfCheckPage = ({ onComplete }) => {
                 <span style={{ fontSize: '1.5rem' }}>🩺</span>
                 <h3>박제욱 원장 AI 상담</h3>
               </div>
-              <div className="chat-messages">
+              <div className="chat-messages" ref={chatContainerRef}>
                 {messages.map((m, idx) => (
                   <div key={idx} className={`chat-message ${m.role}`}>
                     {m.content}
@@ -207,7 +210,6 @@ const SelfCheckPage = ({ onComplete }) => {
                     </div>
                   </div>
                 )}
-                <div ref={chatEndRef}></div>
               </div>
               <div className="chat-input-area">
                 <input 
