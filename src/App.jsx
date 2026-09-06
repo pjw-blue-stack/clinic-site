@@ -288,11 +288,17 @@ function App() {
       specId = 'du-myeon';
     }
     
+    const savedScrollY = sessionStorage.getItem('restoreScrollY');
+    
     if (specId) {
       const specialty = specialties.find(s => s.id === specId);
       if (specialty) {
         setSelectedSpecialty(specialty);
-        window.scrollTo(0, 0);
+        if (savedScrollY) {
+          setTimeout(() => { window.scrollTo(0, parseInt(savedScrollY)); sessionStorage.removeItem('restoreScrollY'); }, 50);
+        } else {
+          window.scrollTo(0, 0);
+        }
       }
     } else if (pageId) {
       if (pageId === 'column') setIsColumnPage(true);
@@ -302,7 +308,12 @@ function App() {
       else if (pageId === 'selfcheck') { setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true); }
       else if (pageId === 'signup') { setIsSignupPage(true); }
       else if (pageId === 'mypage') { setIsMyPage(true); }
-      window.scrollTo(0, 0);
+      
+      if (savedScrollY) {
+        setTimeout(() => { window.scrollTo(0, parseInt(savedScrollY)); sessionStorage.removeItem('restoreScrollY'); }, 50);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
   }, []);
 
@@ -822,6 +833,7 @@ function App() {
         alert('네이버 로그인이 설정되지 않았습니다.');
         return;
       }
+      sessionStorage.setItem('restoreScrollY', window.scrollY);
       const redirectUri = encodeURIComponent(window.location.origin);
       const stateParam = 'naver_login|' + window.location.search + window.location.hash;
       const state = encodeURIComponent(stateParam);
@@ -833,6 +845,7 @@ function App() {
         alert('카카오 로그인이 설정되지 않았습니다.');
         return;
       }
+      sessionStorage.setItem('restoreScrollY', window.scrollY);
       const redirectUri = encodeURIComponent(window.location.origin);
       const stateParam = 'kakao_login|' + window.location.search + window.location.hash;
       const state = encodeURIComponent(stateParam);
