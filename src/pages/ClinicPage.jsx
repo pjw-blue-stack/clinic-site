@@ -17,7 +17,9 @@ function ClinicPage({
   setBookingForm, 
   bookingForm,
   setShowQnaModal,
-  setNewQna
+  setNewQna,
+  loggedInUser,
+  setShowLoginModal
 }) {
   const { clinicNotice, clinicGreeting, clinicHerb, clinicSchedule, clinicLocation } = textContent;
 
@@ -231,6 +233,11 @@ function ClinicPage({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h3 className="inquiry-board-title">상담 및 문의 게시판</h3>
                 <button className="btn btn-outline" style={{ fontSize: '0.9rem', padding: '6px 16px' }} onClick={() => {
+                  if (!loggedInUser) {
+                    alert('로그인이 필요한 서비스입니다. 먼저 로그인 또는 회원가입을 진행해주세요.');
+                    setShowLoginModal(true);
+                    return;
+                  }
                   setNewQna({ category: 'all', title: '', question: '', isSecret: false });
                   setShowQnaModal(true);
                 }}>글쓰기</button>

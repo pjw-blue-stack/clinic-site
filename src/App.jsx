@@ -1239,6 +1239,8 @@ function App() {
             bookingForm={bookingForm}
             setShowQnaModal={setShowQnaModal}
             setNewQna={setNewQna}
+            loggedInUser={loggedInUser}
+            setShowLoginModal={setShowLoginModal}
           />
         ) : isSelfCheckPage ? (
           <div className="self-check-page-wrapper" style={{ paddingTop: '100px', backgroundColor: '#f0f4f8' }}>
