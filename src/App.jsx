@@ -17,6 +17,8 @@ import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
 import PolicyModal from './components/PolicyModal';
 
+let isOAuthProcessingGlobal = false;
+
 const ADMIN_EMAILS = ['pjw-blue@hanmail.net'];
 // 구글폼 사전 설문지 URL (노쇼 방지용)
 const PRE_CONSULTATION_FORM_URL = "https://forms.gle/zFfy9MMUtm9tCZ9Z7";
@@ -352,6 +354,9 @@ function App() {
       const state = params.get('state');
 
       if (accessToken && state && state.startsWith('naver_login')) {
+        if (isOAuthProcessingGlobal) return;
+        isOAuthProcessingGlobal = true;
+        
         const returnPath = state.split('|')[1] || '';
         setIsProcessingLogin(true);
         window.history.replaceState(null, null, window.location.pathname + window.location.search);
@@ -382,6 +387,7 @@ function App() {
             alert(`네이버 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
           } finally {
             setIsProcessingLogin(false);
+            isOAuthProcessingGlobal = false;
           }
         })();
       }
@@ -393,6 +399,9 @@ function App() {
     const kakaoState = searchParams.get('state');
 
     if (code && kakaoState && kakaoState.startsWith('kakao_login')) {
+      if (isOAuthProcessingGlobal) return;
+      isOAuthProcessingGlobal = true;
+
       const returnPath = kakaoState.split('|')[1] || '';
       setIsProcessingLogin(true);
       window.history.replaceState(null, null, window.location.pathname + window.location.hash);
@@ -427,6 +436,7 @@ function App() {
           alert(`카카오 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
         } finally {
           setIsProcessingLogin(false);
+          isOAuthProcessingGlobal = false;
         }
       })();
     }
