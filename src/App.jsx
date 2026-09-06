@@ -1045,21 +1045,21 @@ function App() {
 
           <div className="header-actions">
             {loggedInUser ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{loggedInUser}</span>
-                {isAdmin && !isAdminPage && (
-                  <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem', borderColor: 'var(--primary-color)', color: 'var(--primary-color)' }} onClick={handleOpenAdmin}>
-                    관리자 페이지
-                  </button>
-                )}
-                {!isAdmin && (
-                  <button className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={() => setIsMyPage(true)}>
-                    마이페이지
-                  </button>
-                )}
-                <button className="btn btn-outline" style={{ padding: '6px 12px', fontSize: '0.8rem' }} onClick={handleLogout}>
-                  로그아웃
-                </button>
+              <div className="user-menu-container">
+                <div className="user-menu-trigger">
+                  <span style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-main)' }}>
+                    {loggedInUser}님 ▾
+                  </span>
+                </div>
+                <div className="user-menu-dropdown">
+                  {isAdmin && !isAdminPage && (
+                    <button className="user-menu-item" onClick={handleOpenAdmin}>관리자 페이지</button>
+                  )}
+                  {!isAdmin && (
+                    <button className="user-menu-item" onClick={() => setIsMyPage(true)}>마이페이지</button>
+                  )}
+                  <button className="user-menu-item" onClick={handleLogout}>로그아웃</button>
+                </div>
               </div>
             ) : (
               <button className="btn btn-outline" onClick={() => setShowLoginModal(true)}>

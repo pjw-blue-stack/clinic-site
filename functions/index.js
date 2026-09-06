@@ -52,9 +52,10 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
         }
       });
       const data = kakaoResponse.data;
+      console.log('Kakao user data:', JSON.stringify(data));
       
       const uid = `kakao:${data.id}`;
-      const email = data.kakao_account?.email || `${uid}@kakao.com`;
+      const email = data.kakao_account?.email || `${data.id}@kakao.com`;
       const displayName = data.kakao_account?.profile?.nickname || '카카오 사용자';
       const userRecord = { email, displayName };
       if (data.kakao_account?.profile?.profile_image_url) {
@@ -125,10 +126,11 @@ exports.createCustomTokenNaver = functions.https.onRequest((req, res) => {
         }
       });
       const data = naverResponse.data.response;
+      console.log('Naver user data:', JSON.stringify(data));
       
       const uid = `naver:${data.id}`;
       const userRecord = {
-        email: data.email || `${uid}@naver.com`,
+        email: data.email || `${data.id}@naver.com`,
         displayName: data.name || data.nickname || '네이버 사용자',
       };
       if (data.profile_image) {
