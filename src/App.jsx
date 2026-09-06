@@ -346,6 +346,7 @@ function App() {
   const [loginPassword, setLoginPassword] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
   const [isAdminPage, setIsAdminPage] = useState(false);
 
@@ -726,17 +727,18 @@ function App() {
         setLoggedInUser(null);
         setIsAdmin(false);
       }
+      setIsAuthLoading(false);
     });
     return () => unsubscribe();
   }, []);
 
   // Security: Auto-exit admin page if no longer admin
   useEffect(() => {
-    if (!isAdmin && isAdminPage) {
+    if (!isAuthLoading && !isAdmin && isAdminPage) {
       setIsAdminPage(false);
       window.history.pushState({}, '', '/');
     }
-  }, [isAdmin, isAdminPage]);
+  }, [isAdmin, isAdminPage, isAuthLoading]);
 
   // Login handler
   const handleSocialLogin = async (platform) => {
