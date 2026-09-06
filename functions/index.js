@@ -228,3 +228,77 @@ exports.deleteUserAccount = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('internal', '사용자 삭제에 실패했습니다.', error.message);
   }
 });
+
+/**
+ * Gemini AI 상담 챗봇 기능
+ */
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+exports.chatWithGemini = functions.https.onCall(async (data, context) => {
+  // 인증 여부는 선택 (비로그인도 진단 가능하게 하려면 주석 유지)
+  // if (!context.auth) {
+  //   throw new functions.https.HttpsError('unauthenticated', '로그인이 필요합니다.');
+  // }
+
+  const { messages, scoreResult, specialty } = data;
+  if (!messages || !Array.isArray(messages)) {
+    throw new functions.https.HttpsError('invalid-argument', '메시지 배열이 올바르지 않습니다.');
+  }
+
+  const apiKey = process.env.GEMINI_API_KEY || functions.config().gemini?.apikey;
+  if (!apiKey) {
+    throw new functions.https.HttpsError('failed-precondition', 'Gemini API Key가 설정되지 않았습니다.');
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+  
+  // Use gemini-1.5-flash as it's the recommended fast/cheap model
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  const systemPrompt = `
+당신은 '정원한의원'의 박제욱 대표 원장입니다.
+환자가 다한증 관련 AI 자가진단을 마친 후 추가적인 질문을 하고 있습니다.
+환자의 자가진단 결과는 다음과 같습니다:
+- 종합 상태: ${scoreResult}
+- 주요 증상 부위: ${specialty}
+
+지침:
+1. 항상 따뜻하고 전문적인 말투('~습니다', '~해요', '~다')를 사용하세요.
+2. 수술(교감신경절제술 등)을 권유하지 마시고, 정원한의원의 '비우고 채우는' 한방 해독 치료(정원해독)를 통해 근본적인 자율신경계 회복이 가능하다고 안내하세요.
+3. 다른 병원 이름이나 양방 치료법은 구체적으로 언급하지 마세요.
+4. 환자의 증상에 공감해주고, 정확한 진단을 위해서는 내원이 필요함을 부드럽게 안내하세요.
+5. 답변은 너무 길지 않게 핵심만 2~4문장으로 답변해주세요.
+`;
+
+  try {
+    // Convert generic messages [{role: 'user', content: '...'}, {role: 'model', content: '...'}] 
+    // to Gemini's format: [{role: 'user', parts: [{text: '...'}]}, {role: 'model', parts: [{text: '...'}]}]
+    const history = messages.slice(0, -1).map(m => ({
+      role: m.role === 'ai' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+    
+    // Add system instruction as the very first message internally if history allows, or just prepend to the prompt.
+    // Gemini JS SDK supports systemInstruction field for gemini-1.5 models.
+    const modelWithInstruction = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: systemPrompt
+    });
+
+    const chat = modelWithInstruction.startChat({
+      history: history
+    });
+
+    const userMessage = messages[messages.length - 1].content;
+    const result = await chat.sendMessage(userMessage);
+    const response = await result.response;
+    const text = response.text();
+
+    return { reply: text };
+
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    throw new functions.https.HttpsError('internal', 'AI 상담 처리 중 오류가 발생했습니다.', error.message);
+  }
+});
+

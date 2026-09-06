@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { db, functions } from './firebase';
+import { collection, addDoc, updateDoc, doc, serverTimestamp, arrayUnion } from 'firebase/firestore';
+import { httpsCallable } from 'firebase/functions';
 import './SelfCheckPage.css';
 
 const SelfCheckPage = ({ onComplete }) => {
   const [step, setStep] = useState('intro'); // intro, q0, q1, q2, loading, result
   const [score, setScore] = useState(0);
+
+  // AI Chat States
+  const [showChat, setShowChat] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [chatInput, setChatInput] = useState('');
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  const [consultationId, setConsultationId] = useState(null);
+  const chatEndRef = useRef(null);
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const questions = [
     { q: "땀이 주로 언제 많이 나나요?", options: [{ text: "긴장할 때나 덥지 않아도 수시로", score: 2 }, { text: "운동하거나 더울 때만", score: 0 }] },
@@ -27,6 +44,74 @@ const SelfCheckPage = ({ onComplete }) => {
         setStep('result');
       }, 2000); // 2 second loading for dramatic effect
     }
+  };
+
+  const startChat = async (riskDesc, riskCategory, durationStr) => {
+    setShowChat(true);
+    const initialMessage = {
+      role: 'ai',
+      content: `안녕하세요 환자분, 정원한의원 박제욱 원장입니다. 자가진단 결과 다한증 상태가 [${riskCategory}] 단계로 의심되며, ${durationStr}가 권장됩니다. 결과에 대해 더 궁금한 점이 있으시다면 편하게 질문해주세요.`
+    };
+    setMessages([initialMessage]);
+
+    try {
+      const docRef = await addDoc(collection(db, 'ai_consultations'), {
+        score: score,
+        risk: riskCategory,
+        resultDesc: riskDesc,
+        createdAt: serverTimestamp(),
+        messages: [initialMessage]
+      });
+      setConsultationId(docRef.id);
+    } catch (e) {
+      console.error("Error creating consultation doc:", e);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!chatInput.trim() || isChatLoading) return;
+    
+    const userMsg = chatInput.trim();
+    setChatInput('');
+    setIsChatLoading(true);
+
+    const newMessages = [...messages, { role: 'user', content: userMsg }];
+    setMessages(newMessages);
+
+    if (consultationId) {
+      await updateDoc(doc(db, 'ai_consultations', consultationId), {
+        messages: arrayUnion({ role: 'user', content: userMsg }),
+        lastUpdatedAt: serverTimestamp()
+      });
+    }
+
+    try {
+      const chatWithGemini = httpsCallable(functions, 'chatWithGemini');
+      const response = await chatWithGemini({
+        messages: newMessages,
+        scoreResult: score,
+        specialty: '다한증 전신' // 기본값, 실제로는 특화 부위를 넣으면 더 좋습니다.
+      });
+
+      const aiMsg = response.data.reply;
+      setMessages(prev => [...prev, { role: 'ai', content: aiMsg }]);
+
+      if (consultationId) {
+        await updateDoc(doc(db, 'ai_consultations', consultationId), {
+          messages: arrayUnion({ role: 'ai', content: aiMsg }),
+          lastUpdatedAt: serverTimestamp()
+        });
+      }
+    } catch (error) {
+      console.error("Chat error:", error);
+      setMessages(prev => [...prev, { role: 'ai', content: '죄송합니다. 통신 오류가 발생하여 답변을 가져오지 못했습니다. 잠시 후 다시 시도해주세요.' }]);
+    } finally {
+      setIsChatLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') handleSendMessage();
   };
 
   const renderResult = () => {
@@ -62,17 +147,62 @@ const SelfCheckPage = ({ onComplete }) => {
           <h3>{duration}</h3>
         </div>
         
-        <p className="cta-text">
-          단순히 땀샘을 막는 것이 아닌, <strong>'비우고 채우는' 정원해독 요법</strong>으로 근본적인 자율신경계 회복이 필요합니다.<br/>
-          지금 바로 카톡으로 정확한 내 맞춤 비용을 안내받아보세요.
-        </p>
-        
-        <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
-          💬 내 예상 비용 카톡으로 안내받기
-        </a>
-        <button className="btn btn-outline reset-btn" onClick={() => setStep('intro')}>
-          테스트 다시 하기
-        </button>
+        {!showChat ? (
+          <>
+            <p className="cta-text" style={{ marginTop: '30px' }}>
+              결과에 대해 궁금한 점이 있으신가요?<br/>
+              <strong>박제욱 원장 AI</strong>에게 무료로 상담 받아보세요!
+            </p>
+            
+            <button className="btn btn-accent" style={{ display: 'block', width: '100%', marginBottom: '15px', background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', border: 'none' }} onClick={() => startChat(desc, risk, duration)}>
+              🩺 AI 원장님과 실시간 채팅 상담하기
+            </button>
+            <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
+              💬 내 예상 비용 카톡으로 안내받기
+            </a>
+            <button className="btn btn-outline reset-btn" onClick={() => setStep('intro')}>
+              테스트 다시 하기
+            </button>
+          </>
+        ) : (
+          <div className="chat-container">
+            <div className="chat-header">
+              <span style={{ fontSize: '1.5rem' }}>🩺</span>
+              <h3>박제욱 원장 AI 상담</h3>
+            </div>
+            <div className="chat-messages">
+              {messages.map((m, idx) => (
+                <div key={idx} className={`chat-message ${m.role}`}>
+                  {m.content}
+                </div>
+              ))}
+              {isChatLoading && (
+                <div className="chat-message ai">
+                  <div className="chat-typing-indicator">
+                    <div className="chat-typing-dot"></div>
+                    <div className="chat-typing-dot"></div>
+                    <div className="chat-typing-dot"></div>
+                  </div>
+                </div>
+              )}
+              <div ref={chatEndRef}></div>
+            </div>
+            <div className="chat-input-area">
+              <input 
+                type="text" 
+                className="chat-input"
+                placeholder="궁금한 점을 자유롭게 물어보세요..." 
+                value={chatInput} 
+                onChange={e => setChatInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                disabled={isChatLoading}
+              />
+              <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim()}>
+                전송
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   };

@@ -75,6 +75,12 @@ export default function AdminPage({ onBack, qnaList }) {
   const [columnsSnapshot] = useCollection(columnsQuery);
   const columns = columnsSnapshot?.docs.map(d => ({ firestoreId: d.id, ...d.data() })) || [];
 
+  // AI Consultations state
+  const aiConsultationsRef = collection(db, 'ai_consultations');
+  const aiConsultationsQuery = query(aiConsultationsRef, orderBy('createdAt', 'desc'));
+  const [aiConsultationsSnapshot] = useCollection(aiConsultationsQuery);
+  const aiConsultations = aiConsultationsSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
+
   // Notice Form State
   const initialNotice = { tag: '[공지]', title: '', content: '', thumbnailUrl: '' };
   const [noticeForm, setNoticeForm] = useState(initialNotice);
@@ -375,6 +381,13 @@ export default function AdminPage({ onBack, qnaList }) {
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'users' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'users' ? 'bold' : 'normal', color: activeTab === 'users' ? 'var(--primary-dark)' : '#555' }}
             >
               회원 관리
+            </li>
+            <li 
+              className={activeTab === 'ai' ? 'active' : ''} 
+              onClick={() => { setActiveTab('ai'); window.history.pushState({}, '', '#admin-tab-ai'); }}
+              style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'ai' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'ai' ? 'bold' : 'normal', color: activeTab === 'ai' ? 'var(--primary-dark)' : '#555' }}
+            >
+              AI 상담 내역
             </li>
             <li 
               className={activeTab === 'settings' ? 'active' : ''} 
@@ -800,6 +813,51 @@ export default function AdminPage({ onBack, qnaList }) {
                     )}
                   </tbody>
                 </table>
+              </div>
+            </section>
+          )}
+
+          {/* ======================= AI CONSULTATIONS ======================= */}
+          {activeTab === 'ai' && (
+            <section className="admin-section" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div className="admin-tab-header" style={{ marginBottom: '20px' }}>
+                <h3 style={{ fontSize: '1.5rem', margin: 0 }}>AI 자가진단 상담 내역 ({aiConsultations.length}건)</h3>
+                <p style={{ color: '#666', fontSize: '0.95rem', margin: '10px 0 0 0' }}>환자들이 자가진단 후 AI와 나눈 대화 기록입니다.</p>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {aiConsultations.length > 0 ? aiConsultations.map(consult => (
+                  <div key={consult.id} style={{ border: '1px solid #eee', borderRadius: '8px', padding: '20px', backgroundColor: '#fafafa' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
+                      <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--primary-dark)' }}>
+                        위험도: {consult.risk} 단계 (점수: {consult.score})
+                      </span>
+                      <span style={{ color: '#888', fontSize: '0.9rem' }}>
+                        {consult.createdAt?.toDate ? consult.createdAt.toDate().toLocaleString() : ''}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {consult.messages && consult.messages.map((m, idx) => (
+                        <div key={idx} style={{ 
+                          padding: '10px 15px', 
+                          borderRadius: '8px', 
+                          backgroundColor: m.role === 'ai' ? '#e1f5fe' : '#f0f0f0',
+                          alignSelf: m.role === 'ai' ? 'flex-start' : 'flex-end',
+                          maxWidth: '80%',
+                          border: m.role === 'ai' ? '1px solid #b3e5fc' : '1px solid #e0e0e0'
+                        }}>
+                          <strong style={{ display: 'block', fontSize: '0.8rem', color: m.role === 'ai' ? '#0277bd' : '#666', marginBottom: '5px' }}>
+                            {m.role === 'ai' ? '🩺 AI 원장' : '👤 환자'}
+                          </strong>
+                          <span style={{ fontSize: '0.95rem', lineHeight: '1.4', wordBreak: 'keep-all' }}>{m.content}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )) : (
+                  <div style={{ textAlign: 'center', padding: '50px', color: '#888', border: '1px dashed #ccc', borderRadius: '8px' }}>
+                    아직 상담 내역이 없습니다.
+                  </div>
+                )}
               </div>
             </section>
           )}
