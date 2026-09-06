@@ -354,7 +354,7 @@ function App() {
             if (data.firebaseToken) {
               const { signInWithCustomToken } = await import('firebase/auth');
               await signInWithCustomToken(auth, data.firebaseToken);
-              alert('네이버 계정으로 로그인 되었습니다!');
+              // alert removed
             } else {
               throw new Error(data.error || 'Unknown error');
             }
@@ -397,7 +397,7 @@ function App() {
           if (data.firebaseToken) {
             const { signInWithCustomToken } = await import('firebase/auth');
             await signInWithCustomToken(auth, data.firebaseToken);
-            alert('카카오 계정으로 로그인 되었습니다!');
+            // alert removed
           } else {
             throw new Error(data.error || 'Unknown error');
           }
@@ -740,7 +740,7 @@ function App() {
       setShowLoginModal(false);
       setLoginEmail('');
       setLoginPassword('');
-      alert('로그인되었습니다!');
+      // alert removed
       if (ADMIN_EMAILS.includes(userCredential.user.email)) {
         handleOpenAdmin();
       }
