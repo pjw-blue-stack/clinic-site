@@ -46,33 +46,44 @@ const SelfCheckPage = ({ onComplete }) => {
   }, [step, score, answerHistory, showChat, messages, consultationId]);
 
   useEffect(() => {
+    const handlePopState = (e) => {
+      if (e.state && e.state.step) {
+        setStep(e.state.step);
+        setScore(e.state.score || 0);
+        setAnswerHistory(e.state.answerHistory || []);
+      } else {
+        setStep('intro');
+        setScore(0);
+        setAnswerHistory([]);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
       // Don't intercept backspace if the user is typing in an input/textarea
       if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
       if (e.key === 'Backspace') {
+        e.preventDefault(); // Unconditionally prevent browser history back
         if (step.startsWith('q')) {
           const currentIdx = parseInt(step.replace('q', ''));
           if (currentIdx > 0) {
-            e.preventDefault();
-            const prevIdx = currentIdx - 1;
-            setStep(`q${prevIdx}`);
-            setScore(prev => prev - (answerHistory[prevIdx] || 0));
-            setAnswerHistory(prev => prev.slice(0, -1));
+            window.history.back();
           } else if (currentIdx === 0) {
-            e.preventDefault();
-            setStep('intro');
+            window.history.back();
           }
         } else if (step === 'result' && !showChat) {
-          e.preventDefault();
-          handleReset();
+          window.history.back();
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [step, answerHistory, showChat]);
+  }, [step, showChat]);
 
   const handleReset = () => {
     setStep('intro');
@@ -99,19 +110,26 @@ const SelfCheckPage = ({ onComplete }) => {
     setScore(0);
     setAnswerHistory([]);
     setStep('q0');
+    window.history.pushState({ step: 'q0', score: 0, answerHistory: [] }, '');
   };
 
   const handleAnswer = (addedScore, qIndex) => {
-    setScore(prev => prev + addedScore);
-    setAnswerHistory(prev => [...prev, addedScore]);
+    const nextScore = score + addedScore;
+    const nextHistory = [...answerHistory, addedScore];
+    setScore(nextScore);
+    setAnswerHistory(nextHistory);
+    
     const nextIndex = qIndex + 1;
     if (nextIndex < questions.length) {
-      setStep(`q${nextIndex}`);
+      const nextStep = `q${nextIndex}`;
+      setStep(nextStep);
+      window.history.pushState({ step: nextStep, score: nextScore, answerHistory: nextHistory }, '');
     } else {
       setStep('loading');
       setTimeout(() => {
         setStep('result');
-      }, 2000); // 2 second loading for dramatic effect
+        window.history.pushState({ step: 'result', score: nextScore, answerHistory: nextHistory }, '');
+      }, 2000);
     }
   };
 
