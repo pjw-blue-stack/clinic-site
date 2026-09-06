@@ -65,28 +65,35 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
       const saveUser = async (record) => {
         try {
           await admin.auth().updateUser(uid, record);
+          return uid;
         } catch (error) {
           if (error.code === 'auth/user-not-found') {
             await admin.auth().createUser({ uid: uid, ...record });
+            return uid;
           } else {
             throw error;
           }
         }
       };
 
+      let tokenUid = uid;
       try {
-        await saveUser(userRecord);
+        tokenUid = await saveUser(userRecord);
       } catch (error) {
-        if (error.code === 'auth/email-already-exists' || error.code === 'auth/invalid-email') {
+        if (error.code === 'auth/email-already-exists') {
+          // 기존 구글 계정 등과 이메일이 겹치면 해당 계정으로 연결 (계정 통합)
+          const existingUser = await admin.auth().getUserByEmail(userRecord.email);
+          tokenUid = existingUser.uid;
+        } else if (error.code === 'auth/invalid-email') {
           delete userRecord.email;
-          await saveUser(userRecord);
+          tokenUid = await saveUser(userRecord);
         } else {
           throw error;
         }
       }
 
       // 3. 커스텀 토큰 생성 및 반환
-      const customToken = await admin.auth().createCustomToken(uid);
+      const customToken = await admin.auth().createCustomToken(tokenUid);
       return res.status(200).json({ firebaseToken: customToken });
 
     } catch (error) {
@@ -132,28 +139,35 @@ exports.createCustomTokenNaver = functions.https.onRequest((req, res) => {
       const saveUser = async (record) => {
         try {
           await admin.auth().updateUser(uid, record);
+          return uid;
         } catch (error) {
           if (error.code === 'auth/user-not-found') {
             await admin.auth().createUser({ uid: uid, ...record });
+            return uid;
           } else {
             throw error;
           }
         }
       };
 
+      let tokenUid = uid;
       try {
-        await saveUser(userRecord);
+        tokenUid = await saveUser(userRecord);
       } catch (error) {
-        if (error.code === 'auth/email-already-exists' || error.code === 'auth/invalid-email') {
+        if (error.code === 'auth/email-already-exists') {
+          // 기존 구글 계정 등과 이메일이 겹치면 해당 계정으로 연결 (계정 통합)
+          const existingUser = await admin.auth().getUserByEmail(userRecord.email);
+          tokenUid = existingUser.uid;
+        } else if (error.code === 'auth/invalid-email') {
           delete userRecord.email;
-          await saveUser(userRecord);
+          tokenUid = await saveUser(userRecord);
         } else {
           throw error;
         }
       }
 
       // 3. 커스텀 토큰 생성 및 반환
-      const customToken = await admin.auth().createCustomToken(uid);
+      const customToken = await admin.auth().createCustomToken(tokenUid);
       return res.status(200).json({ firebaseToken: customToken });
 
     } catch (error) {
