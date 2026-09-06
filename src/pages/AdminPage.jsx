@@ -289,6 +289,17 @@ export default function AdminPage({ onBack, qnaList }) {
     }
   };
 
+  const handleDeleteAiConsult = async (id) => {
+    if (window.confirm('이 상담 내역을 정말 삭제하시겠습니까?')) {
+      try {
+        await deleteDoc(doc(db, 'ai_consultations', id));
+      } catch (err) {
+        console.error(err);
+        alert('삭제에 실패했습니다: ' + err.message);
+      }
+    }
+  };
+
   const handleQnaMediaUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -833,8 +844,9 @@ export default function AdminPage({ onBack, qnaList }) {
                       <span style={{ fontWeight: 'bold', fontSize: '1.1rem', color: 'var(--primary-dark)' }}>
                         위험도: {consult.risk} 단계 (점수: {consult.score})
                       </span>
-                      <span style={{ color: '#888', fontSize: '0.9rem' }}>
+                      <span style={{ color: '#888', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
                         {consult.createdAt?.toDate ? consult.createdAt.toDate().toLocaleString() : ''}
+                        <button className="admin-action-btn delete" style={{ padding: '2px 8px', fontSize: '0.8rem' }} onClick={() => handleDeleteAiConsult(consult.id)}>삭제</button>
                       </span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
