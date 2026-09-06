@@ -172,22 +172,38 @@ const SelfCheckPage = ({ onComplete }) => {
         </div>
         
         {!showChat ? (
-          <>
-            <p className="cta-text" style={{ marginTop: '30px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginTop: '30px' }}>
+            <p className="cta-text" style={{ margin: 0 }}>
               결과에 대해 궁금한 점이 있으신가요?<br/>
               <strong>경희 정원 AI</strong>에게 무료로 상담 받아보세요!
             </p>
             
-            <button className="btn btn-accent" style={{ display: 'block', width: '100%', marginBottom: '15px', background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', border: 'none', color: '#ffffff', fontWeight: 'bold' }} onClick={() => startChat(desc, risk, duration)}>
+            <button 
+              className="pulse-btn" 
+              style={{ 
+                width: 'auto', 
+                minWidth: '280px',
+                padding: '16px 32px', 
+                fontSize: '1.2rem',
+                borderRadius: '30px',
+                background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', 
+                border: 'none', 
+                color: '#ffffff', 
+                fontWeight: 'bold',
+                cursor: 'pointer'
+              }} 
+              onClick={() => startChat(desc, risk, duration)}
+            >
               🩺 실시간 AI 상담 시작하기
             </button>
-            <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
-              💬 내 예상 비용 카톡으로 안내받기
-            </a>
-            <button className="btn btn-outline reset-btn" onClick={handleReset}>
+            <button 
+              className="chat-action-btn btn-reset-action" 
+              style={{ width: 'auto', minWidth: '200px', margin: 0 }}
+              onClick={handleReset}
+            >
               테스트 다시 하기
             </button>
-          </>
+          </div>
         ) : (
           <>
             <div className="chat-container">
