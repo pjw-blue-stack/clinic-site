@@ -1321,7 +1321,7 @@ function App() {
                   </div>
                 </div>
                 
-                <div className="hero-visual announcement-board glass-card" style={{ padding: '30px', textAlign: 'left', borderTop: '4px solid var(--accent-color)' }}>
+                <div className="hero-visual announcement-board glass-card" style={{ padding: '30px', textAlign: 'left', borderTop: '4px solid var(--accent-color)', flexDirection: 'column', alignItems: 'stretch', justifyContent: 'flex-start' }}>
                   <h3 style={{ marginBottom: '20px', color: 'var(--primary-dark)', fontSize: '1.4rem' }}>최신 공지사항</h3>
                   <div className="announcement-list" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                     {notices.slice(0, 5).map((ann) => (
