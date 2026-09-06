@@ -1246,26 +1246,26 @@ function App() {
           <div className="review-page-wrapper six-step-funnel">
             {/* Review Page Hero Section */}
             <section className="hero-section" style={{ 
-              background: 'linear-gradient(135deg, var(--bg-blue-light) 0%, #ffffff 100%)',
+              background: 'linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%)',
               padding: '120px 20px 80px',
               textAlign: 'center',
               position: 'relative',
               overflow: 'hidden'
             }}>
               <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-                <span className="badge" style={{ display: 'inline-block', backgroundColor: 'rgba(52, 152, 219, 0.1)', color: 'var(--primary-color)', padding: '8px 16px', borderRadius: '20px', fontWeight: '600', marginBottom: '20px', fontSize: '0.9rem' }}>
+                <span className="badge" style={{ display: 'inline-block', backgroundColor: 'rgba(255, 255, 255, 0.15)', color: 'var(--text-inverse)', padding: '8px 16px', borderRadius: '20px', fontWeight: '600', marginBottom: '20px', fontSize: '0.9rem' }}>
                   경희정원한의원 치료후기
                 </span>
-                <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--text-main)', marginBottom: '24px', letterSpacing: '-1px', wordBreak: 'keep-all', lineHeight: '1.3' }}>
-                  오직 <span style={{ color: 'var(--primary-color)' }}>치료 결과</span>로 보답해드립니다.
+                <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--text-inverse)', marginBottom: '24px', letterSpacing: '-1px', wordBreak: 'keep-all', lineHeight: '1.3' }}>
+                  오직 <span style={{ color: 'var(--accent-color)' }}>치료 결과</span>로 보답해드립니다.
                 </h1>
-                <p style={{ fontSize: '1.15rem', color: 'var(--text-light)', lineHeight: '1.6', maxWidth: '650px', margin: '0 auto', wordBreak: 'keep-all' }}>
-                  6~12개월간 꾸준히 치료받으신 환자분들이 본인의 네이버 계정으로 직접 작성해주신 <strong style={{ color: 'var(--primary-color)' }}>100% 리얼 스마트플레이스 후기</strong>가 정원한의원의 실력을 증명합니다. 조작 없는 진짜 치료 결과를 확인하세요.
+                <p style={{ fontSize: '1.15rem', color: 'rgba(255, 255, 255, 0.85)', lineHeight: '1.6', maxWidth: '650px', margin: '0 auto', wordBreak: 'keep-all' }}>
+                  6~12개월간 꾸준히 치료받으신 환자분들이 본인의 네이버 계정으로 직접 작성해주신 <strong style={{ color: 'var(--accent-color)' }}>100% 리얼 스마트플레이스 후기</strong>가 정원한의원의 실력을 증명합니다. 조작 없는 진짜 치료 결과를 확인하세요.
                 </p>
               </div>
               {/* Decorative elements */}
-              <div style={{ position: 'absolute', top: '20%', left: '5%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(52, 152, 219, 0.05) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
-              <div style={{ position: 'absolute', bottom: '-10%', right: '5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(52, 152, 219, 0.08) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
+              <div style={{ position: 'absolute', top: '20%', left: '5%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
+              <div style={{ position: 'absolute', bottom: '-10%', right: '5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
             </section>
 
             {/* 1. 가치 입증 */}
