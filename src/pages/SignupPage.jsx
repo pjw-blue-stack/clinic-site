@@ -117,12 +117,12 @@ export default function SignupPage({ setPage }) {
             <input type="text" value={name} onChange={e => setName(e.target.value)} required placeholder="이름을 입력하세요" />
           </div>
           <div className="form-group">
-            <label>이메일 (아이디)</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="아이디로 쓰일 이메일을 입력하세요" />
-          </div>
-          <div className="form-group">
             <label>연락처</label>
             <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="010-0000-0000" />
+          </div>
+          <div className="form-group">
+            <label>이메일 (아이디)</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="아이디로 쓰일 이메일을 입력하세요" />
           </div>
           <div className="form-group">
             <label>비밀번호</label>
