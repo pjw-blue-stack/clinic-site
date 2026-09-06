@@ -88,8 +88,18 @@ export default function SignupPage({ setPage }) {
       const state = encodeURIComponent('naver_login');
       const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
       window.location.href = naverAuthUrl;
+    } else if (platform === '카카오') {
+      const clientId = import.meta.env.VITE_KAKAO_REST_API_KEY;
+      if (!clientId) {
+        alert('카카오 로그인이 설정되지 않았습니다.');
+        return;
+      }
+      const redirectUri = encodeURIComponent(window.location.origin);
+      const state = encodeURIComponent('kakao_login');
+      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=${state}`;
+      window.location.href = kakaoAuthUrl;
     } else {
-      alert(`현재 ${platform} 연동 준비 중입니다. 구글 또는 네이버 로그인을 이용해 주세요.`);
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글, 네이버, 카카오 로그인을 이용해 주세요.`);
     }
   };
 

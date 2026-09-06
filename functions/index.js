@@ -14,13 +14,30 @@ exports.createCustomTokenKakao = functions.https.onRequest((req, res) => {
       return res.status(400).json({ error: 'Only POST requests are accepted' });
     }
 
-    const token = req.body.token;
-    if (!token) {
-      return res.status(400).json({ error: 'There is no token in the request body.' });
+    let token = req.body.token;
+    const code = req.body.code;
+    const clientId = req.body.clientId;
+    const redirectUri = req.body.redirectUri;
+
+    if (!token && !code) {
+      return res.status(400).json({ error: 'There is no token or code in the request body.' });
     }
 
     try {
-      // 1. 카카오 API로 사용자 정보 가져오기
+      // 1. 코드가 넘어왔다면 먼저 액세스 토큰으로 교환
+      if (code) {
+        const tokenResponse = await axios.post('https://kauth.kakao.com/oauth/token', null, {
+          params: {
+            grant_type: 'authorization_code',
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            code: code
+          }
+        });
+        token = tokenResponse.data.access_token;
+      }
+
+      // 2. 카카오 API로 사용자 정보 가져오기
       const kakaoResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
         headers: {
           Authorization: `Bearer ${token}`

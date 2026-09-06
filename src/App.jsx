@@ -319,8 +319,9 @@ function App() {
   // Policy Modal
   const [policyType, setPolicyType] = useState(null);
 
-  // OAuth Callback Handler (Naver)
+  // OAuth Callback Handler (Naver & Kakao)
   useEffect(() => {
+    // 1. 네이버 로그인 콜백 처리 (Hash 방식)
     const hash = window.location.hash;
     if (hash && hash.includes('access_token=') && hash.includes('state=')) {
       const params = new URLSearchParams(hash.substring(1));
@@ -328,12 +329,10 @@ function App() {
       const state = params.get('state');
 
       if (accessToken && state === 'naver_login') {
-        // Clear hash to prevent reloading loop
         window.history.replaceState(null, null, window.location.pathname + window.location.search);
         
         (async () => {
           try {
-            // NOTE: In production, this URL should point to your deployed Cloud Function
             const functionUrl = window.location.hostname === 'localhost' 
               ? 'http://127.0.0.1:5001/jungwon-homepage/us-central1/createCustomTokenNaver'
               : 'https://us-central1-jungwon-homepage.cloudfunctions.net/createCustomTokenNaver';
@@ -358,6 +357,45 @@ function App() {
           }
         })();
       }
+    }
+
+    // 2. 카카오 로그인 콜백 처리 (Query 방식)
+    const searchParams = new URLSearchParams(window.location.search);
+    const code = searchParams.get('code');
+    const kakaoState = searchParams.get('state');
+
+    if (code && kakaoState === 'kakao_login') {
+      window.history.replaceState(null, null, window.location.pathname + window.location.hash);
+      
+      (async () => {
+        try {
+          const functionUrl = window.location.hostname === 'localhost' 
+            ? 'http://127.0.0.1:5001/jungwon-homepage/us-central1/createCustomTokenKakao'
+            : 'https://us-central1-jungwon-homepage.cloudfunctions.net/createCustomTokenKakao';
+            
+          const res = await fetch(functionUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              code: code,
+              clientId: import.meta.env.VITE_KAKAO_REST_API_KEY,
+              redirectUri: window.location.origin
+            })
+          });
+          const data = await res.json();
+          
+          if (data.firebaseToken) {
+            const { signInWithCustomToken } = await import('firebase/auth');
+            await signInWithCustomToken(auth, data.firebaseToken);
+            alert('카카오 계정으로 로그인 되었습니다!');
+          } else {
+            throw new Error(data.error || 'Unknown error');
+          }
+        } catch (err) {
+          console.error('Kakao login failed:', err);
+          alert('카카오 로그인 처리 중 오류가 발생했습니다.');
+        }
+      })();
     }
   }, []);
 
@@ -684,8 +722,18 @@ function App() {
       const state = encodeURIComponent('naver_login');
       const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
       window.location.href = naverAuthUrl;
+    } else if (platform === '카카오') {
+      const clientId = import.meta.env.VITE_KAKAO_REST_API_KEY;
+      if (!clientId) {
+        alert('카카오 로그인이 설정되지 않았습니다.');
+        return;
+      }
+      const redirectUri = encodeURIComponent(window.location.origin);
+      const state = encodeURIComponent('kakao_login');
+      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=${state}`;
+      window.location.href = kakaoAuthUrl;
     } else {
-      alert(`현재 ${platform} 연동 준비 중입니다. 구글 또는 네이버 로그인을 이용해 주세요.`);
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글, 네이버, 카카오 로그인을 이용해 주세요.`);
     }
   };
 
