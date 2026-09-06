@@ -322,6 +322,9 @@ function App() {
   // Policy Modal
   const [policyType, setPolicyType] = useState(null);
 
+  // Social Login Processing State
+  const [isProcessingLogin, setIsProcessingLogin] = useState(false);
+
   // OAuth Callback Handler (Naver & Kakao)
   useEffect(() => {
     // 1. 네이버 로그인 콜백 처리 (Hash 방식)
@@ -332,6 +335,7 @@ function App() {
       const state = params.get('state');
 
       if (accessToken && state === 'naver_login') {
+        setIsProcessingLogin(true);
         window.history.replaceState(null, null, window.location.pathname + window.location.search);
         
         (async () => {
@@ -357,6 +361,8 @@ function App() {
           } catch (err) {
             console.error('Naver login failed:', err);
             alert(`네이버 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
+          } finally {
+            setIsProcessingLogin(false);
           }
         })();
       }
@@ -368,6 +374,7 @@ function App() {
     const kakaoState = searchParams.get('state');
 
     if (code && kakaoState === 'kakao_login') {
+      setIsProcessingLogin(true);
       window.history.replaceState(null, null, window.location.pathname + window.location.hash);
       
       (async () => {
@@ -397,6 +404,8 @@ function App() {
         } catch (err) {
           console.error('Kakao login failed:', err);
           alert(`카카오 로그인 처리 중 오류가 발생했습니다: ${err.message}`);
+        } finally {
+          setIsProcessingLogin(false);
         }
       })();
     }
@@ -1852,6 +1861,21 @@ function App() {
       </div>
       {/* MEGA MENU OVERLAY */}
       <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
+      
+      {/* Login Processing Overlay */}
+      {isProcessingLogin && (
+        <div className="modal-overlay" style={{ zIndex: 9999, background: 'rgba(255, 255, 255, 0.85)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="spinner" style={{ width: '50px', height: '50px', border: '5px solid var(--accent-light)', borderTop: '5px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
+            <h3 style={{ color: 'var(--primary-dark)', fontSize: '1.2rem', fontWeight: 'bold' }}>안전하게 로그인 중입니다...</h3>
+            <p style={{ color: 'var(--text-light)', marginTop: '10px' }}>잠시만 기다려주세요.</p>
+          </div>
+          <style>{`
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+          `}</style>
+        </div>
+      )}
+
       {/* Detox Step Modal */}
       {selectedDetoxStep && (
         <div className="modal-overlay" onClick={() => setSelectedDetoxStep(null)}>
