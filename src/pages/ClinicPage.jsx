@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import './ClinicPage.css';
 import ColumnPage from './ColumnPage';
 import { textContent } from '../textContent';
@@ -295,14 +296,14 @@ function ClinicPage({
         </div>
       </section>
 
-      {/* Image Modal */}
-      {selectedImage && (
+      {/* Image Modal using Portal to avoid transform inheritance issues */}
+      {selectedImage && createPortal(
         <div 
           style={{
             position: 'fixed',
             top: 0, left: 0, right: 0, bottom: 0,
             backgroundColor: 'rgba(0,0,0,0.85)',
-            zIndex: 9999,
+            zIndex: 999999,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -315,8 +316,8 @@ function ClinicPage({
             src={selectedImage} 
             alt="확대된 이미지" 
             style={{ 
-              maxWidth: '100%', 
-              maxHeight: '100%', 
+              maxWidth: '90vw', 
+              maxHeight: '90vh', 
               borderRadius: '8px',
               objectFit: 'contain',
               boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
@@ -338,7 +339,8 @@ function ClinicPage({
           >
             &times;
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
