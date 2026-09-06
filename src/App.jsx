@@ -1244,8 +1244,32 @@ function App() {
           </div>
         ) : isReviewPage ? (
           <div className="review-page-wrapper six-step-funnel">
+            {/* Review Page Hero Section */}
+            <section className="hero-section" style={{ 
+              background: 'linear-gradient(135deg, var(--bg-blue-light) 0%, #ffffff 100%)',
+              padding: '120px 20px 80px',
+              textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
+              <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+                <span className="badge" style={{ display: 'inline-block', backgroundColor: 'rgba(52, 152, 219, 0.1)', color: 'var(--primary-color)', padding: '8px 16px', borderRadius: '20px', fontWeight: '600', marginBottom: '20px', fontSize: '0.9rem' }}>
+                  경희정원한의원 치료후기
+                </span>
+                <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--text-main)', marginBottom: '24px', letterSpacing: '-1px', wordBreak: 'keep-all', lineHeight: '1.3' }}>
+                  오직 <span style={{ color: 'var(--primary-color)' }}>치료 결과</span>로 보답해드립니다.
+                </h1>
+                <p style={{ fontSize: '1.15rem', color: 'var(--text-light)', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto', wordBreak: 'keep-all' }}>
+                  과장된 광고보다, 실제로 쾌적한 일상을 되찾으신 환자분들의 진정성 있는 100% 자필 후기가 정원한의원의 실력을 증명합니다.
+                </p>
+              </div>
+              {/* Decorative elements */}
+              <div style={{ position: 'absolute', top: '20%', left: '5%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(52, 152, 219, 0.05) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
+              <div style={{ position: 'absolute', bottom: '-10%', right: '5%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(52, 152, 219, 0.08) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%', zIndex: 1 }}></div>
+            </section>
+
             {/* 1. 가치 입증 */}
-            <section className="funnel-section section-authority">
+            <section className="funnel-section section-authority" style={{ paddingTop: '60px' }}>
               <div className="container">
                 <span className="step-badge">STEP 1. 압도적 결과</span>
                 <h2 className="funnel-title">14년, 3,800개의 리얼 데이터가 증명합니다.</h2>
