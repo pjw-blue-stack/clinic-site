@@ -212,13 +212,13 @@ const SelfCheckPage = ({ onComplete }) => {
               <input 
                 type="text" 
                 className="chat-input"
-                placeholder="궁금한 점을 자유롭게 물어보세요..." 
+                placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "질문 횟수(10회) 초과. 자세한 상담은 내원 부탁드립니다." : "궁금한 점을 자유롭게 물어보세요..."} 
                 value={chatInput} 
                 onChange={e => setChatInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                disabled={isChatLoading}
+                disabled={isChatLoading || messages.filter(m => m.role === 'user').length >= 10}
               />
-              <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim()}>
+              <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || messages.filter(m => m.role === 'user').length >= 10}>
                 전송
               </button>
             </div>
