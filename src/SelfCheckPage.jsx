@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { db, functions } from './firebase';
 import { collection, addDoc, updateDoc, doc, serverTimestamp, arrayUnion } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
-import { Link } from 'react-router-dom';
 import './SelfCheckPage.css';
 
 const SelfCheckPage = ({ onComplete }) => {
@@ -240,9 +239,9 @@ const SelfCheckPage = ({ onComplete }) => {
               <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action">
                 N 네이버 톡톡으로 자세한 상담받기
               </a>
-              <Link to="/" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
+              <a href="/#qna" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
                 📝 홈페이지 Q&A 게시판에 문의하기
-              </Link>
+              </a>
               <button className="chat-action-btn btn-reset-action" onClick={handleReset}>
                 테스트 다시 하기
               </button>
