@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { db, functions } from './firebase';
 import { collection, addDoc, updateDoc, doc, serverTimestamp, arrayUnion } from 'firebase/firestore';
 import { httpsCallable } from 'firebase/functions';
+import { Link } from 'react-router-dom';
 import './SelfCheckPage.css';
 
 const SelfCheckPage = ({ onComplete }) => {
@@ -227,13 +228,21 @@ const SelfCheckPage = ({ onComplete }) => {
               </div>
             </div>
             
-            <div style={{ marginTop: '25px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.9rem', color: '#666', lineHeight: '1.6', padding: '0 10px' }}>
+              * 원활한 상담을 위해 AI 채팅은 <strong>최대 10회</strong>까지만 가능합니다.<br/>
+              더 궁금한 점이 있으시다면 <strong>카카오톡, 네이버톡톡</strong> 또는 <strong>온라인 Q&A 게시판</strong>을 이용해주세요!
+            </div>
+            
+            <div style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="chat-action-btn btn-kakao-action">
                 💬 카카오톡으로 자세한 상담받기
               </a>
               <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action">
                 N 네이버 톡톡으로 자세한 상담받기
               </a>
+              <Link to="/" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
+                📝 홈페이지 Q&A 게시판에 문의하기
+              </Link>
               <button className="chat-action-btn btn-reset-action" onClick={handleReset}>
                 테스트 다시 하기
               </button>
