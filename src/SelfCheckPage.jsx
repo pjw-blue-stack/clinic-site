@@ -7,6 +7,7 @@ import './SelfCheckPage.css';
 const SelfCheckPage = ({ onComplete }) => {
   const [step, setStep] = useState(() => sessionStorage.getItem('selfCheckStep') || 'intro');
   const [score, setScore] = useState(() => Number(sessionStorage.getItem('selfCheckScore')) || 0);
+  const [globalQuestionCount, setGlobalQuestionCount] = useState(() => Number(localStorage.getItem('totalAiQuestions')) || 0);
 
   // AI Chat States
   const [showChat, setShowChat] = useState(() => sessionStorage.getItem('selfCheckShowChat') === 'true');
@@ -98,6 +99,10 @@ const SelfCheckPage = ({ onComplete }) => {
     const userMsg = chatInput.trim();
     setChatInput('');
     setIsChatLoading(true);
+
+    const newGlobalCount = globalQuestionCount + 1;
+    setGlobalQuestionCount(newGlobalCount);
+    localStorage.setItem('totalAiQuestions', newGlobalCount.toString());
 
     const newMessages = [...messages, { role: 'user', content: userMsg }];
     setMessages(newMessages);
@@ -234,13 +239,13 @@ const SelfCheckPage = ({ onComplete }) => {
                 <textarea 
                   className="chat-input"
                   rows={2}
-                  placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "10개의 질문을 다 하셨습니다. 더 궁금하신 점 있으시면, 아래 버튼을 클릭하셔서, 의문점을 말끔히 해소해보세요." : "궁금한 점을 자유롭게 물어보세요..."} 
+                  placeholder={globalQuestionCount >= 10 ? "10개의 질문을 다 하셨습니다. 더 궁금하신 점 있으시면, 아래 버튼을 클릭하셔서, 의문점을 말끔히 해소해보세요." : "궁금한 점을 자유롭게 물어보세요..."} 
                   value={chatInput} 
                   onChange={e => setChatInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  disabled={messages.filter(m => m.role === 'user').length >= 10}
+                  disabled={globalQuestionCount >= 10}
                 />
-                <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || messages.filter(m => m.role === 'user').length >= 10}>
+                <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || globalQuestionCount >= 10}>
                   전송
                 </button>
               </div>
