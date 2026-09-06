@@ -1884,7 +1884,7 @@ function App() {
         </div>
       )}
 
-      {/* Floating Quick Menu (하단 고정 퀵메뉴) */}
+      {/* Floating Quick Menu (하단 고정 퀵메뉴) - Temporarily hidden as per user request
       <div className="floating-quick-menu">
         <a href="tel:02-2649-7582" className="quick-menu-item quick-menu-call">
           <span className="quick-icon">📞</span>
@@ -1899,6 +1899,7 @@ function App() {
           <span className="quick-text">네이버예약</span>
         </button>
       </div>
+      */}
       {/* MEGA MENU OVERLAY */}
       <div className={`mega-menu-overlay ${hoveredMenu ? 'active' : ''}`}></div>
       
