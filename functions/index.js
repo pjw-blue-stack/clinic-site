@@ -286,21 +286,36 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
       });
     }
     
-    // Add system instruction as the very first message internally if history allows, or just prepend to the prompt.
-    // Gemini JS SDK supports systemInstruction field for gemini models.
-    const modelWithInstruction = genAI.getGenerativeModel({
-      model: "gemini-3.8-flash",
-      systemInstruction: systemPrompt
-    });
+    const modelsToTry = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-2.5-flash"];
+    let text = "";
+    
+    for (const modelName of modelsToTry) {
+      try {
+        const modelWithInstruction = genAI.getGenerativeModel({
+          model: modelName,
+          systemInstruction: systemPrompt
+        });
 
-    const chat = modelWithInstruction.startChat({
-      history: history
-    });
+        const chat = modelWithInstruction.startChat({
+          history: history
+        });
 
-    const userMessage = messages[messages.length - 1].content;
-    const result = await chat.sendMessage(userMessage);
-    const response = await result.response;
-    const text = response.text();
+        const userMessage = messages[messages.length - 1].content;
+        const result = await chat.sendMessage(userMessage);
+        const response = await result.response;
+        text = response.text();
+        break; // Success! Exit the loop.
+      } catch (err) {
+        console.warn(`Model ${modelName} failed:`, err.message);
+        if (err.status !== 503 && modelName === modelsToTry[modelsToTry.length - 1]) {
+          throw err; // Only throw if it's the last model or a different error.
+        }
+      }
+    }
+
+    if (!text) {
+      throw new Error("모든 AI 모델이 현재 사용 불가 상태입니다.");
+    }
 
     return { reply: text };
 
