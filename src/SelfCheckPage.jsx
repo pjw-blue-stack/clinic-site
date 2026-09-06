@@ -7,7 +7,16 @@ import './SelfCheckPage.css';
 const SelfCheckPage = ({ onComplete }) => {
   const [step, setStep] = useState(() => sessionStorage.getItem('selfCheckStep') || 'intro');
   const [score, setScore] = useState(() => Number(sessionStorage.getItem('selfCheckScore')) || 0);
-  const [globalQuestionCount, setGlobalQuestionCount] = useState(() => Number(localStorage.getItem('totalAiQuestions')) || 0);
+  const [globalQuestionCount, setGlobalQuestionCount] = useState(() => {
+    const storedDate = localStorage.getItem('aiQuestionsDate');
+    const today = new Date().toDateString();
+    if (storedDate !== today) {
+      localStorage.setItem('aiQuestionsDate', today);
+      localStorage.setItem('totalAiQuestions', '0');
+      return 0;
+    }
+    return Number(localStorage.getItem('totalAiQuestions')) || 0;
+  });
 
   // AI Chat States
   const [showChat, setShowChat] = useState(() => sessionStorage.getItem('selfCheckShowChat') === 'true');
