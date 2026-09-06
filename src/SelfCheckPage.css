@@ -229,6 +229,45 @@
   margin-bottom: 15px;
 }
 
+.chat-action-btn {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 15px 0;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  border: none;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.chat-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.btn-kakao-action {
+  background-color: #FEE500;
+  color: #000000;
+}
+
+.btn-naver-action {
+  background-color: #03C75A;
+  color: #ffffff;
+}
+
+.btn-reset-action {
+  background-color: #ffffff;
+  color: #555555;
+  border: 1px solid #dddddd;
+}
+
 @media (max-width: 768px) {
   .self-check-intro h1 { font-size: 2rem; }
   .self-check-question h2 { font-size: 1.4rem; }

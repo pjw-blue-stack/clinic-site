@@ -226,13 +226,13 @@ const SelfCheckPage = ({ onComplete }) => {
             </div>
             
             <div style={{ marginTop: '25px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn btn-kakao" style={{ width: '100%', margin: '0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="chat-action-btn btn-kakao-action">
                 💬 카카오톡으로 자세한 상담받기
               </a>
-              <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="btn" style={{ background: '#03C75A', color: '#fff', fontWeight: 'bold', border: 'none', width: '100%', padding: '15px 30px', borderRadius: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+              <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action">
                 N 네이버 톡톡으로 자세한 상담받기
               </a>
-              <button className="btn btn-outline reset-btn" onClick={handleReset} style={{ width: '100%', margin: '0' }}>
+              <button className="chat-action-btn btn-reset-action" onClick={handleReset}>
                 테스트 다시 하기
               </button>
             </div>
