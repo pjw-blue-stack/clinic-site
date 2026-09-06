@@ -319,6 +319,48 @@ function App() {
   // Policy Modal
   const [policyType, setPolicyType] = useState(null);
 
+  // OAuth Callback Handler (Naver)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes('access_token=') && hash.includes('state=')) {
+      const params = new URLSearchParams(hash.substring(1));
+      const accessToken = params.get('access_token');
+      const state = params.get('state');
+
+      if (accessToken && state === 'naver_login') {
+        // Clear hash to prevent reloading loop
+        window.history.replaceState(null, null, window.location.pathname + window.location.search);
+        
+        (async () => {
+          try {
+            // NOTE: In production, this URL should point to your deployed Cloud Function
+            const functionUrl = window.location.hostname === 'localhost' 
+              ? 'http://127.0.0.1:5001/jungwon-homepage/us-central1/createCustomTokenNaver'
+              : 'https://us-central1-jungwon-homepage.cloudfunctions.net/createCustomTokenNaver';
+              
+            const res = await fetch(functionUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: accessToken })
+            });
+            const data = await res.json();
+            
+            if (data.firebaseToken) {
+              const { signInWithCustomToken } = await import('firebase/auth');
+              await signInWithCustomToken(auth, data.firebaseToken);
+              alert('네이버 계정으로 로그인 되었습니다!');
+            } else {
+              throw new Error(data.error || 'Unknown error');
+            }
+          } catch (err) {
+            console.error('Naver login failed:', err);
+            alert('네이버 로그인 처리 중 오류가 발생했습니다.');
+          }
+        })();
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const handlePopState = (e) => {
       if (window.location.hash.startsWith('#admin')) {
@@ -632,8 +674,18 @@ function App() {
         console.error(error);
         alert('구글 로그인에 실패했습니다.');
       }
+    } else if (platform === '네이버') {
+      const clientId = import.meta.env.VITE_NAVER_CLIENT_ID;
+      if (!clientId) {
+        alert('네이버 로그인이 설정되지 않았습니다.');
+        return;
+      }
+      const redirectUri = encodeURIComponent(window.location.origin);
+      const state = encodeURIComponent('naver_login');
+      const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+      window.location.href = naverAuthUrl;
     } else {
-      alert(`현재 ${platform} 연동 준비 중입니다. 구글 로그인을 이용해 주세요.`);
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글 또는 네이버 로그인을 이용해 주세요.`);
     }
   };
 

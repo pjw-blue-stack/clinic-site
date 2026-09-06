@@ -78,8 +78,18 @@ export default function SignupPage({ setPage }) {
         console.error(error);
         alert('구글 로그인에 실패했습니다.');
       }
+    } else if (platform === '네이버') {
+      const clientId = import.meta.env.VITE_NAVER_CLIENT_ID;
+      if (!clientId) {
+        alert('네이버 로그인이 설정되지 않았습니다.');
+        return;
+      }
+      const redirectUri = encodeURIComponent(window.location.origin);
+      const state = encodeURIComponent('naver_login');
+      const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+      window.location.href = naverAuthUrl;
     } else {
-      alert(`현재 ${platform} 연동 준비 중입니다. 구글 로그인을 이용해 주세요.`);
+      alert(`현재 ${platform} 연동 준비 중입니다. 구글 또는 네이버 로그인을 이용해 주세요.`);
     }
   };
 
