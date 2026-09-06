@@ -135,7 +135,10 @@ const SelfCheckPage = ({ onComplete }) => {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') handleSendMessage();
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   const renderResult = () => {
@@ -228,9 +231,9 @@ const SelfCheckPage = ({ onComplete }) => {
                 )}
               </div>
               <div className="chat-input-area">
-                <input 
-                  type="text" 
+                <textarea 
                   className="chat-input"
+                  rows={2}
                   placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "10개의 질문을 다 하셨습니다. 더 궁금하신 점 있으시면, 아래 버튼을 클릭하셔서, 의문점을 말끔히 해소해보세요." : "궁금한 점을 자유롭게 물어보세요..."} 
                   value={chatInput} 
                   onChange={e => setChatInput(e.target.value)}
