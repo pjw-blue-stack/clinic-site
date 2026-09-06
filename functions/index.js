@@ -273,10 +273,18 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
   try {
     // Convert generic messages [{role: 'user', content: '...'}, {role: 'model', content: '...'}] 
     // to Gemini's format: [{role: 'user', parts: [{text: '...'}]}, {role: 'model', parts: [{text: '...'}]}]
-    const history = messages.slice(0, -1).map(m => ({
+    let history = messages.slice(0, -1).map(m => ({
       role: m.role === 'ai' ? 'model' : 'user',
       parts: [{ text: m.content }]
     }));
+    
+    // Gemini requires the first message in history to be 'user'
+    if (history.length > 0 && history[0].role === 'model') {
+      history.unshift({
+        role: 'user',
+        parts: [{ text: '진단 결과를 확인했습니다. 상담을 부탁드립니다.' }]
+      });
+    }
     
     // Add system instruction as the very first message internally if history allows, or just prepend to the prompt.
     // Gemini JS SDK supports systemInstruction field for gemini-1.5 models.
