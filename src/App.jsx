@@ -260,9 +260,26 @@ function App() {
 
   // URL Parameter Detection for micro-landing page support (Naver Ads) and refresh preservation
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    let specId = params.get('specialty');
-    let pageId = params.get('page');
+    let searchSource = window.location.search;
+    
+    // Parse from OAuth state if returning from Naver/Kakao
+    const params = new URLSearchParams(searchSource);
+    const stateParam = params.get('state');
+    const hash = window.location.hash;
+    
+    if (stateParam && stateParam.includes('|')) {
+      searchSource = stateParam.split('|')[1];
+    } else if (hash && hash.includes('state=')) {
+      const hashParams = new URLSearchParams(hash.substring(1));
+      const hashState = hashParams.get('state');
+      if (hashState && hashState.includes('|')) {
+        searchSource = hashState.split('|')[1];
+      }
+    }
+
+    const actualParams = new URLSearchParams(searchSource);
+    let specId = actualParams.get('specialty');
+    let pageId = actualParams.get('page');
     
     // Backward compatibility mapping for merged head/face/taste sweat categories
     if (specId === 'anmyeon' || specId === 'duhan' || specId === 'migak') {
