@@ -777,7 +777,7 @@ export default function AdminPage({ onBack, qnaList }) {
                     <tr>
                       <th style={{ width: '15%' }}>이름</th>
                       <th style={{ width: '20%' }}>이메일</th>
-                      <th style={{ width: '15%' }}>연락처</th>
+                      <th style={{ width: '15%' }}>전화번호</th>
                       <th style={{ width: '15%' }}>가입 방식</th>
                       <th style={{ width: '10%' }}>권한</th>
                       <th style={{ width: '15%' }}>가입일</th>
