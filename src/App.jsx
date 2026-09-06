@@ -294,11 +294,6 @@ function App() {
       const specialty = specialties.find(s => s.id === specId);
       if (specialty) {
         setSelectedSpecialty(specialty);
-        if (savedScrollY) {
-          setTimeout(() => { window.scrollTo(0, parseInt(savedScrollY)); sessionStorage.removeItem('restoreScrollY'); }, 50);
-        } else {
-          window.scrollTo(0, 0);
-        }
       }
     } else if (pageId) {
       if (pageId === 'column') setIsColumnPage(true);
@@ -308,12 +303,17 @@ function App() {
       else if (pageId === 'selfcheck') { setIsSignupPage(false); setIsMyPage(false); setIsSelfCheckPage(true); }
       else if (pageId === 'signup') { setIsSignupPage(true); }
       else if (pageId === 'mypage') { setIsMyPage(true); }
-      
-      if (savedScrollY) {
-        setTimeout(() => { window.scrollTo(0, parseInt(savedScrollY)); sessionStorage.removeItem('restoreScrollY'); }, 50);
-      } else {
-        window.scrollTo(0, 0);
-      }
+    }
+    
+    // Always attempt to restore scroll position if it was saved during OAuth login redirect
+    if (savedScrollY) {
+      setTimeout(() => { 
+        window.scrollTo(0, parseInt(savedScrollY)); 
+        sessionStorage.removeItem('restoreScrollY'); 
+      }, 100); // 100ms delay to ensure React has fully rendered components
+    } else if (specId || pageId) {
+      // Only force scroll to top if we navigated to a specific subpage and no restore scroll was saved
+      window.scrollTo(0, 0);
     }
   }, []);
 
