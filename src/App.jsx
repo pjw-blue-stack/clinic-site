@@ -1259,8 +1259,8 @@ function App() {
                 <h1 style={{ fontSize: '2.8rem', fontWeight: '800', color: 'var(--text-main)', marginBottom: '24px', letterSpacing: '-1px', wordBreak: 'keep-all', lineHeight: '1.3' }}>
                   오직 <span style={{ color: 'var(--primary-color)' }}>치료 결과</span>로 보답해드립니다.
                 </h1>
-                <p style={{ fontSize: '1.15rem', color: 'var(--text-light)', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto', wordBreak: 'keep-all' }}>
-                  과장된 광고보다, 실제로 쾌적한 일상을 되찾으신 환자분들의 진정성 있는 100% 자필 후기가 정원한의원의 실력을 증명합니다.
+                <p style={{ fontSize: '1.15rem', color: 'var(--text-light)', lineHeight: '1.6', maxWidth: '650px', margin: '0 auto', wordBreak: 'keep-all' }}>
+                  6~12개월간 꾸준히 치료받으신 환자분들이 본인의 네이버 계정으로 직접 작성해주신 <strong style={{ color: 'var(--primary-color)' }}>100% 리얼 스마트플레이스 후기</strong>가 정원한의원의 실력을 증명합니다. 조작 없는 진짜 치료 결과를 확인하세요.
                 </p>
               </div>
               {/* Decorative elements */}
@@ -1281,7 +1281,7 @@ function App() {
             {/* 2 & 3. 리얼리티 증명 및 분류/검색 */}
             <section className="funnel-section section-problem">
               <div className="container">
-                <span className="step-badge">STEP 2. 100% 자필 후기</span>
+                <span className="step-badge">STEP 2. 리얼 네이버 후기</span>
                 <h2 className="funnel-title">나와 똑같은 부위의 후기를 확인하세요.</h2>
                 <div className="reviews-filters" style={{ marginTop: '30px', justifyContent: 'center' }}>
                   <button 
@@ -1307,7 +1307,7 @@ function App() {
                             <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>[{filterSpecialty === 'all' ? '다한증' : getSpecialtyName(filterSpecialty)}]</span> 치료 후기는<br/>
                             로그인 후 열람하실 수 있습니다.
                           </h3>
-                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 진실된 후기를 보호하기 위함입니다.</p>
+                          <p style={{ color: 'var(--text-light)', marginBottom: '20px', fontSize: '0.9rem', wordBreak: 'keep-all' }}>환자분들의 소중한 개인정보와 100% 리얼 네이버 후기를 보호하기 위함입니다.</p>
                           <button className="btn btn-accent" style={{ marginTop: 'auto' }} onClick={() => setShowLoginModal(true)}>1초 간편 로그인하고 후기 보기</button>
                         </div>
                       ))}
