@@ -231,7 +231,7 @@ const SelfCheckPage = ({ onComplete }) => {
                 <input 
                   type="text" 
                   className="chat-input"
-                  placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "질문 횟수(10회) 초과. 자세한 상담은 내원 부탁드립니다." : "궁금한 점을 자유롭게 물어보세요..."} 
+                  placeholder={messages.filter(m => m.role === 'user').length >= 10 ? "10개의 질문을 다 하셨습니다. 더 궁금하신 점 있으시면, 아래 버튼을 클릭하셔서, 의문점을 말끔히 해소해보세요." : "궁금한 점을 자유롭게 물어보세요..."} 
                   value={chatInput} 
                   onChange={e => setChatInput(e.target.value)}
                   onKeyPress={handleKeyPress}
