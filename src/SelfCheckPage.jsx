@@ -5,15 +5,15 @@ import { httpsCallable } from 'firebase/functions';
 import './SelfCheckPage.css';
 
 const SelfCheckPage = ({ onComplete }) => {
-  const [step, setStep] = useState('intro'); // intro, q0, q1, q2, loading, result
-  const [score, setScore] = useState(0);
+  const [step, setStep] = useState(() => sessionStorage.getItem('selfCheckStep') || 'intro');
+  const [score, setScore] = useState(() => Number(sessionStorage.getItem('selfCheckScore')) || 0);
 
   // AI Chat States
-  const [showChat, setShowChat] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [showChat, setShowChat] = useState(() => sessionStorage.getItem('selfCheckShowChat') === 'true');
+  const [messages, setMessages] = useState(() => JSON.parse(sessionStorage.getItem('selfCheckMessages') || '[]'));
   const [chatInput, setChatInput] = useState('');
   const [isChatLoading, setIsChatLoading] = useState(false);
-  const [consultationId, setConsultationId] = useState(null);
+  const [consultationId, setConsultationId] = useState(() => sessionStorage.getItem('selfCheckConsultId') || null);
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +21,27 @@ const SelfCheckPage = ({ onComplete }) => {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  useEffect(() => {
+    sessionStorage.setItem('selfCheckStep', step);
+    sessionStorage.setItem('selfCheckScore', score);
+    sessionStorage.setItem('selfCheckShowChat', showChat);
+    sessionStorage.setItem('selfCheckMessages', JSON.stringify(messages));
+    if (consultationId) sessionStorage.setItem('selfCheckConsultId', consultationId);
+  }, [step, score, showChat, messages, consultationId]);
+
+  const handleReset = () => {
+    setStep('intro');
+    setScore(0);
+    setShowChat(false);
+    setMessages([]);
+    setConsultationId(null);
+    sessionStorage.removeItem('selfCheckStep');
+    sessionStorage.removeItem('selfCheckScore');
+    sessionStorage.removeItem('selfCheckShowChat');
+    sessionStorage.removeItem('selfCheckMessages');
+    sessionStorage.removeItem('selfCheckConsultId');
+  };
 
   const questions = [
     { q: "땀이 주로 언제 많이 나나요?", options: [{ text: "긴장할 때나 덥지 않아도 수시로", score: 2 }, { text: "운동하거나 더울 때만", score: 0 }] },
@@ -160,7 +181,7 @@ const SelfCheckPage = ({ onComplete }) => {
             <a href="https://pf.kakao.com/_yKxcUxl" target="_blank" rel="noreferrer" className="btn btn-kakao">
               💬 내 예상 비용 카톡으로 안내받기
             </a>
-            <button className="btn btn-outline reset-btn" onClick={() => setStep('intro')}>
+            <button className="btn btn-outline reset-btn" onClick={handleReset}>
               테스트 다시 하기
             </button>
           </>
