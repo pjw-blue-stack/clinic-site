@@ -308,6 +308,8 @@ function App() {
   const [showWriteForm, setShowWriteForm] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showPasswordResetModal, setShowPasswordResetModal] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
   const [isSignupPage, setIsSignupPage] = useState(false);
   const [isMyPage, setIsMyPage] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
@@ -739,15 +741,23 @@ function App() {
     }
   };
 
-  const handleModalPasswordReset = async () => {
-    if (!loginEmail) {
-      alert('아이디(이메일)칸에 가입하신 이메일을 입력하신 후 다시 눌러주세요.');
+  const handleModalPasswordReset = () => {
+    setShowLoginModal(false);
+    setShowPasswordResetModal(true);
+    setResetEmail(loginEmail);
+  };
+
+  const handleSendResetEmail = async () => {
+    if (!resetEmail) {
+      alert('이메일을 입력해주세요.');
       return;
     }
     try {
       const { sendPasswordResetEmail } = await import('firebase/auth');
-      await sendPasswordResetEmail(auth, loginEmail);
+      await sendPasswordResetEmail(auth, resetEmail);
       alert('입력하신 이메일로 비밀번호 재설정 링크가 전송되었습니다.');
+      setShowPasswordResetModal(false);
+      setShowLoginModal(true);
     } catch (error) {
       alert('비밀번호 재설정 이메일 전송에 실패했습니다. (가입되지 않은 이메일일 수 있습니다)');
     }
@@ -1868,6 +1878,7 @@ function App() {
 
 
       {/* Enhanced Login Modal */}
+      {/* Login Modal */}
       {showLoginModal && (
         <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
           <div className="modal-content login-modal" onClick={e => e.stopPropagation()}>
@@ -1923,6 +1934,43 @@ function App() {
               <button className="social-btn google" onClick={() => handleModalSocialLogin('구글')}>
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" />
                 <span>구글 로그인</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Password Reset Modal */}
+      {showPasswordResetModal && (
+        <div className="modal-overlay" onClick={() => setShowPasswordResetModal(false)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '400px' }}>
+            <button className="modal-close" onClick={() => setShowPasswordResetModal(false)}>×</button>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '15px', color: 'var(--primary-dark)' }}>비밀번호 찾기</h3>
+            <p style={{ marginBottom: '25px', color: 'var(--text-light)', fontSize: '0.95rem' }}>
+              가입하신 이메일 주소를 입력해 주시면,<br />비밀번호를 재설정할 수 있는 링크를 보내드립니다.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '25px' }}>
+              <input 
+                type="email" 
+                placeholder="가입하신 이메일 주소" 
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                style={{ width: '100%', padding: '12px 15px', border: '1px solid #ccc', borderRadius: '8px', fontSize: '1rem' }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSendResetEmail();
+                }}
+              />
+            </div>
+            <button 
+              className="btn btn-primary" 
+              style={{ width: '100%', padding: '12px', fontSize: '1.1rem', borderRadius: '8px', marginBottom: '15px' }}
+              onClick={handleSendResetEmail}
+            >
+              재설정 링크 전송
+            </button>
+            <div style={{ textAlign: 'center' }}>
+              <button className="text-btn" onClick={() => { setShowPasswordResetModal(false); setShowLoginModal(true); }}>
+                ← 로그인 화면으로 돌아가기
               </button>
             </div>
           </div>
