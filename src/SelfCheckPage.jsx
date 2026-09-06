@@ -235,7 +235,7 @@ const SelfCheckPage = ({ onComplete }) => {
                   value={chatInput} 
                   onChange={e => setChatInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  disabled={isChatLoading || messages.filter(m => m.role === 'user').length >= 10}
+                  disabled={messages.filter(m => m.role === 'user').length >= 10}
                 />
                 <button className="chat-send-btn" onClick={handleSendMessage} disabled={isChatLoading || !chatInput.trim() || messages.filter(m => m.role === 'user').length >= 10}>
                   전송
