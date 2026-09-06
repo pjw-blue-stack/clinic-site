@@ -252,8 +252,8 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
 
   const genAI = new GoogleGenerativeAI(apiKey);
   
-  // Use gemini-2.5-flash as it's the recommended fast/cheap model
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+  // Use gemini-3.8-flash as the highest available version for this key
+  const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
 
   const systemPrompt = `
 당신은 '정원한의원'의 박제욱 대표 원장입니다.
@@ -287,9 +287,9 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
     }
     
     // Add system instruction as the very first message internally if history allows, or just prepend to the prompt.
-    // Gemini JS SDK supports systemInstruction field for gemini-2.5 models.
+    // Gemini JS SDK supports systemInstruction field for gemini models.
     const modelWithInstruction = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.8-flash",
       systemInstruction: systemPrompt
     });
 
