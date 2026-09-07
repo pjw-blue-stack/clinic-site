@@ -263,6 +263,12 @@
   color: #ffffff;
 }
 
+.btn-qna-action {
+  background-color: #38BDF8;
+  color: #ffffff;
+  text-shadow: -1px -1px 0 #0369A1, 1px -1px 0 #0369A1, -1px 1px 0 #0369A1, 1px 1px 0 #0369A1, 0 2px 3px rgba(3, 105, 161, 0.4);
+}
+
 .btn-reset-action {
   background-color: #ffffff;
   color: #555555;
