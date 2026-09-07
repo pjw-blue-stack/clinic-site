@@ -267,6 +267,12 @@ const SelfCheckPage = ({ onComplete }) => {
                 🩺 실시간 AI 상담 시작하기
               </button>
 
+              <div style={{ display: 'flex', alignItems: 'center', width: '100%', maxWidth: '320px', margin: '8px 0' }}>
+                <div style={{ flex: 1, height: '1px', backgroundColor: '#e0e0e0' }}></div>
+                <span style={{ padding: '0 15px', color: '#999', fontSize: '0.9rem' }}>또는</span>
+                <div style={{ flex: 1, height: '1px', backgroundColor: '#e0e0e0' }}></div>
+              </div>
+
               <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="chat-action-btn btn-kakao-action">
                 💬 카카오톡으로 자세한 상담받기
               </a>
