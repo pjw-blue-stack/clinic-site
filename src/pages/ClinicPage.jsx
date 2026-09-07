@@ -333,7 +333,33 @@ function ClinicPage({
                 <text x="55" y="59" fill="#9966FF" fontSize="3" fontWeight="bold">도보 1분거리</text>
               </svg>
             )}
+            {selectedImage.includes('bus_map.png') && (
+              <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                <g style={{ animation: 'toggleOpacity 9s infinite' }}>
+                  <circle cx="40" cy="36" r="1.2" fill="#00A2E8" />
+                  <circle cx="40" cy="36" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
+                    <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
+                  </circle>
+                  <text x="40" y="33" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+
+                  <circle cx="52" cy="56" r="1.2" fill="#00A2E8" />
+                  <circle cx="52" cy="56" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
+                    <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
+                  </circle>
+                  <text x="52" y="59" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+                </g>
+              </svg>
+            )}
           </div>
+          <style>{`
+            @keyframes toggleOpacity {
+              0%, 22.2% { opacity: 0; }
+              22.21%, 77.7% { opacity: 1; }
+              77.71%, 100% { opacity: 0; }
+            }
+          `}</style>
           <button 
             style={{ 
               position: 'absolute', 

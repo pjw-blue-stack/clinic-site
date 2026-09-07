@@ -478,27 +478,27 @@ export const textContent = {
           "- 정류소명 : <span style=\"font-weight: 500; text-decoration: underline;\">목동역, 홍익병원</span>", 
           "~ 602, 650, 654, N62, 5616, 6620, 6623, 6628, 6629, 6630, 6715",
           `<div style="position: relative; width: 100%; max-width: 600px; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <img src="/images/naver_map.jpg" alt="경희정원한의원 주변 버스정류장 지도" style="width: 100%; display: block; cursor: zoom-in;" />
+            <img src="/images/bus_map.png" alt="경희정원한의원 주변 버스정류장 지도" style="width: 100%; display: block; cursor: zoom-in;" />
             <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 100 100" preserveAspectRatio="none">
               <!-- 9초 주기 애니메이션 (2초 오프, 5초 온, 2초 오프) -->
               <g opacity="0">
                 <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.222; 0.223; 0.777; 0.778; 1" dur="9s" repeatCount="indefinite" />
                 
                 <!-- 한의원 좌측 버스정류장 -->
-                <circle cx="41" cy="51" r="1.2" fill="#E60023" />
-                <circle cx="41" cy="51" r="1.2" fill="none" stroke="#E60023" stroke-width="0.8">
+                <circle cx="40" cy="36" r="1.2" fill="#00A2E8" />
+                <circle cx="40" cy="36" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
                   <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                 </circle>
-                <text x="41" y="48" fill="#E60023" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
+                <text x="40" y="33" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
 
                 <!-- 한의원 아래쪽 버스정류장 -->
-                <circle cx="51" cy="62" r="1.2" fill="#E60023" />
-                <circle cx="51" cy="62" r="1.2" fill="none" stroke="#E60023" stroke-width="0.8">
+                <circle cx="52" cy="56" r="1.2" fill="#00A2E8" />
+                <circle cx="52" cy="56" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
                   <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                 </circle>
-                <text x="51" y="65" fill="#E60023" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
+                <text x="52" y="59" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
               </g>
             </svg>
           </div>`
