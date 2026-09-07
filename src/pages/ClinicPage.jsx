@@ -336,19 +336,19 @@ function ClinicPage({
             {selectedImage.includes('bus_map.png') && (
               <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
                 <g style={{ animation: 'toggleOpacity 9s infinite' }}>
-                  <circle cx="45" cy="46" r="1.2" fill="#00A2E8" />
-                  <circle cx="45" cy="46" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
+                  <circle cx="42" cy="28" r="1.2" fill="#00A2E8" />
+                  <circle cx="42" cy="28" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
                     <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                   </circle>
-                  <text x="45" y="43" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+                  <text x="42" y="25" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
 
-                  <circle cx="53" cy="52" r="1.2" fill="#00A2E8" />
-                  <circle cx="53" cy="52" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
+                  <circle cx="51" cy="67" r="1.2" fill="#00A2E8" />
+                  <circle cx="51" cy="67" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
                     <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                   </circle>
-                  <text x="53" y="49" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+                  <text x="51" y="64" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
                 </g>
               </svg>
             )}

@@ -485,20 +485,20 @@ export const textContent = {
                 <animate attributeName="opacity" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.222; 0.223; 0.777; 0.778; 1" dur="9s" repeatCount="indefinite" />
                 
                 <!-- 한의원 좌측 버스정류장 (메가MGC커피 위) -->
-                <circle cx="45" cy="46" r="1.2" fill="#00A2E8" />
-                <circle cx="45" cy="46" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
+                <circle cx="42" cy="28" r="1.2" fill="#00A2E8" />
+                <circle cx="42" cy="28" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
                   <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                 </circle>
-                <text x="45" y="43" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
+                <text x="42" y="25" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
 
-                <!-- 한의원 아래쪽 버스정류장 (배스킨라빈스 위) -->
-                <circle cx="53" cy="52" r="1.2" fill="#00A2E8" />
-                <circle cx="53" cy="52" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
+                <!-- 한의원 아래쪽 버스정류장 (배스킨라빈스 아래) -->
+                <circle cx="51" cy="67" r="1.2" fill="#00A2E8" />
+                <circle cx="51" cy="67" r="1.2" fill="none" stroke="#00A2E8" stroke-width="0.8">
                   <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                 </circle>
-                <text x="53" y="49" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
+                <text x="51" y="64" fill="#00A2E8" font-size="2.5" font-weight="900" text-anchor="middle" stroke="#ffffff" stroke-width="0.6" paint-order="stroke">정류장</text>
               </g>
             </svg>
           </div>`
