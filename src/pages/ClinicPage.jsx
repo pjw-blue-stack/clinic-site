@@ -326,7 +326,7 @@ function ClinicPage({
             />
             {selectedImage.includes('naver_map.jpg') && (
               <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path id="route-path-modal" d="M 53 66 C 53 62, 52 58, 52 53" stroke="#9966FF" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="2, 2" style={{ animation: 'dashMove 0.8s linear infinite' }} />
+                <path id="route-path-modal" d="M 53 66 C 53 62, 52 58, 52 55" stroke="#9966FF" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="2, 2" style={{ animation: 'dashMove 0.8s linear infinite' }} />
                 <circle cx="53" cy="66" r="1.5" fill="#9966FF" />
                 <polygon points="52,52 50.5,55 53.5,55" fill="#9966FF" />
                 <rect x="54" y="55" width="16" height="6" fill="rgba(255,255,255,0.9)" rx="1" />
