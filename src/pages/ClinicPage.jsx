@@ -312,17 +312,28 @@ function ClinicPage({
           }}
           onClick={() => setSelectedImage(null)}
         >
-          <img 
-            src={selectedImage} 
-            alt="확대된 이미지" 
-            style={{ 
-              maxWidth: '90vw', 
-              maxHeight: '90vh', 
-              borderRadius: '8px',
-              objectFit: 'contain',
-              boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
-            }} 
-          />
+          <div style={{ position: 'relative', display: 'inline-block', maxWidth: '90vw', maxHeight: '90vh' }}>
+            <img 
+              src={selectedImage} 
+              alt="확대된 이미지" 
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '90vh', 
+                borderRadius: '8px',
+                display: 'block',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.5)'
+              }} 
+            />
+            {selectedImage.includes('naver_map.jpg') && (
+              <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path id="route-path-modal" d="M 53 66 C 53 62, 52 58, 52 53" stroke="#9966FF" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="2, 2" style={{ animation: 'dashMove 0.8s linear infinite' }} />
+                <circle cx="53" cy="66" r="1.5" fill="#9966FF" />
+                <polygon points="52,52 50.5,55 53.5,55" fill="#9966FF" />
+                <rect x="54" y="55" width="16" height="6" fill="rgba(255,255,255,0.9)" rx="1" />
+                <text x="55" y="59" fill="#9966FF" fontSize="3" fontWeight="bold">도보 1분거리</text>
+              </svg>
+            )}
+          </div>
           <button 
             style={{ 
               position: 'absolute', 
