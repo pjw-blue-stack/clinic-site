@@ -1754,160 +1754,46 @@ function App() {
 
       {/* Specialty details modal is replaced by SpecialtyDetailPage component */}
 
-      {/* REAL-TIME NAVER BOOKING MODAL */}
+      {/* RESERVATION & CONTACT MODAL */}
       {showBookingModal && (
         <div className="modal-overlay" onClick={() => setShowBookingModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '550px' }}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '400px', padding: '30px 25px' }}>
             <button className="modal-close" onClick={() => setShowBookingModal(false)}>×</button>
-            <div className="modal-header">
-              <div className="modal-icon" style={{ fontSize: '2.5rem', color: '#03C75A' }}>N</div>
-              <div className="modal-subtitle" style={{ color: '#03C75A' }}>Naver Booking Integration</div>
-              <h2 className="modal-title" style={{ fontSize: '1.8rem', marginBottom: '4px' }}>네이버 실시간 예약</h2>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '4px' }}>
-                19년 임상 노하우의 박제욱 대표원장이 직접 1:1 맞춤 진료를 약속합니다.
-              </p>
+            <div className="modal-header" style={{ marginBottom: '25px', textAlign: 'center' }}>
+              <h2 className="modal-title" style={{ fontSize: '1.6rem', marginBottom: '8px' }}>무엇을 도와드릴까요?</h2>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>원하시는 서비스를 선택해 주세요.</p>
             </div>
             
-            {bookingSuccess ? (
-              <div className="booking-success text-center">
-                <div className="booking-success-icon" style={{ fontSize: '4rem' }}>🍀</div>
-                <h3 className="modal-title" style={{ fontSize: '1.5rem', marginBottom: '8px' }}>네이버 예약 신청 완료</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '24px' }}>
-                  <strong>{bookingForm.name}</strong> 환자님의 예약 신청서가 접수되었습니다.<br />
-                  예약 일시: <strong>{bookingForm.date} {bookingForm.time}</strong><br />
-                  진료 과목: <strong>{getSpecialtyName(bookingForm.specialtyId)}</strong><br />
-                  <span style={{ display: 'block', marginTop: '12px', fontSize: '0.85rem', color: '#03C75A' }}>
-                    * 네이버 알림/알림톡을 통해 확정 메시지가 5분 이내에 발송됩니다.
-                  </span>
-                </p>
-
-                {/* 사전 설문지 링크 유도 (노쇼 방지) */}
-                <div style={{
-                  backgroundColor: 'rgba(200, 162, 97, 0.08)',
-                  border: '1px dashed var(--accent-color)',
-                  borderRadius: 'var(--radius-md)',
-                  padding: '20px',
-                  marginBottom: '24px',
-                  textAlign: 'center'
-                }}>
-                  <h4 style={{ fontSize: '1rem', color: '#ffffff', margin: '0 0 8px 0', fontWeight: '600' }}>⭐ 다한증 진료 사전 설문지 작성</h4>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: '0 0 16px 0', lineHeight: '1.5' }}>
-                    19년 명의의 정교한 1:1 맞춤 치료 설계를 위해<br />내원 전 사전 설문지를 꼭 작성해 주시기 바랍니다.
-                  </p>
-                  <a 
-                    href={PRE_CONSULTATION_FORM_URL} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="btn btn-accent"
-                    style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 20px', fontSize: '0.9rem' }}
-                  >
-                    사전 설문지 작성하기 (구글폼)
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '35px' }}>
+              {/* 상담 하기 */}
+              <div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>상담 하기</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <a href="tel:02-732-1117" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '12px' }}>
+                    📞 전화 상담
+                  </a>
+                  <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn" style={{ backgroundColor: '#FEE500', color: '#3c1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                    💬 카톡 상담
+                  </a>
+                  <a href="https://talk.naver.com/ct/w4xpjd?frm=mnmb&frm=nmb_detail#nafullscreen" target="_blank" rel="noreferrer" className="btn" style={{ backgroundColor: '#03C75A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                    <span style={{ fontWeight: 'bold' }}>N</span> 네이버 톡톡 상담
                   </a>
                 </div>
-
-                <button className="btn btn-outline" onClick={resetBookingForm} style={{ width: '100%' }}>
-                  확인
-                </button>
               </div>
-            ) : (
-              <form onSubmit={handleBookingSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">예약자 성함</label>
-                    <input 
-                      type="text" 
-                      className="form-input" 
-                      placeholder="성함을 입력해주세요" 
-                      value={bookingForm.name}
-                      onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">연락처</label>
-                    <input 
-                      type="tel" 
-                      className="form-input" 
-                      placeholder="010-0000-0000" 
-                      value={bookingForm.tel}
-                      onChange={(e) => setBookingForm({ ...bookingForm, tel: e.target.value })}
-                      required 
-                    />
-                  </div>
-                  <div className="form-grid" style={{ marginBottom: 0, gap: '16px' }}>
-                    <div className="form-group" style={{ textAlign: 'left' }}>
-                      <label className="form-label">예약 날짜</label>
-                      <input 
-                        type="date" 
-                        className="form-input" 
-                        value={bookingForm.date}
-                        onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
-                        required 
-                      />
-                    </div>
-                    <div className="form-group" style={{ textAlign: 'left' }}>
-                      <label className="form-label">예약 시간</label>
-                      <select 
-                        className="form-select"
-                        value={bookingForm.time}
-                        onChange={(e) => setBookingForm({ ...bookingForm, time: e.target.value })}
-                      >
-                        <option value="09:30">09:30</option>
-                        <option value="10:00">10:00</option>
-                        <option value="10:30">10:30</option>
-                        <option value="11:00">11:00</option>
-                        <option value="11:30">11:30</option>
-                        <option value="12:00">12:00</option>
-                        <option value="12:30">12:30</option>
-                        <option value="14:00">14:00</option>
-                        <option value="14:30">14:30</option>
-                        <option value="15:00">15:00</option>
-                        <option value="15:30">15:30</option>
-                        <option value="16:00">16:00</option>
-                        <option value="16:30">16:30</option>
-                        <option value="17:00">17:00</option>
-                        <option value="17:30">17:30</option>
-                        <option value="18:00">18:00</option>
-                        <option value="18:30">18:30</option>
-                        <option value="19:00">19:00</option>
-                        <option value="19:30">19:30</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">진료 과목</label>
-                    <select 
-                      className="form-select"
-                      value={bookingForm.specialtyId}
-                      onChange={(e) => setBookingForm({ ...bookingForm, specialtyId: e.target.value })}
-                    >
-                      {specialties.map(spec => (
-                        <option key={spec.id} value={spec.id}>{spec.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group" style={{ textAlign: 'left' }}>
-                    <label className="form-label">원장님께 드리는 말씀 (선택)</label>
-                    <input 
-                      type="text" 
-                      className="form-input" 
-                      placeholder="증상 또는 특이사항을 적어주세요."
-                      value={bookingForm.memo}
-                      onChange={(e) => setBookingForm({ ...bookingForm, memo: e.target.value })}
-                    />
-                  </div>
-                  
-                  <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
-                    <button type="submit" className="btn btn-accent" style={{ flex: 1, backgroundColor: '#03C75A', color: '#FFFFFF' }}>
-                      네이버 페이 간편 예약 신청
-                    </button>
-                    <button type="button" className="btn btn-outline" onClick={() => setShowBookingModal(false)}>
-                      취소
-                    </button>
-                  </div>
+
+              {/* 내원 예약 하기 */}
+              <div>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>내원 예약 하기</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <a href="tel:02-732-1117" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '12px' }}>
+                    📞 전화 예약
+                  </a>
+                  <a href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" target="_blank" rel="noreferrer" className="btn" style={{ backgroundColor: '#03C75A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                    📅 네이버 예약
+                  </a>
                 </div>
-              </form>
-            )}
+              </div>
+            </div>
           </div>
         </div>
       )}

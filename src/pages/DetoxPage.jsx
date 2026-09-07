@@ -51,7 +51,7 @@ function DetoxPage({
             </p>
             <div className="cta-action-box" style={{ marginTop: '2rem' }}>
               <button className="btn btn-primary btn-large" onClick={() => setShowBookingModal(true)}>
-                정원 해독 진료 예약
+                실시간 예약
               </button>
             </div>
           </div>
