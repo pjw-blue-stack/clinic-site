@@ -453,7 +453,7 @@ export const textContent = {
           `<div style="position: relative; width: 100%; max-width: 600px; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
             <img src="/images/naver_map.jpg" alt="경희정원한의원 오시는 길 지도" style="width: 100%; display: block; cursor: zoom-in;" />
             <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <path id="route-path" d="M 53 66 C 53 62, 52 58, 52 53" stroke="#9966FF" stroke-width="1.5" fill="none" stroke-linecap="round" />
+              <path id="route-path" d="M 53 66 C 53 62, 52 58, 52 55" stroke="#9966FF" stroke-width="1.5" fill="none" stroke-linecap="round" />
               <circle cx="53" cy="66" r="1.5" fill="#9966FF" />
               <polygon points="52,52 50.5,55 53.5,55" fill="#9966FF" />
               <rect x="54" y="55" width="16" height="6" fill="rgba(255,255,255,0.9)" rx="1" />
