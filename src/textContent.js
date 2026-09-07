@@ -497,16 +497,22 @@ export const textContent = {
           </div>`,
           "- 건물 뒤쪽에 1층 지상주차장(40여대 주차가능) 있습니다.",
           "- 저희 건물 1층 <span style=\"color: #0066cc; font-weight: 500;\">'본죽'</span>과 옆건물 <span style=\"color: #0066cc; font-weight: 500;\">'GS25'</span> 사이에 <span style=\"color: #0066cc; font-weight: 500; text-decoration: underline;\">주차장 입구</span>가 있습니다.",
-          `<div class="parking-slider" style="position: relative; width: 100%; max-width: 600px; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: zoom-in; background: #222; font-size: 0;">
-            <img src="/images/parking_entrance.jpg" alt="경희정원한의원 주차장 입구" style="width: 100%; display: block;" />
-            <img src="/images/parking_lot.jpg" alt="40여대 주차 가능(지상주차장)" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; background: #222; animation: slideFadeTop 6s infinite;" />
+          `<div class="parking-slider-viewport" style="position: relative; width: 100%; max-width: 600px; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: zoom-in; background: #222; font-size: 0;">
+            <div class="parking-slider-track" style="display: flex; width: 200%; animation: slideX 6s infinite ease-in-out;">
+              <div style="width: 50%; position: relative;">
+                <img src="/images/parking_entrance.jpg" alt="경희정원한의원 주차장 입구" style="width: 100%; display: block;" />
+              </div>
+              <div style="width: 50%; position: relative; background: #222;">
+                <img src="/images/parking_lot.jpg" alt="40여대 주차 가능(지상주차장)" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; display: block;" />
+              </div>
+            </div>
             <style>
-              @keyframes slideFadeTop {
-                0%, 45% { opacity: 0; visibility: hidden; }
-                50%, 95% { opacity: 1; visibility: visible; }
-                100% { opacity: 0; visibility: hidden; }
+              @keyframes slideX {
+                0%, 40% { transform: translateX(0); }
+                50%, 90% { transform: translateX(-50%); }
+                100% { transform: translateX(0); }
               }
-              .parking-slider:hover img {
+              .parking-slider-viewport:hover .parking-slider-track {
                 animation-play-state: paused;
               }
             </style>
