@@ -254,39 +254,30 @@ const SelfCheckPage = ({ onComplete }) => {
               <strong>경희 정원 AI</strong>에게 무료로 상담 받아보세요!
             </p>
             
-            <button 
-              className="pulse-btn" 
-              style={{ 
-                width: 'auto', 
-                minWidth: '280px',
-                padding: '16px 32px', 
-                fontSize: '1.2rem',
-                borderRadius: '30px',
-                background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', 
-                border: 'none', 
-                color: '#ffffff', 
-                fontWeight: 'bold',
-                cursor: 'pointer',
-                marginBottom: '10px'
-              }} 
-              onClick={() => startChat(desc, risk, duration)}
-            >
-              🩺 실시간 AI 상담 시작하기
-            </button>
-
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', alignItems: 'center' }}>
-              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="chat-action-btn btn-kakao-action" style={{ width: 'auto', minWidth: '280px', margin: 0 }}>
+              <button 
+                className="chat-action-btn pulse-btn" 
+                style={{ 
+                  background: 'linear-gradient(135deg, var(--primary-color), var(--primary-dark))', 
+                  color: '#ffffff',
+                  boxShadow: 'none' /* pulse-btn might have its own shadow, but let's let chat-action-btn handle base layout */
+                }} 
+                onClick={() => startChat(desc, risk, duration)}
+              >
+                🩺 실시간 AI 상담 시작하기
+              </button>
+
+              <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="chat-action-btn btn-kakao-action">
                 💬 카카오톡으로 자세한 상담받기
               </a>
-              <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action" style={{ width: 'auto', minWidth: '280px', margin: 0 }}>
+              <a href="http://talk.naver.com/w4xpjd?frm=mnmb&frm=nmb_detail" target="_blank" rel="noreferrer" className="chat-action-btn btn-naver-action">
                 N 네이버 톡톡으로 자세한 상담받기
               </a>
-              <a href="/?page=clinic" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff', width: 'auto', minWidth: '280px', margin: 0 }}>
+              <a href="/?page=clinic" className="chat-action-btn" style={{ background: '#005b9f', color: '#fff' }}>
                 📝 홈페이지 Q&A 게시판에 문의하기
               </a>
               <button 
                 className="chat-action-btn btn-reset-action" 
-                style={{ width: 'auto', minWidth: '280px', margin: 0 }}
                 onClick={handleReset}
               >
                 테스트 다시 하기
