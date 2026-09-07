@@ -483,6 +483,17 @@ export const textContent = {
         mode: "[자동차]", 
         detail: [
           "- 네비게이션 입력 : '<span style=\"color: #279e27; font-weight: bold;\">양천구 목동로 218</span>'",
+          `<div style="display: flex; gap: 10px; margin-top: 12px; margin-bottom: 8px; flex-wrap: wrap;">
+            <a href="tmap://search?name=경희정원한의원 목동본점" class="btn" style="flex: 1; min-width: 100px; background-color: #111111; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              🚗 티맵
+            </a>
+            <a href="https://map.kakao.com/link/search/경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #FEE500; color: #3c1e1e; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              💬 카카오내비
+            </a>
+            <a href="https://m.map.naver.com/search2/search.naver?query=경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #03C75A; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <span style="font-weight: 900;">N</span> 네이버지도
+            </a>
+          </div>`,
           "- 건물 뒤쪽에 1층 지상주차장(40여대 주차가능) 있습니다.",
           "- 저희 건물 1층 <span style=\"color: #0066cc; font-weight: 500;\">'본죽'</span>과 옆건물 <span style=\"color: #0066cc; font-weight: 500;\">'GS25'</span> 사이에 <span style=\"color: #0066cc; font-weight: 500; text-decoration: underline;\">주차장 입구</span>가 있습니다.",
           "<img src=\"/images/parking_entrance.jpg\" alt=\"경희정원한의원 주차장 입구\" style=\"width: 100%; max-width: 600px; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); cursor: pointer;\" />"
