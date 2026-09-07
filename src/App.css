@@ -3403,3 +3403,27 @@ main.main-content.blurred, footer.footer.blurred {
   background-color: var(--secondary-color);
   color: var(--primary-color);
 }
+
+/* Brand Buttons */
+.btn-brand-kakao {
+  background-color: #FEE500;
+  color: #3c1e1e;
+  box-shadow: var(--shadow-sm);
+}
+.btn-brand-kakao:hover {
+  background-color: #E5CD00;
+  color: #3c1e1e;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.btn-brand-naver {
+  background-color: #03C75A;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+.btn-brand-naver:hover {
+  background-color: #02B351;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
