@@ -484,13 +484,14 @@ export const textContent = {
         detail: [
           "- 네비게이션 입력 : '<span style=\"color: #279e27; font-weight: bold;\">양천구 목동로 218</span>'",
           `<div style="display: flex; gap: 10px; margin-top: 12px; margin-bottom: 8px; flex-wrap: wrap;">
-            <a href="tmap://search?name=경희정원한의원 목동본점" class="btn" style="flex: 1; min-width: 100px; background-color: #111111; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-              🚗 티맵
+            <a href="tmap://search?name=경희정원한의원 목동본점" class="btn" style="flex: 1; min-width: 100px; background-color: #002D5A; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span style="color: #00D564; font-weight: 900; font-size: 1.1rem; font-style: italic;">T</span>
+              <span>티맵</span>
             </a>
-            <a href="https://map.kakao.com/link/search/경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #FEE500; color: #3c1e1e; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <a href="https://map.kakao.com/link/search/경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #FEE500; color: #3c1e1e; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
               💬 카카오내비
             </a>
-            <a href="https://m.map.naver.com/search2/search.naver?query=경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #03C75A; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <a href="https://m.map.naver.com/search2/search.naver?query=경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #03C75A; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
               <span style="font-weight: 900;">N</span> 네이버지도
             </a>
           </div>`,
