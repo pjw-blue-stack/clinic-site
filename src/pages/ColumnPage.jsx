@@ -136,7 +136,7 @@ function ColumnPage({
                     setShowBookingModal(true);
                   }}
                 >
-                  네이버 실시간 예약
+                  실시간 예약
                 </button>
                 <button className="btn btn-outline-white" onClick={onBack}>
                   메인 홈으로 가기

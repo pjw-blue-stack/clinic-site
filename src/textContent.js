@@ -4,7 +4,7 @@ export const textContent = {
     badge: "🔔 경희정원 최신 소식",
     title: "19년 임상 노하우,\n경희정원한의원의 새로운 소식을\n알려드립니다.",
     desc: "환자분들의 편안한 진료를 위한 최신 공지사항 및 원장님 칼럼 업데이트 소식을 확인해 보세요.",
-    btnBooking: "네이버 실시간 예약",
+    btnBooking: "실시간 예약",
     btnReviews: "치료 후기 보기",
     announcements: [
       { id: 1, title: "[공지] 9월 추석 연휴 진료 일정 안내", date: "2026.08.30", tag: "공지사항" },

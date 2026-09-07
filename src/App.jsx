@@ -2298,7 +2298,7 @@ function SpecialtyDetailPage({
                     setShowBookingModal(true);
                   }}
                 >
-                  네이버 실시간 예약
+                  실시간 예약
                 </button>
               </div>
             </div>
