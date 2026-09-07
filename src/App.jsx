@@ -1769,7 +1769,7 @@ function App() {
               <div>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>상담 하기</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="tel:02-732-1117" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '12px' }}>
+                  <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     📞 전화 상담
                   </a>
                   <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn" style={{ backgroundColor: '#FEE500', color: '#3c1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
@@ -1785,7 +1785,7 @@ function App() {
               <div>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>내원 예약 하기</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="tel:02-732-1117" className="btn btn-outline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '12px' }}>
+                  <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     📞 전화 예약
                   </a>
                   <a href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" target="_blank" rel="noreferrer" className="btn" style={{ backgroundColor: '#03C75A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
