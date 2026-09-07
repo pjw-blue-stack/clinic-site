@@ -1772,10 +1772,10 @@ function App() {
                   <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     📞 전화 상담
                   </a>
-                  <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ backgroundColor: '#FEE500', color: '#3c1e1e', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                  <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn btn-primary btn-kakao" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     💬 카톡 상담
                   </a>
-                  <a href="https://talk.naver.com/ct/w4xpjd?frm=mnmb&frm=nmb_detail#nafullscreen" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ backgroundColor: '#03C75A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                  <a href="https://talk.naver.com/ct/w4xpjd?frm=mnmb&frm=nmb_detail#nafullscreen" target="_blank" rel="noreferrer" className="btn btn-primary btn-naver" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     <span style={{ fontWeight: 'bold' }}>N</span> 네이버 톡톡 상담
                   </a>
                 </div>
@@ -1788,7 +1788,7 @@ function App() {
                   <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     📞 전화 예약
                   </a>
-                  <a href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ backgroundColor: '#03C75A', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
+                  <a href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" target="_blank" rel="noreferrer" className="btn btn-primary btn-naver" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     📅 네이버 예약
                   </a>
                 </div>
