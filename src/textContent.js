@@ -513,7 +513,7 @@ export const textContent = {
               <span style="color: #00D564; font-weight: 900; font-size: 1.1rem; font-style: italic;">T</span>
               <span>티맵</span>
             </a>
-            <a href="https://map.kakao.com/link/search/경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #FEE500; color: #3c1e1e; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <a href="https://map.kakao.com/link/search/목동로 218 경희정원한의원" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #FEE500; color: #3c1e1e; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
               💬 카카오내비
             </a>
             <a href="https://m.map.naver.com/search2/search.naver?query=경희정원한의원 목동본점" target="_blank" rel="noreferrer" class="btn" style="flex: 1; min-width: 100px; background-color: #03C75A; color: #fff; padding: 12px 5px; font-size: 0.9rem; font-weight: bold; border-radius: 8px; text-decoration: none; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; gap: 6px;">
