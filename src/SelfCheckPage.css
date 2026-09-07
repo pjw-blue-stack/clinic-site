@@ -233,10 +233,11 @@
   width: 100%;
   max-width: 320px;
   margin: 0 auto;
-  padding: 15px 0;
+  height: 56px;
   border-radius: 30px;
   font-weight: bold;
   font-size: 1.1rem;
+  line-height: 1;
   display: flex;
   justify-content: center;
   align-items: center;
