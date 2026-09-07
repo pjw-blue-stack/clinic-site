@@ -329,26 +329,26 @@ function ClinicPage({
                 <path id="route-path-modal" d="M 53 66 C 53 62, 52 58, 52 55" stroke="#9966FF" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="2, 2" style={{ animation: 'dashMove 0.8s linear infinite' }} />
                 <circle cx="53" cy="66" r="1.5" fill="#9966FF" />
                 <polygon points="52,52 50.5,55 53.5,55" fill="#9966FF" />
-                <rect x="54" y="55" width="16" height="6" fill="rgba(255,255,255,0.9)" rx="1" />
-                <text x="55" y="59" fill="#9966FF" fontSize="3" fontWeight="bold">도보 1분거리</text>
+                <rect x="54" y="54" width="22" height="7" fill="rgba(255,255,255,0.9)" rx="1" />
+                <text x="55" y="59.2" fill="#9966FF" fontSize="4" fontWeight="bold">도보 1분거리</text>
               </svg>
             )}
             {selectedImage.includes('bus_map.png') && (
               <svg style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }} viewBox="0 0 100 100" preserveAspectRatio="none">
                 <g style={{ animation: 'toggleOpacity 9s infinite' }}>
-                  <circle cx="43.2" cy="35.4" r="1.2" fill="#00A2E8" />
-                  <circle cx="43.2" cy="35.4" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
-                    <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
+                  <circle cx="43.2" cy="35.4" r="2.4" fill="#00A2E8" />
+                  <circle cx="43.2" cy="35.4" r="2.4" fill="none" stroke="#00A2E8" strokeWidth="1.2">
+                    <animate attributeName="r" values="2.4; 8" dur="1.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                   </circle>
-                  <text x="43.2" y="32.4" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+                  <text x="43.2" y="26" fill="#00A2E8" fontSize="4" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.8" paintOrder="stroke">정류장</text>
 
-                  <circle cx="51.7" cy="55.8" r="1.2" fill="#00A2E8" />
-                  <circle cx="51.7" cy="55.8" r="1.2" fill="none" stroke="#00A2E8" strokeWidth="0.8">
-                    <animate attributeName="r" values="1.2; 4" dur="1.2s" repeatCount="indefinite" />
+                  <circle cx="51.7" cy="55.8" r="2.4" fill="#00A2E8" />
+                  <circle cx="51.7" cy="55.8" r="2.4" fill="none" stroke="#00A2E8" strokeWidth="1.2">
+                    <animate attributeName="r" values="2.4; 8" dur="1.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="1; 0" dur="1.2s" repeatCount="indefinite" />
                   </circle>
-                  <text x="51.7" y="52.8" fill="#00A2E8" fontSize="2.5" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.6" paintOrder="stroke">정류장</text>
+                  <text x="51.7" y="46.4" fill="#00A2E8" fontSize="4" fontWeight="900" textAnchor="middle" stroke="#ffffff" strokeWidth="0.8" paintOrder="stroke">정류장</text>
                 </g>
               </svg>
             )}
