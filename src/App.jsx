@@ -1714,10 +1714,11 @@ function App() {
                 {textContent.footer.intro}
               </p>
               <div className="footer-socials">
-                <a href="#naver" className="social-circle" title="네이버 예약 / 네이버 톡톡">N</a>
+                <a href="#naver" className="social-circle" title="네이버 스마트플레이스 (예약/리뷰)">N</a>
                 <a href="#talk" className="social-circle" title="카카오톡 채널 '경희정원'">K</a>
+                <a href="#youtube" className="social-circle" title="공식 유튜브">Y</a>
                 <a href="#insta" className="social-circle" title="공식 인스타그램">I</a>
-                <a href="#blog" className="social-circle" title="공식 블로그">B</a>
+                <a href="#blog" className="social-circle" title="공식 네이버 블로그">B</a>
               </div>
             </div>
 
