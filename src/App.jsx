@@ -1714,12 +1714,12 @@ function App() {
                 {textContent.footer.intro}
               </p>
               <div className="footer-socials">
-                <a href="#blog" className="social-circle" title="네이버 블로그">B</a>
-                <a href="#place" className="social-circle" title="네이버 스마트플레이스">P</a>
-                <a href="#youtube" className="social-circle" title="공식 유튜브">Y</a>
-                <a href="#talk" className="social-circle" title="카카오톡 채널">K</a>
-                <a href="#insta" className="social-circle" title="인스타그램">I</a>
-                <a href="#carrot" className="social-circle" title="당근마켓 단골소식">C</a>
+                <a href="https://blog.naver.com/pjwblue8282" target="_blank" rel="noopener noreferrer" className="social-circle" title="네이버 블로그">B</a>
+                <a href="https://map.naver.com/p/entry/place/12858565?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202609102154%26locale%3Dko%26svcName%3Dmap_pcv5" target="_blank" rel="noopener noreferrer" className="social-circle" title="네이버 스마트플레이스">P</a>
+                <a href="#youtube" onClick={(e) => e.preventDefault()} className="social-circle" title="공식 유튜브 (준비중)">Y</a>
+                <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noopener noreferrer" className="social-circle" title="카카오톡 채널">K</a>
+                <a href="#insta" onClick={(e) => e.preventDefault()} className="social-circle" title="인스타그램 (준비중)">I</a>
+                <a href="https://www.daangn.com/kr/local-profile/%EA%B2%BD%ED%9D%AC%EC%A0%95%EC%9B%90%ED%95%9C%EC%9D%98%EC%9B%90-2kkmpv43m6wk/" target="_blank" rel="noopener noreferrer" className="social-circle" title="당근마켓 단골소식">C</a>
               </div>
             </div>
 
