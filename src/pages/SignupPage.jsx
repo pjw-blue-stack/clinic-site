@@ -15,6 +15,7 @@ export default function SignupPage({ setPage }) {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreePrivacy, setAgreePrivacy] = useState(false);
   const [policyType, setPolicyType] = useState(null); // 'terms' | 'privacy' | null
+  const [isSignupComplete, setIsSignupComplete] = useState(false);
 
   const saveUnverifiedUserToFirestore = async (user, displayName, phoneNumber = '') => {
     const userRef = doc(db, 'unverifiedUsers', user.uid);
@@ -65,8 +66,7 @@ export default function SignupPage({ setPage }) {
       await sendEmailVerification(user);
       await auth.signOut();
       
-      alert('회원가입이 접수되었습니다! 안전한 사용을 위해 인증 메일이 발송되었습니다.\\n메일함에서 [인증 링크]를 클릭하신 후 로그인해주세요.');
-      setPage('login');
+      setIsSignupComplete(true);
     } catch (error) {
       console.error(error);
       if (error.code === 'auth/email-already-in-use') alert('이미 가입된 이메일입니다.');
@@ -118,6 +118,28 @@ export default function SignupPage({ setPage }) {
       alert(`현재 ${platform} 연동 준비 중입니다. 구글, 네이버, 카카오 로그인을 이용해 주세요.`);
     }
   };
+
+  if (isSignupComplete) {
+    return (
+      <div className="auth-container">
+        <div className="auth-box" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+          <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>✉️</div>
+          <h2 className="auth-title" style={{ fontSize: '1.8rem', color: 'var(--primary-color)' }}>가입이 접수되었습니다!</h2>
+          <p className="auth-subtitle" style={{ fontSize: '1.05rem', lineHeight: '1.6', marginBottom: '2.5rem', color: '#555' }}>
+            입력하신 이메일(<b>{email}</b>)로<br/>
+            인증 링크를 발송해 드렸습니다.<br/>
+            <br/>
+            메일함에서 <b>[인증 링크]</b>를 클릭하신 후<br/>
+            아래 버튼을 눌러 로그인해 주세요.<br/>
+            <span style={{ fontSize: '0.9rem', color: '#888', marginTop: '10px', display: 'inline-block' }}>(메일이 오지 않았다면 스팸함을 확인해 주세요)</span>
+          </p>
+          <button className="btn btn-primary auth-btn" onClick={() => setPage('login')}>
+            로그인 페이지로 돌아가기
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="auth-container">
