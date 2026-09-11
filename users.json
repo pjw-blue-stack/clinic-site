@@ -1,28 +1,14 @@
 {"users": [
 {
-  "localId": "RaOWYZmwIjUlLUXXb42D4s7BQ9Z2",
+  "localId": "anAZoaRJKpfS5f5EBgnuwnv1PU63",
   "email": "pjwblue82@naver.com",
-  "emailVerified": false,
-  "passwordHash": "KKfrP+8iA9OFakiT/PIu4jnno+864vePwR7UbEXc4pHgVM6iqQqS+XHnw4FbJZCtoBWTPNLGyJRXTadhKYmLWw==",
-  "salt": "+ouPXwx2RjdzlA==",
+  "emailVerified": true,
+  "passwordHash": "4TISWDvFY4FLg64J3SWskUzX7yIYMvtZuFNXyUIk/4i6udeWrIpvO117soHgtMiZRDoAbW9UadHe4ks1i2QqzQ==",
+  "salt": "PCVEth7OYL4iPw==",
   "displayName": "박제욱",
-  "lastSignedInAt": "1788659392680",
-  "createdAt": "1788615597463",
+  "lastSignedInAt": "1789132828250",
+  "createdAt": "1789132828250",
   "providerUserInfo": []
-},
-{
-  "localId": "kakao:5074472661",
-  "displayName": "박제욱",
-  "lastSignedInAt": "1788659374534",
-  "createdAt": "1788658845355",
-  "disabled": false
-},
-{
-  "localId": "naver:vUcMe5br4Au_hShPCCImkfJJzShk7mMoR1V-YKgMIWs",
-  "displayName": "박제욱",
-  "lastSignedInAt": "1788658765239",
-  "createdAt": "1788658225997",
-  "disabled": false
 },
 {
   "localId": "sp3z1DeXQjbo7RrmEI72jhgTRfz1",
@@ -30,7 +16,7 @@
   "emailVerified": true,
   "displayName": "lucas park",
   "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLSVnnp-3tPxIBRf2p-jTC3HnbM7xP3TMLOea5tFdXoHFD_0w=s96-c",
-  "lastSignedInAt": "1788659030314",
+  "lastSignedInAt": "1789133368213",
   "createdAt": "1788525172482",
   "providerUserInfo": [
     {

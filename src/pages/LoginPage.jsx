@@ -13,23 +13,29 @@ export default function LoginPage({ setPage }) {
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
-      let phone = '';
-      const unverifiedRef = doc(db, 'unverifiedUsers', user.uid);
-      try {
-        const unverifiedSnap = await getDoc(unverifiedRef);
-        if (unverifiedSnap.exists()) {
-          phone = unverifiedSnap.data().phone || '';
-          await deleteDoc(unverifiedRef);
+      let finalName = displayName || user.email;
+      let finalPhone = '';
+      
+      // SignupPage에서 임시로 넣어둔 전화번호 추출
+      if (finalName && finalName.includes('|||')) {
+        const parts = finalName.split('|||');
+        finalName = parts[0];
+        finalPhone = parts[1];
+        
+        // Firebase Auth 프로필 이름 원상복구
+        try {
+          const { updateProfile } = await import('firebase/auth');
+          await updateProfile(user, { displayName: finalName });
+        } catch (e) {
+          console.warn('프로필 이름 원상복구 실패:', e);
         }
-      } catch (e) {
-        console.warn('unverifiedUsers 읽기 실패:', e);
       }
 
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email,
-        name: displayName,
-        phone: phone,
+        name: finalName,
+        phone: finalPhone,
         provider: user.providerData[0]?.providerId || 'email',
         createdAt: new Date().toISOString()
       });
