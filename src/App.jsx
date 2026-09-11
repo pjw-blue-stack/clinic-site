@@ -700,8 +700,8 @@ function App() {
                 createdAt: new Date().toISOString()
               });
             }
-          }
-          if (ADMIN_EMAILS.includes(user.email)) {
+            
+            if (ADMIN_EMAILS.includes(user.email)) {
               setIsAdmin(true);
             } else {
               setIsAdmin(false);
