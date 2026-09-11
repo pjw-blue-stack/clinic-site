@@ -358,20 +358,22 @@ exports.onUserSignupSendEmail = functions.firestore
       }
 
       // 2. SMTP 트랜스포터 설정 (환경 변수 사용)
-      const gmailEmail = process.env.GMAIL_EMAIL || functions.config().gmail?.email;
-      const gmailPassword = process.env.GMAIL_PASSWORD || functions.config().gmail?.password;
+      const naverId = process.env.NAVER_ID || functions.config().naver?.id;
+      const naverPassword = process.env.NAVER_PASSWORD || functions.config().naver?.password;
 
-      if (!gmailEmail || !gmailPassword) {
-        console.error('SMTP 이메일/비밀번호가 설정되지 않았습니다.');
+      if (!naverId || !naverPassword) {
+        console.error('네이버 계정/비밀번호가 설정되지 않았습니다.');
         await snap.ref.update({ welcomeEmailStatus: 'failed', welcomeEmailError: 'SMTP 설정을 찾을 수 없습니다.' });
         return null;
       }
 
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.naver.com',
+        port: 465,
+        secure: true,
         auth: {
-          user: gmailEmail,
-          pass: gmailPassword,
+          user: naverId,
+          pass: naverPassword,
         },
       });
 
@@ -381,8 +383,10 @@ exports.onUserSignupSendEmail = functions.firestore
       const mailSubject = templateData.subject.replace(/{이름}/g, userName);
 
       // 4. 이메일 발송
+      // 네이버 메일은 보내는 사람(from) 주소가 로그인한 아이디의 네이버 메일 주소와 일치해야 합니다.
+      const fromEmail = naverId.includes('@') ? naverId : `${naverId}@naver.com`;
       const mailOptions = {
-        from: `"경희정원한의원" <${gmailEmail}>`,
+        from: `"경희정원한의원" <${fromEmail}>`,
         to: userEmail,
         subject: mailSubject,
         html: mailHtml,
