@@ -691,10 +691,23 @@ function App() {
             if (provider === 'password' && !user.emailVerified) {
               console.log('이메일 인증 대기 중 - 사용자 문서 생성을 보류합니다.');
             } else {
+              let finalName = user.displayName || '회원';
+              let finalPhone = '';
+              if (finalName && finalName.includes('|||')) {
+                const parts = finalName.split('|||');
+                finalName = parts[0];
+                finalPhone = parts[1];
+                try {
+                  const { updateProfile } = await import('firebase/auth');
+                  await updateProfile(user, { displayName: finalName });
+                } catch(e) { console.warn(e); }
+              }
+
               await setDoc(userRef, {
                 uid: user.uid,
                 email: user.email || '',
-                name: user.displayName || '회원',
+                name: finalName,
+                phone: finalPhone,
                 provider: provider,
                 role: 'user',
                 createdAt: new Date().toISOString()
@@ -780,6 +793,23 @@ function App() {
     try {
       const { signInWithEmailAndPassword } = await import('firebase/auth');
       const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+      const user = userCredential.user;
+      
+      if (!user.emailVerified) {
+        await auth.signOut();
+        const resend = window.confirm('이메일 인증이 완료되지 않았습니다.\\n메일함에서 인증 링크를 클릭해주세요.\\n\\n인증 메일을 다시 보내시겠습니까?');
+        if (resend) {
+          try {
+            const { sendEmailVerification } = await import('firebase/auth');
+            await sendEmailVerification(user);
+            alert('인증 메일을 다시 발송했습니다. 메일함을 확인해주세요.');
+          } catch (err) {
+            if (err.code === 'auth/too-many-requests') alert('잠시 후 다시 시도해주세요.');
+          }
+        }
+        return;
+      }
+
       // save user if not exists (assume already handled or handle it simply)
       setShowLoginModal(false);
       setLoginEmail('');
