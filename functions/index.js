@@ -372,7 +372,7 @@ exports.onUserSignupSendEmail = functions.firestore
         port: 465,
         secure: true,
         auth: {
-          user: naverId,
+          user: naverId.includes('@') ? naverId : `${naverId}@naver.com`,
           pass: naverPassword,
         },
       });

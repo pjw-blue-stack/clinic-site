@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, signInWithPopup, sendPasswordResetEmail } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, sendPasswordResetEmail, sendEmailVerification } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, deleteDoc } from 'firebase/firestore';
 import './AuthPages.css';
 
 export default function LoginPage({ setPage }) {
@@ -13,10 +13,23 @@ export default function LoginPage({ setPage }) {
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
+      let phone = '';
+      const unverifiedRef = doc(db, 'unverifiedUsers', user.uid);
+      try {
+        const unverifiedSnap = await getDoc(unverifiedRef);
+        if (unverifiedSnap.exists()) {
+          phone = unverifiedSnap.data().phone || '';
+          await deleteDoc(unverifiedRef);
+        }
+      } catch (e) {
+        console.warn('unverifiedUsers 읽기 실패:', e);
+      }
+
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email,
         name: displayName,
+        phone: phone,
         provider: user.providerData[0]?.providerId || 'email',
         createdAt: new Date().toISOString()
       });
@@ -29,6 +42,21 @@ export default function LoginPage({ setPage }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      
+      if (!user.emailVerified) {
+        await auth.signOut();
+        const resend = window.confirm('이메일 인증이 완료되지 않았습니다.\\n메일함에서 인증 링크를 클릭해주세요.\\n\\n인증 메일을 다시 보내시겠습니까?');
+        if (resend) {
+          try {
+            await sendEmailVerification(user);
+            alert('인증 메일을 다시 발송했습니다. 메일함을 확인해주세요.');
+          } catch (err) {
+            if (err.code === 'auth/too-many-requests') alert('잠시 후 다시 시도해주세요.');
+          }
+        }
+        return;
+      }
+
       await saveUserToFirestore(user, user.displayName || user.email);
       alert('로그인되었습니다!');
       setPage('home');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile, sendEmailVerification } from 'firebase/auth';
 import { auth, googleProvider, db } from '../firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import PolicyModal from '../components/PolicyModal';
@@ -16,7 +16,18 @@ export default function SignupPage({ setPage }) {
   const [agreePrivacy, setAgreePrivacy] = useState(false);
   const [policyType, setPolicyType] = useState(null); // 'terms' | 'privacy' | null
 
-  const saveUserToFirestore = async (user, displayName, phoneNumber = '') => {
+  const saveUnverifiedUserToFirestore = async (user, displayName, phoneNumber = '') => {
+    const userRef = doc(db, 'unverifiedUsers', user.uid);
+    await setDoc(userRef, {
+      uid: user.uid,
+      email: user.email,
+      name: displayName,
+      phone: phoneNumber,
+      createdAt: new Date().toISOString()
+    });
+  };
+
+  const saveUserToFirestore = async (user, displayName) => {
     const userRef = doc(db, 'users', user.uid);
     const userSnap = await getDoc(userRef);
     if (!userSnap.exists()) {
@@ -24,7 +35,6 @@ export default function SignupPage({ setPage }) {
         uid: user.uid,
         email: user.email,
         name: displayName,
-        phone: phoneNumber,
         provider: user.providerData[0]?.providerId || 'email',
         createdAt: new Date().toISOString()
       });
@@ -47,12 +57,16 @@ export default function SignupPage({ setPage }) {
       const user = userCredential.user;
       await updateProfile(user, { displayName: name });
       try {
-        await saveUserToFirestore(user, name, phone);
+        await saveUnverifiedUserToFirestore(user, name, phone);
       } catch (fsError) {
         console.warn('Firestore 저장 실패 (권한 문제일 수 있습니다):', fsError);
       }
-      alert('회원가입이 완료되었습니다!');
-      setPage('home');
+      
+      await sendEmailVerification(user);
+      await auth.signOut();
+      
+      alert('회원가입이 접수되었습니다! 안전한 사용을 위해 인증 메일이 발송되었습니다.\\n메일함에서 [인증 링크]를 클릭하신 후 로그인해주세요.');
+      setPage('login');
     } catch (error) {
       console.error(error);
       if (error.code === 'auth/email-already-in-use') alert('이미 가입된 이메일입니다.');
