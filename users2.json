@@ -1,0 +1,18 @@
+{"users": [
+{
+  "localId": "sp3z1DeXQjbo7RrmEI72jhgTRfz1",
+  "email": "pjw-blue@hanmail.net",
+  "emailVerified": true,
+  "displayName": "lucas park",
+  "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLSVnnp-3tPxIBRf2p-jTC3HnbM7xP3TMLOea5tFdXoHFD_0w=s96-c",
+  "lastSignedInAt": "1789134405523",
+  "createdAt": "1788525172482",
+  "providerUserInfo": [
+    {
+      "providerId": "google.com",
+      "rawId": "104965615786904571730",
+      "displayName": "lucas park",
+      "photoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLSVnnp-3tPxIBRf2p-jTC3HnbM7xP3TMLOea5tFdXoHFD_0w=s96-c"
+    }
+  ]
+}]}

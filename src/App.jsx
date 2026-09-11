@@ -673,7 +673,11 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setLoggedInUser(user.displayName || user.email);
+        let displayStr = user.displayName || user.email;
+        if (displayStr && displayStr.includes('|||')) {
+          displayStr = displayStr.split('|||')[0];
+        }
+        setLoggedInUser(displayStr);
         
         // Firestore users 컬렉션에 사용자 정보 저장/업데이트
         try {
