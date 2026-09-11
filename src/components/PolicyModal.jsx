@@ -39,7 +39,7 @@ export default function PolicyModal({ type, onClose }) {
               <ul>
                 <li>의료법에 따른 진료기록 보존: 10년</li>
                 <li>소비자의 불만 또는 분쟁처리에 관한 기록: 3년</li>
-                <li>홈페이지 회원 정보: 회원 탈퇴 시까지</li>
+                <li>홈페이지 회원 정보: 가입일로부터 5년 (단, 회원 탈퇴 시 즉시 파기)</li>
               </ul>
 
               <h4>제 5 조 (동의 거부권 및 불이익)</h4>
