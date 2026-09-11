@@ -687,15 +687,21 @@ function App() {
           if (user.uid.startsWith('google:')) provider = 'google.com';
 
           if (!userSnap.exists()) {
-            await setDoc(userRef, {
-              uid: user.uid,
-              email: user.email || '',
-              name: user.displayName || '회원',
-              provider: provider,
-              role: 'user',
-              createdAt: new Date().toISOString()
-            });
-            if (ADMIN_EMAILS.includes(user.email)) {
+            // 이메일 가입자인데 인증이 안 된 경우, users 문서 생성을 막아서 환영 메일이 먼저 나가는 것을 방지합니다.
+            if (provider === 'password' && !user.emailVerified) {
+              console.log('이메일 인증 대기 중 - 사용자 문서 생성을 보류합니다.');
+            } else {
+              await setDoc(userRef, {
+                uid: user.uid,
+                email: user.email || '',
+                name: user.displayName || '회원',
+                provider: provider,
+                role: 'user',
+                createdAt: new Date().toISOString()
+              });
+            }
+          }
+          if (ADMIN_EMAILS.includes(user.email)) {
               setIsAdmin(true);
             } else {
               setIsAdmin(false);
