@@ -28,3 +28,4 @@ dist-ssr
 functions/.runtimeconfig.json
 functions/test-gemini.js
 functions/test-*.js
+functions/.env
