@@ -325,3 +325,86 @@ exports.chatWithGemini = functions.https.onCall(async (data, context) => {
   }
 });
 
+
+/**
+ * 신규 회원 가입 시 환영 이메일 자동 발송 (Firestore users 문서 생성 감지)
+ */
+const nodemailer = require('nodemailer');
+
+exports.onUserSignupSendEmail = functions.firestore
+  .document('users/{uid}')
+  .onCreate(async (snap, context) => {
+    const userData = snap.data();
+    const userEmail = userData.email;
+    const uid = context.params.uid;
+
+    if (!userEmail) {
+      console.log('가입한 회원에게 이메일 주소가 없습니다.', uid);
+      return null;
+    }
+
+    try {
+      // 1. 이메일 템플릿 불러오기
+      const templateDoc = await admin.firestore().collection('settings').doc('emailTemplate').get();
+      if (!templateDoc.exists) {
+        console.log('이메일 템플릿이 존재하지 않아 발송을 건너뜁니다.');
+        return null;
+      }
+      
+      const templateData = templateDoc.data();
+      if (templateData.isEnabled === false) {
+        console.log('이메일 발송 기능이 비활성화 되어 있습니다.');
+        return null;
+      }
+
+      // 2. SMTP 트랜스포터 설정 (환경 변수 사용)
+      const gmailEmail = process.env.GMAIL_EMAIL || functions.config().gmail?.email;
+      const gmailPassword = process.env.GMAIL_PASSWORD || functions.config().gmail?.password;
+
+      if (!gmailEmail || !gmailPassword) {
+        console.error('SMTP 이메일/비밀번호가 설정되지 않았습니다.');
+        await snap.ref.update({ welcomeEmailStatus: 'failed', welcomeEmailError: 'SMTP 설정을 찾을 수 없습니다.' });
+        return null;
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailEmail,
+          pass: gmailPassword,
+        },
+      });
+
+      // 3. 이메일 본문 내 변수 치환 (예: {이름} -> 홍길동)
+      const userName = userData.name || '회원';
+      const mailHtml = templateData.body.replace(/{이름}/g, userName);
+      const mailSubject = templateData.subject.replace(/{이름}/g, userName);
+
+      // 4. 이메일 발송
+      const mailOptions = {
+        from: `"경희정원한의원" <${gmailEmail}>`,
+        to: userEmail,
+        subject: mailSubject,
+        html: mailHtml,
+      };
+
+      await transporter.sendMail(mailOptions);
+      console.log(`환영 이메일 발송 성공: ${userEmail}`);
+
+      // 5. 발송 결과 Firestore 기록
+      await snap.ref.update({
+        welcomeEmailStatus: 'sent',
+        welcomeEmailSentAt: admin.firestore.FieldValue.serverTimestamp()
+      });
+
+      return null;
+
+    } catch (error) {
+      console.error('환영 이메일 발송 실패:', error);
+      await snap.ref.update({
+        welcomeEmailStatus: 'failed',
+        welcomeEmailError: error.message
+      });
+      return null;
+    }
+  });

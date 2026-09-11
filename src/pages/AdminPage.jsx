@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, query, orderBy, getDoc, setDoc } from 'firebase/firestore';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -80,6 +80,81 @@ export default function AdminPage({ onBack, qnaList }) {
   const aiConsultationsQuery = query(aiConsultationsRef, orderBy('createdAt', 'desc'));
   const [aiConsultationsSnapshot] = useCollection(aiConsultationsQuery);
   const aiConsultations = aiConsultationsSnapshot?.docs.map(d => ({ id: d.id, ...d.data() })) || [];
+
+  // Email Template State
+  const initialEmailTemplate = { 
+    subject: '[경희정원한의원] {이름}님, 뽀송하고 건강한 일상을 향한 첫걸음을 환영합니다.🌿', 
+    body: `<p>안녕하세요, <strong>{이름}</strong>님!<br>
+<strong>경희정원한의원</strong> 가족이 되신 것을 진심으로 환영합니다.</p>
+<p>저희 홈페이지를 찾아주셨다는 것은, 아마도 남모를 불편함과 오랜 고민 끝에 '진짜 원인'을 치료할 곳을 찾고 계셨기 때문일 것입니다.</p>
+<p>경희정원한의원은 지난 19년간 3,800명이 넘는 난치성 질환 및 다한증 환자분들과 함께해 왔습니다. 겉으로 드러나는 증상만 덮어두는 임시방편이 아니라, <strong>몸속 깊은 곳의 '열독'을 비워내고 자율신경계의 균형을 되찾아주는 근본 해독 치료</strong>를 약속드립니다.</p>
+<p>{이름}님의 지치고 젖어있던 일상이 다시 보송보송하고 상쾌해질 수 있도록, 박제욱 대표원장이 끝까지 함께 걷겠습니다.</p>
+<p>궁금한 점이 있으시거나 진료 예약이 필요하시다면, 언제든 아래 채널을 통해 편하게 말씀해 주세요.</p>
+<hr>
+<h3>💡 경희정원한의원 빠른 안내</h3>
+<p>📱 <strong>1:1 카카오톡 상담하기</strong><br>
+원장님과 실장님이 직접 친절하게 답변해 드립니다.<br>
+<a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank">카카오톡 채널 바로가기</a></p>
+<p>📅 <strong>네이버 진료 예약하기</strong><br>
+원하시는 날짜와 시간에 대기 없이 편안하게 진료받으세요.<br>
+<a href="https://map.naver.com/p/entry/place/12858565" target="_blank">네이버 예약 바로가기</a></p>
+<p>📖 <strong>치료 사례 &amp; 건강 칼럼 보기</strong><br>
+나와 비슷한 증상을 가졌던 분들의 호전 사례를 확인해 보세요.<br>
+<a href="https://blog.naver.com/pjwblue8282" target="_blank">공식 블로그 바로가기</a></p>
+<hr>
+<h3>🏥 한의원 진료 안내</h3>
+<ul>
+<li><strong>오시는 길:</strong> 서울 양천구 목동로 218 화창빌딩 2층 (목동역 3번 출구)</li>
+<li><strong>대표 전화:</strong> 02-732-1117</li>
+<li><strong>진료 시간:</strong>
+<ul>
+<li>월·화·목·금: 09:30 - 19:00</li>
+<li>수요일(야간): 09:30 - 20:00</li>
+<li>토요일: 09:30 - 16:00</li>
+</ul>
+</li>
+</ul>
+<p>다시 한번 가입을 환영하며, 곧 한의원에서 밝은 얼굴로 뵙기를 기대하겠습니다.<br>
+<strong>경희정원한의원 대표원장 박제욱 올림</strong></p>`, 
+    isEnabled: true 
+  };
+  const [emailTemplateForm, setEmailTemplateForm] = useState(initialEmailTemplate);
+  const [loadingEmailTemplate, setLoadingEmailTemplate] = useState(false);
+
+  const fetchEmailTemplate = async () => {
+    setLoadingEmailTemplate(true);
+    try {
+      const templateDoc = await getDoc(doc(db, 'settings', 'emailTemplate'));
+      if (templateDoc.exists()) {
+        setEmailTemplateForm(templateDoc.data());
+      }
+    } catch (error) {
+      console.error('이메일 템플릿 불러오기 실패:', error);
+    } finally {
+      setLoadingEmailTemplate(false);
+    }
+  };
+
+  const handleSaveEmailTemplate = async (e) => {
+    e.preventDefault();
+    if (!emailTemplateForm.subject || !emailTemplateForm.body) {
+      alert('제목과 본문을 모두 입력해주세요.');
+      return;
+    }
+    try {
+      await setDoc(doc(db, 'settings', 'emailTemplate'), emailTemplateForm);
+      alert('이메일 템플릿이 성공적으로 저장되었습니다.');
+    } catch (error) {
+      console.error('이메일 템플릿 저장 실패:', error);
+      alert('저장에 실패했습니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'email') {
+      fetchEmailTemplate();
+    }
+  }, [activeTab]);
 
   // Notice Form State
   const initialNotice = { tag: '[공지]', title: '', content: '', thumbnailUrl: '' };
@@ -391,7 +466,14 @@ export default function AdminPage({ onBack, qnaList }) {
               onClick={() => { setActiveTab('users'); window.history.pushState({}, '', '#admin-tab-users'); }}
               style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'users' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'users' ? 'bold' : 'normal', color: activeTab === 'users' ? 'var(--primary-dark)' : '#555' }}
             >
-              회원 관리
+              환자 회원 관리
+            </li>
+            <li 
+              className={activeTab === 'email' ? 'active' : ''} 
+              onClick={() => { setActiveTab('email'); window.history.pushState({}, '', '#admin-tab-email'); }}
+              style={{ padding: '15px', cursor: 'pointer', borderRadius: '8px', marginBottom: '5px', backgroundColor: activeTab === 'email' ? 'var(--primary-light)' : 'transparent', fontWeight: activeTab === 'email' ? 'bold' : 'normal', color: activeTab === 'email' ? 'var(--primary-dark)' : '#555' }}
+            >
+              이메일 템플릿 관리
             </li>
             <li 
               className={activeTab === 'ai' ? 'active' : ''} 
@@ -786,12 +868,13 @@ export default function AdminPage({ onBack, qnaList }) {
                 <table className="admin-table">
                   <thead>
                     <tr>
-                      <th style={{ width: '15%' }}>이름</th>
-                      <th style={{ width: '20%' }}>이메일</th>
+                      <th style={{ width: '12%' }}>이름</th>
+                      <th style={{ width: '18%' }}>이메일</th>
                       <th style={{ width: '15%' }}>전화번호</th>
-                      <th style={{ width: '15%' }}>가입 방식</th>
+                      <th style={{ width: '12%' }}>가입 방식</th>
                       <th style={{ width: '10%' }}>권한</th>
-                      <th style={{ width: '15%' }}>가입일</th>
+                      <th style={{ width: '13%' }}>가입일</th>
+                      <th style={{ width: '10%' }}>환영 메일</th>
                       <th style={{ width: '10%' }}>관리</th>
                     </tr>
                   </thead>
@@ -810,6 +893,11 @@ export default function AdminPage({ onBack, qnaList }) {
                           ) : '일반 회원'}
                         </td>
                         <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '알 수 없음'}</td>
+                        <td style={{ textAlign: 'center' }}>
+                          {u.welcomeEmailStatus === 'sent' && <span style={{ color: 'green', fontWeight: 'bold' }}>✅ 성공</span>}
+                          {u.welcomeEmailStatus === 'failed' && <span style={{ color: 'red', fontWeight: 'bold' }} title={u.welcomeEmailError}>❌ 실패</span>}
+                          {(!u.welcomeEmailStatus || u.welcomeEmailStatus === 'pending') && <span style={{ color: '#888' }}>⏳ 대기</span>}
+                        </td>
                         <td className="actions-cell">
                           {u.email !== 'pjw-blue@hanmail.net' && (
                             <div style={{ display: 'flex', gap: '5px', justifyContent: 'center' }}>
@@ -822,7 +910,7 @@ export default function AdminPage({ onBack, qnaList }) {
                         </td>
                       </tr>
                     )) : (
-                      <tr><td colSpan="7" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
+                      <tr><td colSpan="8" style={{ textAlign: 'center', padding: '30px', color: '#888' }}>가입한 회원이 없습니다.</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -831,6 +919,74 @@ export default function AdminPage({ onBack, qnaList }) {
           )}
 
           {/* ======================= AI CONSULTATIONS ======================= */}
+          {activeTab === 'email' && (
+            <div className="admin-form-section card">
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '20px' }}>가입 환영 이메일 템플릿 관리</h3>
+              
+              <div style={{ backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', marginBottom: '25px', borderLeft: '4px solid var(--primary-color)' }}>
+                <h4 style={{ margin: '0 0 10px 0', color: 'var(--primary-dark)' }}>💡 템플릿 사용 안내</h4>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: '#555', lineHeight: '1.5' }}>
+                  신규 회원이 가입하면 이 템플릿의 내용이 회원가입 이메일로 자동 발송됩니다.<br/>
+                  제목이나 본문 중간에 <strong>{`{이름}`}</strong> 이라고 적어두시면 실제 발송될 때 환자의 가입 이름으로 자동으로 바뀌어 들어갑니다. (예: <code>안녕하세요, {`{이름}`}님!</code> ➡️ <code>안녕하세요, 홍길동님!</code>)<br/>
+                  발송을 원치 않으시면 아래 [이메일 자동 발송 기능 켜기] 체크를 해제해주세요.
+                </p>
+              </div>
+
+              {loadingEmailTemplate ? (
+                <div style={{ padding: '40px', textAlign: 'center', color: '#888' }}>템플릿 불러오는 중...</div>
+              ) : (
+                <form onSubmit={handleSaveEmailTemplate}>
+                  <div className="form-group" style={{ marginBottom: '20px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontWeight: 'bold' }}>
+                      <input 
+                        type="checkbox" 
+                        checked={emailTemplateForm.isEnabled}
+                        onChange={(e) => setEmailTemplateForm({ ...emailTemplateForm, isEnabled: e.target.checked })}
+                        style={{ marginRight: '10px', width: '20px', height: '20px' }}
+                      />
+                      이메일 자동 발송 기능 켜기
+                    </label>
+                  </div>
+
+                  <div className="form-group">
+                    <label>이메일 제목</label>
+                    <input 
+                      type="text" 
+                      placeholder="예: [경희정원한의원] {이름}님, 가입을 진심으로 환영합니다."
+                      value={emailTemplateForm.subject}
+                      onChange={(e) => setEmailTemplateForm({ ...emailTemplateForm, subject: e.target.value })}
+                      required 
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>이메일 본문 (HTML 가능)</label>
+                    <ReactQuill 
+                      theme="snow" 
+                      value={emailTemplateForm.body} 
+                      onChange={(val) => setEmailTemplateForm({ ...emailTemplateForm, body: val })} 
+                      style={{ height: '300px', marginBottom: '50px' }}
+                      modules={{
+                        toolbar: [
+                          [{ 'header': [1, 2, 3, false] }],
+                          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                          [{'list': 'ordered'}, {'list': 'bullet'}],
+                          ['link', 'image'],
+                          ['clean']
+                        ]
+                      }}
+                    />
+                  </div>
+                  
+                  <div className="form-actions" style={{ marginTop: '20px' }}>
+                    <button type="submit" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1.1rem' }}>
+                      템플릿 저장하기
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          )}
+
           {activeTab === 'ai' && (
             <section className="admin-section" style={{ backgroundColor: '#fff', padding: '30px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
               <div className="admin-tab-header" style={{ marginBottom: '20px' }}>
