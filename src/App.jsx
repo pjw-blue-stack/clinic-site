@@ -794,6 +794,7 @@ function App() {
 
   const handleModalLogin = async (e) => {
     e.preventDefault();
+    setIsProcessingLogin(true);
     try {
       const { signInWithEmailAndPassword } = await import('firebase/auth');
       const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
@@ -825,6 +826,8 @@ function App() {
     } catch (error) {
       console.error(error);
       alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+    } finally {
+      setIsProcessingLogin(false);
     }
   };
 
