@@ -29,8 +29,8 @@ export default function AnimatedDetoxGraph() {
   );
 
   // Markers Opacity & Position
-  const startMarkerOpacity = useTransform(scrollYProgress, [0.25, 0.30, 1], [0, 1, 1]);
-  const startMarkerY = useTransform(scrollYProgress, [0.25, 0.30], [20, 0]);
+  const startMarkerOpacity = useTransform(scrollYProgress, [0.30, 0.33, 1], [0, 1, 1]);
+  const startMarkerY = useTransform(scrollYProgress, [0.30, 0.33], [20, 0]);
   
   const endMarkerOpacity = useTransform(scrollYProgress, [0.55, 0.60, 1], [0, 1, 1]);
   const endMarkerY = useTransform(scrollYProgress, [0.55, 0.60], [20, 0]);
@@ -130,43 +130,34 @@ export default function AnimatedDetoxGraph() {
                 filter: 'drop-shadow(0px 4px 6px rgba(77, 172, 255, 0.3))'
               }}
             />
+
+            {/* Marker 1: 치료 시작 (Light Green, below the peak) */}
+            {/* Peak is at x=350, y=100. We place box at y=250, pointing UP to 100 */}
+            <motion.g style={{ opacity: startMarkerOpacity, y: startMarkerY }}>
+              <line x1="350" y1="230" x2="350" y2="105" stroke="#8CE99A" strokeWidth="2" strokeDasharray="4,4" />
+              <polygon points="345,115 350,105 355,115" fill="#8CE99A" />
+              <foreignObject x="270" y="230" width="160" height="60" style={{ overflow: 'visible' }}>
+                <div style={{ background: '#8CE99A', color: '#111', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1rem', boxShadow: '0 4px 15px rgba(140, 233, 154, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                  치료 시작
+                </div>
+              </foreignObject>
+            </motion.g>
+
+            {/* Marker 2: 치료 종료 (Green, above the valley) */}
+            {/* Valley is at x=750, y=400. We place box at y=220, pointing DOWN to 400 */}
+            <motion.g style={{ opacity: endMarkerOpacity, y: endMarkerY }}>
+              <line x1="750" y1="260" x2="750" y2="395" stroke="#40C057" strokeWidth="2" strokeDasharray="4,4" />
+              <polygon points="345,115 350,105 355,115" fill="#40C057" transform="translate(400, 290) rotate(180, 350, 105)" />
+              <foreignObject x="650" y="220" width="200" height="60" style={{ overflow: 'visible' }}>
+                <div style={{ background: '#40C057', color: '#fff', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1rem', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                  치료 종료 &amp; 사후 관리
+                </div>
+              </foreignObject>
+            </motion.g>
           </svg>
 
-          {/* HTML Overlay Markers & Notes */}
+          {/* HTML Overlay Notes */}
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '5% 4%' }}>
-            
-            {/* Marker 1: 치료 시작 (Light Green) */}
-            <motion.div 
-              style={{ 
-                position: 'absolute', 
-                left: 'calc(35% - 20px)', 
-                top: '5%', 
-                opacity: startMarkerOpacity,
-                y: startMarkerY
-              }}
-            >
-              <div style={{ background: '#8CE99A', color: '#111', padding: '6px 12px', borderRadius: '20px', fontWeight: 'bold', fontSize: 'clamp(0.8rem, 2vw, 1rem)', boxShadow: '0 4px 15px rgba(140, 233, 154, 0.4)', whiteSpace: 'nowrap' }}>
-                치료 시작
-              </div>
-              <div style={{ width: '2px', height: '40px', background: 'linear-gradient(to bottom, #8CE99A, transparent)', margin: '0 auto' }}></div>
-            </motion.div>
-
-            {/* Marker 2: 치료 종료 (Green), pointing to x=750, y=400 */}
-            <motion.div 
-              style={{ 
-                position: 'absolute', 
-                left: 'calc(75% - 40px)', 
-                top: '30%', 
-                opacity: endMarkerOpacity,
-                y: endMarkerY
-              }}
-            >
-              <div style={{ background: '#40C057', color: '#fff', padding: '6px 12px', borderRadius: '20px', fontWeight: 'bold', fontSize: 'clamp(0.8rem, 2vw, 1rem)', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', whiteSpace: 'nowrap' }}>
-                치료 종료 &amp; 사후 관리
-              </div>
-              <div style={{ width: '2px', height: '180px', background: 'linear-gradient(to bottom, #40C057, transparent)', margin: '0 auto' }}></div>
-            </motion.div>
-
             {/* Dynamic Note Boxes Container */}
             <div style={{ position: 'absolute', left: '25%', top: '15%', width: '50%', height: '100px' }}>
               {/* Note 1 */}
