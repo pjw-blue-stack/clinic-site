@@ -81,7 +81,7 @@ export default function AnimatedDetoxGraph() {
             </div>
           </div>
 
-          <svg viewBox="-60 -30 1120 540" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+          <svg viewBox="-60 -120 1120 630" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
             {/* Grid & Axes */}
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
@@ -141,7 +141,7 @@ export default function AnimatedDetoxGraph() {
               <line x1="350" y1="230" x2="350" y2="105" stroke="#8CE99A" strokeWidth="2" strokeDasharray="4,4" />
               <polygon points="345,115 350,105 355,115" fill="#8CE99A" />
               <foreignObject x="270" y="230" width="160" height="60" style={{ overflow: 'visible' }}>
-                <div style={{ background: '#8CE99A', color: '#111', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1rem', boxShadow: '0 4px 15px rgba(140, 233, 154, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                <div style={{ background: '#8CE99A', color: '#111', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 15px rgba(140, 233, 154, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
                   치료 시작
                 </div>
               </foreignObject>
@@ -152,8 +152,8 @@ export default function AnimatedDetoxGraph() {
             <motion.g style={{ opacity: endMarkerOpacity, y: endMarkerY }}>
               <line x1="750" y1="260" x2="750" y2="395" stroke="#40C057" strokeWidth="2" strokeDasharray="4,4" />
               <polygon points="345,115 350,105 355,115" fill="#40C057" transform="translate(400, 290) rotate(180, 350, 105)" />
-              <foreignObject x="650" y="220" width="200" height="60" style={{ overflow: 'visible' }}>
-                <div style={{ background: '#40C057', color: '#fff', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1rem', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+              <foreignObject x="640" y="210" width="220" height="60" style={{ overflow: 'visible' }}>
+                <div style={{ background: '#40C057', color: '#fff', padding: '8px 16px', borderRadius: '20px', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
                   치료 종료 &amp; 사후 관리
                 </div>
               </foreignObject>
@@ -161,38 +161,38 @@ export default function AnimatedDetoxGraph() {
           </svg>
 
           {/* HTML Overlay Notes */}
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '5% 4%' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '5% 4%', display: 'flex', justifyContent: 'center' }}>
             {/* Dynamic Note Boxes Container */}
-            <div style={{ position: 'absolute', left: '25%', top: '15%', width: '50%', height: '100px' }}>
+            <div style={{ position: 'absolute', top: '10%', width: '80%', maxWidth: '700px', height: '130px', zIndex: 10 }}>
               {/* Note 1 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6' }}>
                   <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>증가 <span style={{color: '#ff4d6d'}}>↑</span></strong>할수록,<br/>
                   <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>증가 <span style={{color: '#4dacff'}}>↑</span></strong>합니다.
                 </p>
               </motion.div>
               {/* Note 1.5 (치료 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1_5Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 2.5vw, 1.3rem)', lineHeight: '3', fontWeight: 'bold', color: '#111' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#111' }}>
                   치료 시작
                 </p>
               </motion.div>
               {/* Note 2 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6' }}>
                   <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>감소 <span style={{color: '#ff4d6d'}}>↓</span></strong>할수록,<br/>
                   <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>감소 <span style={{color: '#4dacff'}}>↓</span></strong>합니다.
                 </p>
               </motion.div>
               {/* Note 2.5 (치료 종료 & 사후 관리 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2_5Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 2.5vw, 1.3rem)', lineHeight: '3', fontWeight: 'bold', color: '#111' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#111' }}>
                   치료 종료 &amp; 사후 관리 시작
                 </p>
               </motion.div>
               {/* Note 3 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note3Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6' }}>
                   <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>를 낮게 <strong>유지 <span style={{color: '#ff4d6d'}}>→</span></strong>하면,<br/>
                   <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀양</span>도 호전된 상태에서 잘 <strong>유지 <span style={{color: '#4dacff'}}>→</span></strong>됩니다.
                 </p>
