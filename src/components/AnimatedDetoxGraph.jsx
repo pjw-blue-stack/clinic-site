@@ -163,7 +163,7 @@ export default function AnimatedDetoxGraph() {
           {/* HTML Overlay Notes */}
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '5% 4%', display: 'flex', justifyContent: 'center' }}>
             {/* Dynamic Note Boxes Container */}
-            <div style={{ position: 'absolute', top: '85px', width: '80%', maxWidth: '700px', height: '130px', zIndex: 10 }}>
+            <div style={{ position: 'absolute', top: '140px', width: '80%', maxWidth: '700px', height: '130px', zIndex: 10 }}>
               {/* Note 1 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1Opacity }}>
                 <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6' }}>
