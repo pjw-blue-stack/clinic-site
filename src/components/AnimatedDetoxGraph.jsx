@@ -93,8 +93,8 @@ export default function AnimatedDetoxGraph() {
 
             {/* Axis Labels */}
             <text x="1000" y="480" fill="var(--text-light)" fontSize="20" textAnchor="end" fontWeight="bold">시간</text>
-            <text x="-20" y="20" fill="var(--text-light)" fontSize="20" textAnchor="end" fontWeight="bold">독소 양</text>
-            <text x="1020" y="20" fill="var(--text-light)" fontSize="20" textAnchor="start" fontWeight="bold">땀 양</text>
+            <text x="-20" y="20" fill="#ff4d6d" fontSize="20" textAnchor="end" fontWeight="bold">독소 양</text>
+            <text x="1020" y="20" fill="#4dacff" fontSize="20" textAnchor="start" fontWeight="bold">땀 양</text>
             
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="1000" y1="0" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.2)" strokeDasharray="5,5" />
