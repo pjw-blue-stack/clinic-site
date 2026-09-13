@@ -1,11 +1,26 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
 
 export default function AnimatedDetoxGraph() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
+  });
+
+  const clampedProgress = useMotionValue(0);
+  const hasFinished = useRef(false);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest >= 0.98) {
+      hasFinished.current = true;
+    }
+    
+    if (hasFinished.current) {
+      clampedProgress.set(1);
+    } else {
+      clampedProgress.set(latest);
+    }
   });
 
   // Toxin Line path
@@ -17,38 +32,38 @@ export default function AnimatedDetoxGraph() {
   // Sequence Mappings for Toxin and Sweat
   // Segment points: Rise (0.32), Fall (0.77), Maintain (1.0)
   const toxinProgress = useTransform(
-    scrollYProgress, 
+    clampedProgress, 
     [0, 0.12, 0.38, 0.48, 0.72, 0.82, 1], 
     [0, 0.32, 0.32, 0.77, 0.77, 1, 1]
   );
   
   const sweatProgress = useTransform(
-    scrollYProgress, 
+    clampedProgress, 
     [0, 0.12, 0.24, 0.48, 0.58, 0.82, 0.92, 1], 
     [0, 0, 0.437, 0.437, 0.864, 0.864, 1, 1]
   );
 
   // Marker Opacities and Positions
-  const startMarkerOpacity = useTransform(scrollYProgress, [0, 0.24, 0.28, 1], [0, 0, 1, 1]);
-  const startMarkerY = useTransform(scrollYProgress, [0, 0.24, 0.28, 1], [20, 20, 0, 0]);
+  const startMarkerOpacity = useTransform(clampedProgress, [0, 0.24, 0.28, 1], [0, 0, 1, 1]);
+  const startMarkerY = useTransform(clampedProgress, [0, 0.24, 0.28, 1], [20, 20, 0, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [0, 0, 1, 1]);
-  const endMarkerY = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [-20, -20, 0, 0]);
+  const endMarkerOpacity = useTransform(clampedProgress, [0, 0.58, 0.62, 1], [0, 0, 1, 1]);
+  const endMarkerY = useTransform(clampedProgress, [0, 0.58, 0.62, 1], [-20, -20, 0, 0]);
 
   // Arrow Head Opacity (appears when Toxin finishes drawing)
-  const arrowOpacity = useTransform(scrollYProgress, [0, 0.80, 0.82, 1], [0, 0, 1, 1]);
+  const arrowOpacity = useTransform(clampedProgress, [0, 0.80, 0.82, 1], [0, 0, 1, 1]);
   
   // Note Box Opacities (Fading in and out with smoother 4% crossfades)
-  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.24, 0.28, 1], [0, 1, 1, 0, 0]);
-  const note1_5Opacity = useTransform(scrollYProgress, [0, 0.24, 0.28, 0.34, 0.38, 1], [0, 0, 1, 1, 0, 0]); // 치료 시작
-  const note2Opacity = useTransform(scrollYProgress, [0, 0.34, 0.38, 0.58, 0.62, 1], [0, 0, 1, 1, 0, 0]);
-  const note2_5Opacity = useTransform(scrollYProgress, [0, 0.58, 0.62, 0.68, 0.72, 1], [0, 0, 1, 1, 0, 0]); // 치료 종료 & 사후 관리 시작
-  const note3Opacity = useTransform(scrollYProgress, [0, 0.68, 0.72, 1], [0, 0, 1, 1]);
+  const note1Opacity = useTransform(clampedProgress, [0, 0.05, 0.24, 0.28, 1], [0, 1, 1, 0, 0]);
+  const note1_5Opacity = useTransform(clampedProgress, [0, 0.24, 0.28, 0.34, 0.38, 1], [0, 0, 1, 1, 0, 0]); // 치료 시작
+  const note2Opacity = useTransform(clampedProgress, [0, 0.34, 0.38, 0.58, 0.62, 1], [0, 0, 1, 1, 0, 0]);
+  const note2_5Opacity = useTransform(clampedProgress, [0, 0.58, 0.62, 0.68, 0.72, 1], [0, 0, 1, 1, 0, 0]); // 치료 종료 & 사후 관리 시작
+  const note3Opacity = useTransform(clampedProgress, [0, 0.68, 0.72, 1], [0, 0, 1, 1]);
 
   // Line 2 Opacities for staggered appearance (syncs with Sweat line drawing)
-  const note1Line2Opacity = useTransform(scrollYProgress, [0, 0.12, 0.17, 1], [0, 0, 1, 1]);
-  const note2Line2Opacity = useTransform(scrollYProgress, [0, 0.48, 0.53, 1], [0, 0, 1, 1]);
-  const note3Line2Opacity = useTransform(scrollYProgress, [0, 0.82, 0.87, 1], [0, 0, 1, 1]);
+  const note1Line2Opacity = useTransform(clampedProgress, [0, 0.12, 0.17, 1], [0, 0, 1, 1]);
+  const note2Line2Opacity = useTransform(clampedProgress, [0, 0.48, 0.53, 1], [0, 0, 1, 1]);
+  const note3Line2Opacity = useTransform(clampedProgress, [0, 0.82, 0.87, 1], [0, 0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
@@ -232,7 +247,7 @@ export default function AnimatedDetoxGraph() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            opacity: useTransform(scrollYProgress, [0, 0.05, 1], [1, 0, 0])
+            opacity: useTransform(clampedProgress, [0, 0.05, 1], [1, 0, 0])
           }}
         >
           <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '0.9rem' }}>아래로 스크롤하여 변화를 확인하세요</p>
