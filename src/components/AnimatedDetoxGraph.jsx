@@ -38,12 +38,12 @@ export default function AnimatedDetoxGraph() {
   // Arrow Head Opacity (appears at the very end when Toxin finishes)
   const arrowOpacity = useTransform(scrollYProgress, [0.92, 0.94, 1], [0, 1, 1]);
   
-  // Note Box Opacities (Fading in and out in place)
-  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.26, 0.28], [0, 1, 1, 0]);
-  const note1_5Opacity = useTransform(scrollYProgress, [0.26, 0.28, 0.36, 0.38], [0, 1, 1, 0]); // 치료 시작 (8% hold)
-  const note2Opacity = useTransform(scrollYProgress, [0.36, 0.38, 0.60, 0.62], [0, 1, 1, 0]);
-  const note2_5Opacity = useTransform(scrollYProgress, [0.60, 0.62, 0.70, 0.72], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작 (8% hold)
-  const note3Opacity = useTransform(scrollYProgress, [0.70, 0.72, 1], [0, 1, 1]);
+  // Note Box Opacities (Fading in and out with smoother 4% crossfades)
+  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.24, 0.28], [0, 1, 1, 0]);
+  const note1_5Opacity = useTransform(scrollYProgress, [0.24, 0.28, 0.34, 0.38], [0, 1, 1, 0]); // 치료 시작
+  const note2Opacity = useTransform(scrollYProgress, [0.34, 0.38, 0.58, 0.62], [0, 1, 1, 0]);
+  const note2_5Opacity = useTransform(scrollYProgress, [0.58, 0.62, 0.68, 0.72], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작
+  const note3Opacity = useTransform(scrollYProgress, [0.68, 0.72, 1], [0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
@@ -70,13 +70,17 @@ export default function AnimatedDetoxGraph() {
           
           {/* Header/Legend */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
-            <div style={{ color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.2rem', wordBreak: 'keep-all' }}>치료 경과에 따른 독소와 땀양의 상관관계</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '0.95rem' }}>
-                <div style={{ width: '24px', height: '4px', background: '#ff4d6d', boxShadow: '0 0 10px rgba(255, 77, 109, 0.3)', borderRadius: '2px' }}></div> 독소 양
+            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', margin: 0, fontWeight: 'bold', color: 'var(--primary-dark)' }}>
+              치료 경과에 따른 독소와 땀양의 상관관계
+            </h2>
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '25px', height: '4px', background: '#ff4d6d', borderRadius: '2px' }}></div>
+                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)' }}>독소 양</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '0.95rem' }}>
-                <div style={{ width: '24px', height: '4px', background: '#4dacff', boxShadow: '0 0 10px rgba(77, 172, 255, 0.3)', borderRadius: '2px' }}></div> 땀의 양
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ width: '25px', height: '4px', background: '#4dacff', borderRadius: '2px' }}></div>
+                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)' }}>땀의 양</span>
               </div>
             </div>
           </div>
@@ -92,9 +96,9 @@ export default function AnimatedDetoxGraph() {
             </g>
 
             {/* Axis Labels */}
-            <text x="1000" y="480" fill="var(--text-light)" fontSize="20" textAnchor="end" fontWeight="bold">시간</text>
-            <text x="-20" y="20" fill="#ff4d6d" fontSize="20" textAnchor="end" fontWeight="bold">독소 양</text>
-            <text x="1020" y="20" fill="#4dacff" fontSize="20" textAnchor="start" fontWeight="bold">땀 양</text>
+            <text x="1000" y="485" fill="var(--text-light)" fontSize="26" textAnchor="end" fontWeight="bold">시간</text>
+            <text x="-20" y="20" fill="#ff4d6d" fontSize="26" textAnchor="end" fontWeight="bold">독소 양</text>
+            <text x="1020" y="20" fill="#4dacff" fontSize="26" textAnchor="start" fontWeight="bold">땀 양</text>
             
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="1000" y1="0" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.2)" strokeDasharray="5,5" />
@@ -173,7 +177,7 @@ export default function AnimatedDetoxGraph() {
               </motion.div>
               {/* Note 1.5 (치료 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1_5Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#111' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#40C057' }}>
                   치료 시작
                 </p>
               </motion.div>
@@ -186,7 +190,7 @@ export default function AnimatedDetoxGraph() {
               </motion.div>
               {/* Note 2.5 (치료 종료 & 사후 관리 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2_5Opacity }}>
-                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#111' }}>
+                <p style={{ margin: 0, fontSize: 'clamp(1.1rem, 3vw, 1.6rem)', lineHeight: '2.5', fontWeight: 'bold', color: '#40C057' }}>
                   치료 종료 &amp; 사후 관리 시작
                 </p>
               </motion.div>
