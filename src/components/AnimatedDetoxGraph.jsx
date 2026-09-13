@@ -45,6 +45,11 @@ export default function AnimatedDetoxGraph() {
   const note2_5Opacity = useTransform(scrollYProgress, [0.58, 0.62, 0.68, 0.72], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작
   const note3Opacity = useTransform(scrollYProgress, [0.68, 0.72, 1], [0, 1, 1]);
 
+  // Line 2 Opacities for staggered appearance (syncs with Sweat line drawing)
+  const note1Line2Opacity = useTransform(scrollYProgress, [0.12, 0.17], [0, 1]);
+  const note2Line2Opacity = useTransform(scrollYProgress, [0.43, 0.48], [0, 1]);
+  const note3Line2Opacity = useTransform(scrollYProgress, [0.78, 0.83], [0, 1]);
+
   // Common Note Box Styles
   const noteBoxStyle = {
     position: 'absolute', 
@@ -90,10 +95,14 @@ export default function AnimatedDetoxGraph() {
             <div style={{ position: 'relative', width: '100%', maxWidth: '700px' }}>
               {/* Note 1 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1Opacity, position: 'absolute', top: 0, left: 0, width: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>증가 <span style={{color: '#ff4d6d'}}>↑</span></strong>할수록,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>증가 <span style={{color: '#4dacff'}}>↑</span></strong>합니다.
-                </p>
+                <div style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all', color: 'var(--text-main)' }}>
+                  <div>
+                    <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 증가 <span style={{color: '#ff4d6d', fontWeight: 'bold'}}>↑</span> 할수록,
+                  </div>
+                  <motion.div style={{ opacity: note1Line2Opacity }}>
+                    <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 증가 <span style={{color: '#4dacff', fontWeight: 'bold'}}>↑</span> 합니다.
+                  </motion.div>
+                </div>
               </motion.div>
               {/* Note 1.5 (치료 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1_5Opacity, position: 'absolute', top: 0, left: 0, width: '100%', boxSizing: 'border-box' }}>
@@ -103,10 +112,14 @@ export default function AnimatedDetoxGraph() {
               </motion.div>
               {/* Note 2 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2Opacity, position: 'absolute', top: 0, left: 0, width: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>감소 <span style={{color: '#ff4d6d'}}>↓</span></strong>할수록,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>감소 <span style={{color: '#4dacff'}}>↓</span></strong>합니다.
-                </p>
+                <div style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all', color: 'var(--text-main)' }}>
+                  <div>
+                    <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 감소 <span style={{color: '#ff4d6d', fontWeight: 'bold'}}>↓</span> 할수록,
+                  </div>
+                  <motion.div style={{ opacity: note2Line2Opacity }}>
+                    <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 감소 <span style={{color: '#4dacff', fontWeight: 'bold'}}>↓</span> 합니다.
+                  </motion.div>
+                </div>
               </motion.div>
               {/* Note 2.5 (치료 종료 & 사후 관리 시작) */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2_5Opacity, position: 'absolute', top: 0, left: 0, width: '100%', boxSizing: 'border-box' }}>
@@ -116,10 +129,14 @@ export default function AnimatedDetoxGraph() {
               </motion.div>
               {/* Note 3 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note3Opacity, position: 'absolute', top: 0, left: 0, width: '100%', boxSizing: 'border-box' }}>
-                <p style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>를 낮게 <strong>유지 <span style={{color: '#ff4d6d'}}>→</span></strong>하면,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀양</span>도 호전된 상태에서 잘 <strong>유지 <span style={{color: '#4dacff'}}>→</span></strong>됩니다.
-                </p>
+                <div style={{ margin: 0, fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', lineHeight: '1.6', wordBreak: 'keep-all', color: 'var(--text-main)' }}>
+                  <div>
+                    <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>를 낮게 유지 <span style={{color: '#ff4d6d', fontWeight: 'bold'}}>→</span> 하면,
+                  </div>
+                  <motion.div style={{ opacity: note3Line2Opacity }}>
+                    <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀양</span>도 호전된 상태에서 잘 유지 <span style={{color: '#4dacff', fontWeight: 'bold'}}>→</span> 됩니다.
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
