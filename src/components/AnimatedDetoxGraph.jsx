@@ -69,7 +69,7 @@ export default function AnimatedDetoxGraph() {
 
   return (
     <div ref={containerRef} style={{ height: '700vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '100px auto 0' }}>
-      <div style={{ position: 'sticky', top: '15vh', height: '80vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ position: 'sticky', top: '15vh', height: '80vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
         <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '5% 4%', border: '1px solid rgba(77, 172, 255, 0.2)', boxShadow: '0 20px 40px rgba(77, 172, 255, 0.1)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           
@@ -85,7 +85,7 @@ export default function AnimatedDetoxGraph() {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ width: '25px', height: '4px', background: '#4dacff', borderRadius: '2px' }}></div>
-                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)', wordBreak: 'keep-all' }}>땀의 양</span>
+                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-main)', wordBreak: 'keep-all' }}>땀 양</span>
               </div>
             </div>
           </div>
@@ -141,7 +141,9 @@ export default function AnimatedDetoxGraph() {
             </div>
           </div>
 
-          <svg viewBox="-60 -30 1120 540" style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+          {/* SVG Graph Container */}
+          <div style={{ position: 'relative', width: '100%', flexGrow: 1, minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <svg viewBox="-60 -30 1120 540" style={{ width: '100%', height: 'auto', maxHeight: '45vh', overflow: 'visible', display: 'block', margin: '0 auto' }}>
             {/* Grid & Axes */}
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
@@ -219,6 +221,7 @@ export default function AnimatedDetoxGraph() {
               </foreignObject>
             </motion.g>
           </svg>
+        </div>
         </div>
         
         {/* Scroll Indicator */}
