@@ -1,19 +1,32 @@
 import React, { useRef } from 'react';
-import { motion, useTransform, useMotionValue, useInView, animate } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent } from 'framer-motion';
 
 export default function AnimatedDetoxGraph() {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
-  const clampedProgress = useMotionValue(0);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
 
-  React.useEffect(() => {
-    if (isInView) {
-      const controls = animate(clampedProgress, 1, { duration: 5, ease: "linear" });
-      return controls.stop;
-    } else {
-      clampedProgress.set(0);
+  const clampedProgress = useMotionValue(0);
+  const hasFinished = useRef(false);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // If user scrolled to the end, lock the animation
+    if (latest >= 0.98) {
+      hasFinished.current = true;
     }
-  }, [isInView, clampedProgress]);
+    // If user scrolled all the way back to the top, reset the lock so it can play again
+    if (latest <= 0.02) {
+      hasFinished.current = false;
+    }
+    
+    if (hasFinished.current) {
+      clampedProgress.set(1);
+    } else {
+      clampedProgress.set(latest);
+    }
+  });
 
   // Toxin Line path
   const toxinPath = "M 0 150 L 350 100 L 750 400 L 1000 400";
@@ -75,8 +88,8 @@ export default function AnimatedDetoxGraph() {
   };
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: '100%', maxWidth: '1000px', margin: '100px auto', padding: '20px 0' }}>
-      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div ref={containerRef} style={{ height: '300vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '100px auto 0' }}>
+      <div style={{ position: 'sticky', top: '15vh', height: '80vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
         <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '5% 4%', border: '1px solid rgba(77, 172, 255, 0.2)', boxShadow: '0 20px 40px rgba(77, 172, 255, 0.1)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           
@@ -242,14 +255,14 @@ export default function AnimatedDetoxGraph() {
             opacity: useTransform(clampedProgress, [0, 0.05, 1], [1, 0, 0])
           }}
         >
-          <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '0.9rem' }}>시간의 흐름에 따른 치료 과정을 확인하세요</p>
-          <motion.div style={{ width: '24px', height: '40px', border: '2px solid var(--text-light)', borderRadius: '12px', position: 'relative' }}>
+          <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '0.9rem' }}>아래로 스크롤하여 변화를 확인하세요</p>
+          <div style={{ width: '24px', height: '40px', border: '2px solid var(--text-light)', borderRadius: '12px', position: 'relative' }}>
             <motion.div 
               style={{ width: '4px', height: '4px', background: 'var(--text-light)', borderRadius: '50%', position: 'absolute', left: '8px' }}
               animate={{ top: ['8px', '24px', '8px'] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             />
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>
