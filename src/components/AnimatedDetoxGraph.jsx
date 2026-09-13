@@ -18,13 +18,13 @@ export default function AnimatedDetoxGraph() {
   // Segment points: Rise (0.32), Fall (0.77), Maintain (1.0)
   const toxinProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.30, 0.45, 0.60, 0.75, 1], 
+    [0, 0.15, 0.36, 0.51, 0.72, 0.85, 1], 
     [0, 0.32, 0.32, 0.77, 0.77, 1, 1]
   );
   
   const sweatProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.30, 0.45, 0.60, 0.75, 0.90, 1], 
+    [0, 0.15, 0.30, 0.51, 0.66, 0.85, 0.98, 1], 
     [0, 0, 0.437, 0.437, 0.864, 0.864, 1, 1]
   );
 
@@ -32,18 +32,18 @@ export default function AnimatedDetoxGraph() {
   const startMarkerOpacity = useTransform(scrollYProgress, [0.30, 0.33, 1], [0, 1, 1]);
   const startMarkerY = useTransform(scrollYProgress, [0.30, 0.33], [20, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0.60, 0.63, 1], [0, 1, 1]);
-  const endMarkerY = useTransform(scrollYProgress, [0.60, 0.63], [20, 0]);
+  const endMarkerOpacity = useTransform(scrollYProgress, [0.66, 0.69, 1], [0, 1, 1]);
+  const endMarkerY = useTransform(scrollYProgress, [0.66, 0.69], [20, 0]);
   
   // Arrow Head Opacity (appears at the very end when Toxin finishes)
-  const arrowOpacity = useTransform(scrollYProgress, [0.73, 0.75], [0, 1]);
+  const arrowOpacity = useTransform(scrollYProgress, [0.83, 0.85, 1], [0, 1, 1]);
   
   // Note Box Opacities (Fading in and out in place)
-  // Note 1 stays until 0.35 (after start marker is fully visible at 0.33)
-  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.35, 0.38], [0, 1, 1, 0]);
-  // Note 2 stays until 0.65 (after end marker is fully visible at 0.63)
-  const note2Opacity = useTransform(scrollYProgress, [0.35, 0.38, 0.65, 0.68], [0, 1, 1, 0]);
-  const note3Opacity = useTransform(scrollYProgress, [0.65, 0.68, 1], [0, 1, 1]);
+  // Note 1 stays until 0.33 (after start marker is fully visible)
+  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.33, 0.36], [0, 1, 1, 0]);
+  // Note 2 stays until 0.69 (after end marker is fully visible)
+  const note2Opacity = useTransform(scrollYProgress, [0.33, 0.36, 0.69, 0.72], [0, 1, 1, 0]);
+  const note3Opacity = useTransform(scrollYProgress, [0.69, 0.72, 1], [0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
