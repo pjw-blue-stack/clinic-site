@@ -35,8 +35,8 @@ export default function AnimatedDetoxGraph() {
   const endMarkerOpacity = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [0, 0, 1, 1]);
   const endMarkerY = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [-20, -20, 0, 0]);
 
-  // Arrow Head Opacity (appears at the very end when Toxin finishes)
-  const arrowOpacity = useTransform(scrollYProgress, [0, 0.92, 0.94, 1], [0, 0, 1, 1]);
+  // Arrow Head Opacity (appears when Toxin finishes drawing)
+  const arrowOpacity = useTransform(scrollYProgress, [0, 0.80, 0.82, 1], [0, 0, 1, 1]);
   
   // Note Box Opacities (Fading in and out with smoother 4% crossfades)
   const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.24, 0.28, 1], [0, 1, 1, 0, 0]);
@@ -47,8 +47,8 @@ export default function AnimatedDetoxGraph() {
 
   // Line 2 Opacities for staggered appearance (syncs with Sweat line drawing)
   const note1Line2Opacity = useTransform(scrollYProgress, [0, 0.12, 0.17, 1], [0, 0, 1, 1]);
-  const note2Line2Opacity = useTransform(scrollYProgress, [0, 0.43, 0.48, 1], [0, 0, 1, 1]);
-  const note3Line2Opacity = useTransform(scrollYProgress, [0, 0.78, 0.83, 1], [0, 0, 1, 1]);
+  const note2Line2Opacity = useTransform(scrollYProgress, [0, 0.48, 0.53, 1], [0, 0, 1, 1]);
+  const note3Line2Opacity = useTransform(scrollYProgress, [0, 0.82, 0.87, 1], [0, 0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
@@ -76,7 +76,7 @@ export default function AnimatedDetoxGraph() {
           {/* Header/Legend */}
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '15px' }}>
             <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', margin: 0, fontWeight: 'bold', color: 'var(--primary-dark)', wordBreak: 'keep-all' }}>
-              치료 경과에 따른 독소와 땀양의 상관관계
+              치료 경과에 따른 <br className="mobile-only-br" />독소와 땀양의 상관관계
             </h2>
             <div style={{ display: 'flex', gap: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -147,7 +147,7 @@ export default function AnimatedDetoxGraph() {
             {/* Grid & Axes */}
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
-              <line x1="0" y1="0" x2="0" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
+              <line x1="0" y1="10" x2="0" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
               {/* Arrow heads */}
               <polygon points="1000,445 1010,450 1000,455" fill="rgba(0,0,0,0.3)" />
               <polygon points="-5,10 0,0 5,10" fill="rgba(0,0,0,0.3)" />
@@ -159,7 +159,7 @@ export default function AnimatedDetoxGraph() {
             <text x="1020" y="20" fill="#4dacff" fontSize="26" textAnchor="start" fontWeight="bold">땀 양</text>
             
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
-              <line x1="1000" y1="0" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.2)" strokeDasharray="5,5" />
+              <line x1="1000" y1="10" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.2)" strokeDasharray="5,5" />
               <polygon points="995,10 1000,0 1005,10" fill="rgba(0,0,0,0.2)" />
             </g>
 

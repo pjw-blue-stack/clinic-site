@@ -86,16 +86,16 @@ const DirectorProfile = () => (
 
 const getAppleGridImage = (id) => {
   const imgMap = {
-    'sujok': '/images/ghibli_sweaty_both_fixed_1786859540856.jpg',
-    'du-myeon': '/images/ghibli_sweaty_head_face_1786858400182.jpg',
-    'sangche': '/images/ghibli_sweaty_upper_1786858446561.jpg',
-    'hache': '/images/ghibli_sweaty_lower_1786858457417.jpg',
-    'jeonsin': '/images/ghibli_sweaty_whole_1786858470503.jpg',
-    'bosangseong': '/images/ghibli_sweaty_compensatory_1786858493740.jpg',
-    'dohan': '/images/ghibli_sweaty_night_1786858513250.jpg',
-    'jahan': '/images/ghibli_sweaty_day_1788053312092.jpg'
+    'sujok': '/images/apple_icon_sujok_1789287927880.jpg',
+    'du-myeon': '/images/apple_icon_dumyeon_1789287939341.jpg',
+    'sangche': '/images/apple_icon_sangche_1789287950305.jpg',
+    'hache': '/images/apple_icon_hache_1789287962683.jpg',
+    'jeonsin': '/images/apple_icon_jeonsin_1789287983264.jpg',
+    'bosangseong': '/images/apple_icon_bosangseong_1789287992824.jpg',
+    'dohan': '/images/apple_icon_dohan_1789288002680.jpg',
+    'jahan': '/images/apple_icon_jahan_1789288014992.jpg'
   };
-  return imgMap[id] || '/images/ghibli_sweaty_general_1786858532513.jpg';
+  return imgMap[id] || '/images/apple_icon_jeonsin_1789287983264.jpg';
 };
 
 
@@ -1578,7 +1578,7 @@ function App() {
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                     </div>
-                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img"  />
                   </div>
                 ) : null;
               })()}
@@ -1594,7 +1594,7 @@ function App() {
                       <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec); window.scrollTo(0,0); }}>더 알아보기</button>
                       <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                     </div>
-                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                    <img src={getAppleGridImage(spec.id)} alt={spec.title} className="apple-product-img"  />
                   </div>
                 ) : null;
               })()}
@@ -1611,21 +1611,21 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
                 {(() => {
                   const spec2 = specialties.find(s => s.id === 'hache');
                   return spec2 ? (
-                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
+                    <div className="apple-half-section apple-theme-light" onClick={() => { setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>
                       <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec2.title.split(' (')[0]}</h3>
                       <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec2.title.includes('(') ? '(' + spec2.title.split('(')[1] : spec2.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
@@ -1636,14 +1636,14 @@ function App() {
                 {(() => {
                   const spec1 = specialties.find(s => s.id === 'jeonsin');
                   return spec1 ? (
-                    <div className="apple-half-section apple-theme-dark" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
+                    <div className="apple-half-section apple-theme-light-blue" onClick={() => { setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>
                       <h3 className="apple-title" style={{ fontSize: '2.5rem' }}>{spec1.title.split(' (')[0]}</h3>
                       <p className="apple-subtitle" style={{ fontSize: '1.2rem' }}>{spec1.title.includes('(') ? '(' + spec1.title.split('(')[1] : spec1.subtitle}</p>
                       <div className="apple-btns">
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
@@ -1657,7 +1657,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
@@ -1675,7 +1675,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec1); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec1.id)} alt={spec1.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
@@ -1690,7 +1690,7 @@ function App() {
                         <button className="apple-btn-primary" onClick={(e) => { e.stopPropagation(); setSelectedSpecialty(spec2); window.scrollTo(0,0); }}>더 알아보기</button>
                         <button className="apple-btn-secondary" onClick={(e) => { e.stopPropagation(); setShowBookingModal(true); }}>상담하기</button>
                       </div>
-                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img" style={{ objectFit: "cover" }} />
+                      <img src={getAppleGridImage(spec2.id)} alt={spec2.title} className="apple-product-img"  />
                     </div>
                   ) : null;
                 })()}
@@ -1830,10 +1830,10 @@ function App() {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>상담 하기</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
-                    📞 전화 상담
+                    <img src="/images/apple_icon_phone_1789288033518.jpg" alt="전화" style={{ width: '24px', height: '24px', mixBlendMode: 'multiply' }} /> 전화 상담
                   </a>
                   <a href="http://pf.kakao.com/_hjWxaE/chat" target="_blank" rel="noreferrer" className="btn btn-brand-kakao" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
-                    💬 카톡 상담
+                    <img src="/images/apple_icon_chat_1789288047211.jpg" alt="카톡" style={{ width: '24px', height: '24px', mixBlendMode: 'multiply' }} /> 카톡 상담
                   </a>
                   <a href="https://talk.naver.com/ct/w4xpjd?frm=mnmb&frm=nmb_detail#nafullscreen" target="_blank" rel="noreferrer" className="btn btn-brand-naver" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
                     <span style={{ fontWeight: 'bold' }}>N</span> 네이버 톡톡 상담
@@ -1846,10 +1846,10 @@ function App() {
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '12px', color: 'var(--primary-dark)', textAlign: 'left', borderBottom: '2px solid var(--primary-light)', paddingBottom: '8px' }}>내원 예약 하기</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <a href="tel:02-732-1117" className="btn btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
-                    📞 전화 예약
+                    <img src="/images/apple_icon_phone_1789288033518.jpg" alt="전화" style={{ width: '24px', height: '24px', mixBlendMode: 'multiply' }} /> 전화 예약
                   </a>
                   <a href="https://m.booking.naver.com/booking/13/bizes/1044022?theme=place&service-target=map-pc&lang=ko&area=bmp&map-search=1" target="_blank" rel="noreferrer" className="btn btn-brand-naver" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', border: 'none', padding: '12px', fontWeight: '600' }}>
-                    📅 네이버 예약
+                    <img src="/images/apple_icon_calendar_1789288059813.jpg" alt="예약" style={{ width: '24px', height: '24px', mixBlendMode: 'multiply' }} /> 네이버 예약
                   </a>
                 </div>
               </div>
@@ -1908,7 +1908,9 @@ function App() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '500px' }}>
             <button className="modal-close" onClick={() => setSelectedDetoxStep(null)}>×</button>
             <div className="modal-header" style={{ marginBottom: '20px' }}>
-              <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>{selectedDetoxStep.icon}</div>
+              <div className="modal-icon" style={{ fontSize: '3rem', marginBottom: '10px' }}>
+                {selectedDetoxStep.icon.includes('.') ? <img src={selectedDetoxStep.icon} alt="icon" style={{ width: '1em', height: '1em', objectFit: 'contain', mixBlendMode: 'multiply' }} /> : selectedDetoxStep.icon}
+              </div>
               <div className="modal-subtitle" style={{ color: 'var(--primary-color)' }}>{selectedDetoxStep.stepNum}단계</div>
               <h2 className="modal-title" style={{ fontSize: '1.8rem' }}>{selectedDetoxStep.title}</h2>
             </div>
@@ -2176,7 +2178,9 @@ function SpecialtyDetailPage({
           
           <div className="detail-hero-grid">
             <div className="detail-hero-content">
-              <div className="detail-icon-badge">{specialty.icon}</div>
+              <div className="detail-icon-badge">
+                {specialty.icon.includes('.') ? <img src={specialty.icon} alt="icon" style={{ width: '1em', height: '1em', objectFit: 'contain', mixBlendMode: 'multiply' }} /> : specialty.icon}
+              </div>
               <span className="detail-subtitle">{specialty.subtitle}</span>
               <h1 className="detail-title">{specialty.title}</h1>
               
