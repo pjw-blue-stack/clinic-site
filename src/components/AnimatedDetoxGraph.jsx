@@ -18,13 +18,13 @@ export default function AnimatedDetoxGraph() {
   // Segment points: Rise (0.32), Fall (0.77), Maintain (1.0)
   const toxinProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.36, 0.51, 0.72, 0.85, 1], 
+    [0, 0.15, 0.43, 0.53, 0.76, 0.86, 1], 
     [0, 0.32, 0.32, 0.77, 0.77, 1, 1]
   );
   
   const sweatProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.30, 0.51, 0.66, 0.85, 0.98, 1], 
+    [0, 0.15, 0.30, 0.53, 0.63, 0.86, 0.96, 1], 
     [0, 0, 0.437, 0.437, 0.864, 0.864, 1, 1]
   );
 
@@ -32,18 +32,18 @@ export default function AnimatedDetoxGraph() {
   const startMarkerOpacity = useTransform(scrollYProgress, [0.30, 0.33, 1], [0, 1, 1]);
   const startMarkerY = useTransform(scrollYProgress, [0.30, 0.33], [20, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0.66, 0.69, 1], [0, 1, 1]);
-  const endMarkerY = useTransform(scrollYProgress, [0.66, 0.69], [20, 0]);
+  const endMarkerOpacity = useTransform(scrollYProgress, [0.63, 0.66, 1], [0, 1, 1]);
+  const endMarkerY = useTransform(scrollYProgress, [0.63, 0.66], [20, 0]);
   
   // Arrow Head Opacity (appears at the very end when Toxin finishes)
-  const arrowOpacity = useTransform(scrollYProgress, [0.83, 0.85, 1], [0, 1, 1]);
+  const arrowOpacity = useTransform(scrollYProgress, [0.94, 0.96, 1], [0, 1, 1]);
   
   // Note Box Opacities (Fading in and out in place)
-  // Note 1 stays until 0.33 (after start marker is fully visible)
   const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.33, 0.36], [0, 1, 1, 0]);
-  // Note 2 stays until 0.69 (after end marker is fully visible)
-  const note2Opacity = useTransform(scrollYProgress, [0.33, 0.36, 0.69, 0.72], [0, 1, 1, 0]);
-  const note3Opacity = useTransform(scrollYProgress, [0.69, 0.72, 1], [0, 1, 1]);
+  const note1_5Opacity = useTransform(scrollYProgress, [0.33, 0.36, 0.40, 0.43], [0, 1, 1, 0]); // 치료 시작
+  const note2Opacity = useTransform(scrollYProgress, [0.40, 0.43, 0.66, 0.69], [0, 1, 1, 0]);
+  const note2_5Opacity = useTransform(scrollYProgress, [0.66, 0.69, 0.73, 0.76], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작
+  const note3Opacity = useTransform(scrollYProgress, [0.73, 0.76, 1], [0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
@@ -63,7 +63,7 @@ export default function AnimatedDetoxGraph() {
   };
 
   return (
-    <div ref={containerRef} style={{ height: '500vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '60px auto 0' }}>
+    <div ref={containerRef} style={{ height: '700vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '60px auto 0' }}>
       <div style={{ position: 'sticky', top: '10vh', height: '80vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
         <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '5% 4%', border: '1px solid rgba(77, 172, 255, 0.2)', boxShadow: '0 20px 40px rgba(77, 172, 255, 0.1)', position: 'relative' }}>
@@ -171,11 +171,23 @@ export default function AnimatedDetoxGraph() {
                   <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>증가 <span style={{color: '#4dacff'}}>↑</span></strong>합니다.
                 </p>
               </motion.div>
+              {/* Note 1.5 (치료 시작) */}
+              <motion.div style={{ ...noteBoxStyle, opacity: note1_5Opacity }}>
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 2.5vw, 1.3rem)', lineHeight: '3', fontWeight: 'bold', color: '#111' }}>
+                  치료 시작
+                </p>
+              </motion.div>
               {/* Note 2 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2Opacity }}>
                 <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
                   <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>감소 <span style={{color: '#ff4d6d'}}>↓</span></strong>할수록,<br/>
                   <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>감소 <span style={{color: '#4dacff'}}>↓</span></strong>합니다.
+                </p>
+              </motion.div>
+              {/* Note 2.5 (치료 종료 & 사후 관리 시작) */}
+              <motion.div style={{ ...noteBoxStyle, opacity: note2_5Opacity }}>
+                <p style={{ margin: 0, fontSize: 'clamp(0.95rem, 2.5vw, 1.3rem)', lineHeight: '3', fontWeight: 'bold', color: '#111' }}>
+                  치료 종료 &amp; 사후 관리 시작
                 </p>
               </motion.div>
               {/* Note 3 */}
