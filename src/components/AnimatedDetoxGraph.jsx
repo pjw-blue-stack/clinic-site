@@ -39,9 +39,11 @@ export default function AnimatedDetoxGraph() {
   const arrowOpacity = useTransform(scrollYProgress, [0.73, 0.75], [0, 1]);
   
   // Note Box Opacities (Fading in and out in place)
-  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.30], [0, 1, 1, 0]);
-  const note2Opacity = useTransform(scrollYProgress, [0.28, 0.30, 0.58, 0.60], [0, 1, 1, 0]);
-  const note3Opacity = useTransform(scrollYProgress, [0.58, 0.60, 1], [0, 1, 1]);
+  // Note 1 stays until 0.35 (after start marker is fully visible at 0.33)
+  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.35, 0.38], [0, 1, 1, 0]);
+  // Note 2 stays until 0.65 (after end marker is fully visible at 0.63)
+  const note2Opacity = useTransform(scrollYProgress, [0.35, 0.38, 0.65, 0.68], [0, 1, 1, 0]);
+  const note3Opacity = useTransform(scrollYProgress, [0.65, 0.68, 1], [0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
@@ -112,9 +114,9 @@ export default function AnimatedDetoxGraph() {
                 filter: 'drop-shadow(0px 4px 6px rgba(255, 77, 109, 0.3))'
               }}
             />
-            {/* Arrow Head for Toxin Line (fades in at the end) */}
+            {/* Arrow Head for Toxin Line (fades in at the end) - Made Larger */}
             <motion.polygon 
-              points="990,394 1005,400 990,406" 
+              points="975,385 1005,400 975,415" 
               fill="#ff4d6d"
               style={{ opacity: arrowOpacity }}
             />
@@ -165,22 +167,22 @@ export default function AnimatedDetoxGraph() {
               {/* Note 1 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note1Opacity }}>
                 <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 증가할수록,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 증가합니다.
+                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>증가 <span style={{color: '#ff4d6d'}}>↑</span></strong>할수록,<br/>
+                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>증가 <span style={{color: '#4dacff'}}>↑</span></strong>합니다.
                 </p>
               </motion.div>
               {/* Note 2 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note2Opacity }}>
                 <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 감소할수록,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 감소합니다.
+                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>가 <strong>감소 <span style={{color: '#ff4d6d'}}>↓</span></strong>할수록,<br/>
+                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 <strong>감소 <span style={{color: '#4dacff'}}>↓</span></strong>합니다.
                 </p>
               </motion.div>
               {/* Note 3 */}
               <motion.div style={{ ...noteBoxStyle, opacity: note3Opacity }}>
                 <p style={{ margin: 0, fontSize: 'clamp(0.85rem, 2vw, 1.1rem)', lineHeight: '1.5' }}>
-                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>를 낮게 유지하면,<br/>
-                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀양</span>도 호전된 상태에서 잘 유지됩니다.
+                  <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>를 낮게 <strong>유지 <span style={{color: '#ff4d6d'}}>→</span></strong>하면,<br/>
+                  <span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀양</span>도 호전된 상태에서 잘 <strong>유지 <span style={{color: '#4dacff'}}>→</span></strong>됩니다.
                 </p>
               </motion.div>
             </div>
