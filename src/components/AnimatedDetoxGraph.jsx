@@ -136,23 +136,23 @@ export default function AnimatedDetoxGraph() {
             />
 
             {/* Marker 1: 치료 시작 (Light Green, below the peak) */}
-            {/* Peak is at x=350, y=100. We place box at y=250, pointing UP to 100 */}
+            {/* Peak is at x=350, y=100. We place box at y=310, pointing UP to 100 */}
             <motion.g style={{ opacity: startMarkerOpacity, y: startMarkerY }}>
-              <line x1="350" y1="230" x2="350" y2="105" stroke="#8CE99A" strokeWidth="2" strokeDasharray="4,4" />
-              <polygon points="345,115 350,105 355,115" fill="#8CE99A" />
-              <foreignObject x="250" y="230" width="200" height="80" style={{ overflow: 'visible' }}>
-                <div style={{ background: '#8CE99A', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', fontSize: '1.4rem', boxShadow: '0 4px 15px rgba(140, 233, 154, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
+              <line x1="350" y1="310" x2="350" y2="105" stroke="#40C057" strokeWidth="4" strokeDasharray="6,6" />
+              <polygon points="342,120 350,105 358,120" fill="#40C057" />
+              <foreignObject x="250" y="310" width="200" height="80" style={{ overflow: 'visible' }}>
+                <div style={{ background: '#40C057', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', fontSize: '1.4rem', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
                   치료 시작
                 </div>
               </foreignObject>
             </motion.g>
 
             {/* Marker 2: 치료 종료 (Green, above the valley) */}
-            {/* Valley is at x=750, y=400. We place box at y=220, pointing DOWN to 400 */}
+            {/* Valley is at x=750, y=400. We place box at y=160, pointing DOWN to 400 */}
             <motion.g style={{ opacity: endMarkerOpacity, y: endMarkerY }}>
-              <line x1="750" y1="260" x2="750" y2="395" stroke="#40C057" strokeWidth="2" strokeDasharray="4,4" />
-              <polygon points="345,115 350,105 355,115" fill="#40C057" transform="translate(400, 290) rotate(180, 350, 105)" />
-              <foreignObject x="610" y="210" width="280" height="80" style={{ overflow: 'visible' }}>
+              <line x1="750" y1="220" x2="750" y2="395" stroke="#40C057" strokeWidth="4" strokeDasharray="6,6" />
+              <polygon points="742,380 750,395 758,380" fill="#40C057" />
+              <foreignObject x="610" y="160" width="280" height="80" style={{ overflow: 'visible' }}>
                 <div style={{ background: '#40C057', color: '#fff', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', fontSize: '1.4rem', boxShadow: '0 4px 15px rgba(64, 192, 87, 0.4)', textAlign: 'center', whiteSpace: 'nowrap' }}>
                   치료 종료 &amp; 사후 관리
                 </div>
