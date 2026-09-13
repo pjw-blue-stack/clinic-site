@@ -389,6 +389,7 @@ function App() {
             if (data.firebaseToken) {
               const { signInWithCustomToken } = await import('firebase/auth');
               await signInWithCustomToken(auth, data.firebaseToken);
+              if (auth.currentUser) await handlePostLoginRedirect(auth.currentUser);
               // alert removed
             } else {
               throw new Error(data.error || 'Unknown error');
@@ -437,6 +438,7 @@ function App() {
           if (data.firebaseToken) {
             const { signInWithCustomToken } = await import('firebase/auth');
             await signInWithCustomToken(auth, data.firebaseToken);
+            if (auth.currentUser) await handlePostLoginRedirect(auth.currentUser);
             // alert removed
           } else {
             throw new Error(data.error || 'Unknown error');
@@ -792,6 +794,21 @@ function App() {
     }
   };
 
+  const handlePostLoginRedirect = async (user) => {
+    if (!user) return;
+    try {
+      const { doc, getDoc } = await import('firebase/firestore');
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+      const role = userSnap.exists() ? userSnap.data().role : null;
+      if (ADMIN_EMAILS.includes(user.email) || role === 'admin') {
+        handleOpenAdmin();
+      }
+    } catch (err) {
+      console.error("Admin redirect error:", err);
+    }
+  };
+
   const handleModalLogin = async (e) => {
     e.preventDefault();
     setIsProcessingLogin(true);
@@ -820,9 +837,7 @@ function App() {
       setLoginEmail('');
       setLoginPassword('');
       // alert removed
-      if (ADMIN_EMAILS.includes(userCredential.user.email)) {
-        handleOpenAdmin();
-      }
+      await handlePostLoginRedirect(userCredential.user);
     } catch (error) {
       console.error(error);
       alert('이메일 또는 비밀번호가 올바르지 않습니다.');
@@ -863,9 +878,7 @@ function App() {
         const { signInWithPopup } = await import('firebase/auth');
         const userCredential = await signInWithPopup(auth, googleProvider);
         setShowLoginModal(false);
-        if (ADMIN_EMAILS.includes(userCredential.user.email)) {
-          handleOpenAdmin();
-        }
+        await handlePostLoginRedirect(userCredential.user);
       } catch (error) {
         console.error(error);
         alert('구글 로그인에 실패했습니다.');
