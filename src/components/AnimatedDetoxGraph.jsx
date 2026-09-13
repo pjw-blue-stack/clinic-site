@@ -18,32 +18,32 @@ export default function AnimatedDetoxGraph() {
   // Segment points: Rise (0.32), Fall (0.77), Maintain (1.0)
   const toxinProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.43, 0.53, 0.76, 0.86, 1], 
+    [0, 0.12, 0.38, 0.48, 0.72, 0.82, 1], 
     [0, 0.32, 0.32, 0.77, 0.77, 1, 1]
   );
   
   const sweatProgress = useTransform(
     scrollYProgress, 
-    [0, 0.15, 0.30, 0.53, 0.63, 0.86, 0.96, 1], 
+    [0, 0.12, 0.24, 0.48, 0.58, 0.82, 0.92, 1], 
     [0, 0, 0.437, 0.437, 0.864, 0.864, 1, 1]
   );
 
   // Markers Opacity & Position
-  const startMarkerOpacity = useTransform(scrollYProgress, [0.30, 0.33, 1], [0, 1, 1]);
-  const startMarkerY = useTransform(scrollYProgress, [0.30, 0.33], [20, 0]);
+  const startMarkerOpacity = useTransform(scrollYProgress, [0.24, 0.26, 1], [0, 1, 1]);
+  const startMarkerY = useTransform(scrollYProgress, [0.24, 0.26], [20, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0.63, 0.66, 1], [0, 1, 1]);
-  const endMarkerY = useTransform(scrollYProgress, [0.63, 0.66], [20, 0]);
+  const endMarkerOpacity = useTransform(scrollYProgress, [0.58, 0.60, 1], [0, 1, 1]);
+  const endMarkerY = useTransform(scrollYProgress, [0.58, 0.60], [20, 0]);
   
   // Arrow Head Opacity (appears at the very end when Toxin finishes)
-  const arrowOpacity = useTransform(scrollYProgress, [0.94, 0.96, 1], [0, 1, 1]);
+  const arrowOpacity = useTransform(scrollYProgress, [0.92, 0.94, 1], [0, 1, 1]);
   
   // Note Box Opacities (Fading in and out in place)
-  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.33, 0.36], [0, 1, 1, 0]);
-  const note1_5Opacity = useTransform(scrollYProgress, [0.33, 0.36, 0.40, 0.43], [0, 1, 1, 0]); // 치료 시작
-  const note2Opacity = useTransform(scrollYProgress, [0.40, 0.43, 0.66, 0.69], [0, 1, 1, 0]);
-  const note2_5Opacity = useTransform(scrollYProgress, [0.66, 0.69, 0.73, 0.76], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작
-  const note3Opacity = useTransform(scrollYProgress, [0.73, 0.76, 1], [0, 1, 1]);
+  const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.26, 0.28], [0, 1, 1, 0]);
+  const note1_5Opacity = useTransform(scrollYProgress, [0.26, 0.28, 0.36, 0.38], [0, 1, 1, 0]); // 치료 시작 (8% hold)
+  const note2Opacity = useTransform(scrollYProgress, [0.36, 0.38, 0.60, 0.62], [0, 1, 1, 0]);
+  const note2_5Opacity = useTransform(scrollYProgress, [0.60, 0.62, 0.70, 0.72], [0, 1, 1, 0]); // 치료 종료 & 사후 관리 시작 (8% hold)
+  const note3Opacity = useTransform(scrollYProgress, [0.70, 0.72, 1], [0, 1, 1]);
 
   // Common Note Box Styles
   const noteBoxStyle = {
