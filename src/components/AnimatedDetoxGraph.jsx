@@ -25,15 +25,18 @@ export default function AnimatedDetoxGraph() {
   const sweatProgress = useTransform(
     scrollYProgress, 
     [0, 0.15, 0.30, 0.45, 0.60, 0.75, 0.90, 1], 
-    [0, 0, 0.32, 0.32, 0.77, 0.77, 1, 1]
+    [0, 0, 0.437, 0.437, 0.864, 0.864, 1, 1]
   );
 
   // Markers Opacity & Position
   const startMarkerOpacity = useTransform(scrollYProgress, [0.30, 0.33, 1], [0, 1, 1]);
   const startMarkerY = useTransform(scrollYProgress, [0.30, 0.33], [20, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0.55, 0.60, 1], [0, 1, 1]);
-  const endMarkerY = useTransform(scrollYProgress, [0.55, 0.60], [20, 0]);
+  const endMarkerOpacity = useTransform(scrollYProgress, [0.60, 0.63, 1], [0, 1, 1]);
+  const endMarkerY = useTransform(scrollYProgress, [0.60, 0.63], [20, 0]);
+  
+  // Arrow Head Opacity (appears at the very end when Toxin finishes)
+  const arrowOpacity = useTransform(scrollYProgress, [0.73, 0.75], [0, 1]);
   
   // Note Box Opacities (Fading in and out in place)
   const note1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.30], [0, 1, 1, 0]);
@@ -77,12 +80,6 @@ export default function AnimatedDetoxGraph() {
           </div>
 
           <svg viewBox="-60 -30 1120 540" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-            <defs>
-              <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                <polygon points="0 0, 10 3.5, 0 7" fill="#ff4d6d" />
-              </marker>
-            </defs>
-
             {/* Grid & Axes */}
             <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
               <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
@@ -110,11 +107,16 @@ export default function AnimatedDetoxGraph() {
               strokeWidth="6"
               strokeLinecap="round"
               strokeLinejoin="round"
-              markerEnd="url(#arrowhead)"
               style={{
                 pathLength: toxinProgress,
                 filter: 'drop-shadow(0px 4px 6px rgba(255, 77, 109, 0.3))'
               }}
+            />
+            {/* Arrow Head for Toxin Line (fades in at the end) */}
+            <motion.polygon 
+              points="990,394 1005,400 990,406" 
+              fill="#ff4d6d"
+              style={{ opacity: arrowOpacity }}
             />
 
             {/* Sweat Line (Animated) */}
