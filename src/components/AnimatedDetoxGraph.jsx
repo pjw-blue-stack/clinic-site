@@ -68,8 +68,8 @@ export default function AnimatedDetoxGraph() {
   };
 
   return (
-    <div ref={containerRef} style={{ height: '700vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '60px auto 0' }}>
-      <div style={{ position: 'sticky', top: '10vh', height: '80vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div ref={containerRef} style={{ height: '700vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '100px auto 0' }}>
+      <div style={{ position: 'sticky', top: '15vh', height: '80vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
         <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '5% 4%', border: '1px solid rgba(77, 172, 255, 0.2)', boxShadow: '0 20px 40px rgba(77, 172, 255, 0.1)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           
