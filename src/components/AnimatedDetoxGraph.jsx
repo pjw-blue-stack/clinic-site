@@ -29,10 +29,10 @@ export default function AnimatedDetoxGraph() {
   );
 
   // Marker Opacities and Positions
-  const startMarkerOpacity = useTransform(scrollYProgress, [0, 0.24, 0.28, 0.34, 0.38, 1], [0, 0, 1, 1, 0, 0]);
+  const startMarkerOpacity = useTransform(scrollYProgress, [0, 0.24, 0.28, 1], [0, 0, 1, 1]);
   const startMarkerY = useTransform(scrollYProgress, [0, 0.24, 0.28, 1], [20, 20, 0, 0]);
   
-  const endMarkerOpacity = useTransform(scrollYProgress, [0, 0.58, 0.62, 0.68, 0.72, 1], [0, 0, 1, 1, 0, 0]);
+  const endMarkerOpacity = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [0, 0, 1, 1]);
   const endMarkerY = useTransform(scrollYProgress, [0, 0.58, 0.62, 1], [-20, -20, 0, 0]);
 
   // Arrow Head Opacity (appears at the very end when Toxin finishes)
