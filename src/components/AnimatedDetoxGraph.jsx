@@ -25,42 +25,42 @@ export default function AnimatedDetoxGraph() {
   const finishMarkerY = useTransform(scrollYProgress, [0.85, 0.95], [20, 0]);
 
   return (
-    <div ref={containerRef} style={{ height: '300vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
-      <div style={{ position: 'sticky', top: '15vh', height: '70vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div ref={containerRef} style={{ height: '300vh', position: 'relative', width: '100%', maxWidth: '1000px', margin: '60px auto 0' }}>
+      <div style={{ position: 'sticky', top: '10vh', height: '80vh', width: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         
-        <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(20, 24, 34, 0.85)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '40px', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: '0 20px 40px rgba(0,0,0,0.2)', position: 'relative' }}>
+        <div style={{ width: '100%', maxWidth: '1000px', background: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(12px)', borderRadius: '24px', padding: '5% 4%', border: '1px solid rgba(77, 172, 255, 0.2)', boxShadow: '0 20px 40px rgba(77, 172, 255, 0.1)', position: 'relative' }}>
           
           {/* Header/Legend */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-            <div style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 'bold', fontSize: '1.2rem' }}>치료 경과에 따른 독소와 땀양의 상관관계</div>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
-                <div style={{ width: '24px', height: '4px', background: '#ff4d6d', boxShadow: '0 0 10px #ff4d6d', borderRadius: '2px' }}></div> 독소 양
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+            <div style={{ color: 'var(--text-main)', fontWeight: 'bold', fontSize: '1.2rem', wordBreak: 'keep-all' }}>치료 경과에 따른 독소와 땀양의 상관관계</div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '0.95rem' }}>
+                <div style={{ width: '24px', height: '4px', background: '#ff4d6d', boxShadow: '0 0 10px rgba(255, 77, 109, 0.3)', borderRadius: '2px' }}></div> 독소 양
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#fff' }}>
-                <div style={{ width: '24px', height: '4px', background: '#4dacff', boxShadow: '0 0 10px #4dacff', borderRadius: '2px' }}></div> 땀의 양
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', fontSize: '0.95rem' }}>
+                <div style={{ width: '24px', height: '4px', background: '#4dacff', boxShadow: '0 0 10px rgba(77, 172, 255, 0.3)', borderRadius: '2px' }}></div> 땀의 양
               </div>
             </div>
           </div>
 
-          <svg viewBox="-50 -20 1100 520" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+          <svg viewBox="-60 -30 1120 540" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
             {/* Grid & Axes */}
-            <g stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1">
-              <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(255,255,255,0.6)" />
-              <line x1="0" y1="0" x2="0" y2="450" strokeWidth="2" stroke="rgba(255,255,255,0.6)" />
+            <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
+              <line x1="0" y1="450" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
+              <line x1="0" y1="0" x2="0" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.3)" />
               {/* Arrow heads */}
-              <polygon points="1000,445 1010,450 1000,455" fill="rgba(255,255,255,0.6)" />
-              <polygon points="-5,10 0,0 5,10" fill="rgba(255,255,255,0.6)" />
+              <polygon points="1000,445 1010,450 1000,455" fill="rgba(0,0,0,0.3)" />
+              <polygon points="-5,10 0,0 5,10" fill="rgba(0,0,0,0.3)" />
             </g>
 
             {/* Axis Labels */}
-            <text x="1000" y="480" fill="rgba(255,255,255,0.8)" fontSize="16" textAnchor="end" fontWeight="bold">시간</text>
-            <text x="-20" y="20" fill="rgba(255,255,255,0.8)" fontSize="16" textAnchor="end" fontWeight="bold">독소 양</text>
-            <text x="1000" y="20" fill="rgba(255,255,255,0.8)" fontSize="16" textAnchor="start" fontWeight="bold">땀 양</text>
+            <text x="1000" y="480" fill="var(--text-light)" fontSize="20" textAnchor="end" fontWeight="bold">시간</text>
+            <text x="-20" y="20" fill="var(--text-light)" fontSize="20" textAnchor="end" fontWeight="bold">독소 양</text>
+            <text x="1000" y="20" fill="var(--text-light)" fontSize="20" textAnchor="start" fontWeight="bold">땀 양</text>
             
-            <g stroke="rgba(255, 255, 255, 0.15)" strokeWidth="1">
-              <line x1="1000" y1="0" x2="1000" y2="450" strokeWidth="2" stroke="rgba(255,255,255,0.6)" strokeDasharray="5,5" />
-              <polygon points="995,10 1000,0 1005,10" fill="rgba(255,255,255,0.6)" />
+            <g stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1">
+              <line x1="1000" y1="0" x2="1000" y2="450" strokeWidth="2" stroke="rgba(0,0,0,0.2)" strokeDasharray="5,5" />
+              <polygon points="995,10 1000,0 1005,10" fill="rgba(0,0,0,0.2)" />
             </g>
 
             {/* Toxin Line (Animated) - Drawn under sweat line */}
@@ -73,7 +73,7 @@ export default function AnimatedDetoxGraph() {
               strokeLinejoin="round"
               style={{
                 pathLength: scrollYProgress,
-                filter: 'drop-shadow(0px 0px 10px rgba(255, 77, 109, 0.8))'
+                filter: 'drop-shadow(0px 4px 6px rgba(255, 77, 109, 0.3))'
               }}
             />
 
@@ -82,70 +82,71 @@ export default function AnimatedDetoxGraph() {
               d={sweatPath}
               fill="transparent"
               stroke="#4dacff"
-              strokeWidth="4"
+              strokeWidth="5"
               strokeLinecap="round"
               strokeLinejoin="round"
               style={{
                 pathLength: scrollYProgress,
-                filter: 'drop-shadow(0px 0px 8px rgba(77, 172, 255, 0.6))'
+                filter: 'drop-shadow(0px 4px 6px rgba(77, 172, 255, 0.3))'
               }}
             />
           </svg>
 
           {/* HTML Overlay Markers */}
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '40px' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', padding: '5% 4%' }}>
             
             {/* Marker 1: 치료 시작 */}
             <motion.div 
               style={{ 
                 position: 'absolute', 
-                left: 'calc(40px + 35% - 40px)', 
+                left: 'calc(35% - 20px)', 
                 top: '5%', 
                 opacity: startMarkerOpacity,
                 y: startMarkerY
               }}
             >
-              <div style={{ background: '#ff4d6d', color: '#fff', padding: '8px 18px', borderRadius: '24px', fontWeight: 'bold', fontSize: '1.05rem', boxShadow: '0 4px 15px rgba(255, 77, 109, 0.5)', border: '2px solid rgba(255,255,255,0.3)' }}>
+              <div style={{ background: '#ff4d6d', color: '#fff', padding: '6px 12px', borderRadius: '20px', fontWeight: 'bold', fontSize: 'clamp(0.8rem, 2vw, 1rem)', boxShadow: '0 4px 15px rgba(255, 77, 109, 0.3)', whiteSpace: 'nowrap' }}>
                 치료 시작
               </div>
-              <div style={{ width: '2px', height: '60px', background: 'linear-gradient(to bottom, #ff4d6d, transparent)', margin: '0 auto' }}></div>
+              <div style={{ width: '2px', height: '40px', background: 'linear-gradient(to bottom, #ff4d6d, transparent)', margin: '0 auto' }}></div>
             </motion.div>
 
             {/* Marker 2: 치료 종료 */}
             <motion.div 
               style={{ 
                 position: 'absolute', 
-                left: 'calc(40px + 75% - 70px)', 
+                left: 'calc(75% - 40px)', 
                 top: '40%', 
                 opacity: endMarkerOpacity,
                 y: endMarkerY
               }}
             >
-              <div style={{ background: '#4dacff', color: '#fff', padding: '8px 18px', borderRadius: '24px', fontWeight: 'bold', fontSize: '1.05rem', boxShadow: '0 4px 15px rgba(77, 172, 255, 0.5)', border: '2px solid rgba(255,255,255,0.3)' }}>
-                치료 종료 &amp; 사후 관리 시작
+              <div style={{ background: '#4dacff', color: '#fff', padding: '6px 12px', borderRadius: '20px', fontWeight: 'bold', fontSize: 'clamp(0.8rem, 2vw, 1rem)', boxShadow: '0 4px 15px rgba(77, 172, 255, 0.3)', whiteSpace: 'nowrap' }}>
+                치료 종료 &amp; 사후 관리
               </div>
-              <div style={{ width: '2px', height: '120px', background: 'linear-gradient(to bottom, #4dacff, transparent)', margin: '0 auto' }}></div>
+              <div style={{ width: '2px', height: '80px', background: 'linear-gradient(to bottom, #4dacff, transparent)', margin: '0 auto' }}></div>
             </motion.div>
 
             {/* Note Box */}
             <motion.div 
               style={{ 
                 position: 'absolute', 
-                left: 'calc(40px + 45%)', 
+                left: '42%', 
                 top: '15%', 
                 opacity: finishMarkerOpacity,
                 y: finishMarkerY,
-                background: 'rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(10px)',
-                padding: '18px 24px',
-                borderRadius: '16px',
-                border: '1px solid rgba(255,255,255,0.3)',
-                color: '#fff',
-                maxWidth: '280px',
-                boxShadow: '0 10px 30px rgba(0,0,0,0.15)'
+                background: 'rgba(255,255,255,0.95)',
+                backdropFilter: 'blur(5px)',
+                padding: '12px 16px',
+                borderRadius: '12px',
+                border: '1px solid rgba(77, 172, 255, 0.3)',
+                color: 'var(--text-main)',
+                maxWidth: '40%',
+                boxShadow: '0 10px 20px rgba(77, 172, 255, 0.1)',
+                wordBreak: 'keep-all'
               }}
             >
-              <p style={{ margin: 0, fontSize: '1.05rem', lineHeight: '1.6' }}>
+              <p style={{ margin: 0, fontSize: 'clamp(0.75rem, 1.8vw, 0.95rem)', lineHeight: '1.5' }}>
                 <span style={{ color: '#ff4d6d', fontWeight: 'bold' }}>독소</span>의 양이 감소할수록,<br/><span style={{ color: '#4dacff', fontWeight: 'bold' }}>땀</span>의 양도 비례해서 안정적으로 줄어들게 됩니다.
               </p>
             </motion.div>
@@ -155,19 +156,19 @@ export default function AnimatedDetoxGraph() {
         {/* Scroll Indicator */}
         <motion.div 
           style={{ 
-            marginTop: '40px',
-            color: 'rgba(0,0,0,0.6)',
+            marginTop: '20px',
+            color: 'var(--text-light)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             opacity: useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 0, 0, 1])
           }}
         >
-          <p style={{ marginBottom: '12px', fontWeight: 'bold', fontSize: '1.1rem' }}>아래로 스크롤하여 변화를 확인하세요</p>
-          <div style={{ width: '32px', height: '54px', border: '2px solid rgba(0,0,0,0.5)', borderRadius: '16px', position: 'relative' }}>
+          <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '0.9rem' }}>아래로 스크롤하여 변화를 확인하세요</p>
+          <div style={{ width: '24px', height: '40px', border: '2px solid var(--text-light)', borderRadius: '12px', position: 'relative' }}>
             <motion.div 
-              style={{ width: '6px', height: '6px', background: 'rgba(0,0,0,0.5)', borderRadius: '50%', position: 'absolute', left: '11px' }}
-              animate={{ top: ['12px', '32px', '12px'] }}
+              style={{ width: '4px', height: '4px', background: 'var(--text-light)', borderRadius: '50%', position: 'absolute', left: '8px' }}
+              animate={{ top: ['8px', '24px', '8px'] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
             />
           </div>
