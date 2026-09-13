@@ -344,6 +344,7 @@ function App() {
   const [isMyPage, setIsMyPage] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -782,7 +783,8 @@ function App() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      alert('로그아웃 되었습니다.');
+      setShowLogoutModal(true);
+      setTimeout(() => setShowLogoutModal(false), 2000);
       if (isMyPage || isAdminPage) {
         setIsAdminPage(false);
         setIsMyPage(false);
@@ -1886,6 +1888,17 @@ function App() {
           <style>{`
             @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
           `}</style>
+        </div>
+      )}
+
+      {/* Logout Overlay */}
+      {showLogoutModal && (
+        <div className="modal-overlay" style={{ zIndex: 9999, background: 'rgba(255, 255, 255, 0.85)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ fontSize: '3rem', marginBottom: '15px' }}>👋</div>
+            <h3 style={{ color: 'var(--primary-dark)', fontSize: '1.2rem', fontWeight: 'bold' }}>로그아웃 되었습니다.</h3>
+            <p style={{ color: 'var(--text-light)', marginTop: '10px' }}>안전하게 로그아웃 되었습니다. 안녕히 가세요!</p>
+          </div>
         </div>
       )}
 
