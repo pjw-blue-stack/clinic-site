@@ -164,7 +164,7 @@ export default function AnimatedDetoxGraph() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            opacity: useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 0, 0, 1])
+            opacity: useTransform(scrollYProgress, [0, 0.15], [1, 0])
           }}
         >
           <p style={{ marginBottom: '8px', fontWeight: 'bold', fontSize: '0.9rem' }}>아래로 스크롤하여 변화를 확인하세요</p>
