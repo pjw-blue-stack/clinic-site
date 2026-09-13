@@ -1881,7 +1881,7 @@ function App() {
       {isProcessingLogin && (
         <div className="modal-overlay" style={{ zIndex: 9999, background: 'rgba(255, 255, 255, 0.85)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <div className="spinner" style={{ width: '50px', height: '50px', border: '5px solid var(--accent-light)', borderTop: '5px solid var(--primary-color)', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
+            <img src="/logo.png" alt="로딩 중" style={{ width: '60px', height: '60px', animation: 'spin 1.5s linear infinite', marginBottom: '20px' }} />
             <h3 style={{ color: 'var(--primary-dark)', fontSize: '1.2rem', fontWeight: 'bold' }}>안전하게 로그인 중입니다...</h3>
             <p style={{ color: 'var(--text-light)', marginTop: '10px' }}>잠시만 기다려주세요.</p>
           </div>
@@ -1895,7 +1895,7 @@ function App() {
       {showLogoutModal && (
         <div className="modal-overlay" style={{ zIndex: 9999, background: 'rgba(255, 255, 255, 0.85)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ fontSize: '3rem', marginBottom: '15px' }}>👋</div>
+            <img src="/logo.png" alt="로그아웃 중" style={{ width: '60px', height: '60px', animation: 'spin 1.5s linear infinite', marginBottom: '20px' }} />
             <h3 style={{ color: 'var(--primary-dark)', fontSize: '1.2rem', fontWeight: 'bold' }}>로그아웃 되었습니다.</h3>
             <p style={{ color: 'var(--text-light)', marginTop: '10px' }}>안전하게 로그아웃 되었습니다. 안녕히 가세요!</p>
           </div>
